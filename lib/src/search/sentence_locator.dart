@@ -42,8 +42,12 @@ class SentenceLocator {
       final c = text[i];
       if (c == '.' || c == '!' || c == '?' || c == '…' || c == '\n') {
         var end = i + 1;
-        while (start < end && text.codeUnitAt(start) <= 32) start++;
-        while (end > start && text.codeUnitAt(end - 1) <= 32) end--;
+        while (start < end && text.codeUnitAt(start) <= 32) {
+          start++;
+        }
+        while (end > start && text.codeUnitAt(end - 1) <= 32) {
+          end--;
+        }
         if (end - start >= 12) {
           spans.add(_SentenceSpan(start, end, ordinal++, text.substring(start, end)));
         }
@@ -51,8 +55,12 @@ class SentenceLocator {
       }
     }
     var end = text.length;
-    while (start < end && text.codeUnitAt(start) <= 32) start++;
-    while (end > start && text.codeUnitAt(end - 1) <= 32) end--;
+    while (start < end && text.codeUnitAt(start) <= 32) {
+      start++;
+    }
+    while (end > start && text.codeUnitAt(end - 1) <= 32) {
+      end--;
+    }
     if (end > start) {
       spans.add(_SentenceSpan(start, end, ordinal, text.substring(start, end)));
     }
