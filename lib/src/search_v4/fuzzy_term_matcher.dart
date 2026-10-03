@@ -40,8 +40,12 @@ class FuzzyTermMatcher {
   int damerauLevenshtein(String a, String b, {int maxDistance = 2}) {
     if ((a.length - b.length).abs() > maxDistance) return -1;
     final d = List.generate(a.length + 1, (_) => List<int>.filled(b.length + 1, 0));
-    for (var i = 0; i <= a.length; i++) d[i][0] = i;
-    for (var j = 0; j <= b.length; j++) d[0][j] = j;
+    for (var i = 0; i <= a.length; i++) {
+      d[i][0] = i;
+    }
+    for (var j = 0; j <= b.length; j++) {
+      d[0][j] = j;
+    }
     for (var i = 1; i <= a.length; i++) {
       var rowMin = maxDistance + 1;
       for (var j = 1; j <= b.length; j++) {
