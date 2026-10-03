@@ -43,18 +43,30 @@ class CanonicalSentenceLocator {
       if (c == '.' || c == '!' || c == '?' || c == '…' || c == '\n') {
         var s = start;
         var e = i + 1;
-        while (s < e && text.codeUnitAt(s) <= 32) s++;
-        while (e > s && text.codeUnitAt(e - 1) <= 32) e--;
-        if (e - s >= 12) result.add(_Span(s, e, ordinal++, text.substring(s, e)));
+        while (s < e && text.codeUnitAt(s) <= 32) {
+          s++;
+        }
+        while (e > s && text.codeUnitAt(e - 1) <= 32) {
+          e--;
+        }
+        if (e - s >= 12) {
+          result.add(_Span(s, e, ordinal++, text.substring(s, e)));
+        }
         start = i + 1;
       }
     }
     if (start < text.length) {
       var s = start;
       var e = text.length;
-      while (s < e && text.codeUnitAt(s) <= 32) s++;
-      while (e > s && text.codeUnitAt(e - 1) <= 32) e--;
-      if (e > s) result.add(_Span(s, e, ordinal, text.substring(s, e)));
+      while (s < e && text.codeUnitAt(s) <= 32) {
+        s++;
+      }
+      while (e > s && text.codeUnitAt(e - 1) <= 32) {
+        e--;
+      }
+      if (e > s) {
+        result.add(_Span(s, e, ordinal, text.substring(s, e)));
+      }
     }
     return result;
   }
