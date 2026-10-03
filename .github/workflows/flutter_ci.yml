@@ -52,7 +52,13 @@ jobs:
           path.write_text(text)
           PY
           printf "\\norg.gradle.vfs.watch=false\\n" >> android/gradle.properties
-      - run: flutter pub get
+      - name: Resolve Flutter dependencies
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter pub get 2>&1 | sed \
+            -e '/packages have newer versions incompatible with dependency constraints\./d' \
+            -e '/Try `flutter pub outdated` for more information\./d'
       - run: flutter analyze
       - run: flutter test
       - name: Build Android ARM64 release APK
@@ -114,7 +120,13 @@ jobs:
         run: flutter config --enable-windows-desktop
       - name: Generate Windows platform files
         run: flutter create --platforms=windows --org org.godfirst .
-      - run: flutter pub get
+      - name: Resolve Flutter dependencies
+        shell: bash
+        run: |
+          set -o pipefail
+          flutter pub get 2>&1 | sed \
+            -e '/packages have newer versions incompatible with dependency constraints\./d' \
+            -e '/Try `flutter pub outdated` for more information\./d'
       - run: flutter analyze
       - run: flutter test
       - name: Build Windows release
