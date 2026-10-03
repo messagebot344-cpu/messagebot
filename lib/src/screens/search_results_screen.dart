@@ -201,7 +201,7 @@ class _DocumentHitCard extends StatelessWidget {
                 width: double.infinity,
                 padding: const EdgeInsets.all(12),
                 decoration: BoxDecoration(
-                  color: Theme.of(context).colorScheme.primaryContainer.withOpacity(0.45),
+                  color: Theme.of(context).colorScheme.primaryContainer.withValues(alpha: 0.45),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: SelectableText(hit.highlightSentence, style: const TextStyle(fontWeight: FontWeight.w600)),
