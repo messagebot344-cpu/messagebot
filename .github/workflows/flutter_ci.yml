@@ -5,11 +5,16 @@ on:
   pull_request:
   workflow_dispatch:
 
+env:
+  GIT_CONFIG_COUNT: 1
+  GIT_CONFIG_KEY_0: init.defaultBranch
+  GIT_CONFIG_VALUE_0: main
+
 jobs:
   analyze-test-android-release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - name: Validate V4 packaged release
         run: |
           python tools/v4_runtime_guard.py
@@ -27,7 +32,7 @@ jobs:
           from pathlib import Path
           path = Path("android/app/build.gradle.kts")
           text = path.read_text()
-          text = text.replace("compileSdk = flutter.compileSdkVersion", "compileSdk = 35")
+          text = text.replace("compileSdk = flutter.compileSdkVersion", "compileSdk = 36")
           text = text.replace("targetSdk = flutter.targetSdkVersion", "targetSdk = 35")
           needle = "    buildTypes {"
           block = (
@@ -46,6 +51,7 @@ jobs:
               text = text.replace(needle, block + needle, 1)
           path.write_text(text)
           PY
+          printf "\\norg.gradle.vfs.watch=false\\n" >> android/gradle.properties
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
@@ -87,7 +93,7 @@ jobs:
           PY
           cp "$APK" "$FINAL_APK"
           sha256sum "$FINAL_APK" | tee build/app/outputs/flutter-apk/message-bot-v4-android15-arm64.sha256
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: message-bot-v4-android15-arm64-apk
           path: |
@@ -98,7 +104,7 @@ jobs:
   windows-release:
     runs-on: windows-2022
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.4'
@@ -113,7 +119,7 @@ jobs:
       - run: flutter test
       - name: Build Windows release
         run: flutter build windows --release
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: message-bot-v4-windows
           path: build/windows/x64/runner/Release/
