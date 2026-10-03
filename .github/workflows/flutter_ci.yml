@@ -49,21 +49,32 @@ jobs:
       - run: flutter test
       - name: Build Android ARM64 release APK
         run: flutter build apk --release --target-platform android-arm64 --split-per-abi
-      - name: Re-align, re-sign and verify Android ARM64 APK
+      - name: Re-sign and verify Android ARM64 APK
         shell: bash
         run: |
           set -euo pipefail
           RAW_APK="build/app/outputs/flutter-apk/app-arm64-v8a-release.apk"
-          ALIGNED_APK="build/app/outputs/flutter-apk/message-bot-v4-arm64-aligned.apk"
           FINAL_APK="build/app/outputs/flutter-apk/Message_Bot_V4_ARM64.apk"
+          KEYSTORE="$HOME/.android/messagebot-ci.keystore"
           test -s "$RAW_APK"
           unzip -t "$RAW_APK"
           BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
-          "$BUILD_TOOLS/zipalign" -f 4 "$RAW_APK" "$ALIGNED_APK"
-          test -s "$HOME/.android/debug.keystore"
+          "$BUILD_TOOLS/zipalign" -c -v 4 "$RAW_APK"
+          mkdir -p "$HOME/.android"
+          if [ ! -s "$KEYSTORE" ]; then
+            keytool -genkeypair -v \
+              -keystore "$KEYSTORE" \
+              -storepass android \
+              -keypass android \
+              -alias messagebot \
+              -keyalg RSA \
+              -keysize 2048 \
+              -validity 10000 \
+              -dname "CN=Message Bot, OU=GodFirst, O=GodFirst, L=Brazzaville, C=CG"
+          fi
           "$BUILD_TOOLS/apksigner" sign \
-            --ks "$HOME/.android/debug.keystore" \
-            --ks-key-alias androiddebugkey \
+            --ks "$KEYSTORE" \
+            --ks-key-alias messagebot \
             --ks-pass pass:android \
             --key-pass pass:android \
             --v1-signing-enabled true \
@@ -71,7 +82,7 @@ jobs:
             --v3-signing-enabled true \
             --v4-signing-enabled false \
             --out "$FINAL_APK" \
-            "$ALIGNED_APK"
+            "$RAW_APK"
           "$BUILD_TOOLS/zipalign" -c -v 4 "$FINAL_APK"
           unzip -t "$FINAL_APK"
           VERIFY_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$FINAL_APK")
