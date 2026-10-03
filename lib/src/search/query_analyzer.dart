@@ -71,7 +71,7 @@ class QueryAnalyzer {
   bool _looksConceptual(String input) {
     final words = input.trim().split(RegExp(r'\s+'));
     if (words.length >= 6) return true;
-    return RegExp(r'^(que|qu\'|comment|pourquoi|ou|où|quel|quelle|quels|quelles)\b', caseSensitive: false)
+    return RegExp(r"^(que|qu'|comment|pourquoi|ou|où|quel|quelle|quels|quelles)\\b", caseSensitive: false)
         .hasMatch(input.trim());
   }
 
