@@ -49,22 +49,39 @@ jobs:
       - run: flutter test
       - name: Build Android ARM64 release APK
         run: flutter build apk --release --target-platform android-arm64 --split-per-abi
-      - name: Verify APK integrity, alignment, manifest and signatures
+      - name: Re-align, re-sign and verify Android ARM64 APK
         shell: bash
         run: |
           set -euo pipefail
-          APK="build/app/outputs/flutter-apk/app-arm64-v8a-release.apk"
-          test -s "$APK"
-          unzip -t "$APK"
+          RAW_APK="build/app/outputs/flutter-apk/app-arm64-v8a-release.apk"
+          ALIGNED_APK="build/app/outputs/flutter-apk/message-bot-v4-arm64-aligned.apk"
+          FINAL_APK="build/app/outputs/flutter-apk/Message_Bot_V4_ARM64.apk"
+          test -s "$RAW_APK"
+          unzip -t "$RAW_APK"
           BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
-          "$BUILD_TOOLS/zipalign" -c -v 4 "$APK"
-          VERIFY_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$APK")
+          "$BUILD_TOOLS/zipalign" -f 4 "$RAW_APK" "$ALIGNED_APK"
+          test -s "$HOME/.android/debug.keystore"
+          "$BUILD_TOOLS/apksigner" sign \
+            --ks "$HOME/.android/debug.keystore" \
+            --ks-key-alias androiddebugkey \
+            --ks-pass pass:android \
+            --key-pass pass:android \
+            --v1-signing-enabled true \
+            --v2-signing-enabled true \
+            --v3-signing-enabled true \
+            --v4-signing-enabled false \
+            --out "$FINAL_APK" \
+            "$ALIGNED_APK"
+          "$BUILD_TOOLS/zipalign" -c -v 4 "$FINAL_APK"
+          unzip -t "$FINAL_APK"
+          VERIFY_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$FINAL_APK")
           echo "$VERIFY_OUT"
           echo "$VERIFY_OUT" | grep -q "Verified using v1 scheme (JAR signing): true"
           echo "$VERIFY_OUT" | grep -q "Verified using v2 scheme (APK Signature Scheme v2): true"
-          "$BUILD_TOOLS/aapt" dump badging "$APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64-badging.txt
-          sha256sum "$APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64.sha256
-          cp "$APK" build/app/outputs/flutter-apk/Message_Bot_V4_ARM64.apk
+          echo "$VERIFY_OUT" | grep -q "Verified using v3 scheme (APK Signature Scheme v3): true"
+          jarsigner -verify "$FINAL_APK"
+          "$BUILD_TOOLS/aapt" dump badging "$FINAL_APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64-badging.txt
+          sha256sum "$FINAL_APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64.sha256
       - uses: actions/upload-artifact@v4
         with:
           name: message-bot-v4-arm64-apk
