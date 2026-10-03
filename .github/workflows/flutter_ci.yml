@@ -21,15 +21,57 @@ jobs:
           cache: true
       - name: Generate Android platform files
         run: flutter create --platforms=android --org org.godfirst .
+      - name: Force broadly compatible APK signing schemes
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          path = Path("android/app/build.gradle.kts")
+          text = path.read_text()
+          needle = "    buildTypes {"
+          block = """    signingConfigs {
+        getByName("debug") {
+            enableV1Signing = true
+            enableV2Signing = true
+            enableV3Signing = true
+            enableV4Signing = true
+        }
+    }
+
+"""
+          if block not in text:
+              if needle not in text:
+                  raise SystemExit("Could not find buildTypes block in generated Gradle file")
+              text = text.replace(needle, block + needle, 1)
+              path.write_text(text)
+          PY
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
-      - name: Build Android release APK
-        run: flutter build apk --release
+      - name: Build Android ARM64 release APK
+        run: flutter build apk --release --target-platform android-arm64 --split-per-abi
+      - name: Verify APK integrity, alignment, manifest and signatures
+        shell: bash
+        run: |
+          set -euo pipefail
+          APK="build/app/outputs/flutter-apk/app-arm64-v8a-release.apk"
+          test -s "$APK"
+          unzip -t "$APK"
+          BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
+          "$BUILD_TOOLS/zipalign" -c -v 4 "$APK"
+          VERIFY_OUT="$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$APK")"
+          echo "$VERIFY_OUT"
+          echo "$VERIFY_OUT" | grep -q "Verified using v1 scheme (JAR signing): true"
+          echo "$VERIFY_OUT" | grep -q "Verified using v2 scheme (APK Signature Scheme v2): true"
+          "$BUILD_TOOLS/aapt" dump badging "$APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64-badging.txt
+          sha256sum "$APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64.sha256
+          cp "$APK" build/app/outputs/flutter-apk/Message_Bot_V4_ARM64.apk
       - uses: actions/upload-artifact@v4
         with:
-          name: message-bot-v4-apk
-          path: build/app/outputs/flutter-apk/app-release.apk
+          name: message-bot-v4-arm64-apk
+          path: |
+            build/app/outputs/flutter-apk/Message_Bot_V4_ARM64.apk
+            build/app/outputs/flutter-apk/message-bot-v4-arm64.sha256
+            build/app/outputs/flutter-apk/message-bot-v4-arm64-badging.txt
 
   windows-release:
     runs-on: windows-2022
