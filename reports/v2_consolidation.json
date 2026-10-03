@@ -1,0 +1,36 @@
+{
+  "status": "V2_CONSOLIDATED_UNCOMPILED",
+  "app_version": "1.1.0+2",
+  "flutter_reference": "3.35.4",
+  "corpus_version": "2019.06-source__app-2026.09.20-v2",
+  "database_bytes": 236466176,
+  "database_sha256": "b5f81c4299083e06cf09dc98d3b81d64602037afb237b90ffa4e72cbcdeb9b5f",
+  "sermons": 1211,
+  "editions": 1421,
+  "passages": 39303,
+  "primary_semantic_documents": 31437,
+  "search_filter": {
+    "version": "editorial-footer-filter-v1",
+    "filtered_passages": 1386,
+    "empty_passages": 17,
+    "removed_characters": 820820
+  },
+  "semantic_explained_variance_ratio": 0.10382673144340515,
+  "canonical_sample": {
+    "checked": 100,
+    "matches": 100,
+    "status": "OK"
+  },
+  "static_check": "OK",
+  "flutter_analyze": "NOT_RUN_SDK_UNAVAILABLE",
+  "flutter_test": "NOT_RUN_SDK_UNAVAILABLE",
+  "android_build": "NOT_RUN_SDK_UNAVAILABLE",
+  "windows_build": "NOT_RUN_SDK_UNAVAILABLE",
+  "remaining_acceptance": [
+    "Generate android/windows with Flutter 3.35.4 and commit pubspec.lock",
+    "Run flutter analyze/test",
+    "Build and run Android/Windows",
+    "Run 50-100 real reference queries for REC-04",
+    "Measure startup/search performance on reference devices"
+  ]
+}

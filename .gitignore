@@ -1,0 +1,13 @@
+.dart_tool/
+.packages
+.pub/
+build/
+android/.gradle/
+android/local.properties
+*.iml
+.idea/
+.vscode/
+*.log
+.DS_Store
+
+.superpowers/

@@ -1,0 +1,15 @@
+{
+  "database": "corpus.db",
+  "bytes": 236466176,
+  "sha256": "b5f81c4299083e06cf09dc98d3b81d64602037afb237b90ffa4e72cbcdeb9b5f",
+  "passages": 39303,
+  "fts_rows": 39303,
+  "integrity_check": "ok",
+  "storage": "display text + contentless FTS; known publisher/contact tails excluded from search only; canonical display text unchanged",
+  "search_filter": {
+    "search_filter_version": "editorial-footer-filter-v1",
+    "search_filtered_passages": "1386",
+    "search_empty_passages": "17",
+    "search_removed_chars": "820820"
+  }
+}

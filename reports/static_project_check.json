@@ -1,0 +1,31 @@
+{
+  "status": "OK",
+  "dart_files": 48,
+  "test_files": 9,
+  "flutter_reference_version": "3.35.4",
+  "platform_directories_present": {
+    "android": false,
+    "windows": false
+  },
+  "dependencies": [
+    "crypto",
+    "cupertino_icons",
+    "flutter",
+    "path",
+    "path_provider",
+    "scrollable_positioned_list",
+    "shared_preferences",
+    "sqlite3",
+    "sqlite3_flutter_libs"
+  ],
+  "network_dependencies": [],
+  "network_code_hits": [],
+  "declared_assets": [
+    "assets/corpus/",
+    "assets/corpus/db_parts/"
+  ],
+  "database_parts_expected": 39,
+  "database_parts_found": 39,
+  "issues": [],
+  "note": "Les dossiers natifs sont générés par Flutter 3.35.4; ce contrôle statique ne remplace pas flutter analyze / flutter test."
+}

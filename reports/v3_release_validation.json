@@ -1,0 +1,27 @@
+{
+  "status": "OK",
+  "corpus_version": "2019.06-source__app-2026.09.20-v3",
+  "schema_version": 3,
+  "database_bytes": 320520192,
+  "database_sha256": "ee78b02e9ee2a89d2bd4fb6b13d676c2f80cf4e1e4042a4f152e2e08da96875a",
+  "database_parts": 39,
+  "counts": {
+    "sermons": 1211,
+    "editions": 1421,
+    "passages": 39679,
+    "books": 1,
+    "book_passages": 376,
+    "sentences": 1572065,
+    "neighbors": 254504,
+    "terms": 59248,
+    "fts": 39679
+  },
+  "semantic_documents": 31813,
+  "semantic_dimensions": 64,
+  "flutter_reference_version": "3.35.4",
+  "network_dependencies": [],
+  "free_text_answer_api_hits": [],
+  "missing_relative_imports": [],
+  "issues": [],
+  "flutter_sdk_executed_locally": false
+}

@@ -1,0 +1,15 @@
+{
+  "release": "Message Bot V4",
+  "version": "4.0.0+4",
+  "corpus_schema_version": 4,
+  "passages": 39679,
+  "database_sha256": "a485c3831209ec1c788b09918db003693b3745d02a9890053c3a2da12710f5ee",
+  "canonical_text_sha256": "fff2085e1d6ec5ec18e40273fb83a19cbee01fbad1171d98f00208b0dec00611",
+  "canonical_text_unchanged": true,
+  "lsa_assets_packaged": false,
+  "runtime_guard": "OK",
+  "sqlite_release_validation": "OK",
+  "missing_local_dart_imports": [],
+  "flutter_sdk_available_in_consolidation_environment": false,
+  "flutter_ci_configured": true
+}

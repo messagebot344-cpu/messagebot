@@ -1,0 +1,55 @@
+name: Message Bot V4 CI
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  analyze-test-android-release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Validate V4 packaged release
+        run: |
+          python tools/v4_runtime_guard.py
+          python tools/validate_v4_release.py
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.4'
+          channel: stable
+          cache: true
+      - name: Generate Android platform files
+        run: flutter create --platforms=android --org org.godfirst .
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - name: Build Android release APK
+        run: flutter build apk --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: message-bot-v4-apk
+          path: build/app/outputs/flutter-apk/app-release.apk
+
+  windows-release:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.4'
+          channel: stable
+          cache: true
+      - name: Enable Windows desktop
+        run: flutter config --enable-windows-desktop
+      - name: Generate Windows platform files
+        run: flutter create --platforms=windows --org org.godfirst .
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      - name: Build Windows release
+        run: flutter build windows --release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: message-bot-v4-windows
+          path: build/windows/x64/runner/Release/

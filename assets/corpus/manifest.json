@@ -1,0 +1,227 @@
+{
+  "corpus_version": "2019.06-source__app-2026.09.22-v4",
+  "schema_version": 4,
+  "database_file": "corpus.db",
+  "database_bytes": 320528384,
+  "database_sha256": "a485c3831209ec1c788b09918db003693b3745d02a9890053c3a2da12710f5ee",
+  "canonical_text_sha256": "fff2085e1d6ec5ec18e40273fb83a19cbee01fbad1171d98f00208b0dec00611",
+  "parts": [
+    {
+      "name": "corpus.db.part000",
+      "bytes": 8388608,
+      "sha256": "2f0d120e3f315fccc9219fc464144ffbd818dc337c1817cd7497f39931f34d47"
+    },
+    {
+      "name": "corpus.db.part001",
+      "bytes": 8388608,
+      "sha256": "c25a937b4d6b3e15edfdaac82c9b02774b6160862bb3ed14249a89f813190a4e"
+    },
+    {
+      "name": "corpus.db.part002",
+      "bytes": 8388608,
+      "sha256": "4dca2a8a0b3cec0b55912377a1fe91d337e83d02bbb278b62b58e311dabab668"
+    },
+    {
+      "name": "corpus.db.part003",
+      "bytes": 8388608,
+      "sha256": "4eb450c197bfb798fc20579da437d3a9861c4c0e8e4bdf95b0806ed7d0b5a28e"
+    },
+    {
+      "name": "corpus.db.part004",
+      "bytes": 8388608,
+      "sha256": "ccbd0e50800265268469fd3c4ef9251d3f54ccfc4bb9e90e0264fa1badc1cfcd"
+    },
+    {
+      "name": "corpus.db.part005",
+      "bytes": 8388608,
+      "sha256": "b05e9959ee936624766ede93dcc53961f5bae9402eb6ce222bfca3863bb4040d"
+    },
+    {
+      "name": "corpus.db.part006",
+      "bytes": 8388608,
+      "sha256": "fd794b8b6521e962016ac4b57786b14f26a59840a3ed3d432f0851d70131abe3"
+    },
+    {
+      "name": "corpus.db.part007",
+      "bytes": 8388608,
+      "sha256": "350cae11a4dd21c3d22a760e02239fc2820a167736d60b973be2ae6f1976a02e"
+    },
+    {
+      "name": "corpus.db.part008",
+      "bytes": 8388608,
+      "sha256": "a0150700bca85a038179153ba72451a4921949476c94d15afe03b555acc224c4"
+    },
+    {
+      "name": "corpus.db.part009",
+      "bytes": 8388608,
+      "sha256": "55f85bd8f3cdab595b88bc4c932eb5d038fc25088a7301d07e9d10c971889649"
+    },
+    {
+      "name": "corpus.db.part010",
+      "bytes": 8388608,
+      "sha256": "f5b828fd15b79569ab4e9034cc43bb217ec36006fc60e0a43e12b5ada5c2aa06"
+    },
+    {
+      "name": "corpus.db.part011",
+      "bytes": 8388608,
+      "sha256": "528511322892765f250f47c3f04de79b2259b70e75c124394e7066b53c7562fb"
+    },
+    {
+      "name": "corpus.db.part012",
+      "bytes": 8388608,
+      "sha256": "06ff38ef85b0acf582273d467a6476fea9f6601877b6d1479714becf705aeda4"
+    },
+    {
+      "name": "corpus.db.part013",
+      "bytes": 8388608,
+      "sha256": "e8a8b699bcc9cd878f28e3c649e2e26c4a5c4cb6e3a45303333a21cdc48735a5"
+    },
+    {
+      "name": "corpus.db.part014",
+      "bytes": 8388608,
+      "sha256": "e2c5a9df906911224dab4422a58f9f6ddbe10c3ebb5640bbf001ad31055acced"
+    },
+    {
+      "name": "corpus.db.part015",
+      "bytes": 8388608,
+      "sha256": "8007526a4c018448f72a96f531b88bf4a5c0583ff21e8cc56b3c2f844f1b5fe4"
+    },
+    {
+      "name": "corpus.db.part016",
+      "bytes": 8388608,
+      "sha256": "64c2a7e72dbf39efef452b481d1766cbd2f480b3e5332f6c0dbf7cc9dbf5d9c1"
+    },
+    {
+      "name": "corpus.db.part017",
+      "bytes": 8388608,
+      "sha256": "74aea69d4bf736a3d92cd786639e611158a2b161ed6430dd254cba9d103cdc5b"
+    },
+    {
+      "name": "corpus.db.part018",
+      "bytes": 8388608,
+      "sha256": "9e8563d46aac96559934098910f6e65f0a76a3d5b73d2ed13357656ac63c479d"
+    },
+    {
+      "name": "corpus.db.part019",
+      "bytes": 8388608,
+      "sha256": "6bae10b9030047e1eb343c6f10c8f80e60b83fbf0a32fec5c7bb462bdd686306"
+    },
+    {
+      "name": "corpus.db.part020",
+      "bytes": 8388608,
+      "sha256": "9118674e058730208ad57ce6e00469c61ba1e3dfa67a15dc2ad7d317f079db74"
+    },
+    {
+      "name": "corpus.db.part021",
+      "bytes": 8388608,
+      "sha256": "b0db6fc6e3d1a4b64240babf4a5e4fc0d0ff3668adb7ca14ee5e034a6b7cb07c"
+    },
+    {
+      "name": "corpus.db.part022",
+      "bytes": 8388608,
+      "sha256": "6c158853fd32b2288008ac6b622ba51f6b524a987e69ed3f7d9657d06671ffef"
+    },
+    {
+      "name": "corpus.db.part023",
+      "bytes": 8388608,
+      "sha256": "293aea3c4efca2fde1fbb698211ba978ac411e8be4c93895ec27e4123b7f3054"
+    },
+    {
+      "name": "corpus.db.part024",
+      "bytes": 8388608,
+      "sha256": "83cae441a877f0edd622189da8da5f4bf37b1d5769e326c168d6da1886328ec9"
+    },
+    {
+      "name": "corpus.db.part025",
+      "bytes": 8388608,
+      "sha256": "20ce33e079805f360f6d88aeb84a05deffddc3e4c47694edce063cf83cbf0ead"
+    },
+    {
+      "name": "corpus.db.part026",
+      "bytes": 8388608,
+      "sha256": "9b30042712a5ba2cf5c884e79e75757c42bea3498c5604244c2d4f2c2d8a9ef7"
+    },
+    {
+      "name": "corpus.db.part027",
+      "bytes": 8388608,
+      "sha256": "d22248370832c0eece4760e869861d5288d2cb378c1c00e9d8cf58117966f6b8"
+    },
+    {
+      "name": "corpus.db.part028",
+      "bytes": 8388608,
+      "sha256": "1cc42a87f15fb9938c94ec3362b9945f83a8bbc9381e9e1d7592bf7628cea735"
+    },
+    {
+      "name": "corpus.db.part029",
+      "bytes": 8388608,
+      "sha256": "8928cdaa892069f771bbf69954e988c59ca200e6d124d6e4cac554d9ba98b139"
+    },
+    {
+      "name": "corpus.db.part030",
+      "bytes": 8388608,
+      "sha256": "9ebf40ac8597e4003d136e7c3d1b8c6c095f230c3e6fcae6f6f16dac9216e129"
+    },
+    {
+      "name": "corpus.db.part031",
+      "bytes": 8388608,
+      "sha256": "a0283d24931e00186cf01d2cfb8bc9392def51d281fa0fb1cd95dee743687ae3"
+    },
+    {
+      "name": "corpus.db.part032",
+      "bytes": 8388608,
+      "sha256": "bb35e7a5190aa8c36304caeb797eb90ae4dc2f51ecec4c132d39c673cd0394b6"
+    },
+    {
+      "name": "corpus.db.part033",
+      "bytes": 8388608,
+      "sha256": "6565e4dab3513ceb849574c56489e1d5663825330251b609f34633f830b593e1"
+    },
+    {
+      "name": "corpus.db.part034",
+      "bytes": 8388608,
+      "sha256": "a3e0c604bf985dd98bdb9c777629d60508ea408c79290e5317464a8c0486ff0e"
+    },
+    {
+      "name": "corpus.db.part035",
+      "bytes": 8388608,
+      "sha256": "ef8191cec6ac1e29543add68bbc70f5f75cf9105fb5b91e97e2baa4a664c68cc"
+    },
+    {
+      "name": "corpus.db.part036",
+      "bytes": 8388608,
+      "sha256": "be28626104551a73daaa16b3f4da8b3dd68e770c60987c9617ab8c71c8ae4d96"
+    },
+    {
+      "name": "corpus.db.part037",
+      "bytes": 8388608,
+      "sha256": "f6af05508b434305a47763261d0b864567b26fe19a6aa22ee1da6b358445b92c"
+    },
+    {
+      "name": "corpus.db.part038",
+      "bytes": 1761280,
+      "sha256": "32bc9efcff8bf72980769a360e0dc8f08661c0c533d376e58b04d7927fe32a66"
+    }
+  ],
+  "stats": {
+    "sermons": 1211,
+    "editions": 1421,
+    "passages": 39679,
+    "primary_passages": 31437,
+    "source_pdf_pages": 50044,
+    "book_sources": 1,
+    "book_passages": 376,
+    "sentences": 1572065
+  },
+  "search_filter": {
+    "version": "editorial-footer-filter-v1",
+    "filtered_passages": 1386,
+    "empty_passages": 17,
+    "removed_characters": 820820
+  },
+  "search_v4": {
+    "method": "FTS5/BM25 + exact phrase + NEAR + deterministic prefix/morphology/fuzzy ranking",
+    "generative_ai": false,
+    "lsa_runtime": false,
+    "offline_only": true
+  }
+}

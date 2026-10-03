@@ -1,0 +1,12 @@
+{
+  "status": "OK",
+  "sqlite_integrity": "ok",
+  "sermons": 1211,
+  "books": 1,
+  "book_passages": 376,
+  "passages": 39679,
+  "sentences": 1572065,
+  "neighbors": 254504,
+  "terms": 59248,
+  "manifest_sha256": "OK"
+}

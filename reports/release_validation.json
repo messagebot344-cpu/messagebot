@@ -1,0 +1,31 @@
+{
+  "status": "OK",
+  "corpus_version": "2019.06-source__app-2026.09.20-v2",
+  "database_bytes": 236466176,
+  "database_sha256": "b5f81c4299083e06cf09dc98d3b81d64602037afb237b90ffa4e72cbcdeb9b5f",
+  "parts": 29,
+  "sqlite_integrity": "ok",
+  "counts": {
+    "sermons": 1211,
+    "editions": 1421,
+    "passages": 39303,
+    "fts_rows": 39303
+  },
+  "primary_passages": 31437,
+  "semantic_documents": 31437,
+  "semantic_dimensions": 64,
+  "search_filter": {
+    "version": "editorial-footer-filter-v1",
+    "filtered_passages": 1386,
+    "empty_passages": 17,
+    "removed_characters": 820820
+  },
+  "lexical_smoke": {
+    "foi": 11287,
+    "bapteme": 3169,
+    "ordinateur_quantique": 0,
+    "publisher_unique_token": 0
+  },
+  "bad_control_characters": 0,
+  "replacement_characters": 0
+}

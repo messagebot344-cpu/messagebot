@@ -1,0 +1,32 @@
+name: le_grenier_du_message
+description: Message Bot V4 — recherche documentaire déterministe, explicable et 100 % hors ligne.
+publish_to: 'none'
+version: 4.0.0+4
+
+environment:
+  sdk: '>=3.4.0 <4.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: 1.0.8
+  sqlite3: 2.7.5
+  sqlite3_flutter_libs: 0.5.28
+  path_provider: 2.1.5
+  path: 1.9.1
+  shared_preferences: 2.3.3
+  crypto: 3.0.6
+  scrollable_positioned_list: 0.3.8
+  pdf: 3.11.1
+  printing: 5.13.4
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_lints: 5.0.0
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/corpus/
+    - assets/corpus/db_parts/

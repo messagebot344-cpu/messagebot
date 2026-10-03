@@ -1,0 +1,11 @@
+{
+  "sermons": 1211,
+  "editions": 1421,
+  "passages": 39679,
+  "book_passages": 376,
+  "sentences": 1572065,
+  "neighbors": 254504,
+  "terms": 59248,
+  "semantic_documents": 31813,
+  "sqlite_integrity": "ok"
+}

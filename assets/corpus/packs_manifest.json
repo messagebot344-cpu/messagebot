@@ -1,0 +1,16 @@
+{
+  "format_version": 1,
+  "offline_only": true,
+  "packs": [
+    {
+      "id": "core-corpus-v4",
+      "kind": "core",
+      "required": true,
+      "schema_version": 4,
+      "version": "2019.06-source__app-2026.09.22-v4",
+      "manifest": "manifest.json",
+      "database_sha256": "a485c3831209ec1c788b09918db003693b3745d02a9890053c3a2da12710f5ee",
+      "database_bytes": 320528384
+    }
+  ]
+}

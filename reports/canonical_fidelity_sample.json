@@ -1,0 +1,813 @@
+{
+  "status": "OK",
+  "method": "deterministic whitespace-normalized substring comparison of text_display against PyMuPDF get_text(text) on the recorded source pages; decorative U+F6E1 ignored",
+  "seed": 20260920,
+  "samples_requested": 100,
+  "samples_checked": 100,
+  "matches": 100,
+  "failures": [],
+  "source_pdf": "Le_20Grenier_20du_20Message.pdf",
+  "source_pdf_sha256": "e9b48205b6a6e7bf8c225701a1a5fa811d45d1bfb217a68eabb9fa0af399278a",
+  "sample_passages": [
+    {
+      "passage_id": 1,
+      "edition_id": "47-0412__std__p00003",
+      "page_start": 3,
+      "page_end": 4,
+      "display_chars": 3731,
+      "match": true
+    },
+    {
+      "passage_id": 533,
+      "edition_id": "50-0811__std__p00644",
+      "page_start": 657,
+      "page_end": 658,
+      "display_chars": 3868,
+      "match": true
+    },
+    {
+      "passage_id": 1387,
+      "edition_id": "51-0728__std__p01748",
+      "page_start": 1780,
+      "page_end": 1782,
+      "display_chars": 3669,
+      "match": true
+    },
+    {
+      "passage_id": 1622,
+      "edition_id": "52-0713a__std__p02108",
+      "page_start": 2110,
+      "page_end": 2111,
+      "display_chars": 3825,
+      "match": true
+    },
+    {
+      "passage_id": 2246,
+      "edition_id": "53-0403__std__p02957",
+      "page_start": 2977,
+      "page_end": 2978,
+      "display_chars": 4342,
+      "match": true
+    },
+    {
+      "passage_id": 2340,
+      "edition_id": "53-0506__std__p03082",
+      "page_start": 3103,
+      "page_end": 3104,
+      "display_chars": 4592,
+      "match": true
+    },
+    {
+      "passage_id": 3054,
+      "edition_id": "53-0904__std__p04115",
+      "page_start": 4116,
+      "page_end": 4117,
+      "display_chars": 3676,
+      "match": true
+    },
+    {
+      "passage_id": 4172,
+      "edition_id": "54-0304__std__p05664",
+      "page_start": 5674,
+      "page_end": 5675,
+      "display_chars": 4318,
+      "match": true
+    },
+    {
+      "passage_id": 4500,
+      "edition_id": "54-0403__std__p06113",
+      "page_start": 6128,
+      "page_end": 6129,
+      "display_chars": 3745,
+      "match": true
+    },
+    {
+      "passage_id": 4864,
+      "edition_id": "54-0624__std__p06587",
+      "page_start": 6589,
+      "page_end": 6591,
+      "display_chars": 3783,
+      "match": true
+    },
+    {
+      "passage_id": 5042,
+      "edition_id": "54-0723__std__p06835",
+      "page_start": 6840,
+      "page_end": 6841,
+      "display_chars": 3947,
+      "match": true
+    },
+    {
+      "passage_id": 5115,
+      "edition_id": "54-0804__std__p06931",
+      "page_start": 6936,
+      "page_end": 6936,
+      "display_chars": 2727,
+      "match": true
+    },
+    {
+      "passage_id": 5481,
+      "edition_id": "54-1203__std__p07414",
+      "page_start": 7418,
+      "page_end": 7419,
+      "display_chars": 3742,
+      "match": true
+    },
+    {
+      "passage_id": 5547,
+      "edition_id": "54-1205__std__p07482",
+      "page_start": 7508,
+      "page_end": 7509,
+      "display_chars": 3739,
+      "match": true
+    },
+    {
+      "passage_id": 5550,
+      "edition_id": "54-1205__std__p07482",
+      "page_start": 7511,
+      "page_end": 7512,
+      "display_chars": 2535,
+      "match": true
+    },
+    {
+      "passage_id": 5565,
+      "edition_id": "54-1206__std__p07514",
+      "page_start": 7533,
+      "page_end": 7534,
+      "display_chars": 4195,
+      "match": true
+    },
+    {
+      "passage_id": 5579,
+      "edition_id": "54-1207__std__p07553",
+      "page_start": 7554,
+      "page_end": 7555,
+      "display_chars": 4323,
+      "match": true
+    },
+    {
+      "passage_id": 6832,
+      "edition_id": "55-0625__std__p09263",
+      "page_start": 9273,
+      "page_end": 9274,
+      "display_chars": 3636,
+      "match": true
+    },
+    {
+      "passage_id": 8155,
+      "edition_id": "56-0311e__std__p11084",
+      "page_start": 11101,
+      "page_end": 11102,
+      "display_chars": 4589,
+      "match": true
+    },
+    {
+      "passage_id": 8291,
+      "edition_id": "56-0407__std__p11293",
+      "page_start": 11293,
+      "page_end": 11294,
+      "display_chars": 2471,
+      "match": true
+    },
+    {
+      "passage_id": 8372,
+      "edition_id": "56-0414__std__p11395",
+      "page_start": 11410,
+      "page_end": 11411,
+      "display_chars": 3617,
+      "match": true
+    },
+    {
+      "passage_id": 9708,
+      "edition_id": "57-0104__std__p13247",
+      "page_start": 13258,
+      "page_end": 13260,
+      "display_chars": 3838,
+      "match": true
+    },
+    {
+      "passage_id": 9932,
+      "edition_id": "57-0125__std__p13550",
+      "page_start": 13578,
+      "page_end": 13579,
+      "display_chars": 3672,
+      "match": true
+    },
+    {
+      "passage_id": 11085,
+      "edition_id": "57-0806__std__p15190",
+      "page_start": 15198,
+      "page_end": 15199,
+      "display_chars": 3812,
+      "match": true
+    },
+    {
+      "passage_id": 11808,
+      "edition_id": "57-1222__std__p16137",
+      "page_start": 16145,
+      "page_end": 16145,
+      "display_chars": 2887,
+      "match": true
+    },
+    {
+      "passage_id": 12051,
+      "edition_id": "58-0130__std__p16474",
+      "page_start": 16475,
+      "page_end": 16476,
+      "display_chars": 4104,
+      "match": true
+    },
+    {
+      "passage_id": 12127,
+      "edition_id": "58-0208__std__p16562",
+      "page_start": 16579,
+      "page_end": 16580,
+      "display_chars": 4194,
+      "match": true
+    },
+    {
+      "passage_id": 12297,
+      "edition_id": "58-0301e__std__p16793",
+      "page_start": 16814,
+      "page_end": 16815,
+      "display_chars": 3652,
+      "match": true
+    },
+    {
+      "passage_id": 12406,
+      "edition_id": "58-0313__std__p16950",
+      "page_start": 16967,
+      "page_end": 16968,
+      "display_chars": 3635,
+      "match": true
+    },
+    {
+      "passage_id": 12764,
+      "edition_id": "58-0508__std__p17457",
+      "page_start": 17458,
+      "page_end": 17459,
+      "display_chars": 4012,
+      "match": true
+    },
+    {
+      "passage_id": 13320,
+      "edition_id": "58-0720e__std__p18211",
+      "page_start": 18215,
+      "page_end": 18216,
+      "display_chars": 4694,
+      "match": true
+    },
+    {
+      "passage_id": 14001,
+      "edition_id": "59-0409__std__p19096",
+      "page_start": 19096,
+      "page_end": 19097,
+      "display_chars": 3929,
+      "match": true
+    },
+    {
+      "passage_id": 14215,
+      "edition_id": "59-0418__std__p19374",
+      "page_start": 19402,
+      "page_end": 19404,
+      "display_chars": 3606,
+      "match": true
+    },
+    {
+      "passage_id": 14385,
+      "edition_id": "59-0510e__std__p19624",
+      "page_start": 19626,
+      "page_end": 19628,
+      "display_chars": 3709,
+      "match": true
+    },
+    {
+      "passage_id": 14417,
+      "edition_id": "59-0525__std__p19663",
+      "page_start": 19668,
+      "page_end": 19669,
+      "display_chars": 3828,
+      "match": true
+    },
+    {
+      "passage_id": 14433,
+      "edition_id": "59-0525__std__p19663",
+      "page_start": 19687,
+      "page_end": 19688,
+      "display_chars": 3784,
+      "match": true
+    },
+    {
+      "passage_id": 14966,
+      "edition_id": "59-1004e__std__p20371",
+      "page_start": 20392,
+      "page_end": 20394,
+      "display_chars": 3977,
+      "match": true
+    },
+    {
+      "passage_id": 15812,
+      "edition_id": "60-0304__std__p21464",
+      "page_start": 21491,
+      "page_end": 21493,
+      "display_chars": 3636,
+      "match": true
+    },
+    {
+      "passage_id": 16175,
+      "edition_id": "60-0417m__std__p21965",
+      "page_start": 21986,
+      "page_end": 21986,
+      "display_chars": 2200,
+      "match": true
+    },
+    {
+      "passage_id": 16464,
+      "edition_id": "60-0608__std__p22342",
+      "page_start": 22360,
+      "page_end": 22361,
+      "display_chars": 3638,
+      "match": true
+    },
+    {
+      "passage_id": 17557,
+      "edition_id": "60-1204e__std__p23816",
+      "page_start": 23849,
+      "page_end": 23850,
+      "display_chars": 3660,
+      "match": true
+    },
+    {
+      "passage_id": 17610,
+      "edition_id": "60-1204m__std__p23874",
+      "page_start": 23914,
+      "page_end": 23914,
+      "display_chars": 2412,
+      "match": true
+    },
+    {
+      "passage_id": 17754,
+      "edition_id": "60-1208__std__p24070",
+      "page_start": 24071,
+      "page_end": 24071,
+      "display_chars": 2993,
+      "match": true
+    },
+    {
+      "passage_id": 18039,
+      "edition_id": "60-1225__std__p24391",
+      "page_start": 24408,
+      "page_end": 24409,
+      "display_chars": 4589,
+      "match": true
+    },
+    {
+      "passage_id": 18369,
+      "edition_id": "61-0120__std__p24811",
+      "page_start": 24824,
+      "page_end": 24825,
+      "display_chars": 3401,
+      "match": true
+    },
+    {
+      "passage_id": 19166,
+      "edition_id": "61-0312__std__p25916",
+      "page_start": 25930,
+      "page_end": 25931,
+      "display_chars": 3658,
+      "match": true
+    },
+    {
+      "passage_id": 19187,
+      "edition_id": "61-0315__std__p25961",
+      "page_start": 25961,
+      "page_end": 25962,
+      "display_chars": 3941,
+      "match": true
+    },
+    {
+      "passage_id": 19292,
+      "edition_id": "61-0318__std__p26082",
+      "page_start": 26106,
+      "page_end": 26108,
+      "display_chars": 3936,
+      "match": true
+    },
+    {
+      "passage_id": 19791,
+      "edition_id": "61-0427__std__p26748",
+      "page_start": 26772,
+      "page_end": 26773,
+      "display_chars": 4013,
+      "match": true
+    },
+    {
+      "passage_id": 19812,
+      "edition_id": "61-0428__std__p26786",
+      "page_start": 26801,
+      "page_end": 26803,
+      "display_chars": 4501,
+      "match": true
+    },
+    {
+      "passage_id": 19869,
+      "edition_id": "61-0429e__std__p26856",
+      "page_start": 26877,
+      "page_end": 26878,
+      "display_chars": 3603,
+      "match": true
+    },
+    {
+      "passage_id": 20248,
+      "edition_id": "61-0730e__std__p27337",
+      "page_start": 27371,
+      "page_end": 27373,
+      "display_chars": 3973,
+      "match": true
+    },
+    {
+      "passage_id": 20257,
+      "edition_id": "61-0730m__std__p27379",
+      "page_start": 27387,
+      "page_end": 27387,
+      "display_chars": 3012,
+      "match": true
+    },
+    {
+      "passage_id": 20396,
+      "edition_id": "61-0827__std__p27531",
+      "page_start": 27572,
+      "page_end": 27572,
+      "display_chars": 3063,
+      "match": true
+    },
+    {
+      "passage_id": 21169,
+      "edition_id": "62-0124__std__p28521",
+      "page_start": 28544,
+      "page_end": 28546,
+      "display_chars": 3618,
+      "match": true
+    },
+    {
+      "passage_id": 22718,
+      "edition_id": "62-0705__std__p30530",
+      "page_start": 30534,
+      "page_end": 30535,
+      "display_chars": 4017,
+      "match": true
+    },
+    {
+      "passage_id": 22734,
+      "edition_id": "62-0705__std__p30530",
+      "page_start": 30553,
+      "page_end": 30554,
+      "display_chars": 3755,
+      "match": true
+    },
+    {
+      "passage_id": 23328,
+      "edition_id": "62-0729__std__p31359",
+      "page_start": 31360,
+      "page_end": 31361,
+      "display_chars": 3831,
+      "match": true
+    },
+    {
+      "passage_id": 23396,
+      "edition_id": "62-0909e__std__p31435",
+      "page_start": 31446,
+      "page_end": 31447,
+      "display_chars": 3641,
+      "match": true
+    },
+    {
+      "passage_id": 23998,
+      "edition_id": "62-1230m__std__p32191",
+      "page_start": 32207,
+      "page_end": 32208,
+      "display_chars": 4217,
+      "match": true
+    },
+    {
+      "passage_id": 24798,
+      "edition_id": "63-0320__std__p33183",
+      "page_start": 33186,
+      "page_end": 33186,
+      "display_chars": 2639,
+      "match": true
+    },
+    {
+      "passage_id": 25171,
+      "edition_id": "63-0412m__std__p33598",
+      "page_start": 33632,
+      "page_end": 33633,
+      "display_chars": 2991,
+      "match": true
+    },
+    {
+      "passage_id": 25793,
+      "edition_id": "63-0714e__std__p34417",
+      "page_start": 34421,
+      "page_end": 34421,
+      "display_chars": 2385,
+      "match": true
+    },
+    {
+      "passage_id": 26870,
+      "edition_id": "63-1124e__std__p35648",
+      "page_start": 35690,
+      "page_end": 35691,
+      "display_chars": 3949,
+      "match": true
+    },
+    {
+      "passage_id": 27448,
+      "edition_id": "64-0119__std__p36338",
+      "page_start": 36375,
+      "page_end": 36375,
+      "display_chars": 2471,
+      "match": true
+    },
+    {
+      "passage_id": 27712,
+      "edition_id": "64-0208__std__p36657",
+      "page_start": 36689,
+      "page_end": 36689,
+      "display_chars": 2929,
+      "match": true
+    },
+    {
+      "passage_id": 28142,
+      "edition_id": "64-0315__std__p37186",
+      "page_start": 37217,
+      "page_end": 37218,
+      "display_chars": 4669,
+      "match": true
+    },
+    {
+      "passage_id": 28275,
+      "edition_id": "64-0321e__std__p37350",
+      "page_start": 37390,
+      "page_end": 37390,
+      "display_chars": 2606,
+      "match": true
+    },
+    {
+      "passage_id": 28523,
+      "edition_id": "64-0412__std__p37695",
+      "page_start": 37717,
+      "page_end": 37717,
+      "display_chars": 2546,
+      "match": true
+    },
+    {
+      "passage_id": 28717,
+      "edition_id": "64-0419__std__p37949",
+      "page_start": 37969,
+      "page_end": 37970,
+      "display_chars": 3951,
+      "match": true
+    },
+    {
+      "passage_id": 28919,
+      "edition_id": "64-0618__std__p38208",
+      "page_start": 38232,
+      "page_end": 38232,
+      "display_chars": 3077,
+      "match": true
+    },
+    {
+      "passage_id": 29055,
+      "edition_id": "64-0629__std__p38373",
+      "page_start": 38402,
+      "page_end": 38403,
+      "display_chars": 4349,
+      "match": true
+    },
+    {
+      "passage_id": 29081,
+      "edition_id": "64-0705__std__p38407",
+      "page_start": 38434,
+      "page_end": 38435,
+      "display_chars": 4285,
+      "match": true
+    },
+    {
+      "passage_id": 29407,
+      "edition_id": "64-0823m__std__p38826",
+      "page_start": 38861,
+      "page_end": 38862,
+      "display_chars": 3604,
+      "match": true
+    },
+    {
+      "passage_id": 29672,
+      "edition_id": "64-1227__std__p39164",
+      "page_start": 39181,
+      "page_end": 39181,
+      "display_chars": 3156,
+      "match": true
+    },
+    {
+      "passage_id": 30595,
+      "edition_id": "65-0801m__std__p40311",
+      "page_start": 40324,
+      "page_end": 40325,
+      "display_chars": 4345,
+      "match": true
+    },
+    {
+      "passage_id": 30834,
+      "edition_id": "65-1031a__std__p40609",
+      "page_start": 40618,
+      "page_end": 40619,
+      "display_chars": 3722,
+      "match": true
+    },
+    {
+      "passage_id": 31092,
+      "edition_id": "65-1128e__std__p40887",
+      "page_start": 40909,
+      "page_end": 40909,
+      "display_chars": 2588,
+      "match": true
+    },
+    {
+      "passage_id": 31313,
+      "edition_id": "53-0608a__frn__p41173",
+      "page_start": 41175,
+      "page_end": 41175,
+      "display_chars": 2466,
+      "match": true
+    },
+    {
+      "passage_id": 31370,
+      "edition_id": "53-0609a__frn__p41197",
+      "page_start": 41234,
+      "page_end": 41234,
+      "display_chars": 2656,
+      "match": true
+    },
+    {
+      "passage_id": 31568,
+      "edition_id": "54-0509__frn__p41406",
+      "page_start": 41441,
+      "page_end": 41442,
+      "display_chars": 4524,
+      "match": true
+    },
+    {
+      "passage_id": 31865,
+      "edition_id": "56-0826__frn__p41764",
+      "page_start": 41765,
+      "page_end": 41765,
+      "display_chars": 2749,
+      "match": true
+    },
+    {
+      "passage_id": 32327,
+      "edition_id": "57-0925__frn__p42262",
+      "page_start": 42267,
+      "page_end": 42267,
+      "display_chars": 2423,
+      "match": true
+    },
+    {
+      "passage_id": 32567,
+      "edition_id": "58-0927__frn__p42484",
+      "page_start": 42524,
+      "page_end": 42524,
+      "display_chars": 3126,
+      "match": true
+    },
+    {
+      "passage_id": 32740,
+      "edition_id": "58-1228__frn__p42687",
+      "page_start": 42708,
+      "page_end": 42708,
+      "display_chars": 2549,
+      "match": true
+    },
+    {
+      "passage_id": 32762,
+      "edition_id": "59-0125__frn__p42714",
+      "page_start": 42733,
+      "page_end": 42734,
+      "display_chars": 4594,
+      "match": true
+    },
+    {
+      "passage_id": 33488,
+      "edition_id": "60-0522e__frn__p43489",
+      "page_start": 43509,
+      "page_end": 43509,
+      "display_chars": 2602,
+      "match": true
+    },
+    {
+      "passage_id": 34128,
+      "edition_id": "61-1119__frn__p44140",
+      "page_start": 44196,
+      "page_end": 44198,
+      "display_chars": 3508,
+      "match": true
+    },
+    {
+      "passage_id": 34234,
+      "edition_id": "62-0311__frn__p44282",
+      "page_start": 44307,
+      "page_end": 44307,
+      "display_chars": 2694,
+      "match": true
+    },
+    {
+      "passage_id": 34289,
+      "edition_id": "62-0318__frn__p44350",
+      "page_start": 44368,
+      "page_end": 44368,
+      "display_chars": 2563,
+      "match": true
+    },
+    {
+      "passage_id": 34836,
+      "edition_id": "62-1104m__frn__p44925",
+      "page_start": 44946,
+      "page_end": 44946,
+      "display_chars": 2811,
+      "match": true
+    },
+    {
+      "passage_id": 35877,
+      "edition_id": "63-0714e__frn__p46042",
+      "page_start": 46046,
+      "page_end": 46046,
+      "display_chars": 2867,
+      "match": true
+    },
+    {
+      "passage_id": 36241,
+      "edition_id": "63-1110e__frn__p46399",
+      "page_start": 46430,
+      "page_end": 46430,
+      "display_chars": 2946,
+      "match": true
+    },
+    {
+      "passage_id": 36334,
+      "edition_id": "63-1226__frn__p46502",
+      "page_start": 46528,
+      "page_end": 46528,
+      "display_chars": 3010,
+      "match": true
+    },
+    {
+      "passage_id": 36706,
+      "edition_id": "64-0308__frn__p46903",
+      "page_start": 46922,
+      "page_end": 46922,
+      "display_chars": 2877,
+      "match": true
+    },
+    {
+      "passage_id": 36958,
+      "edition_id": "64-0404__frn__p47178",
+      "page_start": 47188,
+      "page_end": 47188,
+      "display_chars": 2572,
+      "match": true
+    },
+    {
+      "passage_id": 37336,
+      "edition_id": "64-0726e__frn__p47557",
+      "page_start": 47585,
+      "page_end": 47585,
+      "display_chars": 2305,
+      "match": true
+    },
+    {
+      "passage_id": 37422,
+      "edition_id": "64-0823m__frn__p47668",
+      "page_start": 47678,
+      "page_end": 47678,
+      "display_chars": 2856,
+      "match": true
+    },
+    {
+      "passage_id": 38432,
+      "edition_id": "65-0718e__frn__p48730",
+      "page_start": 48736,
+      "page_end": 48736,
+      "display_chars": 2885,
+      "match": true
+    },
+    {
+      "passage_id": 39303,
+      "edition_id": "65-1212__frn__p49654",
+      "page_start": 49667,
+      "page_end": 49667,
+      "display_chars": 743,
+      "match": true
+    }
+  ]
+}

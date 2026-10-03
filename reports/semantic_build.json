@@ -1,0 +1,26 @@
+{
+  "method": "TF-IDF (French stopwords, sublinear TF) + Latent Semantic Analysis (TruncatedSVD), non-generative, fully offline",
+  "documents": 31437,
+  "search_filter_version": "editorial-footer-filter-v1",
+  "features": 10000,
+  "dimensions": 64,
+  "explained_variance_ratio": 0.10382673144340515,
+  "files": {
+    "semantic_vocab.json": {
+      "bytes": 283319,
+      "sha256": "cf88b5b14e240efef69481f965046dcefe013c2dee449cfd40ae0ed77b8a00ff"
+    },
+    "semantic_components.f32": {
+      "bytes": 2560000,
+      "sha256": "ada07214860b89a786ccc9e814f24e33dd6ab59e827aed73bfb67268e8fa808f"
+    },
+    "semantic_vectors.f32": {
+      "bytes": 8047872,
+      "sha256": "ce796473f38f87a08d6354fa7ce0b9f256275045e4d406d8a9bda66b6ebdfb18"
+    },
+    "semantic_passage_ids.i32": {
+      "bytes": 125748,
+      "sha256": "fe981e72b0dfd1760bc9319bd184b8a01a14106c84007602c25dcb50ad520dd4"
+    }
+  }
+}

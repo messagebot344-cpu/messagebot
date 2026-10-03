@@ -1,0 +1,14 @@
+{
+  "pdf": "Le_20Grenier_20du_20Message.pdf",
+  "pdf_pages": 50044,
+  "toc_entries": 2970,
+  "expose_start_page": 49668,
+  "edition_count": 1421,
+  "unique_sermon_codes": 1211,
+  "multi_edition_sermons": 210,
+  "total_extracted_chars": 134336382,
+  "total_sermon_pages": 49665,
+  "extractor": "PyMuPDF get_text(text), decorative U+F6E1 removed",
+  "source_pdf_sha256": "e9b48205b6a6e7bf8c225701a1a5fa811d45d1bfb217a68eabb9fa0af399278a",
+  "source_zip_sha256": "991649c348806a4dab9aee5e4a327baba015e2f037acae2f787fea1eacbbf1b3"
+}
