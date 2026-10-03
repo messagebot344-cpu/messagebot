@@ -170,7 +170,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
 extension _FirstOrNull<E> on Iterable<E> {
   E? get firstOrNull {
-    for (final value in this) return value;
+    for (final value in this) {
+      return value;
+    }
     return null;
   }
 }
