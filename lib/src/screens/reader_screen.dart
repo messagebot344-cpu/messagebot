@@ -204,7 +204,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
               child: DropdownButtonFormField<String>(
-                value: _edition.id,
+                initialValue: _edition.id,
                 isExpanded: true,
                 decoration: const InputDecoration(
                   labelText: 'Version du texte',
