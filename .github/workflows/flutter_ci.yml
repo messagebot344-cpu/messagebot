@@ -87,9 +87,12 @@ jobs:
           unzip -t "$FINAL_APK"
           VERIFY_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$FINAL_APK")
           echo "$VERIFY_OUT"
-          echo "$VERIFY_OUT" | grep -q "Verified using v1 scheme (JAR signing): true"
+          echo "$VERIFY_OUT" | grep -q "^Verifies"
           echo "$VERIFY_OUT" | grep -q "Verified using v2 scheme (APK Signature Scheme v2): true"
           echo "$VERIFY_OUT" | grep -q "Verified using v3 scheme (APK Signature Scheme v3): true"
+          V1_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --min-sdk-version 23 "$FINAL_APK")
+          echo "$V1_OUT"
+          echo "$V1_OUT" | grep -q "Verified using v1 scheme (JAR signing): true"
           jarsigner -verify "$FINAL_APK"
           "$BUILD_TOOLS/aapt" dump badging "$FINAL_APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64-badging.txt
           sha256sum "$FINAL_APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64.sha256
