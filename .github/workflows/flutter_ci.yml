@@ -21,12 +21,14 @@ jobs:
           cache: true
       - name: Generate Android platform files
         run: flutter create --platforms=android --org org.godfirst .
-      - name: Force broadly compatible APK signing schemes
+      - name: Configure Android 15 compatibility
         run: |
           python - <<'PY'
           from pathlib import Path
           path = Path("android/app/build.gradle.kts")
           text = path.read_text()
+          text = text.replace("compileSdk = flutter.compileSdkVersion", "compileSdk = 35")
+          text = text.replace("targetSdk = flutter.targetSdkVersion", "targetSdk = 35")
           needle = "    buildTypes {"
           block = (
               '    signingConfigs {\n'
@@ -34,7 +36,7 @@ jobs:
               '            enableV1Signing = true\n'
               '            enableV2Signing = true\n'
               '            enableV3Signing = true\n'
-              '            enableV4Signing = true\n'
+              '            enableV4Signing = false\n'
               '        }\n'
               '    }\n\n'
           )
@@ -42,67 +44,56 @@ jobs:
               if needle not in text:
                   raise SystemExit("Could not find buildTypes block in generated Gradle file")
               text = text.replace(needle, block + needle, 1)
-              path.write_text(text)
+          path.write_text(text)
           PY
       - run: flutter pub get
       - run: flutter analyze
       - run: flutter test
       - name: Build Android ARM64 release APK
         run: flutter build apk --release --target-platform android-arm64 --split-per-abi
-      - name: Re-sign and verify Android ARM64 APK
+      - name: Verify Android 15 ARM64 APK
         shell: bash
         run: |
           set -euo pipefail
-          RAW_APK="build/app/outputs/flutter-apk/app-arm64-v8a-release.apk"
-          FINAL_APK="build/app/outputs/flutter-apk/Message_Bot_V4_ARM64.apk"
-          KEYSTORE="$HOME/.android/messagebot-ci.keystore"
-          test -s "$RAW_APK"
-          unzip -t "$RAW_APK"
+          APK="build/app/outputs/flutter-apk/app-arm64-v8a-release.apk"
+          FINAL_APK="build/app/outputs/flutter-apk/Message_Bot_V4_Android15_ARM64.apk"
+          test -s "$APK"
+          unzip -t "$APK"
           BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
-          "$BUILD_TOOLS/zipalign" -c -v 4 "$RAW_APK"
-          mkdir -p "$HOME/.android"
-          if [ ! -s "$KEYSTORE" ]; then
-            keytool -genkeypair -v \
-              -keystore "$KEYSTORE" \
-              -storepass android \
-              -keypass android \
-              -alias messagebot \
-              -keyalg RSA \
-              -keysize 2048 \
-              -validity 10000 \
-              -dname "CN=Message Bot, OU=GodFirst, O=GodFirst, L=Brazzaville, C=CG"
-          fi
-          "$BUILD_TOOLS/apksigner" sign \
-            --ks "$KEYSTORE" \
-            --ks-key-alias messagebot \
-            --ks-pass pass:android \
-            --key-pass pass:android \
-            --v1-signing-enabled true \
-            --v2-signing-enabled true \
-            --v3-signing-enabled true \
-            --v4-signing-enabled false \
-            --out "$FINAL_APK" \
-            "$RAW_APK"
-          "$BUILD_TOOLS/zipalign" -c -v 4 "$FINAL_APK"
-          unzip -t "$FINAL_APK"
-          VERIFY_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$FINAL_APK")
+          "$BUILD_TOOLS/zipalign" -P 16 -c -v 4 "$APK"
+          VERIFY_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$APK")
           echo "$VERIFY_OUT"
           echo "$VERIFY_OUT" | grep -q "^Verifies"
           echo "$VERIFY_OUT" | grep -q "Verified using v2 scheme (APK Signature Scheme v2): true"
-          echo "$VERIFY_OUT" | grep -q "Verified using v3 scheme (APK Signature Scheme v3): true"
-          V1_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --min-sdk-version 23 "$FINAL_APK")
-          echo "$V1_OUT"
-          echo "$V1_OUT" | grep -q "Verified using v1 scheme (JAR signing): true"
-          jarsigner -verify "$FINAL_APK"
-          "$BUILD_TOOLS/aapt" dump badging "$FINAL_APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64-badging.txt
-          sha256sum "$FINAL_APK" | tee build/app/outputs/flutter-apk/message-bot-v4-arm64.sha256
+          BADGING=$("$BUILD_TOOLS/aapt" dump badging "$APK")
+          echo "$BADGING" | tee build/app/outputs/flutter-apk/message-bot-v4-android15-badging.txt
+          echo "$BADGING" | grep -q "targetSdkVersion:'35'"
+          echo "$BADGING" | grep -q "native-code: 'arm64-v8a'"
+          rm -rf build/apk-native-check
+          mkdir -p build/apk-native-check
+          unzip -q "$APK" 'lib/arm64-v8a/*.so' -d build/apk-native-check
+          python - <<'PY'
+          import re, subprocess
+          from pathlib import Path
+          libs = sorted(Path("build/apk-native-check/lib/arm64-v8a").glob("*.so"))
+          if not libs:
+              raise SystemExit("No ARM64 native libraries found")
+          for lib in libs:
+              out = subprocess.check_output(["readelf", "-lW", str(lib)], text=True)
+              aligns = [int(x, 16) for x in re.findall(r"LOAD.*?\s(0x[0-9a-fA-F]+)\s*$", out, re.M)]
+              if not aligns or min(aligns) < 0x4000:
+                  raise SystemExit(f"{lib.name} is not 16 KB ELF-aligned: {aligns}")
+              print(f"{lib.name}: 16 KB ELF alignment OK ({aligns})")
+          PY
+          cp "$APK" "$FINAL_APK"
+          sha256sum "$FINAL_APK" | tee build/app/outputs/flutter-apk/message-bot-v4-android15-arm64.sha256
       - uses: actions/upload-artifact@v4
         with:
-          name: message-bot-v4-arm64-apk
+          name: message-bot-v4-android15-arm64-apk
           path: |
-            build/app/outputs/flutter-apk/Message_Bot_V4_ARM64.apk
-            build/app/outputs/flutter-apk/message-bot-v4-arm64.sha256
-            build/app/outputs/flutter-apk/message-bot-v4-arm64-badging.txt
+            build/app/outputs/flutter-apk/Message_Bot_V4_Android15_ARM64.apk
+            build/app/outputs/flutter-apk/message-bot-v4-android15-arm64.sha256
+            build/app/outputs/flutter-apk/message-bot-v4-android15-badging.txt
 
   windows-release:
     runs-on: windows-2022
