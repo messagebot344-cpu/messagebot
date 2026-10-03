@@ -28,16 +28,16 @@ jobs:
           path = Path("android/app/build.gradle.kts")
           text = path.read_text()
           needle = "    buildTypes {"
-          block = """    signingConfigs {
-        getByName("debug") {
-            enableV1Signing = true
-            enableV2Signing = true
-            enableV3Signing = true
-            enableV4Signing = true
-        }
-    }
-
-"""
+          block = (
+              '    signingConfigs {\n'
+              '        getByName("debug") {\n'
+              '            enableV1Signing = true\n'
+              '            enableV2Signing = true\n'
+              '            enableV3Signing = true\n'
+              '            enableV4Signing = true\n'
+              '        }\n'
+              '    }\n\n'
+          )
           if block not in text:
               if needle not in text:
                   raise SystemExit("Could not find buildTypes block in generated Gradle file")
@@ -58,7 +58,7 @@ jobs:
           unzip -t "$APK"
           BUILD_TOOLS="$(find "$ANDROID_HOME/build-tools" -mindepth 1 -maxdepth 1 -type d | sort -V | tail -n 1)"
           "$BUILD_TOOLS/zipalign" -c -v 4 "$APK"
-          VERIFY_OUT="$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$APK")"
+          VERIFY_OUT=$("$BUILD_TOOLS/apksigner" verify --verbose --print-certs "$APK")
           echo "$VERIFY_OUT"
           echo "$VERIFY_OUT" | grep -q "Verified using v1 scheme (JAR signing): true"
           echo "$VERIFY_OUT" | grep -q "Verified using v2 scheme (APK Signature Scheme v2): true"
