@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 import '../app_scope.dart';
-import '../models/models.dart';
 import 'comparison_screen.dart';
 import 'passage_navigation.dart';
 
