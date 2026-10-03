@@ -248,12 +248,16 @@ class SemanticIndex {
   void _normalizeVector(Float32List v) {
     final n = math.sqrt(_norm2(v));
     if (n == 0) return;
-    for (var i = 0; i < v.length; i++) v[i] /= n;
+    for (var i = 0; i < v.length; i++) {
+      v[i] /= n;
+    }
   }
 
   double _norm2(Float32List v) {
     var total = 0.0;
-    for (final x in v) total += x * x;
+    for (final x in v) {
+      total += x * x;
+    }
     return total;
   }
 }
