@@ -105,7 +105,7 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
               child: DropdownButtonFormField<int>(
-                value: _selectedChapterId,
+                initialValue: _selectedChapterId,
                 isExpanded: true,
                 decoration: const InputDecoration(
                   labelText: 'Chapitre',
