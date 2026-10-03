@@ -57,7 +57,7 @@ jobs:
         run: |
           set -o pipefail
           flutter pub get 2>&1 | sed \
-            -e '/packages have newer versions incompatible with dependency constraints\./d' \
+            -e '/^[0-9][0-9]* packages have newer versions/d' \
             -e '/Try `flutter pub outdated` for more information\./d'
       - run: flutter analyze
       - run: flutter test
@@ -125,7 +125,7 @@ jobs:
         run: |
           set -o pipefail
           flutter pub get 2>&1 | sed \
-            -e '/packages have newer versions incompatible with dependency constraints\./d' \
+            -e '/^[0-9][0-9]* packages have newer versions/d' \
             -e '/Try `flutter pub outdated` for more information\./d'
       - run: flutter analyze
       - run: flutter test
