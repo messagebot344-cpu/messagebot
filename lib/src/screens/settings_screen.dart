@@ -20,7 +20,7 @@ class SettingsScreen extends StatelessWidget {
           LayoutBuilder(builder: (context, constraints) {
             if (constraints.maxWidth < 520) {
               return DropdownButtonFormField<ThemeMode>(
-                value: controller.themeMode,
+                initialValue: controller.themeMode,
                 isExpanded: true,
                 decoration: const InputDecoration(labelText: 'Thème', prefixIcon: Icon(Icons.palette_outlined)),
                 items: const [
