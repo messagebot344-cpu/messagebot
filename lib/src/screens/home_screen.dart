@@ -87,7 +87,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     _StatChip(label: '${stats.sermons} prédications', icon: Icons.library_books_outlined),
                     _StatChip(label: '${stats.editions} éditions', icon: Icons.layers_outlined),
                     _StatChip(label: '${stats.passages} passages', icon: Icons.segment),
-                    _StatChip(label: '100 % hors ligne', icon: Icons.cloud_off_outlined),
+                    const _StatChip(label: '100 % hors ligne', icon: Icons.cloud_off_outlined),
                   ],
                 ),
                 if (scope.controller.historyEnabled && history.isNotEmpty) ...[
