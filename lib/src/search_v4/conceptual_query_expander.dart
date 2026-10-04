@@ -28,7 +28,10 @@ class ConceptualQueryExpander {
   final bool useCorpusAssociations;
   final Map<String, List<String>> _associationCache = <String, List<String>>{};
 
-  ConceptualExpansion expand(QuerySpecV4 spec) {
+  ConceptualExpansion expand(
+    QuerySpecV4 spec, {
+    bool includeCorpusAssociations = true,
+  }) {
     final normalized = normalizer.normalize(spec.raw);
     final questionLike = spec.raw.contains('?') ||
         RegExp(
@@ -53,7 +56,9 @@ class ConceptualQueryExpander {
       }
     }
 
-    if (questionLike && useCorpusAssociations) {
+    if (questionLike &&
+        useCorpusAssociations &&
+        includeCorpusAssociations) {
       for (final term in focus.take(3)) {
         related.addAll(_associatedTerms(term));
       }

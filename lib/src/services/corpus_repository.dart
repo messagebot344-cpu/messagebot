@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:sqlite3/sqlite3.dart';
 
 import '../models/models.dart';
@@ -11,6 +13,10 @@ class RankedPassage {
 class CorpusRepository {
   Database? _db;
   List<SermonSummary>? _sermonCache;
+  final LinkedHashMap<int, StudyPassage> _studyDetailCache =
+      LinkedHashMap<int, StudyPassage>();
+
+  static const int _studyDetailCacheLimit = 256;
 
   Database get db {
     final value = _db;
@@ -21,6 +27,7 @@ class CorpusRepository {
   void open(String path) {
     _db?.dispose();
     _sermonCache = null;
+    _studyDetailCache.clear();
     _db = sqlite3.open(path, mode: OpenMode.readOnly);
   }
 
@@ -28,6 +35,7 @@ class CorpusRepository {
     _db?.dispose();
     _db = null;
     _sermonCache = null;
+    _studyDetailCache.clear();
   }
 
   CorpusStats getStats() {
@@ -278,9 +286,23 @@ class CorpusRepository {
 
 
   Map<int, StudyPassage> studyDetailsForPassageIds(Iterable<int> ids) {
-    final list = ids.toList(growable: false);
+    final list = ids.toSet().toList(growable: false);
     if (list.isEmpty) return const {};
-    final marks = List.filled(list.length, '?').join(',');
+
+    final result = <int, StudyPassage>{};
+    final missing = <int>[];
+    for (final id in list) {
+      final cached = _studyDetailCache.remove(id);
+      if (cached == null) {
+        missing.add(id);
+        continue;
+      }
+      _studyDetailCache[id] = cached;
+      result[id] = cached;
+    }
+    if (missing.isEmpty) return result;
+
+    final marks = List.filled(missing.length, '?').join(',');
     final rows = db.select(
       'SELECT p.id AS passage_id,p.edition_id,p.sermon_id,p.ordinal,p.source_page_start,p.source_page_end,p.text_display, '
       'p.source_id,p.source_type,p.book_chapter_id, src.title AS source_title,src.code AS source_code,src.year AS source_year, '
@@ -292,9 +314,8 @@ class CorpusRepository {
       'LEFT JOIN editions e ON e.id=p.edition_id '
       'LEFT JOIN book_chapters bc ON bc.id=p.book_chapter_id '
       'WHERE p.id IN ($marks)',
-      list,
+      missing,
     );
-    final result = <int, StudyPassage>{};
     for (final r in rows) {
       final passage = Passage(
         id: r['passage_id'] as int,
@@ -336,13 +357,18 @@ class CorpusRepository {
           );
         }
       }
-      result[passage.id] = StudyPassage(
+      final detail = StudyPassage(
         passage: passage,
         source: source,
         sermon: sermon,
         edition: edition,
         chapterTitle: r['chapter_title'] as String?,
       );
+      result[passage.id] = detail;
+      _studyDetailCache[passage.id] = detail;
+      if (_studyDetailCache.length > _studyDetailCacheLimit) {
+        _studyDetailCache.remove(_studyDetailCache.keys.first);
+      }
     }
     return result;
   }
@@ -386,6 +412,30 @@ class CorpusRepository {
       documentCount: r['document_count'] as int,
       totalOccurrences: r['total_occurrences'] as int,
     )).toList(growable: false);
+  }
+
+  List<TermStat> searchTermStatsByPrefix(
+    String prefix, {
+    int limit = 100,
+  }) {
+    final q = _normalizeLookup(prefix);
+    if (q.isEmpty) return const [];
+    final rows = db.select(
+      'SELECT term,document_count,total_occurrences FROM term_stats '
+      'WHERE term LIKE ? '
+      'ORDER BY CASE WHEN term=? THEN 0 ELSE 1 END,'
+      'total_occurrences DESC,term LIMIT ?',
+      ['$q%', q, limit],
+    );
+    return rows
+        .map(
+          (r) => TermStat(
+            term: r['term'] as String,
+            documentCount: r['document_count'] as int,
+            totalOccurrences: r['total_occurrences'] as int,
+          ),
+        )
+        .toList(growable: false);
   }
 
   List<int> concordancePassageIds(
@@ -434,6 +484,21 @@ class CorpusRepository {
               year: r['year'] as int?,
             ))
         .toList(growable: false);
+  }
+
+  Map<String, int> bookChapterCounts(Iterable<String> sourceIds) {
+    final ids = sourceIds.toSet().toList(growable: false);
+    if (ids.isEmpty) return const <String, int>{};
+    final marks = List.filled(ids.length, '?').join(',');
+    final rows = db.select(
+      'SELECT source_id,COUNT(*) AS n FROM book_chapters '
+      'WHERE source_id IN ($marks) GROUP BY source_id',
+      ids,
+    );
+    return <String, int>{
+      for (final row in rows)
+        row['source_id'] as String: row['n'] as int,
+    };
   }
 
   CorpusSourceSummary? sourceById(String sourceId) {

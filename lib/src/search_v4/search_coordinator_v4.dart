@@ -23,12 +23,17 @@ class SearchOutcomeV4 {
     required this.references,
     required this.explanations,
     this.fuzzySuggestions = const <String>[],
+    this.details = const <int, StudyPassage>{},
   });
 
   final QuerySpecV4 query;
   final List<PassageReference> references;
   final Map<int, SearchExplanationV4> explanations;
   final List<String> fuzzySuggestions;
+
+  /// Canonical details already loaded while ranking. Reusing them avoids a
+  /// second SQLite round-trip in SearchServiceV4.
+  final Map<int, StudyPassage> details;
 }
 
 class SearchCoordinatorV4 {
@@ -64,15 +69,23 @@ class SearchCoordinatorV4 {
   Future<SearchOutcomeV4> search(
     String raw, {
     ConversationFilterSet inherited = const ConversationFilterSet(),
-    int maxResults = 800,
+    int maxResults = 120,
   }) async {
     final spec = parser.parse(raw, inherited: inherited);
     if (spec.isEmpty || spec.subjectTerms.isEmpty && spec.sermonCode == null) {
       return SearchOutcomeV4(query: spec, references: const [], explanations: const {});
     }
 
-    const candidateLimit = 1800;
-    final conceptual = conceptualExpander.expand(spec);
+    // Retrieval pools scale with the number of results the caller can
+    // actually consume. Keeping thousands of FTS rows for an 80-result UI
+    // wastes SQLite, allocation and ranking work without improving display.
+    final candidateLimit = (maxResults * 10).clamp(600, 1200).toInt();
+    final expansionLimit = (candidateLimit * 0.55).round();
+    final secondaryLimit = (candidateLimit * 0.40).round();
+    final conceptual = conceptualExpander.expand(
+      spec,
+      includeCorpusAssociations: false,
+    );
     final tokens = conceptual.focusTerms.take(12).toList(growable: false);
     final effectiveSpec = QuerySpecV4(
       raw: spec.raw,
@@ -113,7 +126,13 @@ class SearchCoordinatorV4 {
         : proximityEngine.search(effectiveSpec, limit: candidateLimit);
     final strong = strongQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, strongQuery, candidateLimit);
     final broad = broadQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, broadQuery, candidateLimit);
-    final prefix = prefixQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, prefixQuery, 900);
+    final prefix = prefixQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, prefixQuery, expansionLimit);
+
+    final strongEvidenceCount =
+        direct.length + exact.length + proximity.length + strong.length;
+    final conceptualWithAssociations = strongEvidenceCount < 40
+        ? conceptualExpander.expand(spec)
+        : conceptual;
 
     final morphologyTerms = <String>{};
     for (final token in tokens) {
@@ -121,16 +140,16 @@ class SearchCoordinatorV4 {
     }
     morphologyTerms.removeAll(tokens);
     final morphologyQuery = morphologyTerms.take(16).map((e) => '"${e.replaceAll('"', '""')}"').join(' OR ');
-    final morphHits = morphologyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, morphologyQuery, 900);
+    final morphHits = morphologyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, morphologyQuery, expansionLimit);
 
-    final conceptualTerms = conceptual.relatedTerms;
+    final conceptualTerms = conceptualWithAssociations.relatedTerms;
     final conceptualQuery = conceptualTerms
         .take(12)
         .map((e) => '"${e.replaceAll('"', '""')}"')
         .join(' OR ');
     final conceptualHits = conceptualQuery.isEmpty
         ? const <RankedPassage>[]
-        : _search(effectiveSpec, conceptualQuery, 700);
+        : _search(effectiveSpec, conceptualQuery, secondaryLimit);
 
     final offlineAiMatches =
         offlineAiRouter?.match(spec.raw) ?? const <OfflineAiTopicMatch>[];
@@ -147,18 +166,33 @@ class SearchCoordinatorV4 {
       offlineAiCitationMatches: offlineAiCitationMatches,
     );
 
+    // Fuzzy expansion is a fallback. Running term-stat lookups for every
+    // well-formed query is expensive and adds no value when strong corpus
+    // evidence is already abundant.
+    final needsFuzzyFallback = strongEvidenceCount < 40;
     final fuzzyTerms = <String>[];
-    for (final token in tokens.where((e) => e.length >= 4)) {
-      final needle = token.length >= 4 ? token.substring(0, 3) : token;
-      final candidates = repository.searchTermStats(needle, limit: 80);
-      final suggestion = fuzzyMatcher.best(token, candidates);
-      if (suggestion != null && !tokens.contains(suggestion.term)) fuzzyTerms.add(suggestion.term);
+    if (needsFuzzyFallback) {
+      for (final token in tokens.where((e) => e.length >= 4)) {
+        final needle = token.substring(0, 3);
+        final candidates =
+            repository.searchTermStatsByPrefix(needle, limit: 80);
+        final suggestion = fuzzyMatcher.best(token, candidates);
+        if (suggestion != null && !tokens.contains(suggestion.term)) {
+          fuzzyTerms.add(suggestion.term);
+        }
+      }
     }
-    final fuzzyQuery = fuzzyTerms.toSet().take(12).map((e) => '"${e.replaceAll('"', '""')}"').join(' OR ');
-    final fuzzyHits = fuzzyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, fuzzyQuery, 700);
+    final fuzzyQuery = fuzzyTerms
+        .toSet()
+        .take(12)
+        .map((e) => '"${e.replaceAll('"', '""')}"')
+        .join(' OR ');
+    final fuzzyHits = fuzzyQuery.isEmpty
+        ? const <RankedPassage>[]
+        : _search(effectiveSpec, fuzzyQuery, secondaryLimit);
     final alternate = strongQuery.isEmpty || effectiveSpec.filters.sourceType == 'book'
         ? const <RankedPassage>[]
-        : repository.lexicalSearchAlternates(strongQuery, limit: 500);
+        : repository.lexicalSearchAlternates(strongQuery, limit: secondaryLimit);
 
     final ranked = ranker.rank(
       RetrievalBundleV4(
@@ -336,6 +370,11 @@ class SearchCoordinatorV4 {
       references: refs,
       explanations: explanations,
       fuzzySuggestions: fuzzyTerms.toSet().toList(growable: false),
+      details: <int, StudyPassage>{
+        for (final ref in refs)
+          if (details[ref.passageId] != null)
+            ref.passageId: details[ref.passageId]!,
+      },
     );
   }
 

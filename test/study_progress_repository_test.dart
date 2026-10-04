@@ -88,6 +88,89 @@ void main() {
     dir.deleteSync(recursive: true);
   });
 
+  test('un paragraphe déjà lu n est pas réécrit à chaque tick', () {
+    var now = 3000000;
+    final dir = Directory.systemTemp.createTempSync('grenier-study-stable-');
+    final db = UserDatabase.openPath('${dir.path}/user.db');
+    final repository = StudyProgressRepository(db, now: () => now);
+    final p = paragraph('stable-p', 0, 120);
+
+    repository.recordParagraphActivity(
+      sermonId: 1,
+      packVersion: 1,
+      paragraph: p,
+      allParagraphs: [p],
+      visibleMilliseconds: repository.requiredVisibleMilliseconds(120),
+      visibleRatio: 1,
+      appIsActive: true,
+      studyScreenIsActive: true,
+    );
+    final before = db.db
+        .select(
+          'SELECT accumulated_visible_ms,updated_at '
+          'FROM study_paragraph_progress '
+          'WHERE sermon_id=1 AND pack_version=1 AND paragraph_key=?',
+          [p.paragraphKey],
+        )
+        .first;
+
+    now += 5000;
+    final percent = repository.recordParagraphActivity(
+      sermonId: 1,
+      packVersion: 1,
+      paragraph: p,
+      allParagraphs: [p],
+      visibleMilliseconds: 5000,
+      visibleRatio: 1,
+      appIsActive: true,
+      studyScreenIsActive: true,
+    );
+    final after = db.db
+        .select(
+          'SELECT accumulated_visible_ms,updated_at '
+          'FROM study_paragraph_progress '
+          'WHERE sermon_id=1 AND pack_version=1 AND paragraph_key=?',
+          [p.paragraphKey],
+        )
+        .first;
+
+    expect(percent, 1);
+    expect(after['accumulated_visible_ms'], before['accumulated_visible_ms']);
+    expect(after['updated_at'], before['updated_at']);
+
+    db.close();
+    dir.deleteSync(recursive: true);
+  });
+
+  test('heartbeat regroupe temps actif et position de reprise', () {
+    var now = 4000000;
+    final dir = Directory.systemTemp.createTempSync('grenier-study-heartbeat-');
+    final db = UserDatabase.openPath('${dir.path}/user.db');
+    final repository = StudyProgressRepository(db, now: () => now);
+
+    repository.ensureProgress(sermonId: 9, packVersion: 3);
+    now += 2000;
+    repository.recordStudyHeartbeat(
+      sermonId: 9,
+      packVersion: 3,
+      seconds: 2,
+      paragraphKey: 'heartbeat-p',
+      passageId: 909,
+      offset: 44,
+      appIsActive: true,
+      studyScreenIsActive: true,
+    );
+
+    final snapshot = repository.progress(9, 3)!;
+    expect(snapshot.activeStudySeconds, 2);
+    expect(snapshot.lastParagraphKey, 'heartbeat-p');
+    expect(snapshot.lastPassageId, 909);
+    expect(snapshot.lastOffset, 44);
+
+    db.close();
+    dir.deleteSync(recursive: true);
+  });
+
   test('reprise et temps actif persistent après fermeture', () {
     var now = 5000000;
     final dir = Directory.systemTemp.createTempSync('grenier-study-resume-');

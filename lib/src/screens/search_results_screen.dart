@@ -17,7 +17,8 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
   late final TextEditingController _controller;
   late Future<List<DocumentSearchHit>> _future;
   bool _initialized = false;
-  int _limit = 10;
+  static const int _fetchLimit = 50;
+  int _visibleLimit = 10;
 
   @override
   void initState() {
@@ -30,7 +31,9 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     super.didChangeDependencies();
     if (_initialized) return;
     _initialized = true;
-    _future = AppScope.of(context).searchService.searchDocuments(_controller.text, limit: _limit);
+    _future = AppScope.of(context)
+        .searchService
+        .searchDocuments(_controller.text, limit: _fetchLimit);
   }
 
   @override
@@ -46,19 +49,19 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
     if (scope.controller.historyEnabled) scope.personalLibrary.addSearchHistory(query);
     if (!mounted) return;
     setState(() {
-      if (resetLimit) _limit = 10;
-      _future = scope.searchService.searchDocuments(query, limit: _limit);
+      if (resetLimit) _visibleLimit = 10;
+      _future = scope.searchService.searchDocuments(
+        query,
+        limit: _fetchLimit,
+      );
     });
   }
 
   void _loadMore() {
-    if (_limit >= 50) return;
+    if (_visibleLimit >= _fetchLimit) return;
     setState(() {
-      _limit = (_limit + 10).clamp(10, 50).toInt();
-      _future = AppScope.of(context).searchService.searchDocuments(
-        _controller.text.trim(),
-        limit: _limit,
-      );
+      _visibleLimit =
+          (_visibleLimit + 10).clamp(10, _fetchLimit).toInt();
     });
   }
 
@@ -100,7 +103,11 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     ),
                   );
                 }
-                final hits = snapshot.data ?? const <DocumentSearchHit>[];
+                final allHits =
+                    snapshot.data ?? const <DocumentSearchHit>[];
+                final hits = allHits
+                    .take(_visibleLimit)
+                    .toList(growable: false);
                 if (hits.isEmpty) {
                   return const Center(
                     child: Padding(
@@ -112,7 +119,9 @@ class _SearchResultsScreenState extends State<SearchResultsScreen> {
                     ),
                   );
                 }
-                final canLoadMore = hits.length >= _limit && _limit < 50;
+                final canLoadMore =
+                    hits.length < allHits.length &&
+                    _visibleLimit < _fetchLimit;
                 return ListView.separated(
                   padding: const EdgeInsets.fromLTRB(12, 0, 12, 24),
                   itemCount: hits.length + 1,

@@ -252,6 +252,9 @@ class _ConversationScreenState extends State<ConversationScreen> {
       }
 
       final topScore = turn.hits.first.score;
+      final persistedByPassage = {
+        for (final hit in turn.record.hits) hit.passageId: hit,
+      };
       slivers.add(SliverPadding(
         padding: const EdgeInsets.fromLTRB(16, 0, 16, 8),
         sliver: SliverList(
@@ -259,7 +262,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
             (context, index) {
               final hit = turn.hits[index];
               final passageId = hit.studyPassage.passage.id;
-              final persisted = turn.record.hits.where((e) => e.passageId == passageId).firstOrNull;
+              final persisted = persistedByPassage[passageId];
               return Padding(
                 padding: const EdgeInsets.only(bottom: 10),
                 child: ConversationResultCard(
@@ -286,11 +289,3 @@ class _ConversationScreenState extends State<ConversationScreen> {
   }
 }
 
-extension _FirstOrNull<E> on Iterable<E> {
-  E? get firstOrNull {
-    for (final value in this) {
-      return value;
-    }
-    return null;
-  }
-}

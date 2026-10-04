@@ -85,12 +85,15 @@ class StudyProgressRepository {
     required bool appIsActive,
     required bool studyScreenIsActive,
   }) {
-    ensureProgress(sermonId: sermonId, packVersion: packVersion);
+    final current = ensureProgress(
+      sermonId: sermonId,
+      packVersion: packVersion,
+    );
     if (!appIsActive ||
         !studyScreenIsActive ||
         visibleMilliseconds <= 0 ||
         visibleRatio < minimumVisibleRatio) {
-      return progress(sermonId, packVersion)!.readingPercent;
+      return current.readingPercent;
     }
 
     final now = _now();
@@ -108,6 +111,9 @@ class StudyProgressRepository {
     final firstSeen =
         rows.isEmpty ? now : rows.first['first_seen_at'] as int? ?? now;
     final wasRead = rows.isNotEmpty && rows.first['state'] == 'read';
+    if (wasRead) {
+      return current.readingPercent;
+    }
 
     database.db.execute(
       'INSERT INTO study_paragraph_progress('
@@ -134,11 +140,27 @@ class StudyProgressRepository {
       ],
     );
 
+    var nextReadingPercent = current.readingPercent;
+    if (nextState == 'read') {
+      final totalCharacters = allParagraphs.fold<int>(
+        0,
+        (sum, item) => sum + item.characterCount,
+      );
+      if (totalCharacters > 0) {
+        nextReadingPercent = (
+          current.readingPercent +
+          paragraph.characterCount / totalCharacters
+        ).clamp(0.0, 1.0).toDouble();
+      }
+    }
+
     database.db.execute(
-      'UPDATE study_progress SET last_paragraph_key=?,last_passage_id=?,'
+      'UPDATE study_progress SET reading_percent=?,'
+      'last_paragraph_key=?,last_passage_id=?,'
       'last_offset=?,last_studied_at=?,updated_at=? '
       'WHERE sermon_id=? AND pack_version=?',
       [
+        nextReadingPercent,
         paragraph.paragraphKey,
         paragraph.passageId,
         paragraph.startOffset,
@@ -149,11 +171,7 @@ class StudyProgressRepository {
       ],
     );
 
-    return recalculateReadingPercent(
-      sermonId: sermonId,
-      packVersion: packVersion,
-      allParagraphs: allParagraphs,
-    );
+    return nextReadingPercent;
   }
 
   double recalculateReadingPercent({
@@ -248,6 +266,38 @@ class StudyProgressRepository {
       'WHERE sermon_id=? AND pack_version=?',
       [
         sectionId,
+        paragraphKey,
+        passageId,
+        offset,
+        now,
+        now,
+        sermonId,
+        packVersion,
+      ],
+    );
+  }
+
+  void recordStudyHeartbeat({
+    required int sermonId,
+    required int packVersion,
+    required int seconds,
+    required String paragraphKey,
+    required int passageId,
+    required int offset,
+    required bool appIsActive,
+    required bool studyScreenIsActive,
+  }) {
+    if (seconds <= 0 || !appIsActive || !studyScreenIsActive) return;
+    ensureProgress(sermonId: sermonId, packVersion: packVersion);
+    final now = _now();
+    database.db.execute(
+      'UPDATE study_progress SET '
+      'active_study_seconds=active_study_seconds+?,'
+      'last_paragraph_key=?,last_passage_id=?,last_offset=?,'
+      'last_studied_at=?,updated_at=? '
+      'WHERE sermon_id=? AND pack_version=?',
+      [
+        seconds,
         paragraphKey,
         passageId,
         offset,

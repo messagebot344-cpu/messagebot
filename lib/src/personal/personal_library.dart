@@ -85,6 +85,20 @@ class PersonalLibrary {
     }
   }
 
+  void setFavorite(String sourceKey, bool favorite) {
+    if (favorite) {
+      database.db.execute(
+        'INSERT OR IGNORE INTO favorites(source_key,created_at) VALUES(?,?)',
+        [sourceKey, _now],
+      );
+    } else {
+      database.db.execute(
+        'DELETE FROM favorites WHERE source_key=?',
+        [sourceKey],
+      );
+    }
+  }
+
   void addPassageBookmark(int passageId, {String? label}) {
     database.db.execute(
       'INSERT INTO passage_bookmarks(passage_id,label,created_at) VALUES(?,?,?) '
@@ -152,6 +166,29 @@ class PersonalLibrary {
       )
       .map(_highlightFromRow)
       .toList(growable: false);
+
+  List<PassageHighlight> highlightsForPassages(
+    Iterable<int> passageIds,
+  ) {
+    final ids = passageIds.toSet().toList(growable: false);
+    if (ids.isEmpty) return const <PassageHighlight>[];
+
+    final result = <PassageHighlight>[];
+    const batchSize = 400;
+    for (var start = 0; start < ids.length; start += batchSize) {
+      final end = (start + batchSize).clamp(0, ids.length).toInt();
+      final batch = ids.sublist(start, end);
+      final marks = List.filled(batch.length, '?').join(',');
+      final rows = database.db.select(
+        'SELECT id,passage_id,start_offset,end_offset,highlighted_text,created_at '
+        'FROM passage_highlights WHERE passage_id IN ($marks) '
+        'ORDER BY passage_id,start_offset,id',
+        batch,
+      );
+      result.addAll(rows.map(_highlightFromRow));
+    }
+    return result;
+  }
 
   PassageHighlight _highlightFromRow(dynamic row) => PassageHighlight(
         id: row['id'] as int,

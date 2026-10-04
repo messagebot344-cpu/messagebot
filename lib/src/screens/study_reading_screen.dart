@@ -43,6 +43,8 @@ class _StudyReadingScreenState extends State<StudyReadingScreen>
   double _readingPercent = 0;
   int _completedSections = 0;
 
+  static const Duration _activityTick = Duration(seconds: 2);
+
   @override
   void initState() {
     super.initState();
@@ -57,7 +59,7 @@ class _StudyReadingScreenState extends State<StudyReadingScreen>
     try {
       _load();
       _timer = Timer.periodic(
-        const Duration(seconds: 1),
+        _activityTick,
         (_) => _recordVisibleActivity(),
       );
     } catch (error) {
@@ -152,13 +154,16 @@ class _StudyReadingScreenState extends State<StudyReadingScreen>
     );
   }
 
-  Future<void> _recordVisibleActivity() async {
+  void _recordVisibleActivity() {
     if (!mounted || !_active || _paragraphs.isEmpty) return;
     final visible = _positions.itemPositions.value;
     if (visible.isEmpty) return;
 
     final scope = AppScope.of(context);
     var countedAny = false;
+    var latestReadingPercent = _readingPercent;
+    StudyParagraph? resumeParagraph;
+    var bestVisibleRatio = 0.0;
     for (final position in visible) {
       if (position.index < 0 || position.index >= _paragraphs.length) {
         continue;
@@ -169,33 +174,36 @@ class _StudyReadingScreenState extends State<StudyReadingScreen>
       if (ratio < 0.60) continue;
       countedAny = true;
       final paragraph = _paragraphs[position.index];
-      scope.studyProgressRepository.recordParagraphActivity(
+      latestReadingPercent =
+          scope.studyProgressRepository.recordParagraphActivity(
         sermonId: widget.pack.sermonId,
         packVersion: widget.pack.packVersion,
         paragraph: paragraph,
         allParagraphs: _paragraphs,
-        visibleMilliseconds: 1000,
+        visibleMilliseconds: _activityTick.inMilliseconds,
         visibleRatio: ratio,
         appIsActive: true,
         studyScreenIsActive: true,
       );
-      scope.studyProgressRepository.setResumePosition(
-        sermonId: widget.pack.sermonId,
-        packVersion: widget.pack.packVersion,
-        paragraphKey: paragraph.paragraphKey,
-        passageId: paragraph.passageId,
-        offset: paragraph.startOffset,
-      );
+      if (ratio > bestVisibleRatio) {
+        bestVisibleRatio = ratio;
+        resumeParagraph = paragraph;
+      }
     }
 
-    if (!countedAny) return;
-    scope.studyProgressRepository.addActiveStudySeconds(
+    if (!countedAny || resumeParagraph == null) return;
+    scope.studyProgressRepository.recordStudyHeartbeat(
       sermonId: widget.pack.sermonId,
       packVersion: widget.pack.packVersion,
-      seconds: 1,
+      seconds: _activityTick.inSeconds,
+      paragraphKey: resumeParagraph.paragraphKey,
+      passageId: resumeParagraph.passageId,
+      offset: resumeParagraph.startOffset,
       appIsActive: true,
       studyScreenIsActive: true,
     );
+
+    if (latestReadingPercent == _readingPercent) return;
 
     for (final section in _sections) {
       final sectionKeys = section.paragraphKeys.toSet();
@@ -224,20 +232,15 @@ class _StudyReadingScreenState extends State<StudyReadingScreen>
       );
     }
 
-    final progress = scope.studyProgressRepository.progress(
-      widget.pack.sermonId,
-      widget.pack.packVersion,
-    );
-    if (progress == null) return;
     final completed = scope.studyProgressRepository.completedSectionCount(
       widget.pack.sermonId,
       widget.pack.packVersion,
     );
     if (mounted &&
-        (progress.readingPercent != _readingPercent ||
+        (latestReadingPercent != _readingPercent ||
             completed != _completedSections)) {
       setState(() {
-        _readingPercent = progress.readingPercent;
+        _readingPercent = latestReadingPercent;
         _completedSections = completed;
       });
     }
