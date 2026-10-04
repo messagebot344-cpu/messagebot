@@ -25,6 +25,7 @@ class UserDatabase {
     result._ensureBaseSchema();
     result.ensureV4Schema();
     result.ensureV5Schema();
+    result.ensureV6Schema();
     return result;
   }
 
@@ -169,6 +170,157 @@ class UserDatabase {
         'ON passage_highlights(passage_id,start_offset,end_offset)',
       );
       setMeta('schema_version', '5');
+      db.execute('COMMIT');
+    } catch (_) {
+      db.execute('ROLLBACK');
+      rethrow;
+    }
+  }
+
+  void ensureV6Schema() {
+    final current = int.tryParse(meta('schema_version') ?? '1') ?? 1;
+    if (current >= 6 &&
+        _hasTable('study_progress') &&
+        _hasTable('study_certifications')) {
+      return;
+    }
+    db.execute('BEGIN IMMEDIATE');
+    try {
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS study_progress(
+          sermon_id INTEGER NOT NULL,
+          pack_version INTEGER NOT NULL,
+          status TEXT NOT NULL,
+          reading_percent REAL NOT NULL DEFAULT 0,
+          active_study_seconds INTEGER NOT NULL DEFAULT 0,
+          last_section_id INTEGER,
+          last_paragraph_key TEXT,
+          last_passage_id INTEGER,
+          last_offset INTEGER,
+          started_at INTEGER NOT NULL,
+          last_studied_at INTEGER NOT NULL,
+          completed_at INTEGER,
+          updated_at INTEGER NOT NULL,
+          PRIMARY KEY(sermon_id,pack_version)
+        )
+      ''');
+      db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_study_progress_status '
+        'ON study_progress(status,last_studied_at DESC)',
+      );
+
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS study_paragraph_progress(
+          sermon_id INTEGER NOT NULL,
+          pack_version INTEGER NOT NULL,
+          paragraph_key TEXT NOT NULL,
+          character_count INTEGER NOT NULL,
+          accumulated_visible_ms INTEGER NOT NULL DEFAULT 0,
+          state TEXT NOT NULL DEFAULT 'unseen',
+          first_seen_at INTEGER,
+          read_at INTEGER,
+          updated_at INTEGER NOT NULL,
+          PRIMARY KEY(sermon_id,pack_version,paragraph_key)
+        )
+      ''');
+      db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_study_paragraph_progress_state '
+        'ON study_paragraph_progress(sermon_id,pack_version,state)',
+      );
+
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS study_section_progress(
+          sermon_id INTEGER NOT NULL,
+          pack_version INTEGER NOT NULL,
+          section_id INTEGER NOT NULL,
+          state TEXT NOT NULL,
+          reading_percent REAL NOT NULL DEFAULT 0,
+          checkpoint_score REAL,
+          completed_at INTEGER,
+          updated_at INTEGER NOT NULL,
+          PRIMARY KEY(sermon_id,pack_version,section_id)
+        )
+      ''');
+
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS study_question_attempts(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          question_id INTEGER NOT NULL,
+          sermon_id INTEGER NOT NULL,
+          pack_version INTEGER NOT NULL,
+          context TEXT NOT NULL,
+          attempt_id INTEGER,
+          answer_payload TEXT NOT NULL,
+          score REAL NOT NULL,
+          answered_at INTEGER NOT NULL
+        )
+      ''');
+      db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_study_question_attempts_question '
+        'ON study_question_attempts(question_id,answered_at DESC)',
+      );
+      db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_study_question_attempts_sermon '
+        'ON study_question_attempts(sermon_id,pack_version,context,answered_at DESC)',
+      );
+
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS study_exam_attempts(
+          attempt_id INTEGER PRIMARY KEY AUTOINCREMENT,
+          sermon_id INTEGER NOT NULL,
+          pack_version INTEGER NOT NULL,
+          seed TEXT NOT NULL,
+          started_at INTEGER NOT NULL,
+          submitted_at INTEGER,
+          overall_score REAL,
+          category_scores_json TEXT,
+          passed INTEGER,
+          attempt_number INTEGER NOT NULL
+        )
+      ''');
+      db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_study_exam_attempts_sermon '
+        'ON study_exam_attempts(sermon_id,pack_version,attempt_number DESC)',
+      );
+
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS study_exam_items(
+          attempt_id INTEGER NOT NULL,
+          question_id INTEGER NOT NULL,
+          display_order INTEGER NOT NULL,
+          option_order_json TEXT NOT NULL,
+          PRIMARY KEY(attempt_id,question_id),
+          FOREIGN KEY(attempt_id) REFERENCES study_exam_attempts(attempt_id)
+            ON DELETE CASCADE
+        )
+      ''');
+      db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_study_exam_items_order '
+        'ON study_exam_items(attempt_id,display_order)',
+      );
+
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS study_certifications(
+          certification_id TEXT PRIMARY KEY,
+          sermon_id INTEGER NOT NULL,
+          pack_version INTEGER NOT NULL,
+          corpus_version TEXT NOT NULL,
+          score REAL NOT NULL,
+          category_scores_json TEXT NOT NULL,
+          study_seconds INTEGER NOT NULL,
+          attempt_id INTEGER NOT NULL,
+          certified_at INTEGER NOT NULL,
+          level TEXT NOT NULL,
+          integrity_hash TEXT NOT NULL,
+          UNIQUE(sermon_id,pack_version,attempt_id)
+        )
+      ''');
+      db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_study_certifications_sermon '
+        'ON study_certifications(sermon_id,certified_at DESC)',
+      );
+
+      setMeta('schema_version', '6');
       db.execute('COMMIT');
     } catch (_) {
       db.execute('ROLLBACK');

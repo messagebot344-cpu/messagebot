@@ -16,7 +16,7 @@ void main() {
     final db = UserDatabase.openPath(path);
     expect(nested.existsSync(), isTrue);
     expect(File(path).existsSync(), isTrue);
-    expect(db.meta('schema_version'), '5');
+    expect(db.meta('schema_version'), '6');
 
     db.close();
     root.deleteSync(recursive: true);
@@ -70,7 +70,7 @@ void main() {
     dir.deleteSync(recursive: true);
   });
 
-  test('migration V4 vers V5 conserve les données personnelles existantes', () {
+  test('migration V4 vers V6 conserve les données personnelles existantes', () {
     final dir = Directory.systemTemp.createTempSync('grenier-user-v4-v5-');
     final path = '${dir.path}/user.db';
     final db = UserDatabase.openPath(path);
@@ -83,7 +83,7 @@ void main() {
 
     final reopened = UserDatabase.openPath(path);
     final again = PersonalLibrary(reopened);
-    expect(reopened.meta('schema_version'), '5');
+    expect(reopened.meta('schema_version'), '6');
     expect(again.notesForPassage(99).single.note, 'Note existante');
     expect(again.passageBookmarks, contains(99));
 
@@ -94,6 +94,51 @@ void main() {
       highlightedText: 'Test',
     );
     expect(again.highlightsForPassage(99), hasLength(1));
+    reopened.close();
+    dir.deleteSync(recursive: true);
+  });
+
+  test('migration V5 vers V6 conserve surlignages, notes et signets', () {
+    final dir = Directory.systemTemp.createTempSync('grenier-user-v5-v6-');
+    final path = '${dir.path}/user.db';
+    final db = UserDatabase.openPath(path);
+    final library = PersonalLibrary(db);
+    library.addNote(77, 'Note à conserver');
+    library.addPassageBookmark(77);
+    library.addHighlight(
+      passageId: 77,
+      startOffset: 2,
+      endOffset: 8,
+      highlightedText: 'source',
+    );
+
+    for (final table in [
+      'study_progress',
+      'study_paragraph_progress',
+      'study_section_progress',
+      'study_question_attempts',
+      'study_exam_attempts',
+      'study_exam_items',
+      'study_certifications',
+    ]) {
+      db.db.execute('DROP TABLE IF EXISTS $table');
+    }
+    db.setMeta('schema_version', '5');
+    db.close();
+
+    final reopened = UserDatabase.openPath(path);
+    final again = PersonalLibrary(reopened);
+    expect(reopened.meta('schema_version'), '6');
+    expect(again.notesForPassage(77).single.note, 'Note à conserver');
+    expect(again.passageBookmarks, contains(77));
+    expect(again.highlightsForPassage(77).single.highlightedText, 'source');
+    expect(
+      reopened.db.select(
+        "SELECT 1 FROM sqlite_master WHERE type='table' AND name='study_progress'",
+      ),
+      isNotEmpty,
+    );
+
     reopened.close();
     dir.deleteSync(recursive: true);
   });

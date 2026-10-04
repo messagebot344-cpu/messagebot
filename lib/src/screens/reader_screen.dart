@@ -11,6 +11,7 @@ import 'highlights_screen.dart';
 import 'comparison_screen.dart';
 import 'passage_target.dart';
 import 'similar_passages_screen.dart';
+import 'study_overview_screen.dart';
 
 class ReaderScreen extends StatefulWidget {
   const ReaderScreen({
@@ -491,6 +492,25 @@ class _ReaderScreenState extends State<ReaderScreen> {
                 },
               ),
             ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 4),
+            child: SizedBox(
+              width: double.infinity,
+              child: FilledButton.tonalIcon(
+                onPressed: () => Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => StudyOverviewScreen(
+                      sermon: widget.sermon,
+                    ),
+                  ),
+                ),
+                icon: const Icon(Icons.school_outlined),
+                label: const Text(
+                  'Étudier & obtenir la certification',
+                ),
+              ),
+            ),
+          ),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
             child: Row(

@@ -30,3 +30,5 @@ flutter:
   assets:
     - assets/corpus/
     - assets/corpus/db_parts/
+    - assets/study/
+    - assets/study/db_parts/

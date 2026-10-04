@@ -14,11 +14,14 @@ runtime_files = [
 ]
 runtime_files += list((ROOT/'lib/src/search_v4').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/conversation').glob('*.dart'))
+runtime_files += list((ROOT/'lib/src/study_certification').glob('*.dart'))
+runtime_files += list((ROOT/'lib/src/screens').glob('study_*.dart'))
 for p in runtime_files:
     text=p.read_text(encoding='utf-8')
     for banned in ['semantic_index.dart','SemanticIndex(', 'SemanticSearchEngine(', 'semantic_vectors.f32','semantic_components.f32']:
         if banned in text: fail(f'{p.relative_to(ROOT)} contains banned V4 runtime dependency: {banned}')
-    if re.search(r"package:(http|dio)/", text): fail(f'{p.relative_to(ROOT)} imports a network client')
+    if re.search(r"package:(http|dio|web_socket_channel|openai|google_generative_ai|anthropic)/", text):
+        fail(f'{p.relative_to(ROOT)} imports a network/generative client')
 
 # V4 sparse similar-passages implementation must not read precomputed LSA neighbors.
 sim=(ROOT/'lib/src/study/similarity_engine.dart').read_text(encoding='utf-8')

@@ -23,6 +23,8 @@ jobs:
         run: |
           python tools/v4_runtime_guard.py
           python tools/validate_v4_release.py
+      - name: Test Study Pack pipeline
+        run: python -m unittest discover tools/study_pipeline -p 'test_*.py'
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.4'
@@ -139,3 +141,80 @@ jobs:
         with:
           name: message-bot-v4-windows
           path: build/windows/x64/runner/Release/
+  study-prototype-audit:
+    if: github.ref == 'refs/heads/feature/certifying-study-engine' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[prototype-audit]'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Reconstruct validated corpus
+        run: |
+          mkdir -p build/study-audit
+          python tools/study_pipeline/reconstruct_corpus.py . build/study-audit/corpus.db
+      - name: Select representative prototype sermons
+        run: |
+          python tools/study_pipeline/select_prototype_sermons.py build/study-audit/corpus.db --report build/study-audit/prototype_candidates.json
+          rm -f build/study-audit/corpus.db
+      - uses: actions/upload-artifact@v7
+        with:
+          name: study-prototype-audit
+          path: build/study-audit/prototype_candidates.json
+
+  study-prototype-source-export:
+    if: github.ref == 'refs/heads/feature/certifying-study-engine' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[prototype-source-export]'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Reconstruct validated corpus
+        run: |
+          mkdir -p build/study-source-export
+          python tools/study_pipeline/reconstruct_corpus.py . build/study-source-export/corpus.db
+      - name: Export exact selected prototype sources
+        run: |
+          python tools/study_pipeline/export_prototype_sources.py build/study-source-export/corpus.db --selection reports/study_prototype_selection.json --output build/study-source-export/prototype_sources.json
+          rm -f build/study-source-export/corpus.db
+      - uses: actions/upload-artifact@v7
+        with:
+          name: study-prototype-sources
+          path: build/study-source-export/prototype_sources.json
+
+
+  study-foundation-package:
+    if: github.ref == 'refs/heads/feature/certifying-study-engine' && contains(github.event.head_commit.message, '[package-study-foundation]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Package Study Pack foundation
+        run: python tools/study_pipeline/package_study_foundation.py
+      - name: Verify generated Study Pack assets
+        run: |
+          python - <<'PY'
+          import hashlib, json, sqlite3
+          from pathlib import Path
+          manifest = json.loads(Path("assets/study/manifest.json").read_text(encoding="utf-8"))
+          part = Path("assets/study/db_parts") / manifest["parts"][0]["name"]
+          assert part.stat().st_size == manifest["database_bytes"]
+          assert hashlib.sha256(part.read_bytes()).hexdigest() == manifest["database_sha256"]
+          db = sqlite3.connect(f"file:{part}?mode=ro", uri=True)
+          try:
+              assert db.execute("PRAGMA quick_check").fetchone()[0].lower() == "ok"
+              assert db.execute("SELECT value FROM study_pack_meta WHERE key='corpus_version'").fetchone()[0] == manifest["corpus_version"]
+              assert db.execute("SELECT value FROM study_pack_meta WHERE key='corpus_canonical_sha256'").fetchone()[0] == manifest["corpus_canonical_sha256"]
+          finally:
+              db.close()
+          print("STUDY_FOUNDATION_PACKAGE: OK")
+          PY
+      - name: Commit packaged foundation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/study/manifest.json assets/study/db_parts/study_packs.db.part000
+          if git diff --cached --quiet; then
+            echo "Study foundation already up to date."
+            exit 0
+          fi
+          git commit -m "build: package Study Pack foundation"
+          git push origin HEAD:feature/certifying-study-engine
