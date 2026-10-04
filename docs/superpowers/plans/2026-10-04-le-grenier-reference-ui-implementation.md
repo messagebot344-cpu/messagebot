@@ -95,6 +95,21 @@
   - `abstract final class GrenierPalette` exposing `navy`, `actionBlue`, `lightCanvas`, `highlightLight`, `offlineGreen`.
   - `MessageBotTheme.light()` and `MessageBotTheme.dark()` remain the public theme entry points for compatibility.
 
+**Test contract:**
+
+```dart
+test('Grenier brand and breakpoints are exact', () {
+  expect(GrenierBrand.name, 'Le Grenier du Message');
+  expect(GrenierBrand.versionLabel, 'V4 – IR Expert');
+  expect(GrenierBrand.tagline, 'Toute Sa Parole. Toujours avec vous. Hors ligne.');
+  expect(GrenierBrand.offlineLabel, '100% hors ligne');
+  expect(GrenierBrand.noAiLabel, 'Aucune IA générative');
+  expect(GrenierBrand.canonicalOnlyLabel, 'Texte canonique uniquement');
+  expect(GrenierBreakpoints.mobile, 760.0);
+  expect(GrenierBreakpoints.desktopWide, 1180.0);
+});
+```
+
 - [ ] **Step 1: Write the failing token/theme test**
 
 Create tests asserting exact brand strings, exact breakpoint constants, and that light/dark themes use the approved navy/action blue families.
@@ -139,6 +154,35 @@ git commit -m "feat: add Grenier design system foundation"
   - `GrenierDesktopSidebar({required GrenierDestination selected, required ValueChanged<GrenierDestination> onSelect, required VoidCallback onNewConversation, required List<ConversationSummary> recentConversations, required ValueChanged<int> onOpenConversation})`.
   - `GrenierMobileNavigation({required GrenierDestination selected, required ValueChanged<GrenierDestination> onSelect})`.
   - `ConversationShellScreen` becomes the only adapter that maps destinations to actual screens and controller actions.
+
+**Test contract:**
+
+```dart
+testWidgets('desktop shell exposes the approved navigation', (tester) async {
+  await pumpNavigationHarness(tester, size: const Size(1440, 900));
+  expect(find.text('Le Grenier du Message'), findsWidgets);
+  expect(find.text('+ Nouvelle conversation'), findsOneWidget);
+  for (final label in const [
+    'Accueil', 'Bibliothèque', 'Conversations', 'Collections', 'Notes',
+    'Concordance', 'Chronologie', 'Comparer', 'Références bibliques', 'Réglages',
+  ]) {
+    expect(find.text(label), findsOneWidget);
+  }
+  expect(find.byType(NavigationBar), findsNothing);
+});
+
+testWidgets('mobile shell has four primary destinations without overflow', (tester) async {
+  await pumpNavigationHarness(
+    tester,
+    size: const Size(360, 800),
+    recentTitle: 'Une conversation extrêmement longue qui doit rester lisible sans dépasser',
+  );
+  for (final label in const ['Accueil', 'Bibliothèque', 'Conversations', 'Réglages']) {
+    expect(find.text(label), findsOneWidget);
+  }
+  expect(tester.takeException(), isNull);
+});
+```
 
 - [ ] **Step 1: Write failing desktop/mobile navigation tests**
 
@@ -209,6 +253,19 @@ git commit -m "feat: rebuild responsive Grenier shell"
   - `GrenierHomeScreen({required VoidCallback onStartConversation})`.
   - Existing `HomeScreen` may remain as a thin compatibility wrapper only if other code imports it.
 
+**Test contract:**
+
+```dart
+testWidgets('mobile home matches the Grenier brand hierarchy', (tester) async {
+  await pumpHome(tester, size: const Size(390, 844));
+  expect(find.text('Le Grenier du Message'), findsOneWidget);
+  expect(find.text('V4 – IR Expert'), findsOneWidget);
+  expect(find.text('Toute Sa Parole.\nToujours avec vous.\nHors ligne.'), findsOneWidget);
+  expect(find.text('Commencer une recherche'), findsOneWidget);
+  expect(tester.takeException(), isNull);
+});
+```
+
 - [ ] **Step 1: Write failing home tests**
 
 Desktop assertions: brand title, tagline, trust labels, primary CTA.  
@@ -261,6 +318,39 @@ git commit -m "feat: add Grenier reference home"
   - `ConversationComposer({required Future<void> Function(String) onSend, required bool busy, bool centered = false, ConversationFilterSet filters = const ConversationFilterSet()})`.
   - documentary response header preserves `ConversationResultMessageHeader({count, filters, fuzzySuggestions})` and adds real chip-removal/add-filter callbacks.
   - conversation screen exposes a lazy scrollable workspace; no eager nested list of all result cards.
+
+**Test contract:**
+
+```dart
+test('active filters can be edited by category', () {
+  final controller = buildConversationControllerForTest();
+  controller.setActiveFilters(const ConversationFilterSet(
+    subjectTerms: ['mariage'], yearMin: 1960, sourceType: 'sermon',
+  ));
+  controller.clearPeriodFilter();
+  expect(controller.activeFilters.subjectTerms, ['mariage']);
+  expect(controller.activeFilters.yearMin, isNull);
+  expect(controller.activeFilters.sourceType, 'sermon');
+});
+
+testWidgets('documentary response exposes real filter controls', (tester) async {
+  await pumpConversationHarness(tester, filters: const ConversationFilterSet(
+    subjectTerms: ['mariage'], yearMin: 1960, yearMax: 1965, sourceType: 'sermon',
+  ));
+  expect(find.text('Ajouter un filtre'), findsOneWidget);
+  expect(find.textContaining('Sujet'), findsOneWidget);
+  expect(find.textContaining('Période'), findsOneWidget);
+  expect(find.textContaining('Source'), findsOneWidget);
+});
+
+testWidgets('conversation results use a lazy list on a long turn', (tester) async {
+  await pumpConversationHarness(tester, resultCount: 120);
+  expect(find.byType(ListView), findsWidgets);
+  expect(find.byKey(const Key('result-rank-120')), findsNothing);
+  await tester.scrollUntilVisible(find.byKey(const Key('result-rank-120')), 800);
+  expect(find.byKey(const Key('result-rank-120')), findsOneWidget);
+});
+```
 
 - [ ] **Step 1: Write failing active-filter controller tests**
 
@@ -332,6 +422,38 @@ git commit -m "feat: rebuild documentary conversation workspace and filters"
   - `ResultDetailsPanel({required ResultSelection selection, required VoidCallback onClose})`.
   - `ConversationResultCard` gains `ValueChanged<ResultSelection>? onSelected` and visually matches the reference card hierarchy.
 
+**Test contract:**
+
+```dart
+testWidgets('canonical highlight preserves exact displayed text', (tester) async {
+  const source = 'Le mari aime l’amour de l’Église, exactement.';
+  await tester.pumpWidget(testApp(
+    const CanonicalHighlightText(text: source, terms: ['mari', 'amour', 'eglise']),
+  ));
+  expect(extractAllTextSpans(tester), source);
+});
+
+testWidgets('reference result card exposes the approved actions', (tester) async {
+  await pumpResultCard(tester);
+  for (final label in const [
+    'Développer', 'Ouvrir', 'Comparer', 'Passages similaires',
+    'Collection', 'Copier', 'Imprimer', 'Citer',
+  ]) {
+    expect(find.text(label), findsOneWidget);
+  }
+  expect(find.textContaining('Très pertinent'), findsWidgets);
+});
+
+testWidgets('details pane collapses safely below wide breakpoint', (tester) async {
+  final harness = await pumpSelectedResultWorkspace(tester, size: const Size(1400, 900));
+  expect(find.byType(ResultDetailsPanel), findsOneWidget);
+  await harness.resize(const Size(700, 900));
+  expect(find.byType(ResultDetailsPanel), findsNothing);
+  expect(find.byTooltip('Détails du résultat'), findsOneWidget);
+  expect(tester.takeException(), isNull);
+});
+```
+
 - [ ] **Step 1: Write failing card/highlight tests**
 
 Assert rank badge, relevance badge, highlighted citation, reference metadata, and action labels:
@@ -395,6 +517,25 @@ git commit -m "feat: add reference result cards and detail pane"
   - `ScriptureReferencesScreen()` with query field and canonical occurrence list.
   - Sidebar `Comparer` and `Références bibliques` become real functional destinations, not decorative items.
 
+**Test contract:**
+
+```dart
+testWidgets('compare picker uses current result as passage A', (tester) async {
+  await pumpComparisonPicker(tester, initialPassage: passageA);
+  expect(find.textContaining(passageA.referenceLabel), findsOneWidget);
+  await selectSecondComparisonResult(tester, passageB);
+  expect(find.text('Comparer'), findsWidgets);
+});
+
+testWidgets('scripture reference result opens its canonical passage', (tester) async {
+  final opened = <int>[];
+  await pumpScriptureReferenceScreen(tester, onOpenPassageId: opened.add);
+  await submitScriptureQuery(tester, 'Jean 3:16');
+  await tester.tap(find.byKey(const Key('scripture-result-0')));
+  expect(opened, isNotEmpty);
+});
+```
+
 - [ ] **Step 1: Write failing compare tests**
 
 Assert that opening with an initial passage shows it as passage A, search/selecting another result enables `Comparer`, and pressing it opens `ComparisonScreen`.
@@ -448,6 +589,17 @@ git commit -m "feat: add compare and scripture navigation destinations"
 - Consumes: Task 1 design tokens and existing domain methods exactly as-is.
 - Produces: no new domain interface; all screens share consistent title spacing, cards, fields, chips, action-blue accents, and mobile-safe layouts.
 
+**Test contract:**
+
+```dart
+testWidgets('secondary screens remain usable at 390 px', (tester) async {
+  for (final screen in buildSecondaryScreenHarnesses()) {
+    await pumpSized(tester, screen, const Size(390, 844));
+    expect(tester.takeException(), isNull, reason: screen.runtimeType.toString());
+  }
+});
+```
+
 - [ ] **Step 1: Add failing visual-contract widget assertions**
 
 For each screen, assert common surface/background/input/card styling markers and no overflow at 390 px. Verify existing action labels and domain content still appear.
@@ -497,6 +649,34 @@ git commit -m "feat: align secondary screens with Grenier design"
   - `PrintDocumentBuilder({DateTime Function()? now})` accepts an injectable clock for deterministic generated-date tests;
   - PDFs include the applicable generated date, query/filter/result count/rank/qualitative relevance/citation/canonical reference/page number plus the existing required author/contact footer;
   - `PrintService` default filename changes to `Le_Grenier_du_Message.pdf` without changing its method signatures.
+
+**Test contract:**
+
+```dart
+test('all three PDF levels use Grenier identity and deterministic date', () async {
+  final builder = PrintDocumentBuilder(now: () => DateTime(2026, 10, 4));
+  await builder.buildPassagePdf(result, query: 'mariage');
+  expect(builder.debugPlainText, contains('Le Grenier du Message'));
+  expect(builder.debugPlainText, contains('04/10/2026'));
+  expect(builder.debugPlainText, isNot(contains('Message Bot')));
+
+  await builder.buildTurnPdf(turn);
+  expect(builder.debugPlainText, contains('37 passages pertinents'));
+
+  await builder.buildConversationPdf(conversation);
+  expect(builder.debugPlainText, contains(turns.first.query));
+  expect(builder.debugPlainText, contains(turns.last.query));
+});
+
+testWidgets('dark theme highlight and focus remain readable', (tester) async {
+  await pumpDarkResultCardWithFocusedAction(tester);
+  final colors = readHighlightColors(tester);
+  expect(colors.background, isNot(colors.surface));
+  expect(colors.foreground, isNot(colors.background));
+  expect(find.byKey(const Key('focused-result-action')), findsOneWidget);
+  expect(tester.takeException(), isNull);
+});
+```
 
 - [ ] **Step 1: Write failing PDF branding test**
 
