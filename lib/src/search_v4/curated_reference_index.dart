@@ -13,6 +13,8 @@ class CuratedSermonReference {
     required this.context,
     required this.anchorTerms,
     required this.sourceIndexId,
+    required this.corpusResolved,
+    this.unresolvedReason,
   });
 
   final String id;
@@ -22,6 +24,8 @@ class CuratedSermonReference {
   final String context;
   final List<String> anchorTerms;
   final String sourceIndexId;
+  final bool corpusResolved;
+  final String? unresolvedReason;
 }
 
 class CuratedReferenceTopic {
@@ -148,6 +152,9 @@ class CuratedReferenceIndex {
           context: _requiredString(map, 'context'),
           anchorTerms: _stringList(map['anchor_terms']),
           sourceIndexId: indexId,
+          corpusResolved:
+              (map['corpus_status'] as String? ?? 'resolved') == 'resolved',
+          unresolvedReason: map['unresolved_reason'] as String?,
         );
         if (reference.anchorTerms.isEmpty) {
           throw FormatException(
@@ -290,7 +297,7 @@ class CuratedReferenceIndex {
           position++) {
         final id = match.topic.referenceIds[position];
         final reference = references[id];
-        if (reference == null) continue;
+        if (reference == null || !reference.corpusResolved) continue;
         final score = match.score - position * 0.08;
         final previous = best[id];
         if (previous == null || score > previous.matchScore) {
