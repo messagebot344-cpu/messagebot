@@ -136,6 +136,7 @@ class OfflineAiCitationRanker {
                 reference.context,
                 reference.sermonTitle,
                 ...reference.anchorTerms,
+                ...labels,
               ].join(' '),
               removeStopWords: true,
             )
