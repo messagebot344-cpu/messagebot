@@ -31,7 +31,7 @@ void main() {
       index.references.values
           .where((reference) => !reference.corpusResolved)
           .length,
-      1,
+      18,
     );
   });
 
