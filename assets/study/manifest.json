@@ -1,0 +1,20 @@
+{
+  "packset_version": "foundation-2019.06-source__app-2026.09.22-v4",
+  "schema_version": 1,
+  "corpus_version": "2019.06-source__app-2026.09.22-v4",
+  "corpus_canonical_sha256": "fff2085e1d6ec5ec18e40273fb83a19cbee01fbad1171d98f00208b0dec00611",
+  "database_file": "study_packs.db",
+  "database_bytes": 200704,
+  "database_sha256": "002bba18039953711c69fb7516dbda577f740d388c8b86d36fc48db2bfdfad39",
+  "parts": [
+    {
+      "name": "study_packs.db.part000",
+      "bytes": 200704,
+      "sha256": "002bba18039953711c69fb7516dbda577f740d388c8b86d36fc48db2bfdfad39"
+    }
+  ],
+  "stats": {
+    "published_packs": 0,
+    "status": "foundation_only"
+  }
+}
