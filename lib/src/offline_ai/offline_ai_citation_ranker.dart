@@ -156,6 +156,8 @@ class OfflineAiCitationRanker {
         for (final entry in topicLabelsByReference.entries)
           entry.key: List.unmodifiable(entry.value),
       },
+      referenceTokensByReference: referenceTokensByReference,
+      normalizedContextByReference: normalizedContextByReference,
       normalizer: index.normalizer,
       dimensions: dimensions,
       minReferenceScore: minReferenceScore,
