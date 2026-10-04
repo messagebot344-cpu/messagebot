@@ -78,7 +78,15 @@ with tempfile.NamedTemporaryFile(suffix='.db') as tmp:
                         check(bool(code), f'{rel}:{ref_id}: sermon_code missing')
                         check(bool(anchors), f'{rel}:{ref_id}: anchor_terms missing')
                         sermon=con.execute('SELECT id FROM sermons WHERE code=? LIMIT 1',(code,)).fetchone()
-                        check(sermon is not None, f'{rel}:{ref_id}: unknown sermon code {code}')
+                        if sermon is None:
+                            title=str(ref.get('sermon_title') or '').strip()
+                            needle=title.split(' / ')[0].strip()
+                            candidates=con.execute(
+                                'SELECT code,title FROM sermons WHERE lower(title) LIKE ? ORDER BY code LIMIT 8',
+                                (f'%{needle.lower()}%',),
+                            ).fetchall() if needle else []
+                            hint=', '.join(f'{row[0]} — {row[1]}' for row in candidates) or 'aucun titre proche'
+                            check(False, f'{rel}:{ref_id}: unknown sermon code {code}; corpus candidates: {hint}')
                         if sermon is not None and anchors:
                             terms=[]
                             for value in anchors:
