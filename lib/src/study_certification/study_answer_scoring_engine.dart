@@ -253,7 +253,7 @@ class StudyAnswerScoringEngine {
       .trim()
       .toLowerCase()
       .replaceAll(RegExp(r'[’‘]'), "'")
-      .replaceAll(RegExp(r'[^a-z0-9àâäçéèêëîïôöùûüÿœæ\s\'-]'), ' ')
+      .replaceAll(RegExp(r"[^a-z0-9àâäçéèêëîïôöùûüÿœæ\\s'-]"), ' ')
       .replaceAll(RegExp(r'\s+'), ' ');
 }
 
