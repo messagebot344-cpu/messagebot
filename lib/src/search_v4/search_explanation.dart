@@ -7,9 +7,11 @@ class SearchExplanationV4 {
     this.broadTerms = false,
     this.prefix = false,
     this.morphology = false,
+    this.conceptual = false,
     this.fuzzy = false,
     this.alternateEdition = false,
     this.fuzzyTerms = const <String>[],
+    this.conceptualTerms = const <String>[],
   });
 
   final bool direct;
@@ -19,9 +21,11 @@ class SearchExplanationV4 {
   final bool broadTerms;
   final bool prefix;
   final bool morphology;
+  final bool conceptual;
   final bool fuzzy;
   final bool alternateEdition;
   final List<String> fuzzyTerms;
+  final List<String> conceptualTerms;
 
   List<String> get reasons {
     final values = <String>[];
@@ -32,6 +36,13 @@ class SearchExplanationV4 {
     if (broadTerms) values.add('Plusieurs termes de la recherche sont présents');
     if (prefix) values.add('Correspondance de préfixe');
     if (morphology) values.add('Variante morphologique sûre');
+    if (conceptual) {
+      values.add(
+        conceptualTerms.isEmpty
+            ? 'Contexte conceptuel local du corpus'
+            : 'Contexte conceptuel local : ${conceptualTerms.join(', ')}',
+      );
+    }
     if (fuzzy) values.add('Variante orthographique proche : ${fuzzyTerms.join(', ')}');
     if (alternateEdition) values.add('Correspondance dans une édition alternative');
     return values;
