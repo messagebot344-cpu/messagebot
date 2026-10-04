@@ -34,10 +34,14 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
   }
 
   Future<void> _initialize() async {
+    UserDatabase? pendingUserDatabase;
+    CorpusRepository? pendingRepository;
+    ConversationController? pendingConversationController;
     try {
       final preferences = await PreferencesService.create();
       final controller = AppController(preferences);
       final userDatabase = await UserDatabase.createInAppSupport();
+      pendingUserDatabase = userDatabase;
       final personalLibrary = PersonalLibrary(userDatabase);
       await personalLibrary.migrateFromLegacy(preferences);
       final install = await CorpusInstaller().ensureInstalled(
@@ -50,6 +54,7 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
         },
       );
       final repository = CorpusRepository()..open(install.databasePath);
+      pendingRepository = repository;
       if (mounted) {
         setState(() {
           _progress = 0.96;
@@ -63,7 +68,13 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
         repository: conversationRepository,
         searchService: searchService,
       );
-      if (!mounted) return;
+      pendingConversationController = conversationController;
+      if (!mounted) {
+        conversationController.dispose();
+        repository.close();
+        userDatabase.close();
+        return;
+      }
       setState(() {
         _runtime = _Runtime(
           repository: repository,
@@ -78,7 +89,13 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
         _progress = 1;
         _message = 'Prêt';
       });
+      pendingConversationController = null;
+      pendingRepository = null;
+      pendingUserDatabase = null;
     } catch (e) {
+      pendingConversationController?.dispose();
+      pendingRepository?.close();
+      pendingUserDatabase?.close();
       if (!mounted) return;
       setState(() => _error = e);
     }
