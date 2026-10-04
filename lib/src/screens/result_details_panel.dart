@@ -74,7 +74,7 @@ class ResultDetailsPanel extends StatelessWidget {
               _DetailLine(label: 'Rang', value: '#${selection.rank}'),
               _DetailLine(label: 'Référence', value: source),
               _DetailLine(label: 'Page', value: page),
-              if (item.sermon != null) _DetailLine(label: 'Date', value: item.sermon!.dateDisplay),
+              if (item.sermon != null) _DetailLine(label: 'Année', value: item.sermon!.year.toString()),
               const SizedBox(height: 18),
               Text('Citation ciblée', style: Theme.of(context).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w800)),
               const SizedBox(height: 8),
