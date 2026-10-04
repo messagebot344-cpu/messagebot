@@ -23,12 +23,17 @@ class SearchOutcomeV4 {
     required this.references,
     required this.explanations,
     this.fuzzySuggestions = const <String>[],
+    this.details = const <int, StudyPassage>{},
   });
 
   final QuerySpecV4 query;
   final List<PassageReference> references;
   final Map<int, SearchExplanationV4> explanations;
   final List<String> fuzzySuggestions;
+
+  /// Canonical details already loaded while ranking. Reusing them avoids a
+  /// second SQLite round-trip in SearchServiceV4.
+  final Map<int, StudyPassage> details;
 }
 
 class SearchCoordinatorV4 {
@@ -64,7 +69,7 @@ class SearchCoordinatorV4 {
   Future<SearchOutcomeV4> search(
     String raw, {
     ConversationFilterSet inherited = const ConversationFilterSet(),
-    int maxResults = 800,
+    int maxResults = 120,
   }) async {
     final spec = parser.parse(raw, inherited: inherited);
     if (spec.isEmpty || spec.subjectTerms.isEmpty && spec.sermonCode == null) {
@@ -147,15 +152,31 @@ class SearchCoordinatorV4 {
       offlineAiCitationMatches: offlineAiCitationMatches,
     );
 
+    // Fuzzy expansion is a fallback. Running term-stat lookups for every
+    // well-formed query is expensive and adds no value when strong corpus
+    // evidence is already abundant.
+    final strongEvidenceCount =
+        direct.length + exact.length + proximity.length + strong.length;
+    final needsFuzzyFallback = strongEvidenceCount < 40;
     final fuzzyTerms = <String>[];
-    for (final token in tokens.where((e) => e.length >= 4)) {
-      final needle = token.length >= 4 ? token.substring(0, 3) : token;
-      final candidates = repository.searchTermStats(needle, limit: 80);
-      final suggestion = fuzzyMatcher.best(token, candidates);
-      if (suggestion != null && !tokens.contains(suggestion.term)) fuzzyTerms.add(suggestion.term);
+    if (needsFuzzyFallback) {
+      for (final token in tokens.where((e) => e.length >= 4)) {
+        final needle = token.substring(0, 3);
+        final candidates = repository.searchTermStats(needle, limit: 80);
+        final suggestion = fuzzyMatcher.best(token, candidates);
+        if (suggestion != null && !tokens.contains(suggestion.term)) {
+          fuzzyTerms.add(suggestion.term);
+        }
+      }
     }
-    final fuzzyQuery = fuzzyTerms.toSet().take(12).map((e) => '"${e.replaceAll('"', '""')}"').join(' OR ');
-    final fuzzyHits = fuzzyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, fuzzyQuery, 700);
+    final fuzzyQuery = fuzzyTerms
+        .toSet()
+        .take(12)
+        .map((e) => '"${e.replaceAll('"', '""')}"')
+        .join(' OR ');
+    final fuzzyHits = fuzzyQuery.isEmpty
+        ? const <RankedPassage>[]
+        : _search(effectiveSpec, fuzzyQuery, 700);
     final alternate = strongQuery.isEmpty || effectiveSpec.filters.sourceType == 'book'
         ? const <RankedPassage>[]
         : repository.lexicalSearchAlternates(strongQuery, limit: 500);
@@ -336,6 +357,11 @@ class SearchCoordinatorV4 {
       references: refs,
       explanations: explanations,
       fuzzySuggestions: fuzzyTerms.toSet().toList(growable: false),
+      details: <int, StudyPassage>{
+        for (final ref in refs)
+          if (details[ref.passageId] != null)
+            ref.passageId: details[ref.passageId]!,
+      },
     );
   }
 
