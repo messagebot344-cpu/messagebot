@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import '../models/models.dart';
 import '../search/search_contracts.dart';
 import '../search_v4/curated_reference_index.dart';
+import '../search_v4/query_parser_v4.dart';
 import '../search_v4/text_normalizer.dart';
 
 class OfflineAiCitationMatch {
@@ -27,6 +28,8 @@ class OfflineAiPassageMatch {
     required this.semanticScore,
     required this.coverageScore,
     required this.referencePrior,
+    required this.canonicalEvidenceScore,
+    required this.intentCompatibilityScore,
     this.sentence,
   });
 
@@ -43,6 +46,14 @@ class OfflineAiPassageMatch {
 
   /// Prior confidence inherited from the best matching curated reference.
   final double referencePrior;
+
+  /// Relevance supported by the canonical quotation alone. Curated priors are
+  /// intentionally excluded so a human routing hint can never rescue an
+  /// unrelated passage.
+  final double canonicalEvidenceScore;
+
+  /// Small intent-compatibility signal for why/how/definition/etc.
+  final double intentCompatibilityScore;
 
   /// Best answering sentence, always pointing inside canonical passage text.
   final SentenceReference? sentence;
@@ -68,6 +79,8 @@ class OfflineAiCitationRanker {
     this.dimensions = 8192,
     this.minReferenceScore = 0.045,
     this.minPassageScore = 0.08,
+    this.minAnswerEvidenceScore = 0.11,
+    this.minAnswerScore = 0.13,
   })  : _referenceVectors = Map.unmodifiable(referenceVectors),
         _idf = Map.unmodifiable(idf),
         _topicLabelsByReference = Map.unmodifiable(topicLabelsByReference),
@@ -83,6 +96,8 @@ class OfflineAiCitationRanker {
     int dimensions = 8192,
     double minReferenceScore = 0.045,
     double minPassageScore = 0.08,
+    double minAnswerEvidenceScore = 0.11,
+    double minAnswerScore = 0.13,
   }) {
     final references = index.references.values
         .where((reference) => reference.corpusResolved)
@@ -163,6 +178,8 @@ class OfflineAiCitationRanker {
       dimensions: dimensions,
       minReferenceScore: minReferenceScore,
       minPassageScore: minPassageScore,
+      minAnswerEvidenceScore: minAnswerEvidenceScore,
+      minAnswerScore: minAnswerScore,
     );
   }
 
@@ -171,6 +188,8 @@ class OfflineAiCitationRanker {
   final int dimensions;
   final double minReferenceScore;
   final double minPassageScore;
+  final double minAnswerEvidenceScore;
+  final double minAnswerScore;
   final Map<String, Map<int, double>> _referenceVectors;
   final Map<int, double> _idf;
   final Map<String, List<String>> _topicLabelsByReference;
@@ -247,6 +266,7 @@ class OfflineAiCitationRanker {
     String query,
     Iterable<StudyPassage> passages, {
     Map<int, double> referencePriors = const <int, double>{},
+    QuestionIntent questionIntent = QuestionIntent.none,
   }) {
     final queryVector = _queryVector(query);
     final queryTokens = normalizer
@@ -282,16 +302,36 @@ class OfflineAiCitationRanker {
               0.0;
 
       final semantic = math.max(wholeSimilarity, sentenceSemantic);
+      final canonicalEvidence = (
+        sentenceSemantic * 0.55 +
+        wholeSimilarity * 0.20 +
+        coverage * 0.25
+      ).clamp(0.0, 1.0).toDouble();
+
+      // The canonical text must stand on its own before any curated prior can
+      // influence ranking. This makes the documented anti-hallucination rule
+      // true in the scoring math, not only in comments.
+      if (canonicalEvidence < minPassageScore) continue;
+
+      final intentCompatibility = _intentCompatibility(
+        questionIntent,
+        sentence.$1 == null
+            ? text
+            : text.substring(
+                sentence.$1!.startOffset,
+                sentence.$1!.endOffset,
+              ),
+      );
+      final intentBoost = questionIntent == QuestionIntent.none
+          ? 0.0
+          : intentCompatibility * 0.06;
       final finalScore = (
         sentenceSemantic * 0.50 +
         wholeSimilarity * 0.20 +
         coverage * 0.20 +
-        prior * 0.10
+        prior * 0.10 +
+        intentBoost
       ).clamp(0.0, 1.0).toDouble();
-
-      // A human reference may guide retrieval, but it can never bypass
-      // the canonical answer-relevance threshold.
-      if (finalScore < minPassageScore) continue;
 
       values.add(
         OfflineAiPassageMatch(
@@ -300,6 +340,8 @@ class OfflineAiCitationRanker {
           semanticScore: semantic.clamp(0.0, 1.0).toDouble(),
           coverageScore: coverage.clamp(0.0, 1.0).toDouble(),
           referencePrior: prior,
+          canonicalEvidenceScore: canonicalEvidence,
+          intentCompatibilityScore: intentCompatibility,
           sentence: sentence.$1,
         ),
       );
@@ -312,6 +354,104 @@ class OfflineAiCitationRanker {
           : a.passageId.compareTo(b.passageId);
     });
     return values;
+  }
+
+  bool isStrongAnswer(OfflineAiPassageMatch match) =>
+      match.canonicalEvidenceScore >= minAnswerEvidenceScore &&
+      match.score >= minAnswerScore;
+
+  double _intentCompatibility(
+    QuestionIntent intent,
+    String sentence,
+  ) {
+    if (intent == QuestionIntent.none) return 0.0;
+    final normalized = normalizer.normalize(sentence);
+    if (normalized.isEmpty) return 0.0;
+
+    bool hasAny(Iterable<String> cues) => cues.any(
+          (cue) => (' $normalized ').contains(' $cue '),
+        );
+
+    return switch (intent) {
+      QuestionIntent.why => hasAny(const [
+          'parce',
+          'parce que',
+          'car',
+          'cause',
+          'raison',
+          'puisque',
+          'afin',
+          'because',
+          'reason',
+          'therefore',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.how => hasAny(const [
+          'comment',
+          'doit',
+          'faut',
+          'devez',
+          'devons',
+          'par',
+          'ainsi',
+          'must',
+          'should',
+          'by',
+          'through',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.definition => hasAny(const [
+          'signifie',
+          'veut dire',
+          'est',
+          'c est',
+          'means',
+          'is',
+          'called',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.comparison => hasAny(const [
+          'mais',
+          'tandis',
+          'difference',
+          'contraire',
+          'plutot',
+          'whereas',
+          'but',
+          'rather',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.condition => hasAny(const [
+          'si',
+          'quand',
+          'lorsque',
+          'condition',
+          'if',
+          'when',
+          'unless',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.who => hasAny(const [
+          'celui',
+          'ceux',
+          'homme',
+          'femme',
+          'personne',
+          'who',
+          'man',
+          'woman',
+          'person',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.other => 0.0,
+      QuestionIntent.none => 0.0,
+    };
   }
 
   Map<int, double> _queryVector(String query) => _normalize(
