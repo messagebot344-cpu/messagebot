@@ -4,13 +4,20 @@ import '../models/models.dart';
 import 'book_reader_screen.dart';
 import 'reader_screen.dart';
 
-Future<void> openStudyPassage(BuildContext context, StudyPassage item) async {
+Future<void> openStudyPassage(
+  BuildContext context,
+  StudyPassage item, {
+  int? highlightStartOffset,
+  int? highlightEndOffset,
+}) async {
   if (item.source.type == CorpusSourceType.book) {
     await Navigator.of(context).push<void>(
       MaterialPageRoute<void>(
         builder: (_) => BookReaderScreen(
           source: item.source,
           initialPassageId: item.passage.id,
+          highlightStartOffset: highlightStartOffset,
+          highlightEndOffset: highlightEndOffset,
         ),
       ),
     );
@@ -26,7 +33,10 @@ Future<void> openStudyPassage(BuildContext context, StudyPassage item) async {
       builder: (_) => ReaderScreen(
         sermon: sermon,
         initialEditionId: edition.id,
+        initialPassageId: item.passage.id,
         initialOrdinal: item.passage.ordinal,
+        highlightStartOffset: highlightStartOffset,
+        highlightEndOffset: highlightEndOffset,
       ),
     ),
   );
