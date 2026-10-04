@@ -26,7 +26,12 @@ SUPPORTED_CERT_TYPES = OPTION_SINGLE_TYPES | {
 }
 
 
-def validate(corpus_path: Path, study_path: Path) -> dict:
+def validate(
+    corpus_path: Path,
+    study_path: Path,
+    *,
+    corpus_manifest_path: Path | None = None,
+) -> dict:
     corpus = sqlite3.connect(f"file:{corpus_path}?mode=ro", uri=True)
     corpus.row_factory = sqlite3.Row
     study = sqlite3.connect(f"file:{study_path}?mode=ro", uri=True)
@@ -45,7 +50,22 @@ def validate(corpus_path: Path, study_path: Path) -> dict:
         study_meta = dict(
             study.execute("SELECT key,value FROM study_pack_meta").fetchall()
         )
-        if study_meta.get("corpus_version") != corpus_meta.get("corpus_version"):
+        expected_corpus_version = corpus_meta.get("corpus_version")
+        if corpus_manifest_path is not None:
+            packaged = json.loads(
+                corpus_manifest_path.read_text(encoding="utf-8")
+            )
+            if (
+                packaged.get("canonical_text_sha256")
+                != corpus_meta.get("canonical_text_sha256")
+            ):
+                errors.append(
+                    "Packaged corpus manifest canonical hash mismatch"
+                )
+            else:
+                expected_corpus_version = packaged.get("corpus_version")
+
+        if study_meta.get("corpus_version") != expected_corpus_version:
             errors.append("Study Pack corpus_version mismatch")
         if (
             study_meta.get("corpus_canonical_sha256")
@@ -328,13 +348,27 @@ def validate(corpus_path: Path, study_path: Path) -> dict:
 
 
 def main() -> None:
+    root = Path(__file__).resolve().parents[2]
     parser = argparse.ArgumentParser()
     parser.add_argument("corpus_db", type=Path)
     parser.add_argument("study_db", type=Path)
     parser.add_argument("--report", type=Path)
+    parser.add_argument(
+        "--corpus-manifest",
+        type=Path,
+        default=root / "assets" / "corpus" / "manifest.json",
+    )
     args = parser.parse_args()
 
-    result = validate(args.corpus_db.resolve(), args.study_db.resolve())
+    result = validate(
+        args.corpus_db.resolve(),
+        args.study_db.resolve(),
+        corpus_manifest_path=(
+            args.corpus_manifest.resolve()
+            if args.corpus_manifest is not None
+            else None
+        ),
+    )
     if args.report is not None:
         args.report.parent.mkdir(parents=True, exist_ok=True)
         args.report.write_text(
