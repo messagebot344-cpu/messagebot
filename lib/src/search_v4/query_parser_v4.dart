@@ -37,36 +37,38 @@ class QuerySpecV4 {
     if (exactPhrase != null) return QuestionIntent.none;
     final value = normalized;
     if (value.isEmpty) return QuestionIntent.none;
+    final questionText =
+        value.replaceAll(RegExp(r"[-']"), ' ').replaceAll(RegExp(r'\s+'), ' ');
     if (RegExp(r'^(pourquoi|pour quelle raison|quelle raison)\b')
-        .hasMatch(value)) {
+        .hasMatch(questionText)) {
       return QuestionIntent.why;
     }
     if (RegExp(r'^(comment|que faire|quoi faire|de quelle maniere)\b')
-        .hasMatch(value)) {
+        .hasMatch(questionText)) {
       return QuestionIntent.how;
     }
     if (RegExp(
       r'^(qu est ce que|c est quoi|que signifie|quelle est la signification|definis|definir)\b',
-    ).hasMatch(value)) {
+    ).hasMatch(questionText)) {
       return QuestionIntent.definition;
     }
     if (RegExp(
       r'\b(difference|differencie|comparer|comparaison|plutot que)\b',
-    ).hasMatch(value)) {
+    ).hasMatch(questionText)) {
       return QuestionIntent.comparison;
     }
     if (RegExp(r'^(quand|dans quel cas|a quelle condition|si )')
-        .hasMatch(value)) {
+        .hasMatch(questionText)) {
       return QuestionIntent.condition;
     }
     if (RegExp(r'^(qui|quel|quelle|quels|quelles)\b')
-        .hasMatch(value)) {
+        .hasMatch(questionText)) {
       return QuestionIntent.who;
     }
     if (raw.trim().endsWith('?') ||
         RegExp(
-          r'^(peut on|doit on|faut il|est ce que|parle moi|explique moi|montre moi|je veux savoir|je cherche)\b',
-        ).hasMatch(value)) {
+          r'^(peut on|doit on|faut il|est ce que|parle moi|explique moi|montre moi|je veux savoir)\b',
+        ).hasMatch(questionText)) {
       return QuestionIntent.other;
     }
     return QuestionIntent.none;
