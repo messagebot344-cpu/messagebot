@@ -1,0 +1,2375 @@
+{
+  "schema_version": 1,
+  "index_id": "curated-gods-will-mystery-v1",
+  "purpose": "Human-validated thematic routing hints. This index never replaces corpus.db; every surfaced quotation must still resolve to the canonical corpus.",
+  "source_guides": [
+    {
+      "id": "gods-will-mystery",
+      "title": "La volonté de Dieu : un mystère dans notre vie",
+      "author": "William Marrion Branham — Banque de références thématiques",
+      "provenance": "manual_research_text_fascicle",
+      "trust": "author-curated-reference-map",
+      "source_file_name": "Fascicule_Volonte_de_Dieu_Mystere_dans_notre_vie_101_citations_Branham.text",
+      "source_file_sha256": "65c5817f5a429ee478280855161cc4bb2c9c74713d15651dc8210bee2bee3815",
+      "source_file_bytes": 35552,
+      "source_lines": 709,
+      "source_entries": 101,
+      "resolved_entries": 100,
+      "unresolved_entries": 1
+    }
+  ],
+  "references": [
+    {
+      "id": "god_will_001",
+      "sermon_code": "65-0427",
+      "sermon_title": "Does God change His mind?",
+      "locator": "§14",
+      "context": "Volonté permissive distincte de la volonté parfaite",
+      "anchor_terms": [
+        "volonte",
+        "permissive",
+        "parfaite",
+        "distincte"
+      ],
+      "source_entry_number": 1
+    },
+    {
+      "id": "god_will_002",
+      "sermon_code": "65-0418E",
+      "sermon_title": "Does God ever change His mind about His Word?",
+      "locator": "§48–50",
+      "context": "Se soumettre à la volonté de Dieu et à Sa Parole",
+      "anchor_terms": [
+        "volonte",
+        "parole",
+        "dieu",
+        "soumettre",
+        "must",
+        "submit",
+        "ourselves",
+        "word"
+      ],
+      "source_entry_number": 2
+    },
+    {
+      "id": "god_will_003",
+      "sermon_code": "52-0816",
+      "sermon_title": "How faith acts (Africa trip report)",
+      "locator": "passage avant §13",
+      "context": "Préférer la volonté de Dieu à Sa permission",
+      "anchor_terms": [
+        "volonte",
+        "dieu",
+        "preferer",
+        "permission",
+        "i'd",
+        "rather",
+        "wants"
+      ],
+      "source_entry_number": 3
+    },
+    {
+      "id": "god_will_004",
+      "sermon_code": "47-1123",
+      "sermon_title": "Children in the wilderness",
+      "locator": "§45",
+      "context": "Volonté parfaite et volonté permissive",
+      "anchor_terms": [
+        "volonte",
+        "permissive",
+        "parfaite",
+        "perfect",
+        "god",
+        "there's"
+      ],
+      "source_entry_number": 4
+    },
+    {
+      "id": "god_will_005",
+      "sermon_code": "51-0722A",
+      "sermon_title": "Life Story",
+      "locator": "§8–9",
+      "context": "Chercher personnellement la volonté parfaite de Dieu",
+      "anchor_terms": [
+        "volonte",
+        "parfaite",
+        "dieu",
+        "chercher",
+        "personnellement",
+        "i'm",
+        "seeking",
+        "after",
+        "perfect",
+        "god"
+      ],
+      "source_entry_number": 5
+    },
+    {
+      "id": "god_will_006",
+      "sermon_code": "53-1114",
+      "sermon_title": "Africa Trip Report",
+      "locator": "§44",
+      "context": "Conséquences de sortir de la volonté de Dieu",
+      "anchor_terms": [
+        "volonte",
+        "dieu",
+        "consequences",
+        "sortir",
+        "we're",
+        "god",
+        "it's",
+        "going",
+        "nothing",
+        "trouble"
+      ],
+      "source_entry_number": 6
+    },
+    {
+      "id": "god_will_007",
+      "sermon_code": "52-0713A",
+      "sermon_title": "Early spiritual experiences",
+      "locator": "§49",
+      "context": "Dieu peut permettre sans que ce soit Sa volonté parfaite",
+      "anchor_terms": [
+        "volonte",
+        "parfaite",
+        "dieu",
+        "permettre",
+        "soit",
+        "god",
+        "might",
+        "permit",
+        "ain't"
+      ],
+      "source_entry_number": 7
+    },
+    {
+      "id": "god_will_008",
+      "sermon_code": "65-1127B",
+      "sermon_title": "Trying to do God a service without it being God's will",
+      "locator": "§54",
+      "context": "Souveraineté de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "souverainete",
+        "god",
+        "sovereign",
+        "first",
+        "want",
+        "understand"
+      ],
+      "source_entry_number": 8
+    },
+    {
+      "id": "god_will_009",
+      "sermon_code": "65-0429B",
+      "sermon_title": "The Seed shall not be heir with the shuck",
+      "locator": "passage avant §17",
+      "context": "Rechercher la volonté parfaite",
+      "anchor_terms": [
+        "volonte",
+        "parfaite",
+        "rechercher",
+        "that's",
+        "strive",
+        "for---his",
+        "perfect",
+        "permissive"
+      ],
+      "source_entry_number": 9
+    },
+    {
+      "id": "god_will_010",
+      "sermon_code": "59-0410",
+      "sermon_title": "Looking at the unseen",
+      "locator": "passage avant §8",
+      "context": "Direction du Saint-Esprit et volonté de Dieu",
+      "anchor_terms": [
+        "saint-esprit",
+        "volonte",
+        "dieu",
+        "direction",
+        "according",
+        "leading",
+        "spirit",
+        "they're",
+        "usually",
+        "god"
+      ],
+      "source_entry_number": 10
+    },
+    {
+      "id": "god_will_011",
+      "sermon_code": "60-0805",
+      "sermon_title": "Lamb and Dove",
+      "locator": "passage avant §29",
+      "context": "Dieu conduit Ses enfants",
+      "anchor_terms": [
+        "dieu",
+        "conduit",
+        "enfants",
+        "sons",
+        "daughters",
+        "god",
+        "led",
+        "spirit"
+      ],
+      "source_entry_number": 11
+    },
+    {
+      "id": "god_will_012",
+      "sermon_code": "58-0406S",
+      "sermon_title": "I know my Redeemer liveth",
+      "locator": "§11–12",
+      "context": "Un but divin pour chaque vie",
+      "anchor_terms": [
+        "divin",
+        "chaque",
+        "vie",
+        "god",
+        "made",
+        "some",
+        "purpose"
+      ],
+      "source_entry_number": 12
+    },
+    {
+      "id": "god_will_013",
+      "sermon_code": "62-0319",
+      "sermon_title": "The End-time Sign Seed",
+      "locator": "§30",
+      "context": "Accomplir le but pour lequel Dieu nous a placés ici",
+      "anchor_terms": [
+        "dieu",
+        "accomplir",
+        "lequel",
+        "places",
+        "ici",
+        "put",
+        "purpose",
+        "must",
+        "serve"
+      ],
+      "source_entry_number": 13
+    },
+    {
+      "id": "god_will_014",
+      "sermon_code": "53-0906A",
+      "sermon_title": "Believest thou this?",
+      "locator": "passage avant §75",
+      "context": "Dieu fait concourir les circonstances au bien",
+      "anchor_terms": [
+        "dieu",
+        "concourir",
+        "circonstances",
+        "bien",
+        "things",
+        "work",
+        "together",
+        "good",
+        "love",
+        "god"
+      ],
+      "source_entry_number": 14
+    },
+    {
+      "id": "god_will_015",
+      "sermon_code": "60-0518",
+      "sermon_title": "Adoption, part 2: Manifested sons of God",
+      "locator": "passage avant §14",
+      "context": "Conduite spirituelle des enfants de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "conduite",
+        "spirituelle",
+        "enfants",
+        "led",
+        "spirit",
+        "sons",
+        "daughters",
+        "god"
+      ],
+      "source_entry_number": 15
+    },
+    {
+      "id": "god_will_016",
+      "sermon_code": "59-1217",
+      "sermon_title": "What was the Holy Ghost given for?",
+      "locator": "§10",
+      "context": "Le dessein de Dieu derrière le don du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "dieu",
+        "dessein",
+        "derriere",
+        "don",
+        "god's",
+        "purpose",
+        "god",
+        "himself",
+        "might",
+        "dwell",
+        "church"
+      ],
+      "source_entry_number": 16
+    },
+    {
+      "id": "god_will_017",
+      "sermon_code": "61-1231M",
+      "sermon_title": "You must be born again",
+      "locator": "§38",
+      "context": "Le mystère devient compréhensible par la nouvelle naissance",
+      "anchor_terms": [
+        "mystere",
+        "devient",
+        "comprehensible",
+        "nouvelle",
+        "naissance",
+        "until",
+        "you're",
+        "born",
+        "again",
+        "you'll",
+        "never",
+        "understand"
+      ],
+      "source_entry_number": 17
+    },
+    {
+      "id": "god_will_018",
+      "sermon_code": "62-0506",
+      "sermon_title": "Possessing all things",
+      "locator": "§11",
+      "context": "Même les événements incompris servent un dessein",
+      "anchor_terms": [
+        "evenements",
+        "incompris",
+        "servent",
+        "dessein",
+        "things",
+        "work",
+        "together",
+        "good",
+        "love",
+        "god"
+      ],
+      "source_entry_number": 18
+    },
+    {
+      "id": "god_will_019",
+      "sermon_code": "56-0212",
+      "sermon_title": "Fellowship",
+      "locator": "passage avant §32",
+      "context": "Rien n'atteint le croyant sans permission divine",
+      "anchor_terms": [
+        "rien",
+        "n'atteint",
+        "croyant",
+        "permission",
+        "divine",
+        "nothing",
+        "touch",
+        "without",
+        "comes",
+        "over",
+        "shepherd",
+        "permit"
+      ],
+      "source_entry_number": 19
+    },
+    {
+      "id": "god_will_020",
+      "sermon_code": "60-0711",
+      "sermon_title": "The door inside the door",
+      "locator": "passage avant §3",
+      "context": "Confiance dans la providence de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "confiance",
+        "providence",
+        "things",
+        "work",
+        "together",
+        "good",
+        "love",
+        "god"
+      ],
+      "source_entry_number": 20
+    },
+    {
+      "id": "god_will_021",
+      "sermon_code": "65-0125",
+      "sermon_title": "This day this Scripture is fulfilled",
+      "locator": "§5",
+      "context": "Rien n'arrive au chrétien par hasard",
+      "anchor_terms": [
+        "rien",
+        "n'arrive",
+        "chretien",
+        "hasard",
+        "don't",
+        "believe",
+        "anything",
+        "happens",
+        "christian",
+        "chance"
+      ],
+      "source_entry_number": 21
+    },
+    {
+      "id": "god_will_022",
+      "sermon_code": "64-0213",
+      "sermon_title": "Then Jesus came and called",
+      "locator": "passage sur Lazare",
+      "context": "Le retard de Dieu peut cacher un but",
+      "anchor_terms": [
+        "dieu",
+        "retard",
+        "cacher",
+        "delays",
+        "that's",
+        "right",
+        "knows",
+        "he's",
+        "there's",
+        "purpose"
+      ],
+      "source_entry_number": 22
+    },
+    {
+      "id": "god_will_023",
+      "sermon_code": "50-0716",
+      "sermon_title": "Believest thou this?",
+      "locator": "§71",
+      "context": "Faire confiance même lorsque Dieu semble tarder",
+      "anchor_terms": [
+        "dieu",
+        "confiance",
+        "lorsque",
+        "semble",
+        "tarder",
+        "things",
+        "work",
+        "together",
+        "good",
+        "love",
+        "god"
+      ],
+      "source_entry_number": 23
+    },
+    {
+      "id": "god_will_024",
+      "sermon_code": "62-0513E",
+      "sermon_title": "Letting off the pressure",
+      "locator": "§65–66",
+      "context": "Providence et absence de hasard",
+      "anchor_terms": [
+        "providence",
+        "absence",
+        "hasard",
+        "nothing",
+        "happens",
+        "chance",
+        "everything",
+        "ordained",
+        "god"
+      ],
+      "source_entry_number": 24
+    },
+    {
+      "id": "god_will_025",
+      "sermon_code": "55-1116",
+      "sermon_title": "The Calling of Abraham",
+      "locator": "§29",
+      "context": "La foi ne juge pas seulement par les apparences",
+      "anchor_terms": [
+        "foi",
+        "juge",
+        "seulement",
+        "apparences",
+        "christian",
+        "calculate",
+        "look",
+        "things",
+        "sees"
+      ],
+      "source_entry_number": 25
+    },
+    {
+      "id": "god_will_026",
+      "sermon_code": "63-0223",
+      "sermon_title": "A door in a door",
+      "locator": "§33",
+      "context": "Dieu peut agir de manière inattendue",
+      "anchor_terms": [
+        "dieu",
+        "agir",
+        "maniere",
+        "inattendue",
+        "god",
+        "appears",
+        "unusual",
+        "things"
+      ],
+      "source_entry_number": 26
+    },
+    {
+      "id": "god_will_027",
+      "sermon_code": "58-0112A",
+      "sermon_title": "His wonders to perform",
+      "locator": "début du sermon",
+      "context": "Dieu agit d'une manière mystérieuse",
+      "anchor_terms": [
+        "dieu",
+        "agit",
+        "d'une",
+        "maniere",
+        "mysterieuse",
+        "works",
+        "mysterious",
+        "ways",
+        "wonders",
+        "perform"
+      ],
+      "source_entry_number": 27
+    },
+    {
+      "id": "god_will_028",
+      "sermon_code": "63-0721",
+      "sermon_title": "He cares. Do you care?",
+      "locator": "passage avant §115",
+      "context": "Chaque événement peut avoir une raison",
+      "anchor_terms": [
+        "chaque",
+        "evenement",
+        "raison",
+        "nothing",
+        "happens",
+        "chance",
+        "some",
+        "reason"
+      ],
+      "source_entry_number": 28
+    },
+    {
+      "id": "god_will_029",
+      "sermon_code": "63-0825E",
+      "sermon_title": "Perfect Faith",
+      "locator": "§44",
+      "context": "La marche par l'Esprit peut être incomprise",
+      "anchor_terms": [
+        "marche",
+        "l'esprit",
+        "incomprise",
+        "people",
+        "don't",
+        "understand",
+        "live",
+        "world",
+        "themselves"
+      ],
+      "source_entry_number": 29
+    },
+    {
+      "id": "god_will_030",
+      "sermon_code": "58-0312",
+      "sermon_title": "Jesus Christ the same yesterday, and today, and forever",
+      "locator": "§4",
+      "context": "Comprendre le Royaume exige la nouvelle naissance",
+      "anchor_terms": [
+        "comprendre",
+        "royaume",
+        "exige",
+        "nouvelle",
+        "naissance",
+        "except",
+        "man",
+        "born",
+        "again",
+        "cannot",
+        "understand",
+        "kingdom"
+      ],
+      "source_entry_number": 30
+    },
+    {
+      "id": "god_will_031",
+      "sermon_code": "56-0814",
+      "sermon_title": "Divine Love and Sovereign Grace",
+      "locator": "§30",
+      "context": "Dieu conduit parfois par des chemins étranges",
+      "anchor_terms": [
+        "foi",
+        "dieu",
+        "conduit",
+        "parfois",
+        "chemins",
+        "etranges",
+        "god",
+        "leads",
+        "children",
+        "strange",
+        "peculiar",
+        "ways"
+      ],
+      "source_entry_number": 31
+    },
+    {
+      "id": "god_will_032",
+      "sermon_code": "51-0501",
+      "sermon_title": "Exhortation on healing",
+      "locator": "§14",
+      "context": "Dieu peut accomplir Son œuvre de façons diverses",
+      "anchor_terms": [
+        "dieu",
+        "accomplir",
+        "uvre",
+        "facons",
+        "diverses",
+        "god",
+        "works",
+        "mysterious",
+        "ways",
+        "wonders",
+        "perform"
+      ],
+      "source_entry_number": 32
+    },
+    {
+      "id": "god_will_033",
+      "sermon_code": "64-0313",
+      "sermon_title": "The Voice of the Sign",
+      "locator": "§9",
+      "context": "Place et appel particuliers dans le plan de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "place",
+        "appel",
+        "particuliers",
+        "plan",
+        "god",
+        "called",
+        "person",
+        "job",
+        "there's",
+        "take"
+      ],
+      "source_entry_number": 33
+    },
+    {
+      "id": "god_will_034",
+      "sermon_code": "60-0328",
+      "sermon_title": "Is there anything too hard for the Lord?",
+      "locator": "§32",
+      "context": "Le caractère mystérieux de l'action de Dieu",
+      "anchor_terms": [
+        "caractere",
+        "dieu",
+        "mysterieux",
+        "l'action",
+        "god",
+        "works",
+        "mysterious",
+        "ways",
+        "wonders",
+        "perform"
+      ],
+      "source_entry_number": 34
+    },
+    {
+      "id": "god_will_035",
+      "sermon_code": "57-0805",
+      "sermon_title": "God manifesting His gifts",
+      "locator": "§24",
+      "context": "L'appel intérieur de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "l'appel",
+        "interieur",
+        "god",
+        "moving",
+        "heart",
+        "individual",
+        "there's",
+        "nothing",
+        "world",
+        "keep",
+        "away"
+      ],
+      "source_entry_number": 35
+    },
+    {
+      "id": "god_will_036",
+      "sermon_code": "63-0901E",
+      "sermon_title": "Desperations",
+      "locator": "§84",
+      "context": "Rester dans la ligne du devoir malgré l'épreuve",
+      "anchor_terms": [
+        "rester",
+        "ligne",
+        "devoir",
+        "malgre",
+        "l'epreuve",
+        "you're",
+        "line",
+        "duty",
+        "trying",
+        "follow",
+        "leading",
+        "holy"
+      ],
+      "source_entry_number": 36
+    },
+    {
+      "id": "god_will_037",
+      "sermon_code": "61-0207",
+      "sermon_title": "Expectation",
+      "locator": "passage thématique",
+      "context": "La direction de l'Esprit",
+      "anchor_terms": [
+        "direction",
+        "l'esprit",
+        "they're",
+        "led",
+        "spirit",
+        "god"
+      ],
+      "source_entry_number": 37
+    },
+    {
+      "id": "god_will_038",
+      "sermon_code": "65-1121",
+      "sermon_title": "What house will you build me?",
+      "locator": "§11",
+      "context": "Dieu peut conduire chaque personne individuellement",
+      "anchor_terms": [
+        "dieu",
+        "conduire",
+        "chaque",
+        "personne",
+        "individuellement",
+        "leave",
+        "each",
+        "individual",
+        "way",
+        "god",
+        "leads"
+      ],
+      "source_entry_number": 38
+    },
+    {
+      "id": "god_will_039",
+      "sermon_code": "59-0411E",
+      "sermon_title": "Watching His Star",
+      "locator": "§21",
+      "context": "La conduite de Dieu peut être difficile",
+      "anchor_terms": [
+        "dieu",
+        "conduite",
+        "difficile",
+        "sometimes",
+        "way",
+        "leads",
+        "pretty",
+        "rugged"
+      ],
+      "source_entry_number": 39
+    },
+    {
+      "id": "god_will_040",
+      "sermon_code": "58-0328",
+      "sermon_title": "God keeps His Word",
+      "locator": "§24",
+      "context": "La volonté de Dieu se suit par Son Esprit",
+      "anchor_terms": [
+        "volonte",
+        "dieu",
+        "suit",
+        "esprit",
+        "god",
+        "leads",
+        "children",
+        "spirit"
+      ],
+      "source_entry_number": 40
+    },
+    {
+      "id": "god_will_041",
+      "sermon_code": "61-0412",
+      "sermon_title": "A Greater than Solomon is here",
+      "locator": "§65",
+      "context": "Obéir à la direction de l'Esprit malgré l'incompréhension",
+      "anchor_terms": [
+        "obeir",
+        "direction",
+        "l'esprit",
+        "malgre",
+        "l'incomprehension",
+        "sometimes",
+        "think",
+        "they're",
+        "making",
+        "mistake",
+        "spirit's",
+        "leading"
+      ],
+      "source_entry_number": 41
+    },
+    {
+      "id": "god_will_042",
+      "sermon_code": "60-0610",
+      "sermon_title": "The Rejected King",
+      "locator": "§73",
+      "context": "Désirer être conduit par Dieu",
+      "anchor_terms": [
+        "dieu",
+        "desirer",
+        "conduit",
+        "samuel",
+        "wanted",
+        "led",
+        "god"
+      ],
+      "source_entry_number": 42
+    },
+    {
+      "id": "god_will_043",
+      "sermon_code": "56-0122",
+      "sermon_title": "Five junctions of time",
+      "locator": "§104",
+      "context": "Reconnaître les limites de notre connaissance",
+      "anchor_terms": [
+        "reconnaitre",
+        "limites",
+        "connaissance",
+        "don't",
+        "know",
+        "that's",
+        "hands",
+        "god"
+      ],
+      "source_entry_number": 43
+    },
+    {
+      "id": "god_will_044",
+      "sermon_code": "61-0212E",
+      "sermon_title": "And thy Seed shall possess the gate of His enemies",
+      "locator": "§35–36",
+      "context": "Dieu peut permettre une situation pour éprouver",
+      "anchor_terms": [
+        "dieu",
+        "permettre",
+        "situation",
+        "eprouver",
+        "sometimes",
+        "god",
+        "lets",
+        "way",
+        "try"
+      ],
+      "source_entry_number": 44
+    },
+    {
+      "id": "god_will_045",
+      "sermon_code": "52-0720E",
+      "sermon_title": "Who has believed our report?",
+      "locator": "§2",
+      "context": "Chercher à suivre la direction du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "chercher",
+        "suivre",
+        "direction",
+        "i've",
+        "done",
+        "best",
+        "know",
+        "follow",
+        "leadings",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 45
+    },
+    {
+      "id": "god_will_046",
+      "sermon_code": "55-1006E",
+      "sermon_title": "The book of Exodus, part 2",
+      "locator": "§33",
+      "context": "Chemins difficiles dans la conduite divine",
+      "anchor_terms": [
+        "chemins",
+        "difficiles",
+        "conduite",
+        "divine",
+        "god",
+        "leads",
+        "children",
+        "kind",
+        "paths"
+      ],
+      "source_entry_number": 46
+    },
+    {
+      "id": "god_will_047",
+      "sermon_code": "57-0306",
+      "sermon_title": "God keeps His Word, part 1",
+      "locator": "§14",
+      "context": "La voie de Dieu peut sembler étrange",
+      "anchor_terms": [
+        "dieu",
+        "voie",
+        "sembler",
+        "etrange",
+        "god",
+        "way",
+        "leading",
+        "children",
+        "odd",
+        "peculiar"
+      ],
+      "source_entry_number": 47
+    },
+    {
+      "id": "god_will_048",
+      "sermon_code": "52-0900",
+      "sermon_title": "God's Way that's been made for us",
+      "locator": "§9",
+      "context": "Dieu peut conduire à travers des eaux amères",
+      "anchor_terms": [
+        "dieu",
+        "conduire",
+        "travers",
+        "eaux",
+        "ameres",
+        "isn't",
+        "strange",
+        "god",
+        "lead",
+        "children",
+        "bitter",
+        "waters"
+      ],
+      "source_entry_number": 48
+    },
+    {
+      "id": "god_will_049",
+      "sermon_code": "59-0628M",
+      "sermon_title": "A deceived Church by the world",
+      "locator": "§10",
+      "context": "Bénédiction attachée à la direction du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "benediction",
+        "attachee",
+        "direction",
+        "church",
+        "followed",
+        "reverently",
+        "daily",
+        "after",
+        "leading",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 49
+    },
+    {
+      "id": "god_will_050",
+      "sermon_code": "62-0128A",
+      "sermon_title": "A Paradox",
+      "locator": "§13",
+      "context": "Le temps de Dieu est parfait",
+      "anchor_terms": [
+        "dieu",
+        "temps",
+        "parfait",
+        "god's",
+        "time",
+        "perfect",
+        "doesn't",
+        "miss",
+        "tick"
+      ],
+      "source_entry_number": 50
+    },
+    {
+      "id": "god_will_051",
+      "sermon_code": "56-0615",
+      "sermon_title": "An Exodus",
+      "locator": "§37",
+      "context": "Dieu conduit réellement Ses enfants",
+      "anchor_terms": [
+        "dieu",
+        "conduit",
+        "reellement",
+        "enfants",
+        "believe",
+        "god",
+        "leads",
+        "children"
+      ],
+      "source_entry_number": 51
+    },
+    {
+      "id": "god_will_052",
+      "sermon_code": "57-0126B",
+      "sermon_title": "India trip report",
+      "locator": "§30",
+      "context": "Danger de manquer une direction de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "danger",
+        "manquer",
+        "direction",
+        "failed",
+        "follow",
+        "leading",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 52
+    },
+    {
+      "id": "god_will_053",
+      "sermon_code": "64-1205",
+      "sermon_title": "The Identified Masterpiece of God",
+      "locator": "§33–34",
+      "context": "Dieu a un but personnel pour chacun",
+      "anchor_terms": [
+        "dieu",
+        "personnel",
+        "chacun",
+        "god",
+        "purpose",
+        "made",
+        "thus"
+      ],
+      "source_entry_number": 53
+    },
+    {
+      "id": "god_will_054",
+      "sermon_code": "62-0612",
+      "sermon_title": "Behold a Greater than Solomon is here",
+      "locator": "§37",
+      "context": "Une direction divine peut sembler contradictoire sur le moment",
+      "anchor_terms": [
+        "direction",
+        "divine",
+        "sembler",
+        "contradictoire",
+        "moment",
+        "didn't",
+        "understand",
+        "after",
+        "god",
+        "commissioned",
+        "place",
+        "found"
+      ],
+      "source_entry_number": 54
+    },
+    {
+      "id": "god_will_055",
+      "sermon_code": "64-0416",
+      "sermon_title": "And when their eyes were opened, they knew Him",
+      "locator": "passage avant §29",
+      "context": "Dieu peut permettre des événements pour éprouver",
+      "anchor_terms": [
+        "dieu",
+        "permettre",
+        "evenements",
+        "eprouver",
+        "god",
+        "lets",
+        "things",
+        "happen",
+        "like",
+        "purposely",
+        "test"
+      ],
+      "source_entry_number": 55
+    },
+    {
+      "id": "god_will_056",
+      "sermon_code": "62-0124",
+      "sermon_title": "Have not I sent thee?",
+      "locator": "§99",
+      "context": "L'épreuve comme test de la foi",
+      "anchor_terms": [
+        "foi",
+        "l'epreuve",
+        "test",
+        "see",
+        "god",
+        "lets",
+        "things",
+        "happen",
+        "tear",
+        "pieces"
+      ],
+      "source_entry_number": 56
+    },
+    {
+      "id": "god_will_057",
+      "sermon_code": "60-0417S",
+      "sermon_title": "I know",
+      "locator": "§53",
+      "context": "Foi dans le dessein divin au milieu des troubles",
+      "anchor_terms": [
+        "foi",
+        "dessein",
+        "divin",
+        "milieu",
+        "troubles",
+        "things",
+        "work",
+        "together",
+        "good",
+        "love",
+        "god"
+      ],
+      "source_entry_number": 57
+    },
+    {
+      "id": "god_will_058",
+      "sermon_code": "59-0416",
+      "sermon_title": "El-Shaddai",
+      "locator": "§30",
+      "context": "Choix souverain de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "choix",
+        "souverain",
+        "chosen",
+        "god",
+        "didn't",
+        "choose",
+        "yourself",
+        "chose"
+      ],
+      "source_entry_number": 58
+    },
+    {
+      "id": "god_will_059",
+      "sermon_code": "65-0425",
+      "sermon_title": "God's provided place of worship",
+      "locator": "§19",
+      "context": "Le choix de Dieu est juste",
+      "anchor_terms": [
+        "dieu",
+        "choix",
+        "juste",
+        "god",
+        "chooses",
+        "right"
+      ],
+      "source_entry_number": 59
+    },
+    {
+      "id": "god_will_060",
+      "sermon_code": "55-0311",
+      "sermon_title": "The Seal of Antichrist",
+      "locator": "§11",
+      "context": "Chercher la raison spirituelle derrière une situation",
+      "anchor_terms": [
+        "chercher",
+        "raison",
+        "spirituelle",
+        "derriere",
+        "situation",
+        "there's",
+        "reason"
+      ],
+      "source_entry_number": 60
+    },
+    {
+      "id": "god_will_061",
+      "sermon_code": "58-1004",
+      "sermon_title": "Faith is our victory",
+      "locator": "passage sur Abraham",
+      "context": "Avoir un but dans la marche avec Dieu",
+      "anchor_terms": [
+        "dieu",
+        "marche",
+        "purpose",
+        "life",
+        "find",
+        "place"
+      ],
+      "source_entry_number": 61
+    },
+    {
+      "id": "god_will_062",
+      "sermon_code": "56-0108",
+      "sermon_title": "God hath a Provided Way",
+      "locator": "§17",
+      "context": "Dieu choisit et appelle",
+      "anchor_terms": [
+        "dieu",
+        "choisit",
+        "appelle",
+        "chosen",
+        "thee"
+      ],
+      "source_entry_number": 62
+    },
+    {
+      "id": "god_will_063",
+      "sermon_code": "61-0317",
+      "sermon_title": "Abraham's grace covenant",
+      "locator": "passage sur l'élection",
+      "context": "Le plan commence dans le choix de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "plan",
+        "commence",
+        "choix",
+        "god",
+        "chose",
+        "never"
+      ],
+      "source_entry_number": 63
+    },
+    {
+      "id": "god_will_064",
+      "sermon_code": "65-0221E",
+      "sermon_title": "Who is this Melchisedec?",
+      "locator": "§26",
+      "context": "Souveraineté de Dieu dans Son choix",
+      "anchor_terms": [
+        "dieu",
+        "souverainete",
+        "choix",
+        "god",
+        "sovereign",
+        "choosing"
+      ],
+      "source_entry_number": 64
+    },
+    {
+      "id": "god_will_065",
+      "sermon_code": "60-0522M",
+      "sermon_title": "Adoption, part 3: Position in Christ",
+      "locator": "§94",
+      "context": "Le dessein selon le conseil de Sa volonté",
+      "anchor_terms": [
+        "volonte",
+        "dessein",
+        "conseil",
+        "predestinated",
+        "according",
+        "purpose",
+        "worketh",
+        "things",
+        "after",
+        "counsel",
+        "own"
+      ],
+      "source_entry_number": 65
+    },
+    {
+      "id": "god_will_066",
+      "sermon_code": "63-0728",
+      "sermon_title": "Christ is the mystery of God revealed",
+      "locator": "passage sur Romains 8:29–30",
+      "context": "La vie du croyant intégrée au dessein de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "vie",
+        "croyant",
+        "integree",
+        "dessein",
+        "alive",
+        "god",
+        "redeemer",
+        "created",
+        "same",
+        "purpose"
+      ],
+      "source_entry_number": 66
+    },
+    {
+      "id": "god_will_067",
+      "sermon_code": "55-0116A",
+      "sermon_title": "The believer's position in Christ",
+      "locator": "§38",
+      "context": "Choisis pour un dessein",
+      "anchor_terms": [
+        "choisis",
+        "dessein",
+        "chosen",
+        "purpose"
+      ],
+      "source_entry_number": 67
+    },
+    {
+      "id": "god_will_068",
+      "sermon_code": "62-0318",
+      "sermon_title": "The Spoken Word is the original seed",
+      "locator": "§120",
+      "context": "L'épreuve située dans un dessein plus vaste",
+      "anchor_terms": [
+        "l'epreuve",
+        "situee",
+        "dessein",
+        "vaste",
+        "predestinated",
+        "before",
+        "foundation",
+        "world",
+        "give",
+        "trial"
+      ],
+      "source_entry_number": 68
+    },
+    {
+      "id": "god_will_069",
+      "sermon_code": "56-0304",
+      "sermon_title": "Making a Way",
+      "locator": "passage final sur la guérison",
+      "context": "La voie de Dieu dépasse notre compréhension",
+      "anchor_terms": [
+        "dieu",
+        "voie",
+        "depasse",
+        "comprehension",
+        "god's",
+        "way",
+        "higher"
+      ],
+      "source_entry_number": 69
+    },
+    {
+      "id": "god_will_070",
+      "sermon_code": "59-0628E",
+      "sermon_title": "Questions and Answers",
+      "locator": "§20–21",
+      "context": "Le temps de la réponse appartient à Dieu",
+      "anchor_terms": [
+        "dieu",
+        "temps",
+        "reponse",
+        "appartient",
+        "god",
+        "answers",
+        "own",
+        "time",
+        "don't",
+        "control",
+        "controls"
+      ],
+      "source_entry_number": 70
+    },
+    {
+      "id": "god_will_071",
+      "sermon_code": "58-0927",
+      "sermon_title": "Why are we not a denomination?",
+      "locator": "passage sur Romains 8",
+      "context": "Appel et dessein selon Romains 8",
+      "anchor_terms": [
+        "appel",
+        "dessein",
+        "romains",
+        "things",
+        "work",
+        "together",
+        "good",
+        "love",
+        "god",
+        "called",
+        "according",
+        "purpose"
+      ],
+      "source_entry_number": 71
+    },
+    {
+      "id": "god_will_072",
+      "sermon_code": "59-1223",
+      "sermon_title": "Questions and Answers",
+      "locator": "§77",
+      "context": "La prescience de Dieu sur notre vie",
+      "anchor_terms": [
+        "dieu",
+        "prescience",
+        "vie",
+        "knowed",
+        "going"
+      ],
+      "source_entry_number": 72
+    },
+    {
+      "id": "god_will_073",
+      "sermon_code": "60-0326",
+      "sermon_title": "The Unchangeable God",
+      "locator": "§16–17",
+      "context": "La manière de Dieu est la bonne",
+      "anchor_terms": [
+        "dieu",
+        "maniere",
+        "bonne",
+        "god",
+        "way",
+        "always",
+        "right"
+      ],
+      "source_entry_number": 73
+    },
+    {
+      "id": "god_will_074",
+      "sermon_code": "62-0607",
+      "sermon_title": "Putting on the whole armor of God",
+      "locator": "§18",
+      "context": "Repos dans la confiance en Dieu",
+      "anchor_terms": [
+        "dieu",
+        "repos",
+        "confiance",
+        "i'm",
+        "glad",
+        "there's",
+        "something",
+        "put",
+        "complete",
+        "trust"
+      ],
+      "source_entry_number": 74
+    },
+    {
+      "id": "god_will_075",
+      "sermon_code": "64-0726E",
+      "sermon_title": "Broken Cisterns",
+      "locator": "§1",
+      "context": "Attendre Dieu",
+      "anchor_terms": [
+        "dieu",
+        "attendre",
+        "wait",
+        "lord",
+        "renew",
+        "strength"
+      ],
+      "source_entry_number": 75
+    },
+    {
+      "id": "god_will_076",
+      "sermon_code": "65-1212",
+      "sermon_title": "Communion",
+      "locator": "§1",
+      "context": "Le délai peut former notre appréciation",
+      "anchor_terms": [
+        "delai",
+        "former",
+        "appreciation",
+        "let",
+        "wait",
+        "till",
+        "appreciate"
+      ],
+      "source_entry_number": 76,
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
+    },
+    {
+      "id": "god_will_077",
+      "sermon_code": "57-0908E",
+      "sermon_title": "Hebrews, Chapter 6, part 2",
+      "locator": "§29",
+      "context": "Dieu sait ce qu'Il fait",
+      "anchor_terms": [
+        "dieu",
+        "sait",
+        "qu'il",
+        "god",
+        "knows",
+        "he's",
+        "don't",
+        "never",
+        "worry"
+      ],
+      "source_entry_number": 77
+    },
+    {
+      "id": "god_will_078",
+      "sermon_code": "64-0318",
+      "sermon_title": "Sirs, we would see Jesus",
+      "locator": "§24",
+      "context": "Appel lié au dessein dès la naissance",
+      "anchor_terms": [
+        "appel",
+        "lie",
+        "dessein",
+        "naissance",
+        "born",
+        "purpose"
+      ],
+      "source_entry_number": 78
+    },
+    {
+      "id": "god_will_079",
+      "sermon_code": "65-1206",
+      "sermon_title": "Modern events are made clear by prophecy",
+      "locator": "§33",
+      "context": "Même un instrument de Dieu peut ne pas tout comprendre",
+      "anchor_terms": [
+        "dieu",
+        "instrument",
+        "comprendre",
+        "man",
+        "who's",
+        "seen",
+        "vision",
+        "heard",
+        "voice",
+        "never",
+        "altogether",
+        "understood"
+      ],
+      "source_entry_number": 79
+    },
+    {
+      "id": "god_will_080",
+      "sermon_code": "59-0301E",
+      "sermon_title": "What does thou here?",
+      "locator": "§47",
+      "context": "Apprendre à attendre la direction de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "apprendre",
+        "attendre",
+        "direction",
+        "teach",
+        "lord",
+        "wait"
+      ],
+      "source_entry_number": 80
+    },
+    {
+      "id": "god_will_081",
+      "sermon_code": "53-1204",
+      "sermon_title": "At Thy Word",
+      "locator": "§48–49",
+      "context": "S'abandonner à la conduite de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "s'abandonner",
+        "conduite",
+        "commit",
+        "ways",
+        "walk",
+        "way",
+        "leads"
+      ],
+      "source_entry_number": 81
+    },
+    {
+      "id": "god_will_082",
+      "sermon_code": "54-0825",
+      "sermon_title": "We have found Him",
+      "locator": "§25",
+      "context": "Abandon de soi à Christ",
+      "anchor_terms": [
+        "abandon",
+        "soi",
+        "christ",
+        "yield",
+        "ourself",
+        "self",
+        "dies",
+        "jesus",
+        "takes"
+      ],
+      "source_entry_number": 82
+    },
+    {
+      "id": "god_will_083",
+      "sermon_code": "62-0714",
+      "sermon_title": "The uncertain sound",
+      "locator": "§28",
+      "context": "Une conduite mystérieuse reconnue après coup",
+      "anchor_terms": [
+        "conduite",
+        "mysterieuse",
+        "reconnue",
+        "coup",
+        "led",
+        "over",
+        "some",
+        "mysterious",
+        "way"
+      ],
+      "source_entry_number": 83
+    },
+    {
+      "id": "god_will_084",
+      "sermon_code": "56-1001",
+      "sermon_title": "The Ministry explained",
+      "locator": "§24",
+      "context": "Christ comme modèle de la volonté du Père",
+      "anchor_terms": [
+        "volonte",
+        "christ",
+        "modele",
+        "pere",
+        "jesus",
+        "come",
+        "down",
+        "father"
+      ],
+      "source_entry_number": 84
+    },
+    {
+      "id": "god_will_085",
+      "sermon_code": "57-0127A",
+      "sermon_title": "The impersonation of Christianity",
+      "locator": "§18",
+      "context": "Le programme de Dieu dirigé par le Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "dieu",
+        "programme",
+        "dirige",
+        "god's",
+        "program",
+        "holy",
+        "ghost",
+        "run",
+        "church"
+      ],
+      "source_entry_number": 85
+    },
+    {
+      "id": "god_will_086",
+      "sermon_code": "60-0228",
+      "sermon_title": "Conferences",
+      "locator": "§20–21",
+      "context": "La voie de Dieu plutôt que notre plan",
+      "anchor_terms": [
+        "dieu",
+        "voie",
+        "plutot",
+        "plan",
+        "god's",
+        "way",
+        "always",
+        "right"
+      ],
+      "source_entry_number": 86
+    },
+    {
+      "id": "god_will_087",
+      "sermon_code": "56-0405",
+      "sermon_title": "Jesus arose",
+      "locator": "passage avant §46",
+      "context": "Chaque place a un but dans le Corps",
+      "anchor_terms": [
+        "chaque",
+        "place",
+        "corps",
+        "god",
+        "put",
+        "church",
+        "some",
+        "purpose"
+      ],
+      "source_entry_number": 87
+    },
+    {
+      "id": "god_will_088",
+      "sermon_code": "53-1201",
+      "sermon_title": "God's Provided Way",
+      "locator": "§11–12",
+      "context": "Renoncer à sa propre voie",
+      "anchor_terms": [
+        "renoncer",
+        "propre",
+        "voie",
+        "you've",
+        "forget",
+        "own",
+        "way",
+        "god's"
+      ],
+      "source_entry_number": 88
+    },
+    {
+      "id": "god_will_089",
+      "sermon_code": "57-0407E",
+      "sermon_title": "Then Jesus came",
+      "locator": "§10–11",
+      "context": "Dieu peut faire connaître Sa volonté",
+      "anchor_terms": [
+        "volonte",
+        "dieu",
+        "connaitre",
+        "we'll",
+        "seek",
+        "god",
+        "make",
+        "known"
+      ],
+      "source_entry_number": 89
+    },
+    {
+      "id": "god_will_090",
+      "sermon_code": "59-1004E",
+      "sermon_title": "Why cry? Speak!",
+      "locator": "§63",
+      "context": "Un but peut être présent avant d'être compris",
+      "anchor_terms": [
+        "present",
+        "d'etre",
+        "compris",
+        "you're",
+        "some",
+        "purpose",
+        "don't",
+        "know"
+      ],
+      "source_entry_number": 90
+    },
+    {
+      "id": "god_will_091",
+      "sermon_code": "60-0626",
+      "sermon_title": "The unfailing realities of the living God",
+      "locator": "§40",
+      "context": "Le Saint-Esprit dans le programme de Dieu",
+      "anchor_terms": [
+        "saint-esprit",
+        "dieu",
+        "programme",
+        "god's",
+        "program",
+        "holy",
+        "spirit",
+        "it's",
+        "provided",
+        "way",
+        "things"
+      ],
+      "source_entry_number": 91
+    },
+    {
+      "id": "god_will_092",
+      "sermon_code": "56-1209A",
+      "sermon_title": "God making His promise",
+      "locator": "§21",
+      "context": "Demeurer au centre de la volonté de Dieu",
+      "anchor_terms": [
+        "volonte",
+        "dieu",
+        "demeurer",
+        "centre",
+        "everything",
+        "fall",
+        "right",
+        "place",
+        "you'll",
+        "stay",
+        "god's"
+      ],
+      "source_entry_number": 92
+    },
+    {
+      "id": "god_will_093",
+      "sermon_code": "63-0717",
+      "sermon_title": "Paul, a prisoner of Jesus Christ",
+      "locator": "§84",
+      "context": "Abandon de la volonté personnelle",
+      "anchor_terms": [
+        "volonte",
+        "abandon",
+        "personnelle",
+        "god's"
+      ],
+      "source_entry_number": 93
+    },
+    {
+      "id": "god_will_094",
+      "sermon_code": "65-0424",
+      "sermon_title": "One in a million",
+      "locator": "§24",
+      "context": "La volonté de Dieu liée à Sa Parole",
+      "anchor_terms": [
+        "volonte",
+        "parole",
+        "dieu",
+        "liee",
+        "word"
+      ],
+      "source_entry_number": 94
+    },
+    {
+      "id": "god_will_095",
+      "sermon_code": "61-0308",
+      "sermon_title": "Expectations",
+      "locator": "§29",
+      "context": "Chercher d'abord la volonté de Dieu",
+      "anchor_terms": [
+        "volonte",
+        "dieu",
+        "chercher",
+        "d'abord",
+        "first",
+        "find",
+        "whether",
+        "it's",
+        "god"
+      ],
+      "source_entry_number": 95
+    },
+    {
+      "id": "god_will_096",
+      "sermon_code": "65-0718M",
+      "sermon_title": "Trying to do God a service without it being His will",
+      "locator": "§28",
+      "context": "Même une bonne intention doit correspondre à la volonté de Dieu",
+      "anchor_terms": [
+        "volonte",
+        "dieu",
+        "bonne",
+        "intention",
+        "correspondre",
+        "god",
+        "carried",
+        "things"
+      ],
+      "source_entry_number": 96
+    },
+    {
+      "id": "god_will_097",
+      "sermon_code": "52-0725",
+      "sermon_title": "Faith (Africa trip report)",
+      "locator": "§35–37",
+      "context": "Obéir à Dieu plutôt qu'à la pression humaine",
+      "anchor_terms": [
+        "dieu",
+        "obeir",
+        "plutot",
+        "qu'a",
+        "pression",
+        "humaine",
+        "god",
+        "tells",
+        "don't",
+        "make",
+        "difference",
+        "anybody"
+      ],
+      "source_entry_number": 97
+    },
+    {
+      "id": "god_will_098",
+      "sermon_code": "56-0101",
+      "sermon_title": "Why are people so tossed about?",
+      "locator": "§21–22",
+      "context": "Disposition à suivre où Dieu conduit",
+      "anchor_terms": [
+        "dieu",
+        "disposition",
+        "suivre",
+        "conduit",
+        "leads",
+        "follow"
+      ],
+      "source_entry_number": 98
+    },
+    {
+      "id": "god_will_099",
+      "sermon_code": "61-0316",
+      "sermon_title": "The Church choosing Law for Grace",
+      "locator": "§53",
+      "context": "Suivre le mouvement de l'Esprit",
+      "anchor_terms": [
+        "suivre",
+        "mouvement",
+        "l'esprit",
+        "follow",
+        "god",
+        "spirit",
+        "goes"
+      ],
+      "source_entry_number": 99
+    },
+    {
+      "id": "god_will_100",
+      "sermon_code": "54-0722",
+      "sermon_title": "Whatever He saith unto you, do it",
+      "locator": "§24",
+      "context": "Chercher la volonté de Dieu avant d'agir",
+      "anchor_terms": [
+        "volonte",
+        "dieu",
+        "chercher",
+        "d'agir",
+        "first",
+        "thing",
+        "find",
+        "what's",
+        "cause",
+        "god"
+      ],
+      "source_entry_number": 100
+    },
+    {
+      "id": "god_will_101",
+      "sermon_code": "62-0123",
+      "sermon_title": "Forsaking all",
+      "locator": "§32",
+      "context": "Renoncer à sa pensée lorsque Dieu conduit autrement",
+      "anchor_terms": [
+        "dieu",
+        "renoncer",
+        "pensee",
+        "lorsque",
+        "conduit",
+        "autrement",
+        "we've",
+        "forsake",
+        "own",
+        "thinking",
+        "follow"
+      ],
+      "source_entry_number": 101
+    }
+  ],
+  "topics": [
+    {
+      "id": "god_will_all",
+      "label": "Volonté de Dieu et mystère dans notre vie",
+      "aliases": [
+        "volonté de Dieu",
+        "mystère dans ma vie",
+        "comment connaître la volonté de Dieu",
+        "direction de Dieu",
+        "plan de Dieu"
+      ],
+      "keywords": [
+        "volonte",
+        "direction",
+        "dessein",
+        "providence",
+        "appel",
+        "temps",
+        "epreuve"
+      ],
+      "reference_ids": [
+        "god_will_001",
+        "god_will_002",
+        "god_will_003",
+        "god_will_004",
+        "god_will_005",
+        "god_will_006",
+        "god_will_007",
+        "god_will_008",
+        "god_will_009",
+        "god_will_010",
+        "god_will_011",
+        "god_will_012",
+        "god_will_013",
+        "god_will_014",
+        "god_will_015",
+        "god_will_016",
+        "god_will_017",
+        "god_will_018",
+        "god_will_019",
+        "god_will_020",
+        "god_will_021",
+        "god_will_022",
+        "god_will_023",
+        "god_will_024",
+        "god_will_025",
+        "god_will_026",
+        "god_will_027",
+        "god_will_028",
+        "god_will_029",
+        "god_will_030",
+        "god_will_031",
+        "god_will_032",
+        "god_will_033",
+        "god_will_034",
+        "god_will_035",
+        "god_will_036",
+        "god_will_037",
+        "god_will_038",
+        "god_will_039",
+        "god_will_040",
+        "god_will_041",
+        "god_will_042",
+        "god_will_043",
+        "god_will_044",
+        "god_will_045",
+        "god_will_046",
+        "god_will_047",
+        "god_will_048",
+        "god_will_049",
+        "god_will_050",
+        "god_will_051",
+        "god_will_052",
+        "god_will_053",
+        "god_will_054",
+        "god_will_055",
+        "god_will_056",
+        "god_will_057",
+        "god_will_058",
+        "god_will_059",
+        "god_will_060",
+        "god_will_061",
+        "god_will_062",
+        "god_will_063",
+        "god_will_064",
+        "god_will_065",
+        "god_will_066",
+        "god_will_067",
+        "god_will_068",
+        "god_will_069",
+        "god_will_070",
+        "god_will_071",
+        "god_will_072",
+        "god_will_073",
+        "god_will_074",
+        "god_will_075",
+        "god_will_076",
+        "god_will_077",
+        "god_will_078",
+        "god_will_079",
+        "god_will_080",
+        "god_will_081",
+        "god_will_082",
+        "god_will_083",
+        "god_will_084",
+        "god_will_085",
+        "god_will_086",
+        "god_will_087",
+        "god_will_088",
+        "god_will_089",
+        "god_will_090",
+        "god_will_091",
+        "god_will_092",
+        "god_will_093",
+        "god_will_094",
+        "god_will_095",
+        "god_will_096",
+        "god_will_097",
+        "god_will_098",
+        "god_will_099",
+        "god_will_100",
+        "god_will_101"
+      ]
+    },
+    {
+      "id": "perfect_permissive_will",
+      "label": "Volonté parfaite et volonté permissive",
+      "aliases": [
+        "volonté parfaite de Dieu",
+        "volonté permissive de Dieu",
+        "différence volonté parfaite permissive"
+      ],
+      "keywords": [
+        "volonte parfaite",
+        "volonte permissive",
+        "permission"
+      ],
+      "reference_ids": [
+        "god_will_001",
+        "god_will_003",
+        "god_will_004",
+        "god_will_005",
+        "god_will_007",
+        "god_will_009",
+        "god_will_019"
+      ]
+    },
+    {
+      "id": "sovereignty_providence",
+      "label": "Souveraineté et providence de Dieu",
+      "aliases": [
+        "souveraineté de Dieu",
+        "providence de Dieu",
+        "rien n'arrive par hasard",
+        "tout arrive pour une raison"
+      ],
+      "keywords": [
+        "souverainete",
+        "providence",
+        "hasard",
+        "ordonne"
+      ],
+      "reference_ids": [
+        "god_will_008",
+        "god_will_020",
+        "god_will_021",
+        "god_will_024",
+        "god_will_064"
+      ]
+    },
+    {
+      "id": "purpose_calling",
+      "label": "But, appel et place dans le plan de Dieu",
+      "aliases": [
+        "quel est le but de Dieu pour ma vie",
+        "appel de Dieu",
+        "pourquoi Dieu m'a placé ici",
+        "ma place dans le plan de Dieu"
+      ],
+      "keywords": [
+        "but",
+        "appel",
+        "place",
+        "dessein",
+        "purpose"
+      ],
+      "reference_ids": [
+        "god_will_006",
+        "god_will_007",
+        "god_will_012",
+        "god_will_013",
+        "god_will_016",
+        "god_will_018",
+        "god_will_022",
+        "god_will_033",
+        "god_will_035",
+        "god_will_041",
+        "god_will_042",
+        "god_will_053",
+        "god_will_054",
+        "god_will_055",
+        "god_will_057",
+        "god_will_059",
+        "god_will_061",
+        "god_will_062",
+        "god_will_065",
+        "god_will_066",
+        "god_will_067",
+        "god_will_068",
+        "god_will_071",
+        "god_will_078",
+        "god_will_087",
+        "god_will_090",
+        "god_will_092"
+      ]
+    },
+    {
+      "id": "spirit_guidance_will",
+      "label": "Direction du Saint-Esprit et volonté de Dieu",
+      "aliases": [
+        "être conduit par le Saint-Esprit",
+        "direction de Dieu",
+        "comment Dieu conduit",
+        "suivre la conduite de l'Esprit"
+      ],
+      "keywords": [
+        "direction",
+        "conduit",
+        "conduite",
+        "saint-esprit",
+        "led by"
+      ],
+      "reference_ids": [
+        "god_will_010",
+        "god_will_011",
+        "god_will_015",
+        "god_will_016",
+        "god_will_031",
+        "god_will_037",
+        "god_will_039",
+        "god_will_041",
+        "god_will_042",
+        "god_will_045",
+        "god_will_046",
+        "god_will_049",
+        "god_will_051",
+        "god_will_052",
+        "god_will_054",
+        "god_will_080",
+        "god_will_081",
+        "god_will_083",
+        "god_will_085",
+        "god_will_091",
+        "god_will_098",
+        "god_will_101"
+      ]
+    },
+    {
+      "id": "mysterious_unexpected_paths",
+      "label": "Chemins mystérieux et inattendus de Dieu",
+      "aliases": [
+        "Dieu agit mystérieusement",
+        "chemins étranges de Dieu",
+        "pourquoi Dieu conduit bizarrement",
+        "je ne comprends pas ce que Dieu fait"
+      ],
+      "keywords": [
+        "mysterie",
+        "etrange",
+        "inattendu",
+        "unusual",
+        "mysterious"
+      ],
+      "reference_ids": [
+        "god_will_026",
+        "god_will_027",
+        "god_will_031",
+        "god_will_032",
+        "god_will_034",
+        "god_will_047",
+        "god_will_083"
+      ]
+    },
+    {
+      "id": "divine_timing_delays",
+      "label": "Temps de Dieu et délais",
+      "aliases": [
+        "temps de Dieu",
+        "Dieu tarde",
+        "pourquoi Dieu retarde",
+        "attendre le temps de Dieu"
+      ],
+      "keywords": [
+        "retard",
+        "tarde",
+        "temps",
+        "attendre",
+        "delay"
+      ],
+      "reference_ids": [
+        "god_will_022",
+        "god_will_023",
+        "god_will_050",
+        "god_will_070",
+        "god_will_075",
+        "god_will_080"
+      ]
+    },
+    {
+      "id": "trials_testing_formation",
+      "label": "Épreuves permises, test et formation",
+      "aliases": [
+        "pourquoi Dieu permet les épreuves",
+        "épreuve de la foi",
+        "Dieu me teste",
+        "Dieu forme par l'épreuve"
+      ],
+      "keywords": [
+        "epreuve",
+        "test",
+        "former",
+        "affliction",
+        "trial"
+      ],
+      "reference_ids": [
+        "god_will_036",
+        "god_will_055",
+        "god_will_056",
+        "god_will_068",
+        "god_will_076"
+      ]
+    },
+    {
+      "id": "all_things_for_good",
+      "label": "Toutes choses concourent au bien",
+      "aliases": [
+        "toutes choses concourent au bien",
+        "Dieu utilise tout pour le bien",
+        "rien n'arrive au chrétien par hasard"
+      ],
+      "keywords": [
+        "concour",
+        "pour le bien",
+        "work together for good",
+        "hasard"
+      ],
+      "reference_ids": [
+        "god_will_014",
+        "god_will_018",
+        "god_will_020",
+        "god_will_021",
+        "god_will_023",
+        "god_will_024",
+        "god_will_057",
+        "god_will_071"
+      ]
+    },
+    {
+      "id": "surrender_own_way",
+      "label": "Abandonner sa propre voie et ses raisonnements",
+      "aliases": [
+        "abandonner ma volonté",
+        "renoncer à mon raisonnement",
+        "suivre Dieu plutôt que mon opinion",
+        "soumettre ma volonté à Dieu"
+      ],
+      "keywords": [
+        "abandonner",
+        "renoncer",
+        "raisonnement",
+        "propre voie",
+        "soumettre",
+        "forsake"
+      ],
+      "reference_ids": [
+        "god_will_002",
+        "god_will_081",
+        "god_will_088",
+        "god_will_101"
+      ]
+    },
+    {
+      "id": "discern_gods_will",
+      "label": "Chercher et reconnaître la volonté de Dieu",
+      "aliases": [
+        "comment connaître la volonté de Dieu",
+        "comment reconnaître la volonté de Dieu",
+        "chercher la volonté de Dieu",
+        "discerner la volonté de Dieu"
+      ],
+      "keywords": [
+        "chercher",
+        "reconnaitre",
+        "discerner",
+        "seeking",
+        "choix"
+      ],
+      "reference_ids": [
+        "god_will_005",
+        "god_will_009",
+        "god_will_043",
+        "god_will_045",
+        "god_will_058",
+        "god_will_059",
+        "god_will_060",
+        "god_will_063",
+        "god_will_064",
+        "god_will_095",
+        "god_will_100"
+      ]
+    },
+    {
+      "id": "understand_afterwards",
+      "label": "Comprendre le dessein après coup",
+      "aliases": [
+        "comprendre après coup",
+        "on comprend plus tard",
+        "Dieu révèle le sens plus tard",
+        "je ne comprends pas maintenant"
+      ],
+      "keywords": [
+        "apres coup",
+        "plus tard",
+        "comprendre",
+        "incompris",
+        "understand"
+      ],
+      "reference_ids": [
+        "god_will_008",
+        "god_will_017",
+        "god_will_018",
+        "god_will_029",
+        "god_will_030",
+        "god_will_054",
+        "god_will_079",
+        "god_will_083"
+      ]
+    }
+  ]
+}

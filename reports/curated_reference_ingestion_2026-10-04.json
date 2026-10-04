@@ -1,0 +1,75 @@
+{
+  "artifact_kind": "curated_reference_ingestion_report",
+  "generated_for": "Message Bot V4",
+  "date": "2026-10-04",
+  "invariant": "Curated human data only routes retrieval. Displayed quotations always resolve from corpus.db.",
+  "sources": [
+    {
+      "file": "Le_Mari_Gentleman_La_Resistance.pdf",
+      "entries": 21,
+      "resolved": 20,
+      "unresolved": 1,
+      "sha256": "5fab5c935b0702ad1ccb9ba2b95f10b7ab5a2d6ced6afa5f5c465962e80b026e"
+    },
+    {
+      "file": "Fascicule_Priere_Exaucement_Jeune_Branham_200plus_citations.text",
+      "entries": 248,
+      "resolved": 236,
+      "unresolved": 12,
+      "sha256": "c041b62fa1ffc70af47db06f9c513844a8fae25c272098ff5621ed7e908dfe87"
+    },
+    {
+      "file": "Fascicule_Mariage_Choix_Conjoint_Choix_Eglise_Branham_62_citations.text",
+      "entries": 62,
+      "resolved": 58,
+      "unresolved": 4,
+      "sha256": "22f729a3eda8da17e4698cfee4f212d70281106af489b149a89b65a7f886f642"
+    },
+    {
+      "file": "Fascicule_Volonte_de_Dieu_Mystere_dans_notre_vie_101_citations_Branham.text",
+      "entries": 101,
+      "resolved": 100,
+      "unresolved": 1,
+      "sha256": "65c5817f5a429ee478280855161cc4bb2c9c74713d15651dc8210bee2bee3815"
+    },
+    {
+      "file": "Fascicule_Saint_Esprit_103_citations_Branham.text",
+      "entries": 103,
+      "resolved": 103,
+      "unresolved": 0,
+      "sha256": "acc7c00d6a851288d0ae522932eaca23b7a0534ece5c6dac136740c479914670"
+    },
+    {
+      "file": "Fascicule_1060_Citations_Dons_Ministeres_Doctrines_Service_Branham.text",
+      "entries": 1060,
+      "resolved": 1050,
+      "unresolved": 10,
+      "sha256": "98874d8b027401f9b4f25b21322bf34f16d108bbad669d9c89bac1251e60388f"
+    },
+    {
+      "file": "Fascicule_Finances_Pauvrete_Liens_Famille_Delivrance_Branham_200plus.text",
+      "entries": 200,
+      "resolved": 199,
+      "unresolved": 1,
+      "sha256": "84a2fa2a42ef51c5f3ed49607bfab5bcd5eab9086fba1fd3042178553be0ee17",
+      "guardrail": "The terms mari/femme de nuit are not represented as a Branham doctrine; routing points only to related discernment material."
+    }
+  ],
+  "totals": {
+    "numbered_entries": 1795,
+    "routing_references": 1796,
+    "resolved": 1767,
+    "unresolved": 29,
+    "active_ratio": 0.9838530066815144
+  },
+  "runtime_changes": [
+    "Curated references are ranked by user-query overlap with each manual thematic marker, so deep references are eligible.",
+    "Curated sermon lookup prefers primary editions but can use canonical alternate editions when needed.",
+    "Unresolved references are preserved with reasons and excluded from runtime routing.",
+    "Release validation checks every active curated sermon code and anchor against the canonical corpus.",
+    "No quote text from the fascicles is stored as displayable canonical text.",
+    "The 1060-reference doctrine/service fascicle is indexed across 15 major sections plus five ministry-specific routes.",
+    "The 200-reference finance/family/deliverance fascicle keeps the source's explicit caution around 'mari/femme de nuit' and does not elevate that terminology into doctrine.",
+    "The explicit Church Order 63-1226 summary locator for arriving about 30 minutes before service is indexed as one additional summary routing reference; it is not counted among the 1795 numbered fascicle entries."
+  ]
+}

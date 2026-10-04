@@ -1,0 +1,2363 @@
+{
+  "schema_version": 1,
+  "index_id": "curated-holy-spirit-v1",
+  "purpose": "Human-validated thematic routing hints. This index never replaces corpus.db; every surfaced quotation must still resolve to the canonical corpus.",
+  "source_guides": [
+    {
+      "id": "holy-spirit",
+      "title": "Le Saint-Esprit",
+      "author": "William Marrion Branham — Banque de références thématiques",
+      "provenance": "manual_research_text_fascicle",
+      "trust": "author-curated-reference-map",
+      "source_file_name": "Fascicule_Saint_Esprit_103_citations_Branham.text",
+      "source_file_sha256": "acc7c00d6a851288d0ae522932eaca23b7a0534ece5c6dac136740c479914670",
+      "source_file_bytes": 26028,
+      "source_lines": 590,
+      "source_entries": 103
+    }
+  ],
+  "references": [
+    {
+      "id": "holy_spirit_001",
+      "sermon_code": "59-1216",
+      "sermon_title": "What Is The Holy Ghost?",
+      "locator": "§30",
+      "context": "Nature du Saint-Esprit : assurance, protection, témoin, sceau",
+      "anchor_terms": [
+        "saint-esprit",
+        "sceau",
+        "nature",
+        "assurance",
+        "protection",
+        "temoin",
+        "that's",
+        "holy",
+        "spirit",
+        "it's",
+        "witness",
+        "seal"
+      ],
+      "source_entry_number": 1
+    },
+    {
+      "id": "holy_spirit_002",
+      "sermon_code": "59-1217",
+      "sermon_title": "What Was The Holy Ghost Given For?",
+      "locator": "§48",
+      "context": "Pourquoi le Saint-Esprit a été donné",
+      "anchor_terms": [
+        "saint-esprit",
+        "ete",
+        "donne",
+        "purpose",
+        "sending",
+        "holy",
+        "ghost",
+        "god",
+        "continue",
+        "bunch",
+        "people"
+      ],
+      "source_entry_number": 2
+    },
+    {
+      "id": "holy_spirit_003",
+      "sermon_code": "59-1219",
+      "sermon_title": "Questions And Answers On The Holy Ghost",
+      "locator": "§26",
+      "context": "Dieu dans le croyant",
+      "anchor_terms": [
+        "dieu",
+        "croyant",
+        "holy",
+        "ghost",
+        "god",
+        "himself"
+      ],
+      "source_entry_number": 3
+    },
+    {
+      "id": "holy_spirit_004",
+      "sermon_code": "58-0928M",
+      "sermon_title": "The Baptism Of The Holy Spirit",
+      "locator": "§6",
+      "context": "Direction du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "direction",
+        "lead",
+        "thy",
+        "holy",
+        "spirit",
+        "coming",
+        "discussion",
+        "church",
+        "doctrine"
+      ],
+      "source_entry_number": 4
+    },
+    {
+      "id": "holy_spirit_005",
+      "sermon_code": "61-1231M",
+      "sermon_title": "You Must Be Born Again",
+      "locator": "passage sur le baptême",
+      "context": "Baptême dans le Corps de Christ",
+      "anchor_terms": [
+        "bapteme",
+        "corps",
+        "christ",
+        "holy",
+        "ghost",
+        "baptizes",
+        "body",
+        "service"
+      ],
+      "source_entry_number": 5
+    },
+    {
+      "id": "holy_spirit_006",
+      "sermon_code": "58-1007",
+      "sermon_title": "Church Order",
+      "locator": "§5",
+      "context": "Entrée dans le Corps de Christ",
+      "anchor_terms": [
+        "entree",
+        "corps",
+        "christ",
+        "baptism",
+        "holy",
+        "spirit",
+        "brought",
+        "member",
+        "members",
+        "body",
+        "jesus"
+      ],
+      "source_entry_number": 6
+    },
+    {
+      "id": "holy_spirit_007",
+      "sermon_code": "64-0208",
+      "sermon_title": "The Token",
+      "locator": "§16",
+      "context": "Le Saint-Esprit comme Signe/Token",
+      "anchor_terms": [
+        "saint-esprit",
+        "token",
+        "signe",
+        "holy",
+        "ghost",
+        "today",
+        "identify",
+        "jesus",
+        "christ",
+        "resurrection"
+      ],
+      "source_entry_number": 7
+    },
+    {
+      "id": "holy_spirit_008",
+      "sermon_code": "56-0723",
+      "sermon_title": "Led By The Spirit Of God",
+      "locator": "§24",
+      "context": "Être conduit par l'Esprit",
+      "anchor_terms": [
+        "conduit",
+        "l'esprit",
+        "sons",
+        "daughters",
+        "god",
+        "led",
+        "spirit"
+      ],
+      "source_entry_number": 8
+    },
+    {
+      "id": "holy_spirit_009",
+      "sermon_code": "54-1204",
+      "sermon_title": "God Perfecting His Church",
+      "locator": "§96",
+      "context": "Recevoir le Saint-Esprit par la foi",
+      "anchor_terms": [
+        "saint-esprit",
+        "foi",
+        "recevoir",
+        "believe",
+        "heart",
+        "god",
+        "going",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 9
+    },
+    {
+      "id": "holy_spirit_010",
+      "sermon_code": "54-0512",
+      "sermon_title": "The Seven Church Ages",
+      "locator": "§72",
+      "context": "Le même Esprit à travers les âges",
+      "anchor_terms": [
+        "esprit",
+        "travers",
+        "ages",
+        "same",
+        "holy",
+        "spirit",
+        "lit",
+        "god",
+        "fire"
+      ],
+      "source_entry_number": 10
+    },
+    {
+      "id": "holy_spirit_011",
+      "sermon_code": "58-0209A",
+      "sermon_title": "Hear Ye Him",
+      "locator": "§78",
+      "context": "Le Saint-Esprit comme Enseignant",
+      "anchor_terms": [
+        "saint-esprit",
+        "enseignant",
+        "holy",
+        "spirit",
+        "teacher",
+        "church"
+      ],
+      "source_entry_number": 11
+    },
+    {
+      "id": "holy_spirit_012",
+      "sermon_code": "54-0515",
+      "sermon_title": "Questions And Answers",
+      "locator": "§109",
+      "context": "Vie produite par le Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "vie",
+        "produite",
+        "genuine",
+        "holy",
+        "ghost",
+        "person",
+        "born",
+        "spirit",
+        "god",
+        "live",
+        "godly"
+      ],
+      "source_entry_number": 12
+    },
+    {
+      "id": "holy_spirit_013",
+      "sermon_code": "60-1126",
+      "sermon_title": "Why?",
+      "locator": "§84",
+      "context": "Imposition des mains",
+      "anchor_terms": [
+        "imposition",
+        "mains",
+        "that's",
+        "receive",
+        "holy",
+        "ghost",
+        "laying",
+        "hands"
+      ],
+      "source_entry_number": 13
+    },
+    {
+      "id": "holy_spirit_014",
+      "sermon_code": "54-1219E",
+      "sermon_title": "Acts Of The Holy Spirit",
+      "locator": "§4",
+      "context": "Le Saint-Esprit agissant dans les apôtres",
+      "anchor_terms": [
+        "saint-esprit",
+        "agissant",
+        "apotres",
+        "holy",
+        "spirit",
+        "apostles",
+        "acting"
+      ],
+      "source_entry_number": 14
+    },
+    {
+      "id": "holy_spirit_015",
+      "sermon_code": "55-0819",
+      "sermon_title": "Being Led By The Holy Spirit",
+      "locator": "§15",
+      "context": "Conduite de l'Esprit",
+      "anchor_terms": [
+        "conduite",
+        "l'esprit",
+        "men",
+        "god",
+        "led",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 15
+    },
+    {
+      "id": "holy_spirit_016",
+      "sermon_code": "56-0219",
+      "sermon_title": "Being Led Of The Holy Spirit",
+      "locator": "§77",
+      "context": "Nouvelle naissance et direction",
+      "anchor_terms": [
+        "nouvelle",
+        "naissance",
+        "direction",
+        "lead",
+        "man",
+        "woman",
+        "that's",
+        "borned",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 16
+    },
+    {
+      "id": "holy_spirit_017",
+      "sermon_code": "54-0624",
+      "sermon_title": "The Deep Calleth To The Deep",
+      "locator": "§1",
+      "context": "Unicité du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "unicite",
+        "there's",
+        "two",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 17
+    },
+    {
+      "id": "holy_spirit_018",
+      "sermon_code": "52-0727",
+      "sermon_title": "Led By The Holy Spirit",
+      "locator": "§20",
+      "context": "Conduite personnelle",
+      "anchor_terms": [
+        "conduite",
+        "personnelle",
+        "holy",
+        "spirit's",
+        "believe",
+        "men's",
+        "led",
+        "spirit"
+      ],
+      "source_entry_number": 18
+    },
+    {
+      "id": "holy_spirit_019",
+      "sermon_code": "52-0809",
+      "sermon_title": "Deep Calleth Unto The Deep",
+      "locator": "§1",
+      "context": "Le Saint-Esprit est l'Esprit de Dieu",
+      "anchor_terms": [
+        "saint-esprit",
+        "dieu",
+        "l'esprit",
+        "holy",
+        "ghost",
+        "that's",
+        "spirit",
+        "god"
+      ],
+      "source_entry_number": 19
+    },
+    {
+      "id": "holy_spirit_020",
+      "sermon_code": "52-0713E",
+      "sermon_title": "God Testifying Of His Gifts",
+      "locator": "§1",
+      "context": "Le Saint-Esprit donné aux croyants",
+      "anchor_terms": [
+        "saint-esprit",
+        "donne",
+        "croyants",
+        "return",
+        "give",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 20
+    },
+    {
+      "id": "holy_spirit_021",
+      "sermon_code": "53-1103",
+      "sermon_title": "Taking God At His Word",
+      "locator": "§10",
+      "context": "Nouvelle naissance",
+      "anchor_terms": [
+        "nouvelle",
+        "naissance",
+        "man",
+        "born",
+        "spirit",
+        "god",
+        "believes",
+        "supernatural"
+      ],
+      "source_entry_number": 21
+    },
+    {
+      "id": "holy_spirit_022",
+      "sermon_code": "64-0212",
+      "sermon_title": "When Their Eyes Were Opened, They Knew Him",
+      "locator": "§1",
+      "context": "Le Saint-Esprit et la Parole",
+      "anchor_terms": [
+        "saint-esprit",
+        "parole",
+        "may",
+        "great",
+        "holy",
+        "ghost",
+        "take",
+        "ahold",
+        "word",
+        "falls",
+        "heart"
+      ],
+      "source_entry_number": 22
+    },
+    {
+      "id": "holy_spirit_023",
+      "sermon_code": "59-1220M",
+      "sermon_title": "Conference With God",
+      "locator": "§1",
+      "context": "Réception du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "reception",
+        "many",
+        "received",
+        "holy",
+        "ghost",
+        "purpose",
+        "meeting"
+      ],
+      "source_entry_number": 23
+    },
+    {
+      "id": "holy_spirit_024",
+      "sermon_code": "62-0204",
+      "sermon_title": "Communion",
+      "locator": "§35",
+      "context": "Communion avec Dieu",
+      "anchor_terms": [
+        "dieu",
+        "communion",
+        "real",
+        "holy",
+        "spirit",
+        "speaking",
+        "back"
+      ],
+      "source_entry_number": 24
+    },
+    {
+      "id": "holy_spirit_025",
+      "sermon_code": "63-0623E",
+      "sermon_title": "The Flashing Red Light Of The Sign Of His Coming",
+      "locator": "§1",
+      "context": "Transformation par l'Esprit",
+      "anchor_terms": [
+        "transformation",
+        "l'esprit",
+        "transformed",
+        "renewing",
+        "spirit",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 25
+    },
+    {
+      "id": "holy_spirit_026",
+      "sermon_code": "63-0825M",
+      "sermon_title": "How Can I Overcome?",
+      "locator": "§1",
+      "context": "Le Saint-Esprit communique les choses de Dieu",
+      "anchor_terms": [
+        "saint-esprit",
+        "dieu",
+        "communique",
+        "choses",
+        "holy",
+        "spirit",
+        "take",
+        "god",
+        "deliver"
+      ],
+      "source_entry_number": 26
+    },
+    {
+      "id": "holy_spirit_027",
+      "sermon_code": "59-0404",
+      "sermon_title": "What Are The Works Of God?",
+      "locator": "§1",
+      "context": "Œuvres du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "uvres",
+        "like",
+        "hear",
+        "works",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 27
+    },
+    {
+      "id": "holy_spirit_028",
+      "sermon_code": "59-0610",
+      "sermon_title": "As I Thought On My Ways",
+      "locator": "§1",
+      "context": "Le Saint-Esprit parle",
+      "anchor_terms": [
+        "saint-esprit",
+        "parle",
+        "heard",
+        "message",
+        "forth",
+        "holy",
+        "spirit",
+        "speak",
+        "back"
+      ],
+      "source_entry_number": 28
+    },
+    {
+      "id": "holy_spirit_029",
+      "sermon_code": "65-0801M",
+      "sermon_title": "The God Of This Evil Age",
+      "locator": "§2",
+      "context": "Présence de l'Esprit dans le cœur",
+      "anchor_terms": [
+        "presence",
+        "l'esprit",
+        "holy",
+        "spirit's",
+        "shed",
+        "abroad",
+        "hearts"
+      ],
+      "source_entry_number": 29
+    },
+    {
+      "id": "holy_spirit_030",
+      "sermon_code": "62-0311",
+      "sermon_title": "The Greatest Battle Ever Fought",
+      "locator": "§64",
+      "context": "Le Saint-Esprit dans le combat spirituel",
+      "anchor_terms": [
+        "saint-esprit",
+        "combat",
+        "spirituel",
+        "you've",
+        "soldier",
+        "holy",
+        "spirit",
+        "placed",
+        "battle",
+        "front"
+      ],
+      "source_entry_number": 30
+    },
+    {
+      "id": "holy_spirit_031",
+      "sermon_code": "58-0202",
+      "sermon_title": "Escape Hither, Come Quickly",
+      "locator": "§1",
+      "context": "Grâce dans le cœur",
+      "anchor_terms": [
+        "grace",
+        "thank",
+        "thee",
+        "that's",
+        "shed",
+        "abroad",
+        "hearts",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 31
+    },
+    {
+      "id": "holy_spirit_032",
+      "sermon_code": "62-0623",
+      "sermon_title": "Perseverant",
+      "locator": "§1",
+      "context": "Puissance et miracles",
+      "anchor_terms": [
+        "puissance",
+        "miracles",
+        "may",
+        "great",
+        "holy",
+        "ghost",
+        "come",
+        "among",
+        "tonight",
+        "lord",
+        "work",
+        "wonders"
+      ],
+      "source_entry_number": 32
+    },
+    {
+      "id": "holy_spirit_033",
+      "sermon_code": "61-0813",
+      "sermon_title": "Faith",
+      "locator": "§1",
+      "context": "L'Esprit qui était en Christ",
+      "anchor_terms": [
+        "l'esprit",
+        "etait",
+        "christ",
+        "spirit",
+        "god"
+      ],
+      "source_entry_number": 33
+    },
+    {
+      "id": "holy_spirit_034",
+      "sermon_code": "63-1229M",
+      "sermon_title": "There Is A Man Here That Can Turn On The Light",
+      "locator": "§1",
+      "context": "Inspiration de la Parole",
+      "anchor_terms": [
+        "parole",
+        "inspiration",
+        "may",
+        "holy",
+        "spirit",
+        "inspire",
+        "every",
+        "word",
+        "place",
+        "hearts",
+        "people"
+      ],
+      "source_entry_number": 34
+    },
+    {
+      "id": "holy_spirit_035",
+      "sermon_code": "60-1206",
+      "sermon_title": "The Smyrnaean Church Age",
+      "locator": "§1",
+      "context": "Remplissage du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "remplissage",
+        "filled",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 35
+    },
+    {
+      "id": "holy_spirit_036",
+      "sermon_code": "55-1008",
+      "sermon_title": "The Results Of Decision",
+      "locator": "§38",
+      "context": "Repos et baptême du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "bapteme",
+        "repos",
+        "today",
+        "sabbath",
+        "baptism",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 36
+    },
+    {
+      "id": "holy_spirit_037",
+      "sermon_code": "57-0302",
+      "sermon_title": "And Then Jesus Came",
+      "locator": "§70",
+      "context": "Un seul baptême spirituel",
+      "anchor_terms": [
+        "bapteme",
+        "seul",
+        "spirituel",
+        "there's",
+        "baptism",
+        "that's",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 37
+    },
+    {
+      "id": "holy_spirit_038",
+      "sermon_code": "63-0223",
+      "sermon_title": "A Door In A Door",
+      "locator": "passage avant §72",
+      "context": "Nouvelle naissance et remplissage",
+      "anchor_terms": [
+        "nouvelle",
+        "naissance",
+        "remplissage",
+        "must",
+        "borned",
+        "again",
+        "you're",
+        "filled",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 38
+    },
+    {
+      "id": "holy_spirit_039",
+      "sermon_code": "62-1007",
+      "sermon_title": "The Key To The Door",
+      "locator": "passage sur Actes 1:8",
+      "context": "Puissance de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "puissance",
+        "first",
+        "must",
+        "receive",
+        "holy",
+        "ghost",
+        "power",
+        "god"
+      ],
+      "source_entry_number": 39
+    },
+    {
+      "id": "holy_spirit_040",
+      "sermon_code": "53-1129A",
+      "sermon_title": "The Faith That Was Once Delivered To The Saints",
+      "locator": "§141",
+      "context": "Puissance après la venue du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "puissance",
+        "venue",
+        "receive",
+        "power",
+        "after",
+        "holy",
+        "ghost",
+        "come"
+      ],
+      "source_entry_number": 40
+    },
+    {
+      "id": "holy_spirit_041",
+      "sermon_code": "53-0729",
+      "sermon_title": "Questions And Answers On Genesis",
+      "locator": "§77",
+      "context": "Imposition des mains",
+      "anchor_terms": [
+        "imposition",
+        "mains",
+        "apostolic",
+        "way",
+        "receiving",
+        "holy",
+        "ghost",
+        "lay",
+        "hands"
+      ],
+      "source_entry_number": 41
+    },
+    {
+      "id": "holy_spirit_042",
+      "sermon_code": "63-0901M",
+      "sermon_title": "Token",
+      "locator": "passage sur le Token",
+      "context": "Le Saint-Esprit comme Token",
+      "anchor_terms": [
+        "saint-esprit",
+        "token",
+        "holy",
+        "ghost",
+        "god"
+      ],
+      "source_entry_number": 42
+    },
+    {
+      "id": "holy_spirit_043",
+      "sermon_code": "62-0122",
+      "sermon_title": "Confirmation Of The Commission",
+      "locator": "§49",
+      "context": "Le sceau du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "sceau",
+        "holy",
+        "spirit",
+        "seal",
+        "cannot",
+        "broken"
+      ],
+      "source_entry_number": 43
+    },
+    {
+      "id": "holy_spirit_044",
+      "sermon_code": "63-0901E",
+      "sermon_title": "Desperations",
+      "locator": "§8",
+      "context": "Le Token atteste le prix payé",
+      "anchor_terms": [
+        "token",
+        "atteste",
+        "prix",
+        "paye",
+        "holy",
+        "spirit",
+        "price",
+        "paid"
+      ],
+      "source_entry_number": 44
+    },
+    {
+      "id": "holy_spirit_045",
+      "sermon_code": "54-0103E",
+      "sermon_title": "Questions And Answers, Part 2",
+      "locator": "§107",
+      "context": "Le Saint-Esprit comme don",
+      "anchor_terms": [
+        "saint-esprit",
+        "don",
+        "it's",
+        "gift",
+        "god",
+        "paul",
+        "said",
+        "'have",
+        "received",
+        "holy",
+        "ghost",
+        "since"
+      ],
+      "source_entry_number": 45
+    },
+    {
+      "id": "holy_spirit_046",
+      "sermon_code": "57-0115",
+      "sermon_title": "God Keeps His Word",
+      "locator": "passage avant §13",
+      "context": "Sceau de confirmation",
+      "anchor_terms": [
+        "sceau",
+        "confirmation",
+        "god",
+        "gives",
+        "baptism",
+        "holy",
+        "ghost",
+        "seal"
+      ],
+      "source_entry_number": 46
+    },
+    {
+      "id": "holy_spirit_047",
+      "sermon_code": "62-1014E",
+      "sermon_title": "A Guide",
+      "locator": "§67",
+      "context": "Le Saint-Esprit comme Guide",
+      "anchor_terms": [
+        "saint-esprit",
+        "guide",
+        "take"
+      ],
+      "source_entry_number": 47
+    },
+    {
+      "id": "holy_spirit_048",
+      "sermon_code": "63-0317E",
+      "sermon_title": "The Breach Between The Church Ages And The Seals",
+      "locator": "§32",
+      "context": "Le Saint-Esprit est le sceau",
+      "anchor_terms": [
+        "saint-esprit",
+        "sceau",
+        "holy",
+        "spirit",
+        "itself",
+        "seal"
+      ],
+      "source_entry_number": 48
+    },
+    {
+      "id": "holy_spirit_049",
+      "sermon_code": "61-0402",
+      "sermon_title": "The True Easter Seal",
+      "locator": "passage sur Éphésiens 4:30",
+      "context": "Sceau d'une œuvre achevée",
+      "anchor_terms": [
+        "sceau",
+        "d'une",
+        "uvre",
+        "achevee",
+        "holy",
+        "ghost",
+        "god's",
+        "seal",
+        "finished",
+        "product"
+      ],
+      "source_entry_number": 49
+    },
+    {
+      "id": "holy_spirit_050",
+      "sermon_code": "54-0516",
+      "sermon_title": "Questions And Answers, The Law Having A Shadow",
+      "locator": "§35",
+      "context": "Enseignant et Guide",
+      "anchor_terms": [
+        "enseignant",
+        "guide",
+        "must",
+        "listen",
+        "holy",
+        "spirit",
+        "see",
+        "he's",
+        "teacher",
+        "church"
+      ],
+      "source_entry_number": 50
+    },
+    {
+      "id": "holy_spirit_051",
+      "sermon_code": "61-0216",
+      "sermon_title": "The Seal Of God And The Mark Of The Beast, Part 1",
+      "locator": "§25",
+      "context": "Propriété de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "propriete",
+        "church",
+        "sealed",
+        "holy",
+        "spirit",
+        "showing",
+        "ownership"
+      ],
+      "source_entry_number": 51
+    },
+    {
+      "id": "holy_spirit_052",
+      "sermon_code": "54-1003E",
+      "sermon_title": "Jubilee Year",
+      "locator": "passage sur Éphésiens 4:30",
+      "context": "Le sceau de Dieu",
+      "anchor_terms": [
+        "sceau",
+        "dieu",
+        "seal",
+        "god",
+        "baptism",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 52
+    },
+    {
+      "id": "holy_spirit_053",
+      "sermon_code": "54-0514",
+      "sermon_title": "The Seal Of God",
+      "locator": "passage avant §71",
+      "context": "Conduite et puissance de résurrection",
+      "anchor_terms": [
+        "conduite",
+        "puissance",
+        "resurrection",
+        "holy",
+        "spirit",
+        "leading",
+        "church",
+        "leads",
+        "power",
+        "jesus",
+        "christ"
+      ],
+      "source_entry_number": 53
+    },
+    {
+      "id": "holy_spirit_054",
+      "sermon_code": "51-0507",
+      "sermon_title": "Expectations",
+      "locator": "§28",
+      "context": "Discernement par l'Esprit",
+      "anchor_terms": [
+        "discernement",
+        "l'esprit",
+        "holy",
+        "spirit",
+        "fell",
+        "down",
+        "told",
+        "condition"
+      ],
+      "source_entry_number": 54
+    },
+    {
+      "id": "holy_spirit_055",
+      "sermon_code": "61-0112",
+      "sermon_title": "Questions And Answers",
+      "locator": "§34",
+      "context": "Évidence dans la vie",
+      "anchor_terms": [
+        "evidence",
+        "vie",
+        "you've",
+        "holy",
+        "ghost",
+        "life",
+        "live"
+      ],
+      "source_entry_number": 55
+    },
+    {
+      "id": "holy_spirit_056",
+      "sermon_code": "50-0810",
+      "sermon_title": "Expectations",
+      "locator": "§10",
+      "context": "Direction du Corps de Christ",
+      "anchor_terms": [
+        "direction",
+        "corps",
+        "christ",
+        "holy",
+        "spirit",
+        "leads",
+        "body"
+      ],
+      "source_entry_number": 56
+    },
+    {
+      "id": "holy_spirit_057",
+      "sermon_code": "61-0217",
+      "sermon_title": "The Seal Of God And The Mark Of The Beast, Part 2",
+      "locator": "§17",
+      "context": "Sceau de Dieu",
+      "anchor_terms": [
+        "sceau",
+        "dieu",
+        "holy",
+        "spirit",
+        "seal",
+        "god"
+      ],
+      "source_entry_number": 57
+    },
+    {
+      "id": "holy_spirit_058",
+      "sermon_code": "60-0807",
+      "sermon_title": "Debate On Tongues",
+      "locator": "§7",
+      "context": "Le Saint-Esprit est Dieu",
+      "anchor_terms": [
+        "saint-esprit",
+        "dieu",
+        "know",
+        "holy",
+        "spirit",
+        "god"
+      ],
+      "source_entry_number": 58
+    },
+    {
+      "id": "holy_spirit_059",
+      "sermon_code": "64-0823E",
+      "sermon_title": "Questions And Answers, Part 2",
+      "locator": "passage sur l'évidence",
+      "context": "Évidence et Parole promise",
+      "anchor_terms": [
+        "parole",
+        "evidence",
+        "promise",
+        "there's",
+        "holy",
+        "spirit",
+        "know",
+        "genuine",
+        "faith",
+        "promised",
+        "word"
+      ],
+      "source_entry_number": 59
+    },
+    {
+      "id": "holy_spirit_060",
+      "sermon_code": "60-0729",
+      "sermon_title": "What It Takes To Overcome All Unbelief: Our Faith",
+      "locator": "§15",
+      "context": "Œuvre de purification dans l'Église",
+      "anchor_terms": [
+        "eglise",
+        "uvre",
+        "purification",
+        "l'eglise",
+        "that's",
+        "holy",
+        "spirit",
+        "church",
+        "keep",
+        "clean"
+      ],
+      "source_entry_number": 60
+    },
+    {
+      "id": "holy_spirit_061",
+      "sermon_code": "63-0324M",
+      "sermon_title": "Questions And Answers On The Seals",
+      "locator": "§4",
+      "context": "Diversité des dons, même Esprit",
+      "anchor_terms": [
+        "diversite",
+        "dons",
+        "esprit",
+        "there's",
+        "many",
+        "gifts",
+        "it's",
+        "same",
+        "spirit"
+      ],
+      "source_entry_number": 61
+    },
+    {
+      "id": "holy_spirit_062",
+      "sermon_code": "60-0221",
+      "sermon_title": "Hearing, Recognizing, Acting On The Word Of God",
+      "locator": "§64",
+      "context": "Le Saint-Esprit et la nouvelle naissance",
+      "anchor_terms": [
+        "saint-esprit",
+        "nouvelle",
+        "naissance",
+        "holy",
+        "ghost",
+        "new",
+        "birth",
+        "know"
+      ],
+      "source_entry_number": 62
+    },
+    {
+      "id": "holy_spirit_063",
+      "sermon_code": "56-0223",
+      "sermon_title": "God’s Covenant With Abraham And His Seed",
+      "locator": "§61",
+      "context": "Le même Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "it's",
+        "same",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 63
+    },
+    {
+      "id": "holy_spirit_064",
+      "sermon_code": "60-0911E",
+      "sermon_title": "Five Definite Identifications Of The True Church",
+      "locator": "passage avant §24",
+      "context": "Membre du Corps de Christ",
+      "anchor_terms": [
+        "membre",
+        "corps",
+        "christ",
+        "they're",
+        "filled",
+        "holy",
+        "ghost",
+        "become",
+        "full",
+        "member",
+        "body"
+      ],
+      "source_entry_number": 64
+    },
+    {
+      "id": "holy_spirit_065",
+      "sermon_code": "53-0219",
+      "sermon_title": "Accept God’s Gift",
+      "locator": "§8",
+      "context": "Don de Dieu après la foi",
+      "anchor_terms": [
+        "foi",
+        "dieu",
+        "don",
+        "holy",
+        "spirit",
+        "gift",
+        "god",
+        "after",
+        "believe"
+      ],
+      "source_entry_number": 65
+    },
+    {
+      "id": "holy_spirit_066",
+      "sermon_code": "65-0218",
+      "sermon_title": "The Seed Is Not Heir With The Shuck",
+      "locator": "§21",
+      "context": "Étapes de grâce",
+      "anchor_terms": [
+        "etapes",
+        "grace",
+        "also",
+        "three",
+        "perfection",
+        "steps",
+        "church",
+        "justification",
+        "sanctification",
+        "baptism",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 66
+    },
+    {
+      "id": "holy_spirit_067",
+      "sermon_code": "50-0115",
+      "sermon_title": "Believest Thou This?",
+      "locator": "§51",
+      "context": "Le même Esprit de Pentecôte",
+      "anchor_terms": [
+        "esprit",
+        "pentecote",
+        "every",
+        "person",
+        "enters",
+        "baptism",
+        "spirit",
+        "same",
+        "kind",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 67
+    },
+    {
+      "id": "holy_spirit_068",
+      "sermon_code": "54-0513",
+      "sermon_title": "The Mark Of The Beast",
+      "locator": "§70",
+      "context": "Dons, signes et merveilles",
+      "anchor_terms": [
+        "dons",
+        "signes",
+        "merveilles",
+        "believe",
+        "power",
+        "god",
+        "makes",
+        "speak",
+        "tongues",
+        "signs",
+        "wonders",
+        "follow"
+      ],
+      "source_entry_number": 68
+    },
+    {
+      "id": "holy_spirit_069",
+      "sermon_code": "65-0725M",
+      "sermon_title": "The Anointed Ones At The End Time",
+      "locator": "§1",
+      "context": "Abandon à l'action de l'Esprit",
+      "anchor_terms": [
+        "abandon",
+        "l'action",
+        "l'esprit",
+        "surrender",
+        "ourselves",
+        "completely",
+        "divine",
+        "working",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 69
+    },
+    {
+      "id": "holy_spirit_070",
+      "sermon_code": "54-0103M",
+      "sermon_title": "Questions And Answers, Part 1",
+      "locator": "passage sur Actes 19",
+      "context": "Recevoir après avoir cru",
+      "anchor_terms": [
+        "recevoir",
+        "cru",
+        "received",
+        "holy",
+        "ghost",
+        "since",
+        "believed"
+      ],
+      "source_entry_number": 70
+    },
+    {
+      "id": "holy_spirit_071",
+      "sermon_code": "60-1204M",
+      "sermon_title": "Revelation Chapter One",
+      "locator": "§135",
+      "context": "Sanctification distincte du baptême",
+      "anchor_terms": [
+        "bapteme",
+        "sanctification",
+        "distincte",
+        "sanctified",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 71
+    },
+    {
+      "id": "holy_spirit_072",
+      "sermon_code": "60-0806",
+      "sermon_title": "Hear Ye Him",
+      "locator": "§54",
+      "context": "Réception et naissance",
+      "anchor_terms": [
+        "reception",
+        "naissance",
+        "receive",
+        "holy",
+        "ghost",
+        "that's",
+        "thing",
+        "you're",
+        "born"
+      ],
+      "source_entry_number": 72
+    },
+    {
+      "id": "holy_spirit_073",
+      "sermon_code": "63-0728",
+      "sermon_title": "Christ Is The Mystery Of God Revealed",
+      "locator": "§2",
+      "context": "Direction de l'Esprit",
+      "anchor_terms": [
+        "direction",
+        "l'esprit",
+        "approaching",
+        "thee",
+        "again",
+        "morning",
+        "mercy",
+        "guidance",
+        "holy",
+        "spirit",
+        "today"
+      ],
+      "source_entry_number": 73
+    },
+    {
+      "id": "holy_spirit_074",
+      "sermon_code": "60-0306",
+      "sermon_title": "It Wasn’t So From The Beginning",
+      "locator": "§66",
+      "context": "Imposition des mains",
+      "anchor_terms": [
+        "imposition",
+        "mains",
+        "laid",
+        "hands",
+        "each",
+        "other",
+        "receive",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 74
+    },
+    {
+      "id": "holy_spirit_075",
+      "sermon_code": "59-1004E",
+      "sermon_title": "Why Cry? Speak!",
+      "locator": "§29",
+      "context": "Continuité de Pentecôte",
+      "anchor_terms": [
+        "continuite",
+        "pentecote",
+        "holy",
+        "ghost",
+        "same",
+        "back",
+        "day",
+        "pentecost"
+      ],
+      "source_entry_number": 75
+    },
+    {
+      "id": "holy_spirit_076",
+      "sermon_code": "58-0128",
+      "sermon_title": "The Oneness Of Unity",
+      "locator": "§58",
+      "context": "Foi et réception",
+      "anchor_terms": [
+        "foi",
+        "reception",
+        "faith",
+        "cometh",
+        "hearing",
+        "laying",
+        "hands"
+      ],
+      "source_entry_number": 76
+    },
+    {
+      "id": "holy_spirit_077",
+      "sermon_code": "59-1129",
+      "sermon_title": "Let Us See God",
+      "locator": "§80",
+      "context": "Réponse à l'action du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "reponse",
+        "l'action",
+        "holy",
+        "spirit",
+        "anything",
+        "want",
+        "praise"
+      ],
+      "source_entry_number": 77
+    },
+    {
+      "id": "holy_spirit_078",
+      "sermon_code": "58-0330A",
+      "sermon_title": "A Missionary Talk",
+      "locator": "§11",
+      "context": "Manifestation du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "manifestation",
+        "gospel",
+        "came",
+        "word",
+        "power",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 78
+    },
+    {
+      "id": "holy_spirit_079",
+      "sermon_code": "53-0831",
+      "sermon_title": "Talk On The Word",
+      "locator": "§82",
+      "context": "Présence du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "presence",
+        "wanted",
+        "see",
+        "holy",
+        "spirit's"
+      ],
+      "source_entry_number": 79
+    },
+    {
+      "id": "holy_spirit_080",
+      "sermon_code": "60-0109",
+      "sermon_title": "Sirs, We Would See Jesus",
+      "locator": "§58",
+      "context": "Le même Esprit aujourd'hui",
+      "anchor_terms": [
+        "esprit",
+        "aujourd'hui",
+        "same",
+        "jesus",
+        "holy",
+        "spirit",
+        "moved",
+        "eastern",
+        "people",
+        "moving",
+        "western"
+      ],
+      "source_entry_number": 80
+    },
+    {
+      "id": "holy_spirit_081",
+      "sermon_code": "62-0129",
+      "sermon_title": "Explaining The Ministry",
+      "locator": "§30",
+      "context": "Christ ressuscité agissant par l'Esprit",
+      "anchor_terms": [
+        "christ",
+        "ressuscite",
+        "agissant",
+        "l'esprit",
+        "living",
+        "risen",
+        "lord",
+        "jesus",
+        "midst",
+        "tonight",
+        "moving",
+        "over"
+      ],
+      "source_entry_number": 81
+    },
+    {
+      "id": "holy_spirit_082",
+      "sermon_code": "59-0211",
+      "sermon_title": "Simeon And Anna",
+      "locator": "§14",
+      "context": "Conduite et promesse",
+      "anchor_terms": [
+        "conduite",
+        "promesse",
+        "same",
+        "holy",
+        "ghost",
+        "led",
+        "simeon",
+        "keep",
+        "promise"
+      ],
+      "source_entry_number": 82
+    },
+    {
+      "id": "holy_spirit_083",
+      "sermon_code": "50-0716",
+      "sermon_title": "Believest Thou This?",
+      "locator": "§89",
+      "context": "Désir de recevoir le Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "desir",
+        "recevoir",
+        "want",
+        "holy",
+        "ghost",
+        "christ",
+        "life"
+      ],
+      "source_entry_number": 83
+    },
+    {
+      "id": "holy_spirit_084",
+      "sermon_code": "53-0906A",
+      "sermon_title": "Believest Thou This?",
+      "locator": "§53",
+      "context": "Retour du Saint-Esprit biblique",
+      "anchor_terms": [
+        "saint-esprit",
+        "retour",
+        "biblique",
+        "world",
+        "needs",
+        "today",
+        "old-fashioned",
+        "saint",
+        "paul's",
+        "revival",
+        "bible",
+        "holy"
+      ],
+      "source_entry_number": 84
+    },
+    {
+      "id": "holy_spirit_085",
+      "sermon_code": "62-0701",
+      "sermon_title": "To Take On The Whole Armor Of God",
+      "locator": "§100",
+      "context": "Armure de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "armure",
+        "whole",
+        "armor",
+        "god",
+        "baptism",
+        "holy",
+        "ghost",
+        "word",
+        "behind"
+      ],
+      "source_entry_number": 85
+    },
+    {
+      "id": "holy_spirit_086",
+      "sermon_code": "62-0714",
+      "sermon_title": "The Uncertain Sound",
+      "locator": "§93",
+      "context": "Le Saint-Esprit et la Parole",
+      "anchor_terms": [
+        "saint-esprit",
+        "parole",
+        "that's",
+        "holy",
+        "ghost",
+        "word"
+      ],
+      "source_entry_number": 86
+    },
+    {
+      "id": "holy_spirit_087",
+      "sermon_code": "59-0810",
+      "sermon_title": "The Reaction To An Action",
+      "locator": "§59",
+      "context": "Le Saint-Esprit typifié par l'huile",
+      "anchor_terms": [
+        "saint-esprit",
+        "typifie",
+        "l'huile",
+        "come",
+        "tonight",
+        "receive",
+        "oil"
+      ],
+      "source_entry_number": 87
+    },
+    {
+      "id": "holy_spirit_088",
+      "sermon_code": "63-0731",
+      "sermon_title": "There Is Only One Way Provided By God For Anything",
+      "locator": "§60",
+      "context": "Voie de Dieu pour l'Église",
+      "anchor_terms": [
+        "eglise",
+        "dieu",
+        "voie",
+        "l'eglise",
+        "holy",
+        "ghost",
+        "god's",
+        "provided",
+        "way",
+        "church"
+      ],
+      "source_entry_number": 88
+    },
+    {
+      "id": "holy_spirit_089",
+      "sermon_code": "54-0303",
+      "sermon_title": "Witnesses",
+      "locator": "§19",
+      "context": "Témoignage personnel de l'Esprit",
+      "anchor_terms": [
+        "temoignage",
+        "personnel",
+        "l'esprit",
+        "holy",
+        "ghost",
+        "witness",
+        "must",
+        "personal",
+        "experience"
+      ],
+      "source_entry_number": 89
+    },
+    {
+      "id": "holy_spirit_090",
+      "sermon_code": "62-0909M",
+      "sermon_title": "Countdown",
+      "locator": "passage avant §25",
+      "context": "Témoin de la résurrection",
+      "anchor_terms": [
+        "temoin",
+        "resurrection",
+        "holy",
+        "ghost",
+        "witness"
+      ],
+      "source_entry_number": 90
+    },
+    {
+      "id": "holy_spirit_091",
+      "sermon_code": "55-1005",
+      "sermon_title": "The Book Of Exodus, Part 1",
+      "locator": "§14",
+      "context": "Rédemption et bénédictions spirituelles",
+      "anchor_terms": [
+        "redemption",
+        "benedictions",
+        "spirituelles",
+        "sure",
+        "rock",
+        "salvation",
+        "we've",
+        "redeemed",
+        "precious",
+        "blood",
+        "lord",
+        "jesus"
+      ],
+      "source_entry_number": 91
+    },
+    {
+      "id": "holy_spirit_092",
+      "sermon_code": "56-0816",
+      "sermon_title": "Workings Of The Holy Ghost",
+      "locator": "passage correspondant à §35 env.",
+      "context": "Continuer les œuvres de Jésus",
+      "anchor_terms": [
+        "jesus",
+        "continuer",
+        "uvres",
+        "sent",
+        "holy",
+        "spirit",
+        "church",
+        "continue",
+        "works",
+        "lord",
+        "till",
+        "come"
+      ],
+      "source_entry_number": 92
+    },
+    {
+      "id": "holy_spirit_093",
+      "sermon_code": "59-0708M",
+      "sermon_title": "Church Dedication",
+      "locator": "passage avant §11",
+      "context": "Repos et sécurité",
+      "anchor_terms": [
+        "repos",
+        "securite",
+        "place",
+        "rest",
+        "security",
+        "we're",
+        "baptized",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 93
+    },
+    {
+      "id": "holy_spirit_094",
+      "sermon_code": "61-1105",
+      "sermon_title": "The Testimony Of A True Witness",
+      "locator": "§109",
+      "context": "Nécessité du remplissage",
+      "anchor_terms": [
+        "necessite",
+        "remplissage",
+        "you'll",
+        "never",
+        "peace",
+        "earth",
+        "until",
+        "holy",
+        "ghost",
+        "fills"
+      ],
+      "source_entry_number": 94
+    },
+    {
+      "id": "holy_spirit_095",
+      "sermon_code": "61-0415E",
+      "sermon_title": "The Uncertain Sound",
+      "locator": "§77",
+      "context": "Pentecôte",
+      "anchor_terms": [
+        "pentecote",
+        "holy",
+        "ghost",
+        "didn't",
+        "come",
+        "wafer",
+        "like",
+        "sound",
+        "heaven"
+      ],
+      "source_entry_number": 95
+    },
+    {
+      "id": "holy_spirit_096",
+      "sermon_code": "65-0118",
+      "sermon_title": "The Seed Of Discrepancy",
+      "locator": "§29",
+      "context": "L'Esprit vivifie la Parole",
+      "anchor_terms": [
+        "parole",
+        "l'esprit",
+        "vivifie",
+        "genuine",
+        "holy",
+        "spirit",
+        "brings",
+        "life",
+        "word"
+      ],
+      "source_entry_number": 96
+    },
+    {
+      "id": "holy_spirit_097",
+      "sermon_code": "65-0418M",
+      "sermon_title": "It Is The Rising Of The Sun",
+      "locator": "§71",
+      "context": "Puissance de résurrection",
+      "anchor_terms": [
+        "puissance",
+        "resurrection",
+        "spirit",
+        "raised",
+        "jesus",
+        "easter",
+        "morning",
+        "dead"
+      ],
+      "source_entry_number": 97
+    },
+    {
+      "id": "holy_spirit_098",
+      "sermon_code": "65-0425",
+      "sermon_title": "God’s Provided Place Of Worship",
+      "locator": "§59",
+      "context": "Vivification",
+      "anchor_terms": [
+        "vivification",
+        "spirit",
+        "raised",
+        "jesus",
+        "dead",
+        "also",
+        "quicken",
+        "mortal",
+        "bodies"
+      ],
+      "source_entry_number": 98
+    },
+    {
+      "id": "holy_spirit_099",
+      "sermon_code": "50-0819",
+      "sermon_title": "Show Us The Father And It Will Suffice Us",
+      "locator": "§40",
+      "context": "L'Esprit vivifie la Parole",
+      "anchor_terms": [
+        "parole",
+        "l'esprit",
+        "vivifie",
+        "god",
+        "quicken",
+        "word",
+        "spirit"
+      ],
+      "source_entry_number": 99
+    },
+    {
+      "id": "holy_spirit_100",
+      "sermon_code": "62-0506",
+      "sermon_title": "Possessing All Things",
+      "locator": "§77",
+      "context": "Présence du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "presence",
+        "believe",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 100
+    },
+    {
+      "id": "holy_spirit_101",
+      "sermon_code": "50-0815",
+      "sermon_title": "Attitude And Who Is God?",
+      "locator": "§22",
+      "context": "Dieu en nous",
+      "anchor_terms": [
+        "dieu",
+        "deity"
+      ],
+      "source_entry_number": 101
+    },
+    {
+      "id": "holy_spirit_102",
+      "sermon_code": "63-0707E",
+      "sermon_title": "Communion",
+      "locator": "§1",
+      "context": "Fruits de l'Esprit",
+      "anchor_terms": [
+        "fruits",
+        "l'esprit",
+        "must",
+        "live",
+        "kind",
+        "state",
+        "spirit",
+        "make",
+        "itself",
+        "known"
+      ],
+      "source_entry_number": 102
+    },
+    {
+      "id": "holy_spirit_103",
+      "sermon_code": "57-0418",
+      "sermon_title": "The Communion",
+      "locator": "§24",
+      "context": "Œuvre intérieure achevée",
+      "anchor_terms": [
+        "uvre",
+        "interieure",
+        "achevee",
+        "it's",
+        "commemoration",
+        "finished",
+        "work",
+        "that's",
+        "done",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 103
+    }
+  ],
+  "topics": [
+    {
+      "id": "holy_spirit_all",
+      "label": "Le Saint-Esprit",
+      "aliases": [
+        "Saint-Esprit",
+        "Esprit de Dieu",
+        "recevoir le Saint-Esprit",
+        "baptême du Saint-Esprit",
+        "être conduit par l'Esprit"
+      ],
+      "keywords": [
+        "saint-esprit",
+        "esprit",
+        "bapteme",
+        "sceau",
+        "token",
+        "puissance",
+        "parole",
+        "guide"
+      ],
+      "reference_ids": [
+        "holy_spirit_001",
+        "holy_spirit_002",
+        "holy_spirit_003",
+        "holy_spirit_004",
+        "holy_spirit_005",
+        "holy_spirit_006",
+        "holy_spirit_007",
+        "holy_spirit_008",
+        "holy_spirit_009",
+        "holy_spirit_010",
+        "holy_spirit_011",
+        "holy_spirit_012",
+        "holy_spirit_013",
+        "holy_spirit_014",
+        "holy_spirit_015",
+        "holy_spirit_016",
+        "holy_spirit_017",
+        "holy_spirit_018",
+        "holy_spirit_019",
+        "holy_spirit_020",
+        "holy_spirit_021",
+        "holy_spirit_022",
+        "holy_spirit_023",
+        "holy_spirit_024",
+        "holy_spirit_025",
+        "holy_spirit_026",
+        "holy_spirit_027",
+        "holy_spirit_028",
+        "holy_spirit_029",
+        "holy_spirit_030",
+        "holy_spirit_031",
+        "holy_spirit_032",
+        "holy_spirit_033",
+        "holy_spirit_034",
+        "holy_spirit_035",
+        "holy_spirit_036",
+        "holy_spirit_037",
+        "holy_spirit_038",
+        "holy_spirit_039",
+        "holy_spirit_040",
+        "holy_spirit_041",
+        "holy_spirit_042",
+        "holy_spirit_043",
+        "holy_spirit_044",
+        "holy_spirit_045",
+        "holy_spirit_046",
+        "holy_spirit_047",
+        "holy_spirit_048",
+        "holy_spirit_049",
+        "holy_spirit_050",
+        "holy_spirit_051",
+        "holy_spirit_052",
+        "holy_spirit_053",
+        "holy_spirit_054",
+        "holy_spirit_055",
+        "holy_spirit_056",
+        "holy_spirit_057",
+        "holy_spirit_058",
+        "holy_spirit_059",
+        "holy_spirit_060",
+        "holy_spirit_061",
+        "holy_spirit_062",
+        "holy_spirit_063",
+        "holy_spirit_064",
+        "holy_spirit_065",
+        "holy_spirit_066",
+        "holy_spirit_067",
+        "holy_spirit_068",
+        "holy_spirit_069",
+        "holy_spirit_070",
+        "holy_spirit_071",
+        "holy_spirit_072",
+        "holy_spirit_073",
+        "holy_spirit_074",
+        "holy_spirit_075",
+        "holy_spirit_076",
+        "holy_spirit_077",
+        "holy_spirit_078",
+        "holy_spirit_079",
+        "holy_spirit_080",
+        "holy_spirit_081",
+        "holy_spirit_082",
+        "holy_spirit_083",
+        "holy_spirit_084",
+        "holy_spirit_085",
+        "holy_spirit_086",
+        "holy_spirit_087",
+        "holy_spirit_088",
+        "holy_spirit_089",
+        "holy_spirit_090",
+        "holy_spirit_091",
+        "holy_spirit_092",
+        "holy_spirit_093",
+        "holy_spirit_094",
+        "holy_spirit_095",
+        "holy_spirit_096",
+        "holy_spirit_097",
+        "holy_spirit_098",
+        "holy_spirit_099",
+        "holy_spirit_100",
+        "holy_spirit_101",
+        "holy_spirit_102",
+        "holy_spirit_103"
+      ]
+    },
+    {
+      "id": "holy_spirit_identity",
+      "label": "Qui est le Saint-Esprit ?",
+      "aliases": [
+        "qui est le Saint-Esprit",
+        "qu'est-ce que le Saint-Esprit",
+        "Saint-Esprit Dieu lui-même",
+        "Esprit de Dieu"
+      ],
+      "keywords": [
+        "nature",
+        "god himself",
+        "spirit of god",
+        "unicite",
+        "one holy"
+      ],
+      "reference_ids": [
+        "holy_spirit_001",
+        "holy_spirit_003",
+        "holy_spirit_008",
+        "holy_spirit_012",
+        "holy_spirit_017",
+        "holy_spirit_019",
+        "holy_spirit_021",
+        "holy_spirit_033"
+      ]
+    },
+    {
+      "id": "holy_spirit_purpose",
+      "label": "Pourquoi le Saint-Esprit a été donné",
+      "aliases": [
+        "pourquoi le Saint-Esprit a été donné",
+        "but du Saint-Esprit",
+        "pourquoi recevoir le Saint-Esprit"
+      ],
+      "keywords": [
+        "pourquoi",
+        "purpose",
+        "donne",
+        "given for"
+      ],
+      "reference_ids": [
+        "holy_spirit_002",
+        "holy_spirit_020",
+        "holy_spirit_023"
+      ]
+    },
+    {
+      "id": "receive_holy_spirit",
+      "label": "Comment recevoir le Saint-Esprit",
+      "aliases": [
+        "comment recevoir le Saint-Esprit",
+        "recevoir le Saint-Esprit",
+        "réception du Saint-Esprit",
+        "imposition des mains"
+      ],
+      "keywords": [
+        "recevoir",
+        "reception",
+        "imposition",
+        "laying on",
+        "receive"
+      ],
+      "reference_ids": [
+        "holy_spirit_009",
+        "holy_spirit_013",
+        "holy_spirit_023",
+        "holy_spirit_039",
+        "holy_spirit_040",
+        "holy_spirit_041",
+        "holy_spirit_045",
+        "holy_spirit_070",
+        "holy_spirit_072",
+        "holy_spirit_074",
+        "holy_spirit_076",
+        "holy_spirit_083",
+        "holy_spirit_087"
+      ]
+    },
+    {
+      "id": "baptism_new_birth",
+      "label": "Baptême du Saint-Esprit et nouvelle naissance",
+      "aliases": [
+        "baptême du Saint-Esprit",
+        "nouvelle naissance Saint-Esprit",
+        "être rempli du Saint-Esprit",
+        "Corps de Christ"
+      ],
+      "keywords": [
+        "bapteme",
+        "nouvelle naissance",
+        "remplissage",
+        "body of christ",
+        "filled"
+      ],
+      "reference_ids": [
+        "holy_spirit_005",
+        "holy_spirit_016",
+        "holy_spirit_021",
+        "holy_spirit_035",
+        "holy_spirit_036",
+        "holy_spirit_037",
+        "holy_spirit_038",
+        "holy_spirit_056",
+        "holy_spirit_062",
+        "holy_spirit_064",
+        "holy_spirit_071",
+        "holy_spirit_094"
+      ]
+    },
+    {
+      "id": "seal_token_assurance",
+      "label": "Sceau, Token, témoignage et assurance",
+      "aliases": [
+        "Saint-Esprit sceau",
+        "Saint-Esprit Token",
+        "signe du Saint-Esprit",
+        "assurance du Saint-Esprit"
+      ],
+      "keywords": [
+        "sceau",
+        "token",
+        "assurance",
+        "seal",
+        "confirmation"
+      ],
+      "reference_ids": [
+        "holy_spirit_001",
+        "holy_spirit_007",
+        "holy_spirit_042",
+        "holy_spirit_043",
+        "holy_spirit_044",
+        "holy_spirit_046",
+        "holy_spirit_048",
+        "holy_spirit_049",
+        "holy_spirit_051",
+        "holy_spirit_052",
+        "holy_spirit_053",
+        "holy_spirit_057",
+        "holy_spirit_061"
+      ]
+    },
+    {
+      "id": "power_gifts_signs",
+      "label": "Puissance, dons, signes et fruits",
+      "aliases": [
+        "puissance du Saint-Esprit",
+        "dons du Saint-Esprit",
+        "signes du Saint-Esprit",
+        "fruits du Saint-Esprit",
+        "miracles"
+      ],
+      "keywords": [
+        "puissance",
+        "dons",
+        "signes",
+        "miracles",
+        "power",
+        "gifts"
+      ],
+      "reference_ids": [
+        "holy_spirit_020",
+        "holy_spirit_032",
+        "holy_spirit_039",
+        "holy_spirit_040",
+        "holy_spirit_053",
+        "holy_spirit_061",
+        "holy_spirit_068",
+        "holy_spirit_078",
+        "holy_spirit_097"
+      ]
+    },
+    {
+      "id": "guidance_teaching_revelation",
+      "label": "Direction, enseignement et révélation",
+      "aliases": [
+        "Saint-Esprit guide",
+        "Saint-Esprit enseigne",
+        "direction du Saint-Esprit",
+        "révélation du Saint-Esprit",
+        "conduit par l'Esprit"
+      ],
+      "keywords": [
+        "direction",
+        "guide",
+        "enseignant",
+        "revelation",
+        "conduite",
+        "led by"
+      ],
+      "reference_ids": [
+        "holy_spirit_004",
+        "holy_spirit_008",
+        "holy_spirit_011",
+        "holy_spirit_015",
+        "holy_spirit_016",
+        "holy_spirit_018",
+        "holy_spirit_047",
+        "holy_spirit_050",
+        "holy_spirit_051",
+        "holy_spirit_053",
+        "holy_spirit_056",
+        "holy_spirit_071",
+        "holy_spirit_073",
+        "holy_spirit_082"
+      ]
+    },
+    {
+      "id": "word_body_christ",
+      "label": "Saint-Esprit, Parole et Corps de Christ",
+      "aliases": [
+        "Saint-Esprit et Parole",
+        "Saint-Esprit Corps de Christ",
+        "Esprit et Église",
+        "Saint-Esprit dans l'Église"
+      ],
+      "keywords": [
+        "parole",
+        "word",
+        "corps",
+        "body",
+        "eglise",
+        "church"
+      ],
+      "reference_ids": [
+        "holy_spirit_004",
+        "holy_spirit_005",
+        "holy_spirit_006",
+        "holy_spirit_009",
+        "holy_spirit_010",
+        "holy_spirit_011",
+        "holy_spirit_021",
+        "holy_spirit_022",
+        "holy_spirit_034",
+        "holy_spirit_035",
+        "holy_spirit_046",
+        "holy_spirit_048",
+        "holy_spirit_050",
+        "holy_spirit_051",
+        "holy_spirit_053",
+        "holy_spirit_056",
+        "holy_spirit_059",
+        "holy_spirit_060",
+        "holy_spirit_062",
+        "holy_spirit_064",
+        "holy_spirit_066",
+        "holy_spirit_078",
+        "holy_spirit_079",
+        "holy_spirit_084",
+        "holy_spirit_085",
+        "holy_spirit_086",
+        "holy_spirit_088",
+        "holy_spirit_092",
+        "holy_spirit_093",
+        "holy_spirit_096",
+        "holy_spirit_099"
+      ]
+    },
+    {
+      "id": "sanctification_transformation",
+      "label": "Sanctification, vie sainte et transformation",
+      "aliases": [
+        "Saint-Esprit vie sainte",
+        "sanctification Saint-Esprit",
+        "transformation par le Saint-Esprit"
+      ],
+      "keywords": [
+        "sanctification",
+        "vie sainte",
+        "transformation",
+        "godly",
+        "holy life"
+      ],
+      "reference_ids": [
+        "holy_spirit_012",
+        "holy_spirit_025",
+        "holy_spirit_066",
+        "holy_spirit_071"
+      ]
+    },
+    {
+      "id": "resurrection_communion_life",
+      "label": "Résurrection, communion et vie de Christ",
+      "aliases": [
+        "Saint-Esprit résurrection",
+        "communion par le Saint-Esprit",
+        "vie de Christ dans le croyant",
+        "Esprit de résurrection"
+      ],
+      "keywords": [
+        "resurrection",
+        "communion",
+        "vie de christ",
+        "resurrection",
+        "quickening"
+      ],
+      "reference_ids": [
+        "holy_spirit_007",
+        "holy_spirit_024",
+        "holy_spirit_053",
+        "holy_spirit_090",
+        "holy_spirit_097",
+        "holy_spirit_102",
+        "holy_spirit_103"
+      ]
+    }
+  ]
+}

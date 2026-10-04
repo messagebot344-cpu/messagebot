@@ -272,10 +272,14 @@ class CuratedReferenceIndex {
 
   List<CuratedSearchHint> searchHints(
     String query, {
-    int topicLimit = 5,
+    int topicLimit = 6,
     int referenceLimit = 12,
   }) {
     final matches = matchTopics(query, limit: topicLimit);
+    if (matches.isEmpty) return const [];
+
+    final queryTokens = _semanticTokens(query);
+    final normalizedQuery = normalizer.normalize(query);
     final best = <String, CuratedSearchHint>{};
 
     for (final match in matches) {
@@ -285,7 +289,32 @@ class CuratedReferenceIndex {
         final id = match.topic.referenceIds[position];
         final reference = references[id];
         if (reference == null || !reference.corpusResolved) continue;
-        final score = match.score - position * 0.08;
+
+        final referenceText = [
+          reference.context,
+          reference.sermonTitle,
+          ...reference.anchorTerms,
+        ].join(' ');
+        final referenceTokens = _semanticTokens(referenceText);
+        final overlap = queryTokens
+            .where(referenceTokens.contains)
+            .length;
+
+        // A source can contain hundreds of manually curated references.
+        // Rank the individual reference by the user's wording instead of
+        // always preferring the first entries in the fascicle.
+        var referenceBoost = overlap * 0.75;
+        final normalizedContext =
+            normalizer.normalize(reference.context);
+        if (normalizedContext.isNotEmpty &&
+            _containsPhrase(normalizedQuery, normalizedContext)) {
+          referenceBoost += 2.0;
+        }
+
+        // Position is only a deterministic tie-breaker now; it must never
+        // drown a deep but much more relevant human-validated reference.
+        final score =
+            match.score + referenceBoost - position * 0.002;
         final previous = best[id];
         if (previous == null || score > previous.matchScore) {
           best[id] = CuratedSearchHint(

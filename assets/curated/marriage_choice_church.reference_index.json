@@ -1,0 +1,1573 @@
+{
+  "schema_version": 1,
+  "index_id": "curated-marriage-choice-church-v1",
+  "purpose": "Human-validated thematic routing hints. This index never replaces corpus.db; every surfaced quotation must still resolve to the canonical corpus.",
+  "source_guides": [
+    {
+      "id": "marriage-choice-church",
+      "title": "Le mariage — Comment choisir une épouse / un époux — Comment choisir une église",
+      "author": "William Marrion Branham — Banque de références thématiques",
+      "provenance": "manual_research_text_fascicle",
+      "trust": "author-curated-reference-map",
+      "source_file_name": "Fascicule_Mariage_Choix_Conjoint_Choix_Eglise_Branham_62_citations.text",
+      "source_file_sha256": "22f729a3eda8da17e4698cfee4f212d70281106af489b149a89b65a7f886f642",
+      "source_file_bytes": 24430,
+      "source_lines": 539,
+      "source_entries": 62,
+      "resolved_entries": 58,
+      "unresolved_entries": 4
+    }
+  ],
+  "references": [
+    {
+      "id": "marriage_choice_001",
+      "sermon_code": "65-0429E",
+      "sermon_title": "The Choosing of a Bride",
+      "locator": "§20-21",
+      "context": "Choix du conjoint : prière avant la décision",
+      "anchor_terms": [
+        "priere",
+        "choix",
+        "conjoint",
+        "decision",
+        "man",
+        "think",
+        "pray",
+        "before",
+        "chooses",
+        "wife"
+      ],
+      "source_entry_number": 1,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_002",
+      "sermon_code": "50-0200",
+      "sermon_title": "Life Story",
+      "locator": "§31",
+      "context": "Exemple personnel : une jeune femme chrétienne",
+      "anchor_terms": [
+        "jeune",
+        "exemple",
+        "personnel",
+        "femme",
+        "chretienne",
+        "christian",
+        "girl",
+        "lovely"
+      ],
+      "source_entry_number": 2,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_003",
+      "sermon_code": "51-0722A",
+      "sermon_title": "Life Story",
+      "locator": "§46",
+      "context": "Caractère chrétien et conduite",
+      "anchor_terms": [
+        "caractere",
+        "chretien",
+        "conduite",
+        "lady",
+        "every",
+        "ounce",
+        "christian",
+        "girl"
+      ],
+      "source_entry_number": 3,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_004",
+      "sermon_code": "65-1207",
+      "sermon_title": "Leadership",
+      "locator": "§64",
+      "context": "Le choix du conjoint engage la responsabilité personnelle",
+      "anchor_terms": [
+        "choix",
+        "conjoint",
+        "engage",
+        "responsabilite",
+        "personnelle",
+        "choice",
+        "wife"
+      ],
+      "source_entry_number": 4,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_005",
+      "sermon_code": "59-0418",
+      "sermon_title": "Time of Decision",
+      "locator": "§31",
+      "context": "Chercher le choix de Dieu plutôt que son seul jugement",
+      "anchor_terms": [
+        "dieu",
+        "chercher",
+        "choix",
+        "plutot",
+        "seul",
+        "jugement",
+        "didn't",
+        "take",
+        "own",
+        "choice",
+        "trusted",
+        "god's"
+      ],
+      "source_entry_number": 5,
+      "source_section": "CHOIX DU CONJOINT / ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_006",
+      "sermon_code": "59-0611",
+      "sermon_title": "The Time of Decision",
+      "locator": "§26",
+      "context": "Soumettre son opinion à la direction de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "soumettre",
+        "opinion",
+        "direction",
+        "trust",
+        "own",
+        "woman",
+        "god's"
+      ],
+      "source_entry_number": 6,
+      "source_section": "CHOIX DU CONJOINT / ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_007",
+      "sermon_code": "62-0603",
+      "sermon_title": "The End-time Evangelism",
+      "locator": "passage sur Éliézer",
+      "context": "Le caractère avant l'apparence",
+      "anchor_terms": [
+        "caractere",
+        "l'apparence",
+        "eliezer",
+        "went",
+        "bride",
+        "isaac",
+        "sweated",
+        "until",
+        "found",
+        "character"
+      ],
+      "source_entry_number": 7,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_008",
+      "sermon_code": "62-0720",
+      "sermon_title": "A Testimony on the Sea",
+      "locator": "§23",
+      "context": "Le critère déterminant : le caractère",
+      "anchor_terms": [
+        "caractere",
+        "critere",
+        "determinant",
+        "found",
+        "character"
+      ],
+      "source_entry_number": 8,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_009",
+      "sermon_code": "63-0116",
+      "sermon_title": "The Evening Messenger",
+      "locator": "§106",
+      "context": "Dieu regarde au caractère",
+      "anchor_terms": [
+        "caractere",
+        "dieu",
+        "regarde",
+        "god",
+        "always",
+        "counted",
+        "character",
+        "members"
+      ],
+      "source_entry_number": 9,
+      "source_section": "CHOIX DU CONJOINT / ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_010",
+      "sermon_code": "63-0120E",
+      "sermon_title": "Just One More Time, Lord",
+      "locator": "§67",
+      "context": "Rébecca comme modèle de caractère",
+      "anchor_terms": [
+        "caractere",
+        "rebecca",
+        "modele",
+        "eliezer",
+        "sweated",
+        "till",
+        "found",
+        "character",
+        "rebekah"
+      ],
+      "source_entry_number": 10,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_011",
+      "sermon_code": "53-0614A",
+      "sermon_title": "Earnestly Contending for the Faith Once Delivered",
+      "locator": "§76",
+      "context": "Rébecca comme type dans le choix de la Bride",
+      "anchor_terms": [
+        "rebecca",
+        "type",
+        "choix",
+        "bride",
+        "cool",
+        "evening",
+        "beautiful",
+        "rebekah",
+        "come",
+        "water",
+        "camel"
+      ],
+      "source_entry_number": 11,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_012",
+      "sermon_code": "62-0708",
+      "sermon_title": "A Super Sign",
+      "locator": "§53",
+      "context": "Le choix personnel de Rébecca",
+      "anchor_terms": [
+        "rebecca",
+        "choix",
+        "personnel",
+        "you've",
+        "make",
+        "choice"
+      ],
+      "source_entry_number": 12,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_013",
+      "sermon_code": "63-0901E",
+      "sermon_title": "Desperations",
+      "locator": "§69",
+      "context": "Décision de Rébecca fondée sur le témoignage reçu",
+      "anchor_terms": [
+        "rebecca",
+        "decision",
+        "fondee",
+        "temoignage",
+        "recu",
+        "marry",
+        "man",
+        "she's",
+        "never",
+        "even",
+        "seen"
+      ],
+      "source_entry_number": 13,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_014",
+      "sermon_code": "64-0830M",
+      "sermon_title": "Questions and Answers, Part 3",
+      "locator": "§138",
+      "context": "Le consentement et la décision de Rébecca",
+      "anchor_terms": [
+        "rebecca",
+        "consentement",
+        "decision",
+        "rebekah",
+        "make",
+        "choice"
+      ],
+      "source_entry_number": 14,
+      "source_section": "CHOIX DU CONJOINT"
+    },
+    {
+      "id": "marriage_choice_015",
+      "sermon_code": "65-0116W",
+      "sermon_title": "Wedding Ceremony",
+      "locator": "§4",
+      "context": "Dieu comme Celui qui unit les cœurs",
+      "anchor_terms": [
+        "dieu",
+        "celui",
+        "unit",
+        "urs",
+        "thou",
+        "art",
+        "join",
+        "hearts",
+        "other"
+      ],
+      "source_entry_number": 15,
+      "source_section": "MARIAGE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
+    },
+    {
+      "id": "marriage_choice_016",
+      "sermon_code": "65-0220W",
+      "sermon_title": "Wedding Ceremony",
+      "locator": "§1",
+      "context": "Le mariage ne doit pas être contracté à la légère",
+      "anchor_terms": [
+        "mariage",
+        "contracte",
+        "legere",
+        "therefore",
+        "entered",
+        "unadvisably",
+        "lightly"
+      ],
+      "source_entry_number": 16,
+      "source_section": "MARIAGE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
+    },
+    {
+      "id": "marriage_choice_017",
+      "sermon_code": "63-1201W",
+      "sermon_title": "Wedding Ceremony",
+      "locator": "§5",
+      "context": "Ce que Dieu unit ne doit pas être séparé par l'homme",
+      "anchor_terms": [
+        "dieu",
+        "unit",
+        "separe",
+        "l'homme",
+        "whatsoever",
+        "god",
+        "joins",
+        "together",
+        "let",
+        "man",
+        "put",
+        "asunder"
+      ],
+      "source_entry_number": 17,
+      "source_section": "MARIAGE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
+    },
+    {
+      "id": "marriage_choice_018",
+      "sermon_code": "65-0221M",
+      "sermon_title": "Marriage and Divorce",
+      "locator": "§96",
+      "context": "Caractère sacré de l'union que Dieu établit",
+      "anchor_terms": [
+        "caractere",
+        "dieu",
+        "sacre",
+        "l'union",
+        "etablit",
+        "god",
+        "joins",
+        "together",
+        "man",
+        "better",
+        "dare",
+        "touch"
+      ],
+      "source_entry_number": 18,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_019",
+      "sermon_code": "62-0527",
+      "sermon_title": "Questions and Answers",
+      "locator": "§17-18",
+      "context": "Durée et sérieux du vœu matrimonial",
+      "anchor_terms": [
+        "duree",
+        "serieux",
+        "matrimonial",
+        "vow",
+        "until",
+        "death",
+        "separate"
+      ],
+      "source_entry_number": 19,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_020",
+      "sermon_code": "64-0823E",
+      "sermon_title": "Questions and Answers, Part 2",
+      "locator": "§98-99",
+      "context": "Le vœu matrimonial est sacré",
+      "anchor_terms": [
+        "matrimonial",
+        "sacre",
+        "vow",
+        "sacred",
+        "that's",
+        "marries",
+        "anyhow"
+      ],
+      "source_entry_number": 20,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_021",
+      "sermon_code": "63-1216",
+      "sermon_title": "We Have Seen His Star and Have Come to Worship Him",
+      "locator": "passage sur Joseph et Marie",
+      "context": "Sérieux de la promesse faite devant Dieu",
+      "anchor_terms": [
+        "dieu",
+        "serieux",
+        "promesse",
+        "faite",
+        "devant",
+        "before",
+        "god",
+        "promised",
+        "another",
+        "words",
+        "sealed",
+        "god's"
+      ],
+      "source_entry_number": 21,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_022",
+      "sermon_code": "61-0120",
+      "sermon_title": "Things That Wasn't So from the Beginning",
+      "locator": "§2-3",
+      "context": "Le mariage dans l'ordre moral biblique",
+      "anchor_terms": [
+        "mariage",
+        "l'ordre",
+        "moral",
+        "biblique",
+        "man",
+        "live",
+        "wife",
+        "righteousness"
+      ],
+      "source_entry_number": 22,
+      "source_section": "MARIAGE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
+    },
+    {
+      "id": "marriage_choice_023",
+      "sermon_code": "62-0211",
+      "sermon_title": "Oneness",
+      "locator": "§43-44",
+      "context": "L'union conjugale a besoin de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "l'union",
+        "conjugale",
+        "besoin",
+        "can't",
+        "correct",
+        "union",
+        "without"
+      ],
+      "source_entry_number": 23,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_024",
+      "sermon_code": "60-0611B",
+      "sermon_title": "Fellowship",
+      "locator": "§18",
+      "context": "Accord, communion et alliance",
+      "anchor_terms": [
+        "accord",
+        "communion",
+        "alliance",
+        "cannot",
+        "married",
+        "without",
+        "agreement"
+      ],
+      "source_entry_number": 24,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_025",
+      "sermon_code": "57-0417",
+      "sermon_title": "The Second Coming of the Lord",
+      "locator": "§45",
+      "context": "Le mariage comme type de Christ et de l'Église",
+      "anchor_terms": [
+        "mariage",
+        "eglise",
+        "type",
+        "christ",
+        "l'eglise",
+        "husband",
+        "wife",
+        "church"
+      ],
+      "source_entry_number": 25,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_026",
+      "sermon_code": "54-0516",
+      "sermon_title": "Questions and Answers, The Law Having a Shadow",
+      "locator": "§55",
+      "context": "Le couple comme image de Christ et de l'Église",
+      "anchor_terms": [
+        "eglise",
+        "couple",
+        "image",
+        "christ",
+        "l'eglise",
+        "moon",
+        "sun",
+        "husband",
+        "wife",
+        "church"
+      ],
+      "source_entry_number": 26,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_027",
+      "sermon_code": "53-0729",
+      "sermon_title": "Questions and Answers on Genesis",
+      "locator": "§31-32",
+      "context": "Ordre de responsabilité dans le foyer",
+      "anchor_terms": [
+        "foyer",
+        "ordre",
+        "responsabilite",
+        "head",
+        "woman",
+        "god",
+        "man"
+      ],
+      "source_entry_number": 27,
+      "source_section": "MARIAGE"
+    },
+    {
+      "id": "marriage_choice_028",
+      "sermon_code": "57-0325",
+      "sermon_title": "The Lamb and the Dove",
+      "locator": "§31",
+      "context": "Principe applicable au foyer et à l'église : nourrir par la Parole",
+      "anchor_terms": [
+        "eglise",
+        "foyer",
+        "parole",
+        "principe",
+        "applicable",
+        "l'eglise",
+        "nourrir",
+        "shepherd",
+        "feeds",
+        "sheep",
+        "food",
+        "know"
+      ],
+      "source_entry_number": 28,
+      "source_section": "MARIAGE / ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_029",
+      "sermon_code": "64-0216",
+      "sermon_title": "Identification",
+      "locator": "§38",
+      "context": "Le caractère chrétien se forme en restant avec la Parole",
+      "anchor_terms": [
+        "parole",
+        "caractere",
+        "chretien",
+        "forme",
+        "restant",
+        "stay",
+        "word"
+      ],
+      "source_entry_number": 29,
+      "source_section": "CHOIX DU CONJOINT / ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_030",
+      "sermon_code": "64-0311",
+      "sermon_title": "God Is Identified by His Characteristics",
+      "locator": "§21",
+      "context": "Évaluer les prétentions par le caractère manifesté",
+      "anchor_terms": [
+        "caractere",
+        "evaluer",
+        "pretentions",
+        "manifeste",
+        "character",
+        "identify",
+        "claim",
+        "don't",
+        "believe",
+        "claims"
+      ],
+      "source_entry_number": 30,
+      "source_section": "CHOIX DU CONJOINT / ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_031",
+      "sermon_code": "65-0425",
+      "sermon_title": "God's Provided Place of Worship",
+      "locator": "§19",
+      "context": "Le lieu de culte doit être discerné selon le choix de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "lieu",
+        "culte",
+        "discerne",
+        "choix",
+        "must",
+        "god's",
+        "choosing",
+        "can't",
+        "ours"
+      ],
+      "source_entry_number": 31,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_032",
+      "sermon_code": "65-0220",
+      "sermon_title": "God's Chosen Place of Worship",
+      "locator": "§31",
+      "context": "L'essentiel n'est pas l'étiquette d'église, mais être en Christ",
+      "anchor_terms": [
+        "eglise",
+        "l'essentiel",
+        "n'est",
+        "l'etiquette",
+        "d'eglise",
+        "christ",
+        "you've",
+        "you're",
+        "dead"
+      ],
+      "source_entry_number": 32,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_033",
+      "sermon_code": "60-0729",
+      "sermon_title": "What It Takes to Overcome All Unbelief: Our Faith",
+      "locator": "§15",
+      "context": "Critère du pasteur : surveiller et enseigner la Parole",
+      "anchor_terms": [
+        "parole",
+        "pasteur",
+        "critere",
+        "surveiller",
+        "enseigner",
+        "pastor",
+        "means",
+        "shepherd",
+        "watch",
+        "over",
+        "flock",
+        "teach"
+      ],
+      "source_entry_number": 33,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_034",
+      "sermon_code": "56-0617",
+      "sermon_title": "Revelation, Book of Symbols",
+      "locator": "§33",
+      "context": "Un pasteur fidèle demeure dans la Parole",
+      "anchor_terms": [
+        "parole",
+        "pasteur",
+        "fidele",
+        "demeure",
+        "pastor",
+        "never",
+        "leave",
+        "word",
+        "stay",
+        "straight"
+      ],
+      "source_entry_number": 34,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_035",
+      "sermon_code": "59-1227M",
+      "sermon_title": "A Super Sign",
+      "locator": "§7",
+      "context": "Comprendre la fonction du pasteur",
+      "anchor_terms": [
+        "pasteur",
+        "comprendre",
+        "fonction",
+        "word",
+        "pastor",
+        "means",
+        "shepherd",
+        "shepherds",
+        "sheep"
+      ],
+      "source_entry_number": 35,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_036",
+      "sermon_code": "59-0525",
+      "sermon_title": "Images of Christ",
+      "locator": "§33",
+      "context": "Un vrai pasteur cherche à ramener ceux qui s'égarent",
+      "anchor_terms": [
+        "pasteur",
+        "vrai",
+        "cherche",
+        "ramener",
+        "ceux",
+        "s'egarent",
+        "real",
+        "good",
+        "shepherd",
+        "clique",
+        "bring",
+        "back"
+      ],
+      "source_entry_number": 36,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_037",
+      "sermon_code": "56-0403",
+      "sermon_title": "Shepherd of the Sheepfold",
+      "locator": "passage sur Jean 21",
+      "context": "La mission du berger est de nourrir les brebis",
+      "anchor_terms": [
+        "mission",
+        "berger",
+        "nourrir",
+        "brebis",
+        "said",
+        "'feed",
+        "sheep"
+      ],
+      "source_entry_number": 37,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_038",
+      "sermon_code": "57-0308",
+      "sermon_title": "The Good Shepherd of the Sheep",
+      "locator": "§31",
+      "context": "Une assemblée saine est nourrie de la Parole",
+      "anchor_terms": [
+        "parole",
+        "assemblee",
+        "saine",
+        "nourrie",
+        "sheep",
+        "god",
+        "fed",
+        "word"
+      ],
+      "source_entry_number": 38,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_039",
+      "sermon_code": "61-1015M",
+      "sermon_title": "Questions and Answers",
+      "locator": "§39",
+      "context": "Le ministère pastoral doit nourrir de la Parole",
+      "anchor_terms": [
+        "parole",
+        "ministere",
+        "pastoral",
+        "nourrir",
+        "feed",
+        "word"
+      ],
+      "source_entry_number": 39,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_040",
+      "sermon_code": "64-1221",
+      "sermon_title": "Why It Had to Be Shepherds",
+      "locator": "§36",
+      "context": "Le vrai berger est un berger de la Parole",
+      "anchor_terms": [
+        "parole",
+        "vrai",
+        "berger",
+        "let",
+        "true",
+        "shepherd",
+        "word",
+        "preach"
+      ],
+      "source_entry_number": 40,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_041",
+      "sermon_code": "57-0115",
+      "sermon_title": "God Keeps His Word",
+      "locator": "§61",
+      "context": "Critère du ministère : rester avec la Parole",
+      "anchor_terms": [
+        "parole",
+        "critere",
+        "ministere",
+        "rester",
+        "pastor",
+        "stay",
+        "word"
+      ],
+      "source_entry_number": 41,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_042",
+      "sermon_code": "57-0120E",
+      "sermon_title": "God Keeps His Word",
+      "locator": "§55",
+      "context": "Éviter ce qui contredit la Parole",
+      "anchor_terms": [
+        "parole",
+        "eviter",
+        "contredit",
+        "it's",
+        "contrary",
+        "word",
+        "stay",
+        "away"
+      ],
+      "source_entry_number": 42,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_043",
+      "sermon_code": "57-0306",
+      "sermon_title": "God Keeps His Word, Part 1",
+      "locator": "§31",
+      "context": "Rester attaché à la Parole",
+      "anchor_terms": [
+        "parole",
+        "rester",
+        "attache",
+        "let's",
+        "stay",
+        "word"
+      ],
+      "source_entry_number": 43,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_044",
+      "sermon_code": "62-0407",
+      "sermon_title": "The Signs of His Coming",
+      "locator": "§57",
+      "context": "S'éloigner d'un enseignement qui quitte la Parole",
+      "anchor_terms": [
+        "parole",
+        "s'eloigner",
+        "d'un",
+        "enseignement",
+        "quitte",
+        "moving",
+        "away",
+        "word",
+        "move",
+        "too"
+      ],
+      "source_entry_number": 44,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_045",
+      "sermon_code": "62-0401",
+      "sermon_title": "Wisdom versus Faith",
+      "locator": "§152",
+      "context": "La fidélité à la Parole prime sur la grandeur institutionnelle",
+      "anchor_terms": [
+        "parole",
+        "fidelite",
+        "prime",
+        "grandeur",
+        "institutionnelle",
+        "let",
+        "stay",
+        "word"
+      ],
+      "source_entry_number": 45,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_046",
+      "sermon_code": "59-1125",
+      "sermon_title": "From the Beginning It Wasn't So",
+      "locator": "passage sur Matthieu 16",
+      "context": "Tester l'enseignement par la Parole",
+      "anchor_terms": [
+        "parole",
+        "tester",
+        "l'enseignement",
+        "word",
+        "test"
+      ],
+      "source_entry_number": 46,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_047",
+      "sermon_code": "62-1111M",
+      "sermon_title": "Dedication",
+      "locator": "prière finale",
+      "context": "Le Saint-Esprit comme fondement de la véritable Église",
+      "anchor_terms": [
+        "saint-esprit",
+        "eglise",
+        "fondement",
+        "veritable",
+        "holy",
+        "spirit",
+        "foundation",
+        "real",
+        "church",
+        "god"
+      ],
+      "source_entry_number": 47,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_048",
+      "sermon_code": "63-1028",
+      "sermon_title": "Pardoned",
+      "locator": "passage sur l'Église et le credo",
+      "context": "Christ plutôt que le credo comme centre",
+      "anchor_terms": [
+        "christ",
+        "plutot",
+        "credo",
+        "centre",
+        "you've",
+        "rid",
+        "creed"
+      ],
+      "source_entry_number": 48,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_049",
+      "sermon_code": "60-1127M",
+      "sermon_title": "It Wasn't So from the Beginning",
+      "locator": "§29",
+      "context": "La Bible comme référence de l'Église",
+      "anchor_terms": [
+        "eglise",
+        "bible",
+        "reference",
+        "l'eglise",
+        "god's",
+        "textbook",
+        "back",
+        "beginning"
+      ],
+      "source_entry_number": 49,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_050",
+      "sermon_code": "60-0306",
+      "sermon_title": "It Wasn't So from the Beginning",
+      "locator": "§16",
+      "context": "Comparer l'église au modèle biblique initial",
+      "anchor_terms": [
+        "eglise",
+        "comparer",
+        "l'eglise",
+        "modele",
+        "biblique",
+        "initial",
+        "we've",
+        "back",
+        "beginning"
+      ],
+      "source_entry_number": 50,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_051",
+      "sermon_code": "58-0927",
+      "sermon_title": "Why Are We Not a Denomination?",
+      "locator": "§21",
+      "context": "La Parole doit avoir le dernier mot",
+      "anchor_terms": [
+        "parole",
+        "dernier",
+        "mot",
+        "god's",
+        "word",
+        "must",
+        "final",
+        "amen"
+      ],
+      "source_entry_number": 51,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_052",
+      "sermon_code": "59-1129",
+      "sermon_title": "Let Us See God",
+      "locator": "passage sur Jean 1",
+      "context": "Chercher Dieu dans Sa Parole plutôt que dans l'institution seule",
+      "anchor_terms": [
+        "parole",
+        "dieu",
+        "chercher",
+        "plutot",
+        "l'institution",
+        "seule",
+        "god",
+        "word"
+      ],
+      "source_entry_number": 52,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_053",
+      "sermon_code": "57-0915M",
+      "sermon_title": "Hebrews, Chapter 6, Part 3",
+      "locator": "§34",
+      "context": "L'appartenance ne remplace pas la nouvelle naissance",
+      "anchor_terms": [
+        "l'appartenance",
+        "remplace",
+        "nouvelle",
+        "naissance",
+        "church",
+        "want",
+        "belong",
+        "right",
+        "long",
+        "you're",
+        "christian"
+      ],
+      "source_entry_number": 53,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_054",
+      "sermon_code": "65-0919",
+      "sermon_title": "Thirst",
+      "locator": "§74",
+      "context": "Le salut est personnel et non institutionnel",
+      "anchor_terms": [
+        "salut",
+        "personnel",
+        "non",
+        "institutionnel",
+        "you'll",
+        "never",
+        "heaven",
+        "church",
+        "denomination"
+      ],
+      "source_entry_number": 54,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_055",
+      "sermon_code": "51-0929",
+      "sermon_title": "Our Hope Is in God",
+      "locator": "§6",
+      "context": "Le cœur avant l'étiquette confessionnelle",
+      "anchor_terms": [
+        "l'etiquette",
+        "confessionnelle",
+        "it's",
+        "condition",
+        "heart",
+        "that's",
+        "god",
+        "looks"
+      ],
+      "source_entry_number": 55,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_056",
+      "sermon_code": "51-0413",
+      "sermon_title": "The Works That I Do Bear Witness of Me",
+      "locator": "§30",
+      "context": "L'appartenance à une église ne remplace pas l'œuvre du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "eglise",
+        "l'appartenance",
+        "remplace",
+        "uvre",
+        "you'll",
+        "never",
+        "come",
+        "kingdom",
+        "god",
+        "until",
+        "holy"
+      ],
+      "source_entry_number": 56,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_057",
+      "sermon_code": "64-0320",
+      "sermon_title": "God Identifying Himself by His Characteristics",
+      "locator": "§29",
+      "context": "Identifier Dieu par Sa Parole promise",
+      "anchor_terms": [
+        "parole",
+        "dieu",
+        "identifier",
+        "promise",
+        "he's",
+        "promised",
+        "word",
+        "always"
+      ],
+      "source_entry_number": 57,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_058",
+      "sermon_code": "63-0126",
+      "sermon_title": "Investments",
+      "locator": "§40-41",
+      "context": "Le nombre de membres n'est pas le critère principal",
+      "anchor_terms": [
+        "nombre",
+        "membres",
+        "n'est",
+        "critere",
+        "principal",
+        "church",
+        "always",
+        "counted",
+        "membership",
+        "god",
+        "counts",
+        "character"
+      ],
+      "source_entry_number": 58,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_059",
+      "sermon_code": "62-0519",
+      "sermon_title": "Fellowship",
+      "locator": "§24",
+      "context": "La communion saine demeure avec la Parole",
+      "anchor_terms": [
+        "parole",
+        "communion",
+        "saine",
+        "demeure",
+        "stay",
+        "word",
+        "cannot",
+        "change"
+      ],
+      "source_entry_number": 59,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_060",
+      "sermon_code": "55-0501A",
+      "sermon_title": "Fellowship",
+      "locator": "§28",
+      "context": "La communion chrétienne centrée sur la Parole",
+      "anchor_terms": [
+        "parole",
+        "communion",
+        "chretienne",
+        "centree",
+        "christian",
+        "believers",
+        "fellowshipping",
+        "around",
+        "word",
+        "god"
+      ],
+      "source_entry_number": 60,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_061",
+      "sermon_code": "61-0319",
+      "sermon_title": "Jezebel Religion",
+      "locator": "§11-12",
+      "context": "Le pasteur comme berger responsable de l'assemblée",
+      "anchor_terms": [
+        "pasteur",
+        "berger",
+        "responsable",
+        "l'assemblee",
+        "see",
+        "pastor",
+        "little",
+        "things",
+        "after",
+        "he's",
+        "shepherd"
+      ],
+      "source_entry_number": 61,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    },
+    {
+      "id": "marriage_choice_062",
+      "sermon_code": "65-1125",
+      "sermon_title": "The Invisible Union of the Bride of Christ",
+      "locator": "§84",
+      "context": "La véritable Bride est identifiée à la Parole plutôt qu'à une dénomination",
+      "anchor_terms": [
+        "parole",
+        "veritable",
+        "bride",
+        "identifiee",
+        "plutot",
+        "qu'a",
+        "denomination",
+        "word",
+        "manifested"
+      ],
+      "source_entry_number": 62,
+      "source_section": "CHOIX DE L'ÉGLISE"
+    }
+  ],
+  "topics": [
+    {
+      "id": "marriage_choice_all",
+      "label": "Mariage, choix du conjoint et choix de l'église",
+      "aliases": [
+        "mariage",
+        "choisir une épouse",
+        "choisir un époux",
+        "choix du conjoint",
+        "choisir une église",
+        "choisir une assemblée"
+      ],
+      "keywords": [
+        "mariage",
+        "conjoint",
+        "epouse",
+        "epoux",
+        "eglise",
+        "assemblee",
+        "parole",
+        "caractere"
+      ],
+      "reference_ids": [
+        "marriage_choice_001",
+        "marriage_choice_002",
+        "marriage_choice_003",
+        "marriage_choice_004",
+        "marriage_choice_005",
+        "marriage_choice_006",
+        "marriage_choice_007",
+        "marriage_choice_008",
+        "marriage_choice_009",
+        "marriage_choice_010",
+        "marriage_choice_011",
+        "marriage_choice_012",
+        "marriage_choice_013",
+        "marriage_choice_014",
+        "marriage_choice_015",
+        "marriage_choice_016",
+        "marriage_choice_017",
+        "marriage_choice_018",
+        "marriage_choice_019",
+        "marriage_choice_020",
+        "marriage_choice_021",
+        "marriage_choice_022",
+        "marriage_choice_023",
+        "marriage_choice_024",
+        "marriage_choice_025",
+        "marriage_choice_026",
+        "marriage_choice_027",
+        "marriage_choice_028",
+        "marriage_choice_029",
+        "marriage_choice_030",
+        "marriage_choice_031",
+        "marriage_choice_032",
+        "marriage_choice_033",
+        "marriage_choice_034",
+        "marriage_choice_035",
+        "marriage_choice_036",
+        "marriage_choice_037",
+        "marriage_choice_038",
+        "marriage_choice_039",
+        "marriage_choice_040",
+        "marriage_choice_041",
+        "marriage_choice_042",
+        "marriage_choice_043",
+        "marriage_choice_044",
+        "marriage_choice_045",
+        "marriage_choice_046",
+        "marriage_choice_047",
+        "marriage_choice_048",
+        "marriage_choice_049",
+        "marriage_choice_050",
+        "marriage_choice_051",
+        "marriage_choice_052",
+        "marriage_choice_053",
+        "marriage_choice_054",
+        "marriage_choice_055",
+        "marriage_choice_056",
+        "marriage_choice_057",
+        "marriage_choice_058",
+        "marriage_choice_059",
+        "marriage_choice_060",
+        "marriage_choice_061",
+        "marriage_choice_062"
+      ]
+    },
+    {
+      "id": "choose_spouse",
+      "label": "Choisir une épouse ou un époux",
+      "aliases": [
+        "comment choisir une épouse",
+        "comment choisir un époux",
+        "comment choisir son conjoint",
+        "choix du conjoint"
+      ],
+      "keywords": [
+        "conjoint",
+        "epouse",
+        "epoux",
+        "rebecca",
+        "caractere"
+      ],
+      "reference_ids": [
+        "marriage_choice_001",
+        "marriage_choice_002",
+        "marriage_choice_003",
+        "marriage_choice_004",
+        "marriage_choice_005",
+        "marriage_choice_006",
+        "marriage_choice_007",
+        "marriage_choice_008",
+        "marriage_choice_009",
+        "marriage_choice_010",
+        "marriage_choice_011",
+        "marriage_choice_012",
+        "marriage_choice_013",
+        "marriage_choice_014",
+        "marriage_choice_029",
+        "marriage_choice_030"
+      ]
+    },
+    {
+      "id": "marriage_seriousness",
+      "label": "Sérieux, vœu et ordre du mariage",
+      "aliases": [
+        "qu'est-ce que le mariage",
+        "sérieux du mariage",
+        "vœu matrimonial",
+        "mariage devant Dieu",
+        "ce que Dieu unit"
+      ],
+      "keywords": [
+        "mariage",
+        "voeu",
+        "union",
+        "foyer"
+      ],
+      "reference_ids": [
+        "marriage_choice_015",
+        "marriage_choice_016",
+        "marriage_choice_017",
+        "marriage_choice_018",
+        "marriage_choice_019",
+        "marriage_choice_020",
+        "marriage_choice_021",
+        "marriage_choice_022",
+        "marriage_choice_023",
+        "marriage_choice_024",
+        "marriage_choice_025",
+        "marriage_choice_026",
+        "marriage_choice_027",
+        "marriage_choice_028"
+      ]
+    },
+    {
+      "id": "choose_church",
+      "label": "Choisir une église ou une assemblée",
+      "aliases": [
+        "comment choisir une église",
+        "comment choisir une assemblée",
+        "quelle église fréquenter",
+        "où communier"
+      ],
+      "keywords": [
+        "eglise",
+        "assemblee",
+        "pasteur",
+        "parole"
+      ],
+      "reference_ids": [
+        "marriage_choice_031",
+        "marriage_choice_032",
+        "marriage_choice_033",
+        "marriage_choice_034",
+        "marriage_choice_035",
+        "marriage_choice_036",
+        "marriage_choice_037",
+        "marriage_choice_038",
+        "marriage_choice_039",
+        "marriage_choice_040",
+        "marriage_choice_041",
+        "marriage_choice_042",
+        "marriage_choice_043",
+        "marriage_choice_044",
+        "marriage_choice_045",
+        "marriage_choice_046",
+        "marriage_choice_047",
+        "marriage_choice_048",
+        "marriage_choice_049",
+        "marriage_choice_050",
+        "marriage_choice_051",
+        "marriage_choice_052",
+        "marriage_choice_053",
+        "marriage_choice_054",
+        "marriage_choice_055",
+        "marriage_choice_056",
+        "marriage_choice_057",
+        "marriage_choice_058",
+        "marriage_choice_059",
+        "marriage_choice_060",
+        "marriage_choice_061",
+        "marriage_choice_062"
+      ]
+    },
+    {
+      "id": "spouse_gods_choice",
+      "label": "Chercher le choix de Dieu pour le conjoint",
+      "aliases": [
+        "choix de Dieu pour le mariage",
+        "Dieu peut-il choisir mon conjoint",
+        "prier avant le mariage",
+        "volonté de Dieu dans le choix du conjoint"
+      ],
+      "keywords": [
+        "choix",
+        "dieu",
+        "prier",
+        "decision",
+        "caractere"
+      ],
+      "reference_ids": [
+        "marriage_choice_005",
+        "marriage_choice_006",
+        "marriage_choice_009",
+        "marriage_choice_029",
+        "marriage_choice_030"
+      ]
+    },
+    {
+      "id": "pastor_word",
+      "label": "Pasteur, berger et fidélité à la Parole",
+      "aliases": [
+        "comment reconnaître un bon pasteur",
+        "pasteur fidèle à la Parole",
+        "berger de l'église",
+        "nourriture spirituelle"
+      ],
+      "keywords": [
+        "pasteur",
+        "berger",
+        "parole",
+        "troupeau",
+        "nourriture"
+      ],
+      "reference_ids": [
+        "marriage_choice_028",
+        "marriage_choice_029",
+        "marriage_choice_033",
+        "marriage_choice_034",
+        "marriage_choice_035",
+        "marriage_choice_036",
+        "marriage_choice_037",
+        "marriage_choice_038",
+        "marriage_choice_039",
+        "marriage_choice_040",
+        "marriage_choice_041",
+        "marriage_choice_042",
+        "marriage_choice_043",
+        "marriage_choice_044",
+        "marriage_choice_045",
+        "marriage_choice_046",
+        "marriage_choice_051",
+        "marriage_choice_052",
+        "marriage_choice_057",
+        "marriage_choice_059",
+        "marriage_choice_060",
+        "marriage_choice_061",
+        "marriage_choice_062"
+      ]
+    },
+    {
+      "id": "church_word_spirit",
+      "label": "Parole, Saint-Esprit et véritable Église",
+      "aliases": [
+        "église fidèle à la Parole",
+        "église conduite par le Saint-Esprit",
+        "vraie église",
+        "Bride et dénomination"
+      ],
+      "keywords": [
+        "parole",
+        "saint-esprit",
+        "bride",
+        "denomination"
+      ],
+      "reference_ids": [
+        "marriage_choice_001",
+        "marriage_choice_007",
+        "marriage_choice_011",
+        "marriage_choice_028",
+        "marriage_choice_029",
+        "marriage_choice_033",
+        "marriage_choice_034",
+        "marriage_choice_038",
+        "marriage_choice_039",
+        "marriage_choice_040",
+        "marriage_choice_041",
+        "marriage_choice_042",
+        "marriage_choice_043",
+        "marriage_choice_044",
+        "marriage_choice_045",
+        "marriage_choice_046",
+        "marriage_choice_047",
+        "marriage_choice_051",
+        "marriage_choice_052",
+        "marriage_choice_054",
+        "marriage_choice_056",
+        "marriage_choice_057",
+        "marriage_choice_059",
+        "marriage_choice_060",
+        "marriage_choice_062"
+      ]
+    }
+  ]
+}

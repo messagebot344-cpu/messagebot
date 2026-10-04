@@ -161,9 +161,9 @@ class CorpusRepository {
         'JOIN passages p ON p.id = passages_fts.rowid '
         'JOIN editions e ON e.id = p.edition_id '
         'JOIN sermons s ON s.id = p.sermon_id '
-        'WHERE passages_fts MATCH ? AND e.is_primary = 1 '
+        'WHERE passages_fts MATCH ? '
         'AND s.code IN ($marks) '
-        'ORDER BY rank_value LIMIT ?',
+        'ORDER BY e.is_primary DESC, rank_value LIMIT ?',
         <Object?>[ftsQuery, ...codes, limit],
       );
       return rows
