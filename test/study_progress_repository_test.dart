@@ -146,6 +146,30 @@ void main() {
       studyScreenIsActive: true,
     );
 
+    const certificationRules = StudyExamRules(
+      sermonId: 12,
+      packVersion: 1,
+      examSize: 2,
+      passThreshold: 0.85,
+      recentQuestionExclusionCount: 2,
+      minimumReadingPercent: 0.95,
+      minimumBankMultiplier: 2.4,
+      categories: [
+        StudyExamCategoryRule(
+          category: StudyQuestionCategory.comprehension,
+          weight: 0.5,
+          questionCount: 1,
+          minimumScore: 0.80,
+        ),
+        StudyExamCategoryRule(
+          category: StudyQuestionCategory.context,
+          weight: 0.5,
+          questionCount: 1,
+          minimumScore: 0.80,
+        ),
+      ],
+    );
+
     final failed = repository.startExamAttempt(
       sermonId: 12,
       packVersion: 1,
@@ -169,6 +193,38 @@ void main() {
         packVersion: 1,
         corpusVersion: 'corpus-v4',
         level: 'Certification',
+        rules: certificationRules,
+      ),
+      throwsStateError,
+    );
+
+    final forged = repository.startExamAttempt(
+      sermonId: 12,
+      packVersion: 1,
+      seed: 'forged-seed',
+      questionIds: const [5, 6],
+      optionOrderByQuestion: const {
+        5: [51, 52],
+        6: [61, 62],
+      },
+    );
+    repository.submitExamAttempt(
+      attemptId: forged,
+      overallScore: 0.50,
+      categoryScores: const {
+        'comprehension': 1.0,
+        'context': 1.0,
+      },
+      passed: true,
+    );
+    expect(
+      () => repository.createCertification(
+        attemptId: forged,
+        sermonId: 12,
+        packVersion: 1,
+        corpusVersion: 'corpus-v4',
+        level: 'Certification',
+        rules: certificationRules,
       ),
       throwsStateError,
     );
@@ -199,9 +255,11 @@ void main() {
       packVersion: 1,
       corpusVersion: 'corpus-v4',
       level: 'Certification',
+      rules: certificationRules,
     );
     expect(certification.certificationId, startsWith('GRN-12-1-'));
     expect(certification.score, closeTo(0.92, 0.0001));
+    expect(certification.categoryScores['context'], closeTo(0.94, 0.0001));
     expect(certification.studySeconds, 7200);
     expect(repository.progress(12, 1)!.status, StudyProgressStatus.certified);
 
