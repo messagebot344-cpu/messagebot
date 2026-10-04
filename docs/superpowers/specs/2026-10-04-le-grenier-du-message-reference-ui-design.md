@@ -1,7 +1,7 @@
 # Le Grenier du Message — refonte UI fidèle à la maquette de référence
 
 **Date :** 4 octobre 2026  
-**Statut :** spécification écrite à relire avant plan d'implémentation  
+**Statut :** validée le 4 octobre 2026 — autorisée pour planification et exécution  
 **Dépôt :** `messagebot344-cpu/messagebot`  
 **Plateformes :** Android 15 ARM64 + Windows x64  
 **Base fonctionnelle :** Message Bot V4 / IR déterministe hors ligne
