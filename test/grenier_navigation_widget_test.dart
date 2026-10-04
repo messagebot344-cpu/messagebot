@@ -12,6 +12,8 @@ Widget _app(Widget child) => MaterialApp(
 
 void main() {
   testWidgets('desktop navigation exposes the approved destinations', (tester) async {
+    await tester.binding.setSurfaceSize(const Size(1440, 900));
+    addTearDown(() => tester.binding.setSurfaceSize(null));
     final values = <GrenierDestination>[];
     await tester.pumpWidget(_app(Row(
       crossAxisAlignment: CrossAxisAlignment.stretch,
