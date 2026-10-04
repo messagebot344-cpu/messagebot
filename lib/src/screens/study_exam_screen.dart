@@ -469,14 +469,20 @@ class _QuestionCard extends StatelessWidget {
   List<Widget> _singleChoice(BuildContext context) {
     final selected = value is int ? value as int : null;
     return [
-      for (final option in orderedOptions)
-        RadioListTile<int>(
-          value: option.id,
-          groupValue: selected,
-          contentPadding: EdgeInsets.zero,
-          title: Text(option.text),
-          onChanged: (next) => onChanged(next),
+      RadioGroup<int>(
+        groupValue: selected,
+        onChanged: (next) => onChanged(next),
+        child: Column(
+          children: [
+            for (final option in orderedOptions)
+              RadioListTile<int>(
+                value: option.id,
+                contentPadding: EdgeInsets.zero,
+                title: Text(option.text),
+              ),
+          ],
         ),
+      ),
     ];
   }
 
