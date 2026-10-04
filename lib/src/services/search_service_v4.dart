@@ -37,11 +37,21 @@ class SearchServiceV4 {
       final detail = details[ref.passageId];
       if (detail == null) continue;
       final sentence = ref.sentence;
-      final highlight = sentence != null && sentence.startOffset >= 0 && sentence.endOffset <= detail.passage.text.length && sentence.startOffset < sentence.endOffset
+      final validSentence = sentence != null &&
+          sentence.startOffset >= 0 &&
+          sentence.endOffset <= detail.passage.text.length &&
+          sentence.startOffset < sentence.endOffset;
+      final highlight = validSentence
           ? detail.passage.text.substring(sentence.startOffset, sentence.endOffset)
           : _fallbackHighlight(detail.passage.text);
       values.add(ResolvedV4Hit(
-        hit: DocumentSearchHit(studyPassage: detail, score: ref.score, highlightSentence: highlight),
+        hit: DocumentSearchHit(
+          studyPassage: detail,
+          score: ref.score,
+          highlightSentence: highlight,
+          highlightStartOffset: validSentence ? sentence.startOffset : null,
+          highlightEndOffset: validSentence ? sentence.endOffset : null,
+        ),
         explanation: outcome.explanations[ref.passageId] ?? const SearchExplanationV4(),
       ));
     }
@@ -74,11 +84,7 @@ class SearchServiceV4 {
     final details = repository.studyDetailsForPassageIds(list.map((e) => e.passageId));
     return list.where((e) => details.containsKey(e.passageId)).map((e) {
       final detail = details[e.passageId]!;
-      return DocumentSearchHit(
-        studyPassage: detail,
-        score: e.score,
-        highlightSentence: _bestSentence(detail.passage.text, query),
-      );
+      return _buildHit(detail, e.score, query: query);
     }).toList(growable: false);
   }
 
@@ -87,8 +93,43 @@ class SearchServiceV4 {
     final details = repository.studyDetailsForPassageIds(refs.map((e) => e.passageId));
     return refs.where((e) => details.containsKey(e.passageId)).map((e) {
       final detail = details[e.passageId]!;
-      return DocumentSearchHit(studyPassage: detail, score: e.score, highlightSentence: _bestSentence(detail.passage.text, query));
+      return _buildHit(
+        detail,
+        e.score,
+        query: query,
+        sentence: e.sentence,
+      );
     }).toList(growable: false);
+  }
+
+  DocumentSearchHit _buildHit(
+    StudyPassage detail,
+    double score, {
+    String query = '',
+    SentenceReference? sentence,
+  }) {
+    final resolved = sentence ??
+        coordinator.sentenceLocator.locate(
+          detail.passage.id,
+          detail.passage.text,
+          query,
+        );
+    final valid = resolved != null &&
+        resolved.startOffset >= 0 &&
+        resolved.endOffset <= detail.passage.text.length &&
+        resolved.startOffset < resolved.endOffset;
+    return DocumentSearchHit(
+      studyPassage: detail,
+      score: score,
+      highlightSentence: valid
+          ? detail.passage.text.substring(
+              resolved.startOffset,
+              resolved.endOffset,
+            )
+          : _bestSentence(detail.passage.text, query),
+      highlightStartOffset: valid ? resolved.startOffset : null,
+      highlightEndOffset: valid ? resolved.endOffset : null,
+    );
   }
 
   String _fallbackHighlight(String text) {
