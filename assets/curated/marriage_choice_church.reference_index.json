@@ -13,7 +13,9 @@
       "source_file_sha256": "22f729a3eda8da17e4698cfee4f212d70281106af489b149a89b65a7f886f642",
       "source_file_bytes": 24430,
       "source_lines": 539,
-      "source_entries": 62
+      "source_entries": 62,
+      "resolved_entries": 58,
+      "unresolved_entries": 4
     }
   ],
   "references": [
@@ -308,7 +310,9 @@
         "other"
       ],
       "source_entry_number": 15,
-      "source_section": "MARIAGE"
+      "source_section": "MARIAGE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "marriage_choice_016",
@@ -326,7 +330,9 @@
         "lightly"
       ],
       "source_entry_number": 16,
-      "source_section": "MARIAGE"
+      "source_section": "MARIAGE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "marriage_choice_017",
@@ -349,7 +355,9 @@
         "asunder"
       ],
       "source_entry_number": 17,
-      "source_section": "MARIAGE"
+      "source_section": "MARIAGE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "marriage_choice_018",
@@ -450,7 +458,9 @@
         "righteousness"
       ],
       "source_entry_number": 22,
-      "source_section": "MARIAGE"
+      "source_section": "MARIAGE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "marriage_choice_023",
