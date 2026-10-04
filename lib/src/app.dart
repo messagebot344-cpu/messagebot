@@ -12,6 +12,7 @@ import 'services/preferences_service.dart';
 import 'services/search_service_v4.dart';
 import 'study/study_engine.dart';
 import 'theme/grenier_theme.dart';
+import 'theme/grenier_tokens.dart';
 
 class GrenierBootstrap extends StatefulWidget {
   const GrenierBootstrap({super.key});
@@ -97,7 +98,7 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
     if (runtime == null) {
       return MaterialApp(
         debugShowCheckedModeBanner: false,
-        title: 'Message Bot',
+        title: GrenierBrand.name,
         theme: MessageBotTheme.light(),
         darkTheme: MessageBotTheme.dark(),
         home: Scaffold(
@@ -110,15 +111,15 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
                     ? Column(mainAxisSize: MainAxisSize.min, children: [
                         const Icon(Icons.menu_book_rounded, size: 68),
                         const SizedBox(height: 20),
-                        Text('Message Bot', style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
+                        Text(GrenierBrand.name, style: Theme.of(context).textTheme.headlineSmall, textAlign: TextAlign.center),
                         const SizedBox(height: 8),
-                        const Text('Toute Sa Parole. Toujours avec vous. Hors ligne.', textAlign: TextAlign.center),
+                        const Text(GrenierBrand.tagline, textAlign: TextAlign.center),
                         const SizedBox(height: 24),
                         LinearProgressIndicator(value: _progress == 0 ? null : _progress),
                         const SizedBox(height: 12),
                         Text(_message, textAlign: TextAlign.center),
                         const SizedBox(height: 8),
-                        const Text('Aucune connexion internet ni IA générative n’est utilisée.', textAlign: TextAlign.center),
+                        const Text('${GrenierBrand.offlineLabel} • ${GrenierBrand.noAiLabel}', textAlign: TextAlign.center),
                       ])
                     : Column(mainAxisSize: MainAxisSize.min, children: [
                         const Icon(Icons.error_outline_rounded, size: 56),
@@ -158,7 +159,7 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
         controller: runtime.controller,
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
-          title: 'Message Bot',
+          title: GrenierBrand.name,
           themeMode: runtime.controller.themeMode,
           theme: MessageBotTheme.light(),
           darkTheme: MessageBotTheme.dark(),
