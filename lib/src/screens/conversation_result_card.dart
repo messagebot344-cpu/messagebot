@@ -60,7 +60,7 @@ class ConversationResultCard extends StatelessWidget {
     final page = passage.sourcePageStart == passage.sourcePageEnd
         ? 'p. ${passage.sourcePageStart}'
         : 'pp. ${passage.sourcePageStart}–${passage.sourcePageEnd}';
-    final date = item.sermon?.dateDisplay;
+    final date = item.sermon?.year.toString();
     final reference = item.sermon != null
         ? '${item.sermon!.code} • ${item.source.title} • $page${date == null || date.isEmpty ? '' : ' • $date'}${item.edition?.isPrimary == false ? ' • édition alternative' : ''}'
         : '${item.source.title}${item.chapterTitle == null ? '' : ' • ${item.chapterTitle}'} • $page';
