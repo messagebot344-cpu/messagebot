@@ -61,11 +61,13 @@ class CuratedSearchHint {
     required this.reference,
     required this.topicLabel,
     required this.matchScore,
+    this.offlineAiScore = 0,
   });
 
   final CuratedSermonReference reference;
   final String topicLabel;
   final double matchScore;
+  final double offlineAiScore;
 }
 
 /// Human-curated routing hints layered above the immutable canonical corpus.
@@ -274,15 +276,46 @@ class CuratedReferenceIndex {
     String query, {
     int topicLimit = 6,
     int referenceLimit = 12,
+    Map<String, double> offlineAiTopicScores = const <String, double>{},
   }) {
-    final matches = matchTopics(query, limit: topicLimit);
-    if (matches.isEmpty) return const [];
+    final lexicalMatches = matchTopics(query, limit: topicLimit * 2);
+    final topicById = <String, CuratedReferenceTopic>{
+      for (final topic in topics) topic.id: topic,
+    };
+    final combined = <String, CuratedTopicMatch>{
+      for (final match in lexicalMatches) match.topic.id: match,
+    };
+
+    for (final entry in offlineAiTopicScores.entries) {
+      if (entry.value <= 0) continue;
+      final topic = topicById[entry.key];
+      if (topic == null) continue;
+      final existing = combined[entry.key];
+      final aiBase = 2.15 + entry.value * 4.25;
+      combined[entry.key] = CuratedTopicMatch(
+        topic: topic,
+        score: existing == null
+            ? aiBase
+            : existing.score + entry.value * 1.35,
+      );
+    }
+
+    final matches = combined.values.toList(growable: false)
+      ..sort((a, b) {
+        final byScore = b.score.compareTo(a.score);
+        return byScore != 0
+            ? byScore
+            : a.topic.id.compareTo(b.topic.id);
+      });
+    final selected = matches.take(topicLimit).toList(growable: false);
+    if (selected.isEmpty) return const [];
 
     final queryTokens = _semanticTokens(query);
     final normalizedQuery = normalizer.normalize(query);
     final best = <String, CuratedSearchHint>{};
 
-    for (final match in matches) {
+    for (final match in selected) {
+      final aiScore = offlineAiTopicScores[match.topic.id] ?? 0.0;
       for (var position = 0;
           position < match.topic.referenceIds.length;
           position++) {
@@ -300,9 +333,6 @@ class CuratedReferenceIndex {
             .where(referenceTokens.contains)
             .length;
 
-        // A source can contain hundreds of manually curated references.
-        // Rank the individual reference by the user's wording instead of
-        // always preferring the first entries in the fascicle.
         var referenceBoost = overlap * 0.75;
         final normalizedContext =
             normalizer.normalize(reference.context);
@@ -311,8 +341,6 @@ class CuratedReferenceIndex {
           referenceBoost += 2.0;
         }
 
-        // Position is only a deterministic tie-breaker now; it must never
-        // drown a deep but much more relevant human-validated reference.
         final score =
             match.score + referenceBoost - position * 0.002;
         final previous = best[id];
@@ -321,6 +349,7 @@ class CuratedReferenceIndex {
             reference: reference,
             topicLabel: match.topic.label,
             matchScore: score,
+            offlineAiScore: aiScore,
           );
         }
       }

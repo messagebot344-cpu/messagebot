@@ -1,5 +1,6 @@
 import '../conversation/conversation_models.dart';
 import '../models/models.dart';
+import '../offline_ai/offline_ai_semantic_router.dart';
 import '../search/search_contracts.dart';
 import '../search_v4/curated_reference_index.dart';
 import '../search_v4/search_coordinator_v4.dart';
@@ -21,16 +22,37 @@ class ResolvedSearchOutcomeV4 {
 }
 
 class SearchServiceV4 {
-  SearchServiceV4({
-    required this.repository,
+  factory SearchServiceV4({
+    required CorpusRepository repository,
     CuratedReferenceIndex? curatedReferenceIndex,
-  }) : coordinator = SearchCoordinatorV4(
-          repository: repository,
-          curatedReferenceIndex: curatedReferenceIndex,
-        );
+    OfflineAiSemanticRouter? offlineAiRouter,
+  }) {
+    final router = offlineAiRouter ??
+        (curatedReferenceIndex == null
+            ? null
+            : OfflineAiSemanticRouter.fromIndex(curatedReferenceIndex));
+    return SearchServiceV4._(
+      repository: repository,
+      offlineAiRouter: router,
+      coordinator: SearchCoordinatorV4(
+        repository: repository,
+        curatedReferenceIndex: curatedReferenceIndex,
+        offlineAiRouter: router,
+      ),
+    );
+  }
+
+  const SearchServiceV4._({
+    required this.repository,
+    required this.coordinator,
+    required this.offlineAiRouter,
+  });
 
   final CorpusRepository repository;
   final SearchCoordinatorV4 coordinator;
+  final OfflineAiSemanticRouter? offlineAiRouter;
+
+  bool get offlineAiReady => offlineAiRouter != null;
 
   Future<ResolvedSearchOutcomeV4> searchOutcome(
     String query, {

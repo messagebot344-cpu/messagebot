@@ -1,5 +1,6 @@
 import '../conversation/conversation_models.dart';
 import '../models/models.dart';
+import '../offline_ai/offline_ai_semantic_router.dart';
 import '../search/search_contracts.dart';
 import '../services/corpus_repository.dart';
 import 'canonical_sentence_locator.dart';
@@ -39,6 +40,7 @@ class SearchCoordinatorV4 {
     this.ranker = const DeterministicHybridRanker(),
     this.sentenceLocator = const CanonicalSentenceLocator(),
     this.curatedReferenceIndex,
+    this.offlineAiRouter,
   })  : exactEngine = ExactPhraseEngine(repository),
         proximityEngine = ProximitySearchEngine(repository),
         conceptualExpander = ConceptualQueryExpander(repository);
@@ -51,6 +53,7 @@ class SearchCoordinatorV4 {
   final DeterministicHybridRanker ranker;
   final CanonicalSentenceLocator sentenceLocator;
   final CuratedReferenceIndex? curatedReferenceIndex;
+  final OfflineAiSemanticRouter? offlineAiRouter;
   final ExactPhraseEngine exactEngine;
   final ProximitySearchEngine proximityEngine;
   final ConceptualQueryExpander conceptualExpander;
@@ -126,9 +129,12 @@ class SearchCoordinatorV4 {
         ? const <RankedPassage>[]
         : _search(effectiveSpec, conceptualQuery, 700);
 
+    final offlineAiMatches =
+        offlineAiRouter?.match(spec.raw) ?? const <OfflineAiTopicMatch>[];
     final curated = _curatedHits(
       rawQuery: spec.raw,
       focusTerms: tokens,
+      offlineAiMatches: offlineAiMatches,
     );
 
     final fuzzyTerms = <String>[];
@@ -186,9 +192,13 @@ class SearchCoordinatorV4 {
       if (detail.edition != null && !detail.edition!.isPrimary && detail.sermon != null && primarySermons.contains(detail.sermon!.id)) {
         continue;
       }
-      final explanation = candidate.explanation.withCuratedReferences(
-        curated.references[candidate.passageId] ?? const <String>[],
-      );
+      final explanation = candidate.explanation
+          .withCuratedReferences(
+            curated.references[candidate.passageId] ?? const <String>[],
+          )
+          .withOfflineAiTopics(
+            curated.aiTopics[candidate.passageId] ?? const <String>[],
+          );
       refs.add(PassageReference(
         passageId: candidate.passageId,
         editionId: detail.edition?.id ?? detail.source.id,
@@ -219,23 +229,41 @@ class SearchCoordinatorV4 {
   ({
     List<RankedPassage> hits,
     Map<int, List<String>> references,
+    Map<int, List<String>> aiTopics,
   }) _curatedHits({
     required String rawQuery,
     required List<String> focusTerms,
+    required List<OfflineAiTopicMatch> offlineAiMatches,
   }) {
     final index = curatedReferenceIndex;
     if (index == null) {
-      return (hits: const <RankedPassage>[], references: const {});
+      return (
+        hits: const <RankedPassage>[],
+        references: const <int, List<String>>{},
+        aiTopics: const <int, List<String>>{},
+      );
     }
 
-    final hints = index.searchHints(rawQuery);
+    final aiScores = <String, double>{
+      for (final match in offlineAiMatches)
+        match.topicId: match.score,
+    };
+    final hints = index.searchHints(
+      rawQuery,
+      offlineAiTopicScores: aiScores,
+    );
     if (hints.isEmpty) {
-      return (hits: const <RankedPassage>[], references: const {});
+      return (
+        hits: const <RankedPassage>[],
+        references: const <int, List<String>>{},
+        aiTopics: const <int, List<String>>{},
+      );
     }
 
     final result = <RankedPassage>[];
     final seen = <int>{};
     final references = <int, List<String>>{};
+    final aiTopics = <int, List<String>>{};
 
     for (final hint in hints) {
       final anchorTokens = <String>{
@@ -265,6 +293,15 @@ class SearchCoordinatorV4 {
           () => <String>[],
         );
         if (!labels.contains(label)) labels.add(label);
+        if (hint.offlineAiScore > 0) {
+          final topics = aiTopics.putIfAbsent(
+            hit.passageId,
+            () => <String>[],
+          );
+          if (!topics.contains(hint.topicLabel)) {
+            topics.add(hint.topicLabel);
+          }
+        }
         if (seen.add(hit.passageId)) {
           result.add(hit);
           if (result.length >= 180) {
@@ -272,6 +309,10 @@ class SearchCoordinatorV4 {
               hits: result,
               references: {
                 for (final entry in references.entries)
+                  entry.key: List.unmodifiable(entry.value),
+              },
+              aiTopics: {
+                for (final entry in aiTopics.entries)
                   entry.key: List.unmodifiable(entry.value),
               },
             );
@@ -283,6 +324,10 @@ class SearchCoordinatorV4 {
       hits: result,
       references: {
         for (final entry in references.entries)
+          entry.key: List.unmodifiable(entry.value),
+      },
+      aiTopics: {
+        for (final entry in aiTopics.entries)
           entry.key: List.unmodifiable(entry.value),
       },
     );
