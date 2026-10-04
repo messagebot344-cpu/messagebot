@@ -277,6 +277,38 @@ class StudyProgressRepository {
     );
   }
 
+  void recordStudyHeartbeat({
+    required int sermonId,
+    required int packVersion,
+    required int seconds,
+    required String paragraphKey,
+    required int passageId,
+    required int offset,
+    required bool appIsActive,
+    required bool studyScreenIsActive,
+  }) {
+    if (seconds <= 0 || !appIsActive || !studyScreenIsActive) return;
+    ensureProgress(sermonId: sermonId, packVersion: packVersion);
+    final now = _now();
+    database.db.execute(
+      'UPDATE study_progress SET '
+      'active_study_seconds=active_study_seconds+?,'
+      'last_paragraph_key=?,last_passage_id=?,last_offset=?,'
+      'last_studied_at=?,updated_at=? '
+      'WHERE sermon_id=? AND pack_version=?',
+      [
+        seconds,
+        paragraphKey,
+        passageId,
+        offset,
+        now,
+        now,
+        sermonId,
+        packVersion,
+      ],
+    );
+  }
+
   void addActiveStudySeconds({
     required int sermonId,
     required int packVersion,
