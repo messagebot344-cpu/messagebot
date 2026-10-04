@@ -21,7 +21,7 @@ void main() {
     expect(find.text('Le Grenier du Message'), findsOneWidget);
     expect(find.text('+ Nouvelle conversation'), findsOneWidget);
     for (final label in const [
-      'Accueil', 'Bibliothèque', 'Conversations', 'Collections', 'Notes',
+      'Accueil', 'Bibliothèque', 'Conversations', 'Collections', 'Notes', 'Surlignages',
       'Concordance', 'Chronologie', 'Comparer', 'Références bibliques', 'Réglages',
     ]) {
       expect(find.text(label), findsOneWidget);
