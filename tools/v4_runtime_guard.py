@@ -28,13 +28,16 @@ if 'neighborPassages(' in sim: fail('V4 SimilarityEngine still calls legacy pass
 for name in ['semantic_vocab.json','semantic_components.f32','semantic_vectors.f32','semantic_passage_ids.i32','semantic_manifest.json']:
     if (ROOT/'assets/corpus'/name).exists(): fail(f'legacy LSA asset is still shipped: {name}')
 
-# Public runtime branding.
-for p in (ROOT/'lib').rglob('*.dart'):
-    t=p.read_text(encoding='utf-8')
-    if 'Le Grenier du Message' in t or 'Grenier du Message' in t:
-        fail(f'old public branding remains in {p.relative_to(ROOT)}')
+# Public runtime branding. The 4 October 2026 reference UI makes
+# "Le Grenier du Message" the authoritative public identity. Technical class
+# names and package identifiers may keep their historical names.
 app=(ROOT/'lib/src/app.dart').read_text(encoding='utf-8')
-if 'Message Bot' not in app or 'SearchServiceV4' not in app: fail('app.dart is not wired to Message Bot V4')
+if 'GrenierBrand.name' not in app or 'SearchServiceV4' not in app:
+    fail('app.dart is not wired to Le Grenier du Message V4')
+tokens=(ROOT/'lib/src/theme/grenier_tokens.dart').read_text(encoding='utf-8')
+for exact in ['Le Grenier du Message', 'V4 – IR Expert', 'Toute Sa Parole. Toujours avec vous. Hors ligne.']:
+    if exact not in tokens:
+        fail(f'missing authoritative Grenier public branding: {exact}')
 settings=(ROOT/'lib/src/screens/settings_screen.dart').read_text(encoding='utf-8')
 for exact in ['Ce logiciel est conçu par le frère Erly Rolvinst BASSOMBI','242 069101357','ebassombi@gmail.com']:
     if exact not in settings: fail(f'missing official Avant-propos text: {exact}')
