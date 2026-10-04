@@ -19,6 +19,14 @@ class MessageBotTheme {
         outlineVariant: GrenierPalette.borderLight,
       ),
       scaffoldBackgroundColor: GrenierPalette.lightCanvas,
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        centerTitle: false,
+        backgroundColor: GrenierPalette.lightCard,
+        foregroundColor: Color(0xFF18212F),
+        surfaceTintColor: Colors.transparent,
+      ),
       cardTheme: CardThemeData(
         margin: EdgeInsets.zero,
         elevation: 0,
@@ -72,6 +80,14 @@ class MessageBotTheme {
         outlineVariant: const Color(0xFF33445F),
       ),
       scaffoldBackgroundColor: const Color(0xFF0F172A),
+      appBarTheme: const AppBarTheme(
+        elevation: 0,
+        scrolledUnderElevation: 0,
+        centerTitle: false,
+        backgroundColor: Color(0xFF172238),
+        foregroundColor: Colors.white,
+        surfaceTintColor: Colors.transparent,
+      ),
       cardTheme: CardThemeData(
         margin: EdgeInsets.zero,
         elevation: 0,
