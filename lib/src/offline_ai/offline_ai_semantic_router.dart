@@ -217,7 +217,7 @@ class OfflineAiSemanticRouter {
     required double subwordWeight,
   }) {
     final tokens = normalizer
-        .tokens(text, removeStopWords: true)
+        .semanticTokens(text, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toList(growable: false);
     if (tokens.isEmpty) return const {};
