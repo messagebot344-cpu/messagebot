@@ -8,6 +8,7 @@ import 'conversation_composer.dart';
 import 'conversation_filter_sheet.dart';
 import 'conversation_result_card.dart';
 import 'conversation_result_message.dart';
+import 'result_details_panel.dart';
 
 class ConversationScreen extends StatefulWidget {
   const ConversationScreen({super.key});
@@ -19,6 +20,7 @@ class ConversationScreen extends StatefulWidget {
 class _ConversationScreenState extends State<ConversationScreen> {
   final ScrollController _scrollController = ScrollController();
   ConversationController? _controller;
+  ResultSelection? _selection;
 
   @override
   void didChangeDependencies() {
@@ -50,6 +52,26 @@ class _ConversationScreenState extends State<ConversationScreen> {
         );
       }
     });
+  }
+
+  Future<void> _showDetails(ResultSelection selection) async {
+    final wide = MediaQuery.sizeOf(context).width >= GrenierBreakpoints.desktopWide;
+    if (wide) {
+      setState(() => _selection = selection);
+      return;
+    }
+    await showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      useSafeArea: true,
+      builder: (sheetContext) => FractionallySizedBox(
+        heightFactor: 0.92,
+        child: ResultDetailsPanel(
+          selection: selection,
+          onClose: () => Navigator.of(sheetContext).pop(),
+        ),
+      ),
+    );
   }
 
   Future<void> _showFilterSheet() async {
@@ -116,7 +138,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
       );
     }
 
-    return Column(children: [
+    final workspace = Column(children: [
       Expanded(
         child: CustomScrollView(
           controller: _scrollController,
@@ -142,6 +164,28 @@ class _ConversationScreenState extends State<ConversationScreen> {
         ),
       ),
     ]);
+
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final showDetails = constraints.maxWidth >= GrenierBreakpoints.desktopWide && _selection != null;
+        return Row(
+          children: [
+            Expanded(child: workspace),
+            if (showDetails)
+              Container(
+                width: 330,
+                decoration: BoxDecoration(
+                  border: Border(left: BorderSide(color: Theme.of(context).colorScheme.outlineVariant)),
+                ),
+                child: ResultDetailsPanel(
+                  selection: _selection!,
+                  onClose: () => setState(() => _selection = null),
+                ),
+              ),
+          ],
+        );
+      },
+    );
   }
 
   List<Widget> _buildTurnSlivers(ConversationController controller) {
@@ -221,11 +265,13 @@ class _ConversationScreenState extends State<ConversationScreen> {
                 child: ConversationResultCard(
                   turnId: turn.record.id,
                   query: turn.record.query,
+                  filters: turn.record.filters,
                   rank: index + 1,
                   hit: hit,
                   explanation: turn.explanations[passageId] ?? const SearchExplanationV4(),
                   expanded: persisted?.expanded ?? false,
                   topScore: topScore,
+                  onSelected: _showDetails,
                 ),
               );
             },
