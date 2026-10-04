@@ -31,3 +31,6 @@ Execution mode: executing-plans fallback because this harness exposes no subagen
 | 8 | Own tests/files self-consistent | Clean. |
 | 9 | Verification-only task | Clean. |
 
+
+Task 1: Ruling: V4 runtime guard mandated the superseded “Message Bot” branding — updated the guard to require the 4 October Grenier identity because the new spec is authoritative — cost if wrong: the release guard could accept an unintended public name.
+
