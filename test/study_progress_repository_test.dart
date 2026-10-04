@@ -132,20 +132,26 @@ void main() {
     dir.deleteSync(recursive: true);
   });
 
-  test('certification impossible après échec et créée après réussite', () {
+  test('examen et certification imposent étude réelle et notation liée à la tentative', () {
     var now = 9000000;
     final dir = Directory.systemTemp.createTempSync('grenier-certification-');
     final db = UserDatabase.openPath('${dir.path}/user.db');
     final repository = StudyProgressRepository(db, now: () => now);
 
-    repository.addActiveStudySeconds(
+    const pack = SermonStudyPackSummary(
       sermonId: 12,
+      sermonCode: '65-0001',
+      title: 'Prédication certifiante',
       packVersion: 1,
-      seconds: 7200,
-      appIsActive: true,
-      studyScreenIsActive: true,
+      packSchemaVersion: 1,
+      corpusVersion: 'corpus-v4',
+      corpusCanonicalSha256: 'canonical-sha',
+      primaryEditionId: 'e1',
+      status: StudyPackStatus.published,
+      sectionCount: 1,
+      questionCount: 6,
+      validatedQuestionCount: 6,
     );
-
     const certificationRules = StudyExamRules(
       sermonId: 12,
       packVersion: 1,
@@ -169,93 +175,178 @@ void main() {
         ),
       ],
     );
-
-    final failed = repository.startExamAttempt(
-      sermonId: 12,
-      packVersion: 1,
-      seed: 'failed-seed',
-      questionIds: const [1, 2],
-      optionOrderByQuestion: const {
-        1: [11, 12],
-        2: [21, 22],
-      },
-    );
-    repository.submitExamAttempt(
-      attemptId: failed,
-      overallScore: 0.70,
-      categoryScores: const {'comprehension': 0.7},
-      passed: false,
-    );
-    expect(
-      () => repository.createCertification(
-        attemptId: failed,
+    const sections = [
+      StudySection(
+        id: 70,
         sermonId: 12,
         packVersion: 1,
-        corpusVersion: 'corpus-v4',
-        level: 'Certification',
+        ordinal: 0,
+        title: 'Étude intégrale',
+        kind: 'theme',
+        requiredForExam: true,
+        minimumReadingPercent: 0.95,
+        paragraphKeys: ['cert-p'],
+      ),
+    ];
+    final pool = <StudyQuestion>[
+      for (var id = 1; id <= 3; id++)
+        StudyQuestion(
+          id: id,
+          sermonId: 12,
+          packVersion: 1,
+          type: StudyQuestionType.singleChoice,
+          category: StudyQuestionCategory.comprehension,
+          difficulty: 4,
+          prompt: 'Compréhension $id',
+          pedagogicalExplanation: '',
+          validationStatus: StudyQuestionStatus.validated,
+          certificationEligible: true,
+          options: const [],
+          evidenceIds: [id],
+        ),
+      for (var id = 4; id <= 6; id++)
+        StudyQuestion(
+          id: id,
+          sermonId: 12,
+          packVersion: 1,
+          type: StudyQuestionType.singleChoice,
+          category: StudyQuestionCategory.context,
+          difficulty: 4,
+          prompt: 'Contexte $id',
+          pedagogicalExplanation: '',
+          validationStatus: StudyQuestionStatus.validated,
+          certificationEligible: true,
+          options: const [],
+          evidenceIds: [id],
+        ),
+    ];
+
+    expect(
+      () => repository.startExamAttempt(
+        pack: pack,
         rules: certificationRules,
+        sections: sections,
+        questionPool: pool,
+        seed: 'blocked-seed',
+        questionIds: const [1, 4],
+        optionOrderByQuestion: const {
+          1: [11, 12],
+          4: [41, 42],
+        },
       ),
       throwsStateError,
     );
 
-    final forged = repository.startExamAttempt(
+    final certParagraph = paragraph('cert-p', 0, 200);
+    repository.recordParagraphActivity(
       sermonId: 12,
       packVersion: 1,
-      seed: 'forged-seed',
-      questionIds: const [5, 6],
+      paragraph: certParagraph,
+      allParagraphs: [certParagraph],
+      visibleMilliseconds:
+          repository.requiredVisibleMilliseconds(certParagraph.characterCount),
+      visibleRatio: 1,
+      appIsActive: true,
+      studyScreenIsActive: true,
+    );
+    repository.updateSectionProgress(
+      sermonId: 12,
+      packVersion: 1,
+      sectionId: 70,
+      state: StudySectionState.completed,
+      readingPercent: 1,
+      checkpointScore: 1,
+    );
+    repository.addActiveStudySeconds(
+      sermonId: 12,
+      packVersion: 1,
+      seconds: 7200,
+      appIsActive: true,
+      studyScreenIsActive: true,
+    );
+
+    final failed = repository.startExamAttempt(
+      pack: pack,
+      rules: certificationRules,
+      sections: sections,
+      questionPool: pool,
+      seed: 'failed-seed',
+      questionIds: const [1, 4],
       optionOrderByQuestion: const {
-        5: [51, 52],
-        6: [61, 62],
+        1: [11, 12],
+        4: [41, 42],
       },
     );
-    repository.submitExamAttempt(
-      attemptId: forged,
-      overallScore: 0.50,
-      categoryScores: const {
-        'comprehension': 1.0,
-        'context': 1.0,
-      },
-      passed: true,
+    final failedEvaluation = repository.submitExamAttempt(
+      attemptId: failed,
+      rules: certificationRules,
+      questions: [pool[0], pool[3]],
+      scoresByQuestion: const {1: 0.70, 4: 0.70},
     );
+    expect(failedEvaluation.passed, isFalse);
     expect(
       () => repository.createCertification(
-        attemptId: forged,
-        sermonId: 12,
-        packVersion: 1,
-        corpusVersion: 'corpus-v4',
+        attemptId: failed,
+        pack: pack,
         level: 'Certification',
         rules: certificationRules,
+        sections: sections,
+        questionPool: pool,
+      ),
+      throwsStateError,
+    );
+
+    final boundAttempt = repository.startExamAttempt(
+      pack: pack,
+      rules: certificationRules,
+      sections: sections,
+      questionPool: pool,
+      seed: 'bound-seed',
+      questionIds: const [2, 5],
+      optionOrderByQuestion: const {
+        2: [21, 22],
+        5: [51, 52],
+      },
+    );
+    expect(
+      () => repository.submitExamAttempt(
+        attemptId: boundAttempt,
+        rules: certificationRules,
+        questions: [pool[2], pool[5]],
+        scoresByQuestion: const {3: 1.0, 6: 1.0},
       ),
       throwsStateError,
     );
 
     now += 1000;
     final passed = repository.startExamAttempt(
-      sermonId: 12,
-      packVersion: 1,
+      pack: pack,
+      rules: certificationRules,
+      sections: sections,
+      questionPool: pool,
       seed: 'passed-seed',
-      questionIds: const [3, 4],
+      questionIds: const [3, 6],
       optionOrderByQuestion: const {
         3: [31, 32],
-        4: [41, 42],
+        6: [61, 62],
       },
     );
-    repository.submitExamAttempt(
+    final evaluation = repository.submitExamAttempt(
       attemptId: passed,
-      overallScore: 0.92,
-      categoryScores: const {
-        'comprehension': 0.90,
-        'context': 0.94,
-      },
-      passed: true,
+      rules: certificationRules,
+      questions: [pool[2], pool[5]],
+      scoresByQuestion: const {3: 0.90, 6: 0.94},
     );
+    expect(evaluation.passed, isTrue);
+    expect(evaluation.overallScore, closeTo(0.92, 0.0001));
+
     final certification = repository.createCertification(
       attemptId: passed,
-      sermonId: 12,
-      packVersion: 1,
-      corpusVersion: 'corpus-v4',
+      pack: pack,
       level: 'Certification',
       rules: certificationRules,
+      sections: sections,
+      questionPool: pool,
     );
     expect(certification.certificationId, startsWith('GRN-12-1-'));
     expect(certification.score, closeTo(0.92, 0.0001));
@@ -266,4 +357,5 @@ void main() {
     db.close();
     dir.deleteSync(recursive: true);
   });
+
 }
