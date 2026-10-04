@@ -34,3 +34,5 @@ Execution mode: executing-plans fallback because this harness exposes no subagen
 
 Task 1: Ruling: V4 runtime guard mandated the superseded “Message Bot” branding — updated the guard to require the 4 October Grenier identity because the new spec is authoritative — cost if wrong: the release guard could accept an unintended public name.
 
+Task 1: complete (commits c99a8ce..7f19bb4, tests: GitHub Actions flutter analyze + flutter test → success in job 111350470770)
+
