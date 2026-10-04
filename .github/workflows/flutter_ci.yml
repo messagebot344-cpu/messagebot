@@ -158,3 +158,21 @@ jobs:
         with:
           name: study-prototype-audit
           path: build/study-audit/prototype_candidates.json
+
+  study-prototype-source-export:
+    if: github.ref == 'refs/heads/feature/certifying-study-engine' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[prototype-source-export]'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Reconstruct validated corpus
+        run: |
+          mkdir -p build/study-source-export
+          python tools/study_pipeline/reconstruct_corpus.py . build/study-source-export/corpus.db
+      - name: Export exact selected prototype sources
+        run: |
+          python tools/study_pipeline/export_prototype_sources.py build/study-source-export/corpus.db --selection reports/study_prototype_selection.json --output build/study-source-export/prototype_sources.json
+          rm -f build/study-source-export/corpus.db
+      - uses: actions/upload-artifact@v7
+        with:
+          name: study-prototype-sources
+          path: build/study-source-export/prototype_sources.json
