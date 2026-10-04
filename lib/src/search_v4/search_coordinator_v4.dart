@@ -65,6 +65,20 @@ class SearchCoordinatorV4 {
     const candidateLimit = 1800;
     final conceptual = conceptualExpander.expand(spec);
     final tokens = conceptual.focusTerms.take(12).toList(growable: false);
+    final effectiveSpec = QuerySpecV4(
+      raw: spec.raw,
+      normalized: spec.normalized,
+      subjectTerms: tokens,
+      filters: ConversationFilterSet(
+        subjectTerms: tokens,
+        yearMin: spec.filters.yearMin,
+        yearMax: spec.filters.yearMax,
+        sourceType: spec.filters.sourceType,
+        sourceId: spec.filters.sourceId,
+      ),
+      exactPhrase: spec.exactPhrase,
+      sermonCode: spec.sermonCode,
+    );
     final strongQuery = _quoted(tokens, ' AND ');
     final broadQuery = _quoted(tokens, ' OR ');
     final prefixQuery = tokens.take(8).map((e) => '${_safeToken(e)}*').join(' OR ');
@@ -84,13 +98,13 @@ class SearchCoordinatorV4 {
 
     final exact = spec.exactPhrase == null
         ? const <RankedPassage>[]
-        : exactEngine.search(spec, limit: candidateLimit);
+        : exactEngine.search(effectiveSpec, limit: candidateLimit);
     final proximity = tokens.length < 2
         ? const <RankedPassage>[]
-        : proximityEngine.search(spec, limit: candidateLimit);
-    final strong = strongQuery.isEmpty ? const <RankedPassage>[] : _search(spec, strongQuery, candidateLimit);
-    final broad = broadQuery.isEmpty ? const <RankedPassage>[] : _search(spec, broadQuery, candidateLimit);
-    final prefix = prefixQuery.isEmpty ? const <RankedPassage>[] : _search(spec, prefixQuery, 900);
+        : proximityEngine.search(effectiveSpec, limit: candidateLimit);
+    final strong = strongQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, strongQuery, candidateLimit);
+    final broad = broadQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, broadQuery, candidateLimit);
+    final prefix = prefixQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, prefixQuery, 900);
 
     final morphologyTerms = <String>{};
     for (final token in tokens) {
@@ -98,7 +112,7 @@ class SearchCoordinatorV4 {
     }
     morphologyTerms.removeAll(tokens);
     final morphologyQuery = morphologyTerms.take(16).map((e) => '"${e.replaceAll('"', '""')}"').join(' OR ');
-    final morphHits = morphologyQuery.isEmpty ? const <RankedPassage>[] : _search(spec, morphologyQuery, 900);
+    final morphHits = morphologyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, morphologyQuery, 900);
 
     final conceptualTerms = conceptual.relatedTerms;
     final conceptualQuery = conceptualTerms
@@ -107,7 +121,7 @@ class SearchCoordinatorV4 {
         .join(' OR ');
     final conceptualHits = conceptualQuery.isEmpty
         ? const <RankedPassage>[]
-        : _search(spec, conceptualQuery, 700);
+        : _search(effectiveSpec, conceptualQuery, 700);
 
     final fuzzyTerms = <String>[];
     for (final token in tokens.where((e) => e.length >= 4)) {
@@ -117,8 +131,8 @@ class SearchCoordinatorV4 {
       if (suggestion != null && !tokens.contains(suggestion.term)) fuzzyTerms.add(suggestion.term);
     }
     final fuzzyQuery = fuzzyTerms.toSet().take(12).map((e) => '"${e.replaceAll('"', '""')}"').join(' OR ');
-    final fuzzyHits = fuzzyQuery.isEmpty ? const <RankedPassage>[] : _search(spec, fuzzyQuery, 700);
-    final alternate = strongQuery.isEmpty || spec.filters.sourceType == 'book'
+    final fuzzyHits = fuzzyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, fuzzyQuery, 700);
+    final alternate = strongQuery.isEmpty || effectiveSpec.filters.sourceType == 'book'
         ? const <RankedPassage>[]
         : repository.lexicalSearchAlternates(strongQuery, limit: 500);
 
@@ -139,7 +153,7 @@ class SearchCoordinatorV4 {
       conceptualTerms: conceptualTerms,
     );
     if (ranked.isEmpty) {
-      return SearchOutcomeV4(query: spec, references: const [], explanations: const {}, fuzzySuggestions: fuzzyTerms);
+      return SearchOutcomeV4(query: effectiveSpec, references: const [], explanations: const {}, fuzzySuggestions: fuzzyTerms);
     }
 
     final topScore = ranked.first.score;
@@ -159,7 +173,7 @@ class SearchCoordinatorV4 {
       if (refs.length >= maxResults) break;
       if (!seen.add(candidate.passageId)) continue;
       final detail = details[candidate.passageId];
-      if (detail == null || !_matchesFilters(spec.filters, detail)) continue;
+      if (detail == null || !_matchesFilters(effectiveSpec.filters, detail)) continue;
       if (detail.edition != null && !detail.edition!.isPrimary && detail.sermon != null && primarySermons.contains(detail.sermon!.id)) {
         continue;
       }
@@ -184,7 +198,7 @@ class SearchCoordinatorV4 {
     }
 
     return SearchOutcomeV4(
-      query: spec,
+      query: effectiveSpec,
       references: refs,
       explanations: explanations,
       fuzzySuggestions: fuzzyTerms.toSet().toList(growable: false),
