@@ -15,6 +15,24 @@ class UserNote {
   final String note;
 }
 
+class PassageHighlight {
+  const PassageHighlight({
+    required this.id,
+    required this.passageId,
+    required this.startOffset,
+    required this.endOffset,
+    required this.highlightedText,
+    required this.createdAt,
+  });
+
+  final int id;
+  final int passageId;
+  final int startOffset;
+  final int endOffset;
+  final String highlightedText;
+  final int createdAt;
+}
+
 class PersonalLibrary {
   PersonalLibrary(this.database);
 
@@ -78,6 +96,71 @@ class PersonalLibrary {
   void removePassageBookmark(int passageId) {
     database.db.execute('DELETE FROM passage_bookmarks WHERE passage_id=?', [passageId]);
   }
+
+  int addHighlight({
+    required int passageId,
+    required int startOffset,
+    required int endOffset,
+    required String highlightedText,
+  }) {
+    if (startOffset < 0 || endOffset <= startOffset) {
+      throw ArgumentError('La plage de surlignage est invalide.');
+    }
+    final clean = highlightedText;
+    if (clean.isEmpty) {
+      throw ArgumentError.value(highlightedText, 'highlightedText', 'Le texte surligné ne peut pas être vide.');
+    }
+    final now = _now;
+    database.db.execute(
+      'INSERT INTO passage_highlights('
+      'passage_id,start_offset,end_offset,highlighted_text,created_at,updated_at'
+      ') VALUES(?,?,?,?,?,?) '
+      'ON CONFLICT(passage_id,start_offset,end_offset) DO UPDATE SET '
+      'highlighted_text=excluded.highlighted_text,updated_at=excluded.updated_at',
+      [passageId, startOffset, endOffset, clean, now, now],
+    );
+    final rows = database.db.select(
+      'SELECT id FROM passage_highlights '
+      'WHERE passage_id=? AND start_offset=? AND end_offset=? LIMIT 1',
+      [passageId, startOffset, endOffset],
+    );
+    return rows.first['id'] as int;
+  }
+
+  void removeHighlight(int highlightId) {
+    database.db.execute('DELETE FROM passage_highlights WHERE id=?', [highlightId]);
+  }
+
+  void clearHighlights() {
+    database.db.execute('DELETE FROM passage_highlights');
+  }
+
+  List<PassageHighlight> highlights({int limit = 1000}) => database.db
+      .select(
+        'SELECT id,passage_id,start_offset,end_offset,highlighted_text,created_at '
+        'FROM passage_highlights ORDER BY created_at DESC,id DESC LIMIT ?',
+        [limit],
+      )
+      .map(_highlightFromRow)
+      .toList(growable: false);
+
+  List<PassageHighlight> highlightsForPassage(int passageId) => database.db
+      .select(
+        'SELECT id,passage_id,start_offset,end_offset,highlighted_text,created_at '
+        'FROM passage_highlights WHERE passage_id=? ORDER BY start_offset,id',
+        [passageId],
+      )
+      .map(_highlightFromRow)
+      .toList(growable: false);
+
+  PassageHighlight _highlightFromRow(dynamic row) => PassageHighlight(
+        id: row['id'] as int,
+        passageId: row['passage_id'] as int,
+        startOffset: row['start_offset'] as int,
+        endOffset: row['end_offset'] as int,
+        highlightedText: row['highlighted_text'] as String,
+        createdAt: row['created_at'] as int,
+      );
 
   Set<int> get passageBookmarks => database.db
       .select('SELECT passage_id FROM passage_bookmarks ORDER BY created_at DESC')
