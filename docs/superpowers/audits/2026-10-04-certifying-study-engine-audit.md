@@ -436,3 +436,20 @@ Le projet est techniquement prêt pour accueillir un moteur générique d’étu
 - commencer par un prototype multi-profils de prédications, puis industrialiser.
 
 Cet audit sert de base à la spécification technique associée.
+
+
+---
+
+## 15. Tranche de correction 25 % — 4 octobre 2026
+
+Première tranche appliquée après audit :
+
+- correction du filtre des fins éditoriales du pipeline Study Pack et restauration des marqueurs manquants ;
+- réévaluation de l’éligibilité à l’examen au moment exact où une tentative démarre ;
+- liaison stricte entre les questions tirées et les scores soumis ;
+- calcul du résultat final par le moteur de scoring, sans paramètre `passed` fourni par l’appelant ;
+- réévaluation de l’éligibilité avant émission du certificat ;
+- ajout du hash canonique du corpus et du pourcentage de lecture dans la matière d’intégrité du certificat ;
+- fermeture des ressources SQLite partiellement ouvertes lorsqu’un bootstrap échoue ou que le widget est démonté.
+
+Cette tranche ne publie encore aucun Study Pack et ne branche pas encore le parcours de certification à l’interface. Ces étapes restent volontairement bloquées jusqu’à validation du pipeline et du prototype sur corpus réel.
