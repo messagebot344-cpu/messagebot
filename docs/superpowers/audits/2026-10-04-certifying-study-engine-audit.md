@@ -453,3 +453,11 @@ Première tranche appliquée après audit :
 - fermeture des ressources SQLite partiellement ouvertes lorsqu’un bootstrap échoue ou que le widget est démonté.
 
 Cette tranche ne publie encore aucun Study Pack et ne branche pas encore le parcours de certification à l’interface. Ces étapes restent volontairement bloquées jusqu’à validation du pipeline et du prototype sur corpus réel.
+
+
+## 16. Tranche de correction 50 % — packaging et intégration runtime
+
+La deuxième tranche démarre par un paquet Study Pack local reproductible,
+strictement lié à `corpus_version` et `canonical_text_sha256`. Le paquet
+fondation ne publie encore aucune certification : il fournit uniquement la
+base SQLite locale validée nécessaire au branchement sûr du runtime.
