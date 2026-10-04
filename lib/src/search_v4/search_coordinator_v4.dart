@@ -162,7 +162,8 @@ class SearchCoordinatorV4 {
     if (needsFuzzyFallback) {
       for (final token in tokens.where((e) => e.length >= 4)) {
         final needle = token.substring(0, 3);
-        final candidates = repository.searchTermStats(needle, limit: 80);
+        final candidates =
+            repository.searchTermStatsByPrefix(needle, limit: 80);
         final suggestion = fuzzyMatcher.best(token, candidates);
         if (suggestion != null && !tokens.contains(suggestion.term)) {
           fuzzyTerms.add(suggestion.term);
