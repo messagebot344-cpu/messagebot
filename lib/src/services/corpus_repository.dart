@@ -379,13 +379,37 @@ class CorpusRepository {
         : db.select(
             'SELECT term,document_count,total_occurrences FROM term_stats '
             'WHERE term LIKE ? ORDER BY CASE WHEN term=? THEN 0 ELSE 1 END,total_occurrences DESC,term LIMIT ?',
-            ['$q%', q, limit],
+            ['%$q%', q, limit],
           );
     return rows.map((r) => TermStat(
       term: r['term'] as String,
       documentCount: r['document_count'] as int,
       totalOccurrences: r['total_occurrences'] as int,
     )).toList(growable: false);
+  }
+
+  List<TermStat> searchTermStatsByPrefix(
+    String prefix, {
+    int limit = 100,
+  }) {
+    final q = _normalizeLookup(prefix);
+    if (q.isEmpty) return const [];
+    final rows = db.select(
+      'SELECT term,document_count,total_occurrences FROM term_stats '
+      'WHERE term LIKE ? '
+      'ORDER BY CASE WHEN term=? THEN 0 ELSE 1 END,'
+      'total_occurrences DESC,term LIMIT ?',
+      ['$q%', q, limit],
+    );
+    return rows
+        .map(
+          (r) => TermStat(
+            term: r['term'] as String,
+            documentCount: r['document_count'] as int,
+            totalOccurrences: r['total_occurrences'] as int,
+          ),
+        )
+        .toList(growable: false);
   }
 
   List<int> concordancePassageIds(
