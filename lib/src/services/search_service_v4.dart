@@ -1,5 +1,6 @@
 import '../conversation/conversation_models.dart';
 import '../models/models.dart';
+import '../offline_ai/offline_ai_citation_ranker.dart';
 import '../offline_ai/offline_ai_semantic_router.dart';
 import '../search/search_contracts.dart';
 import '../search_v4/curated_reference_index.dart';
@@ -26,18 +27,25 @@ class SearchServiceV4 {
     required CorpusRepository repository,
     CuratedReferenceIndex? curatedReferenceIndex,
     OfflineAiSemanticRouter? offlineAiRouter,
+    OfflineAiCitationRanker? offlineAiCitationRanker,
   }) {
     final router = offlineAiRouter ??
         (curatedReferenceIndex == null
             ? null
             : OfflineAiSemanticRouter.fromIndex(curatedReferenceIndex));
+    final citationRanker = offlineAiCitationRanker ??
+        (curatedReferenceIndex == null
+            ? null
+            : OfflineAiCitationRanker.fromIndex(curatedReferenceIndex));
     return SearchServiceV4._(
       repository: repository,
       offlineAiRouter: router,
+      offlineAiCitationRanker: citationRanker,
       coordinator: SearchCoordinatorV4(
         repository: repository,
         curatedReferenceIndex: curatedReferenceIndex,
         offlineAiRouter: router,
+        offlineAiCitationRanker: citationRanker,
       ),
     );
   }
@@ -46,13 +54,19 @@ class SearchServiceV4 {
     required this.repository,
     required this.coordinator,
     required this.offlineAiRouter,
+    required this.offlineAiCitationRanker,
   });
 
   final CorpusRepository repository;
   final SearchCoordinatorV4 coordinator;
   final OfflineAiSemanticRouter? offlineAiRouter;
+  final OfflineAiCitationRanker? offlineAiCitationRanker;
 
-  bool get offlineAiReady => offlineAiRouter != null;
+  bool get offlineAiReady =>
+      offlineAiRouter != null && offlineAiCitationRanker != null;
+
+  int get offlineAiCitationCount =>
+      offlineAiCitationRanker?.activeReferenceCount ?? 0;
 
   Future<ResolvedSearchOutcomeV4> searchOutcome(
     String query, {
