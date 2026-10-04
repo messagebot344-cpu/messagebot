@@ -133,6 +133,65 @@ void main() {
     );
   });
 
+  test('la matrice de questions naturelles reste ancrée aux bons fascicules', () {
+    final ranker = OfflineAiCitationRanker.fromIndex(loadFullIndex());
+
+    const cases = <({String query, String sourceIndexId})>[
+      (
+        query:
+            'Je prie depuis longtemps mais je ne reçois pas de réponse. Qu est-ce qui peut bloquer ma prière ?',
+        sourceIndexId: 'curated-prayer-fasting-v1',
+      ),
+      (
+        query:
+            'Comment reconnaître une bonne église et un pasteur fidèle à la Parole ?',
+        sourceIndexId: 'curated-marriage-choice-church-v1',
+      ),
+      (
+        query:
+            'Comment comprendre la volonté de Dieu quand je ne vois pas pourquoi une situation arrive ?',
+        sourceIndexId: 'curated-gods-will-mystery-v1',
+      ),
+      (
+        query:
+            'Que signifie recevoir le Saint-Esprit comme sceau et puissance de Dieu ?',
+        sourceIndexId: 'curated-holy-spirit-v1',
+      ),
+      (
+        query:
+            'Comment servir Dieu sans imiter un ministère ou un don spirituel ?',
+        sourceIndexId: 'curated-doctrine-service-1060-v1',
+      ),
+      (
+        query:
+            'Comment gérer les dettes, le travail et l argent dans une famille chrétienne ?',
+        sourceIndexId: 'curated-finance-family-deliverance-200-v1',
+      ),
+    ];
+
+    for (final item in cases) {
+      final matches = ranker.rankReferences(item.query, limit: 20);
+      expect(
+        matches.take(12).any(
+              (match) =>
+                  match.reference.sourceIndexId == item.sourceIndexId,
+            ),
+        isTrue,
+        reason: item.query,
+      );
+    }
+  });
+
+  test('une requête sans sens ne fabrique aucune pertinence', () {
+    final ranker = OfflineAiCitationRanker.fromIndex(loadFullIndex());
+    final matches = ranker.rankReferences(
+      'zxqv jklm qzxw nvbk',
+      limit: 20,
+    );
+
+    expect(matches, isEmpty);
+  });
+
   test('le rang canonique préfère le passage qui répond réellement', () {
     final ranker = OfflineAiCitationRanker.fromIndex(
       smallIndex(),

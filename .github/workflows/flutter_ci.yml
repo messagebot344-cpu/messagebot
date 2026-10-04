@@ -9,6 +9,9 @@ concurrency:
   group: message-bot-v4-ci-${{ github.ref }}
   cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
+permissions:
+  contents: read
+
 env:
   GIT_CONFIG_COUNT: 1
   GIT_CONFIG_KEY_0: init.defaultBranch
@@ -16,7 +19,9 @@ env:
 
 jobs:
   analyze-test-android-release:
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
       - name: Validate V4 packaged release
@@ -114,7 +119,9 @@ jobs:
             build/app/outputs/flutter-apk/message-bot-v4-android15-badging.txt
 
   windows-release:
+    if: github.event_name == 'pull_request' || github.ref == 'refs/heads/main' || github.event_name == 'workflow_dispatch'
     runs-on: windows-2022
+    timeout-minutes: 60
     steps:
       - uses: actions/checkout@v7
       - uses: subosito/flutter-action@v2

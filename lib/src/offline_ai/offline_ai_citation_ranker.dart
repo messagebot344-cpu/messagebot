@@ -61,13 +61,21 @@ class OfflineAiCitationRanker {
     required Map<String, Map<int, double>> referenceVectors,
     required Map<int, double> idf,
     required Map<String, List<String>> topicLabelsByReference,
+    required Map<String, Set<String>> referenceTokensByReference,
+    required Map<String, String> normalizedContextByReference,
     this.normalizer = const TextNormalizer(),
     this.dimensions = 8192,
     this.minReferenceScore = 0.045,
     this.minPassageScore = 0.08,
   })  : _referenceVectors = Map.unmodifiable(referenceVectors),
         _idf = Map.unmodifiable(idf),
-        _topicLabelsByReference = Map.unmodifiable(topicLabelsByReference);
+        _topicLabelsByReference = Map.unmodifiable(topicLabelsByReference),
+        _referenceTokensByReference = Map.unmodifiable(
+          referenceTokensByReference,
+        ),
+        _normalizedContextByReference = Map.unmodifiable(
+          normalizedContextByReference,
+        );
 
   factory OfflineAiCitationRanker.fromIndex(
     CuratedReferenceIndex index, {
@@ -91,6 +99,8 @@ class OfflineAiCitationRanker {
     }
 
     final rawVectors = <String, Map<int, double>>{};
+    final referenceTokensByReference = <String, Set<String>>{};
+    final normalizedContextByReference = <String, String>{};
     final documentFrequency = <int, int>{};
 
     for (final reference in references) {
@@ -103,6 +113,20 @@ class OfflineAiCitationRanker {
         topicLabels: labels,
       );
       rawVectors[reference.id] = raw;
+      referenceTokensByReference[reference.id] = Set.unmodifiable(
+        index.normalizer
+            .tokens(
+              [
+                reference.context,
+                reference.sermonTitle,
+                ...reference.anchorTerms,
+              ].join(' '),
+              removeStopWords: true,
+            )
+            .toSet(),
+      );
+      normalizedContextByReference[reference.id] =
+          index.normalizer.normalize(reference.context);
       for (final feature in raw.keys) {
         documentFrequency[feature] =
             (documentFrequency[feature] ?? 0) + 1;
@@ -132,6 +156,8 @@ class OfflineAiCitationRanker {
         for (final entry in topicLabelsByReference.entries)
           entry.key: List.unmodifiable(entry.value),
       },
+      referenceTokensByReference: referenceTokensByReference,
+      normalizedContextByReference: normalizedContextByReference,
       normalizer: index.normalizer,
       dimensions: dimensions,
       minReferenceScore: minReferenceScore,
@@ -147,6 +173,8 @@ class OfflineAiCitationRanker {
   final Map<String, Map<int, double>> _referenceVectors;
   final Map<int, double> _idf;
   final Map<String, List<String>> _topicLabelsByReference;
+  final Map<String, Set<String>> _referenceTokensByReference;
+  final Map<String, String> _normalizedContextByReference;
 
   int get activeReferenceCount => references.length;
 
@@ -159,8 +187,10 @@ class OfflineAiCitationRanker {
     if (queryVector.isEmpty) return const [];
 
     final normalizedQuery = normalizer.normalize(query);
-    final queryTokens =
-        normalizer.tokens(query, removeStopWords: true).toSet();
+    final queryTokens = normalizer
+        .tokens(query, removeStopWords: true)
+        .where((token) => !_noise.contains(token))
+        .toSet();
     final values = <OfflineAiCitationMatch>[];
 
     for (final reference in references) {
@@ -168,16 +198,8 @@ class OfflineAiCitationRanker {
       if (vector == null || vector.isEmpty) continue;
 
       var score = _dot(queryVector, vector);
-      final referenceTokens = normalizer
-          .tokens(
-            [
-              reference.context,
-              reference.sermonTitle,
-              ...reference.anchorTerms,
-            ].join(' '),
-            removeStopWords: true,
-          )
-          .toSet();
+      final referenceTokens =
+          _referenceTokensByReference[reference.id] ?? const <String>{};
       final overlap =
           queryTokens.where(referenceTokens.contains).length;
       if (queryTokens.isNotEmpty && overlap > 0) {
@@ -185,7 +207,7 @@ class OfflineAiCitationRanker {
       }
 
       final normalizedContext =
-          normalizer.normalize(reference.context);
+          _normalizedContextByReference[reference.id] ?? '';
       if (normalizedContext.isNotEmpty &&
           (' $normalizedQuery ').contains(' $normalizedContext ')) {
         score += 0.12;
