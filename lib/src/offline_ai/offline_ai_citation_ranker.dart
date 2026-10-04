@@ -225,10 +225,12 @@ class OfflineAiCitationRanker {
       var score = _dot(queryVector, vector);
       final referenceTokens =
           _referenceTokensByReference[reference.id] ?? const <String>{};
-      final overlap =
-          queryTokens.where(referenceTokens.contains).length;
-      if (queryTokens.isNotEmpty && overlap > 0) {
-        score += (overlap / queryTokens.length) * 0.16;
+      final lexicalCoverage = _softTokenCoverage(
+        queryTokens,
+        referenceTokens,
+      );
+      if (lexicalCoverage > 0) {
+        score += lexicalCoverage * 0.24;
       }
 
       final normalizedContext =
@@ -354,6 +356,31 @@ class OfflineAiCitationRanker {
           : a.passageId.compareTo(b.passageId);
     });
     return values;
+  }
+
+  double _softTokenCoverage(
+    Set<String> queryTokens,
+    Set<String> referenceTokens,
+  ) {
+    if (queryTokens.isEmpty || referenceTokens.isEmpty) return 0.0;
+    var matched = 0.0;
+    for (final queryToken in queryTokens) {
+      if (referenceTokens.contains(queryToken)) {
+        matched += 1.0;
+        continue;
+      }
+      if (queryToken.length < 5) continue;
+      final prefix = queryToken.substring(0, 4);
+      final related = referenceTokens.any(
+        (token) =>
+            token.length >= 5 &&
+            token.startsWith(prefix),
+      );
+      if (related) matched += 0.65;
+    }
+    return (matched / queryTokens.length)
+        .clamp(0.0, 1.0)
+        .toDouble();
   }
 
   bool isStrongAnswer(OfflineAiPassageMatch match) =>
