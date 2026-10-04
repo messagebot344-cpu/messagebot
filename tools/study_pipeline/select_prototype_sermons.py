@@ -76,6 +76,8 @@ def profile_sermons(connection: sqlite3.Connection) -> list[SermonProfile]:
             (sermon["primary_edition_id"],),
         ).fetchall()
         texts = [row["text_display"] for row in rows]
+        # Prototype metrics use only certifying-study content; canonical
+        # publisher/distribution tails remain untouched in corpus.db.
         study_blocks: list[str] = []
         for text in texts:
             for start, end in study_paragraph_spans(text):
