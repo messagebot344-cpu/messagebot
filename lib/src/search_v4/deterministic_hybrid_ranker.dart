@@ -46,6 +46,9 @@ class DeterministicHybridRanker {
       e.conceptual = true;
       e.conceptualTerms.addAll(conceptualTerms);
     });
+    // Human-curated references are strong routing evidence, but exact
+    // quotation matches remain the highest-ranked signal.
+    addRanked(bundle.curated, 4.20, (e) => e.curatedReference = true);
     addRanked(bundle.fuzzy, 0.50, (e) { e.fuzzy = true; e.fuzzyTerms.addAll(fuzzyTerms); });
     addRanked(bundle.alternate, 0.35, (e) => e.alternateEdition = true);
 
@@ -63,6 +66,7 @@ class DeterministicHybridRanker {
           prefix: e.prefix,
           morphology: e.morphology,
           conceptual: e.conceptual,
+          curatedReference: e.curatedReference,
           fuzzy: e.fuzzy,
           alternateEdition: e.alternateEdition,
           fuzzyTerms: e.fuzzyTerms.toList(growable: false),
@@ -87,6 +91,7 @@ class _MutableExplanation {
   bool prefix = false;
   bool morphology = false;
   bool conceptual = false;
+  bool curatedReference = false;
   bool fuzzy = false;
   bool alternateEdition = false;
   final Set<String> fuzzyTerms = <String>{};
