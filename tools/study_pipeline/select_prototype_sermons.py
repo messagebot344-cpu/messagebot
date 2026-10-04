@@ -8,7 +8,7 @@ import sqlite3
 from dataclasses import dataclass, asdict
 from pathlib import Path
 
-from derive_paragraphs import paragraph_spans
+from derive_paragraphs import study_paragraph_spans
 
 SCRIPTURE_RE = re.compile(
     r"\b(?:Gen(?:èse|ese)?|Exode|Lév(?:itique)?|Lev(?:itique)?|Nombres|"
@@ -76,11 +76,15 @@ def profile_sermons(connection: sqlite3.Connection) -> list[SermonProfile]:
             (sermon["primary_edition_id"],),
         ).fetchall()
         texts = [row["text_display"] for row in rows]
-        character_count = sum(len(text) for text in texts)
-        paragraph_count = sum(len(paragraph_spans(text)) for text in texts)
+        study_blocks: list[str] = []
+        for text in texts:
+            for start, end in study_paragraph_spans(text):
+                study_blocks.append(text[start:end])
+        character_count = sum(len(text) for text in study_blocks)
+        paragraph_count = len(study_blocks)
         refs = [
             match.group(0)
-            for text in texts
+            for text in study_blocks
             for match in SCRIPTURE_RE.finditer(text)
         ]
         unique_refs = {
