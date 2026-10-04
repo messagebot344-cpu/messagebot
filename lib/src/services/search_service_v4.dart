@@ -1,6 +1,7 @@
 import '../conversation/conversation_models.dart';
 import '../models/models.dart';
 import '../search/search_contracts.dart';
+import '../search_v4/curated_reference_index.dart';
 import '../search_v4/search_coordinator_v4.dart';
 import '../search_v4/search_explanation.dart';
 import 'corpus_repository.dart';
@@ -20,7 +21,13 @@ class ResolvedSearchOutcomeV4 {
 }
 
 class SearchServiceV4 {
-  SearchServiceV4({required this.repository}) : coordinator = SearchCoordinatorV4(repository: repository);
+  SearchServiceV4({
+    required this.repository,
+    CuratedReferenceIndex? curatedReferenceIndex,
+  }) : coordinator = SearchCoordinatorV4(
+          repository: repository,
+          curatedReferenceIndex: curatedReferenceIndex,
+        );
 
   final CorpusRepository repository;
   final SearchCoordinatorV4 coordinator;
