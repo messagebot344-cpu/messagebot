@@ -11,6 +11,9 @@ import 'services/corpus_repository.dart';
 import 'services/preferences_service.dart';
 import 'services/search_service_v4.dart';
 import 'study/study_engine.dart';
+import 'study_certification/study_pack_installer.dart';
+import 'study_certification/study_pack_repository.dart';
+import 'study_certification/study_progress_repository.dart';
 import 'theme/grenier_theme.dart';
 import 'theme/grenier_tokens.dart';
 
@@ -36,6 +39,7 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
   Future<void> _initialize() async {
     UserDatabase? pendingUserDatabase;
     CorpusRepository? pendingRepository;
+    StudyPackRepository? pendingStudyPackRepository;
     ConversationController? pendingConversationController;
     try {
       final preferences = await PreferencesService.create();
@@ -48,21 +52,44 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
         onProgress: (progress, message) {
           if (!mounted) return;
           setState(() {
-            _progress = progress;
+            _progress = progress * 0.88;
             _message = message;
           });
         },
       );
       final repository = CorpusRepository()..open(install.databasePath);
       pendingRepository = repository;
+
+      final corpusVersion = install.manifest['corpus_version'] as String;
+      final canonicalSha =
+          install.manifest['canonical_text_sha256'] as String;
+      final studyInstall = await StudyPackInstaller().ensureInstalled(
+        expectedCorpusVersion: corpusVersion,
+        expectedCanonicalSha256: canonicalSha,
+        onProgress: (progress, message) {
+          if (!mounted) return;
+          setState(() {
+            _progress = 0.88 + (progress * 0.10);
+            _message = message;
+          });
+        },
+      );
+      final studyPackRepository = StudyPackRepository.open(
+        studyInstall.databasePath,
+        expectedCorpusVersion: corpusVersion,
+        expectedCanonicalSha256: canonicalSha,
+      );
+      pendingStudyPackRepository = studyPackRepository;
+
       if (mounted) {
         setState(() {
-          _progress = 0.96;
+          _progress = 0.99;
           _message = 'Initialisation de la recherche documentaire V4…';
         });
       }
       final searchService = SearchServiceV4(repository: repository);
       final studyEngine = StudyEngine(repository);
+      final studyProgressRepository = StudyProgressRepository(userDatabase);
       final conversationRepository = ConversationRepository(userDatabase);
       final conversationController = ConversationController(
         repository: conversationRepository,
@@ -71,6 +98,7 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
       pendingConversationController = conversationController;
       if (!mounted) {
         conversationController.dispose();
+        studyPackRepository.close();
         repository.close();
         userDatabase.close();
         return;
@@ -82,6 +110,8 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
           preferences: preferences,
           personalLibrary: personalLibrary,
           studyEngine: studyEngine,
+          studyPackRepository: studyPackRepository,
+          studyProgressRepository: studyProgressRepository,
           conversationController: conversationController,
           userDatabase: userDatabase,
           controller: controller,
@@ -90,10 +120,12 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
         _message = 'Prêt';
       });
       pendingConversationController = null;
+      pendingStudyPackRepository = null;
       pendingRepository = null;
       pendingUserDatabase = null;
     } catch (e) {
       pendingConversationController?.dispose();
+      pendingStudyPackRepository?.close();
       pendingRepository?.close();
       pendingUserDatabase?.close();
       if (!mounted) return;
@@ -103,6 +135,7 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
 
   @override
   void dispose() {
+    _runtime?.studyPackRepository.close();
     _runtime?.repository.close();
     _runtime?.userDatabase.close();
     _runtime?.conversationController.dispose();
@@ -143,7 +176,7 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
                     : Column(mainAxisSize: MainAxisSize.min, children: [
                         const Icon(Icons.error_outline_rounded, size: 56),
                         const SizedBox(height: 16),
-                        const Text('Impossible de préparer le corpus.', style: TextStyle(fontWeight: FontWeight.w700)),
+                        const Text('Impossible de préparer les données locales.', style: TextStyle(fontWeight: FontWeight.w700)),
                         const SizedBox(height: 12),
                         SelectableText('$_error', textAlign: TextAlign.center),
                         const SizedBox(height: 20),
@@ -174,6 +207,8 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
         preferences: runtime.preferences,
         personalLibrary: runtime.personalLibrary,
         studyEngine: runtime.studyEngine,
+        studyPackRepository: runtime.studyPackRepository,
+        studyProgressRepository: runtime.studyProgressRepository,
         conversationController: runtime.conversationController,
         controller: runtime.controller,
         child: MaterialApp(
@@ -196,6 +231,8 @@ class _Runtime {
     required this.preferences,
     required this.personalLibrary,
     required this.studyEngine,
+    required this.studyPackRepository,
+    required this.studyProgressRepository,
     required this.conversationController,
     required this.userDatabase,
     required this.controller,
@@ -206,6 +243,8 @@ class _Runtime {
   final PreferencesService preferences;
   final PersonalLibrary personalLibrary;
   final StudyEngine studyEngine;
+  final StudyPackRepository studyPackRepository;
+  final StudyProgressRepository studyProgressRepository;
   final ConversationController conversationController;
   final UserDatabase userDatabase;
   final AppController controller;
