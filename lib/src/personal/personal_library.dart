@@ -85,6 +85,20 @@ class PersonalLibrary {
     }
   }
 
+  void setFavorite(String sourceKey, bool favorite) {
+    if (favorite) {
+      database.db.execute(
+        'INSERT OR IGNORE INTO favorites(source_key,created_at) VALUES(?,?)',
+        [sourceKey, _now],
+      );
+    } else {
+      database.db.execute(
+        'DELETE FROM favorites WHERE source_key=?',
+        [sourceKey],
+      );
+    }
+  }
+
   void addPassageBookmark(int passageId, {String? label}) {
     database.db.execute(
       'INSERT INTO passage_bookmarks(passage_id,label,created_at) VALUES(?,?,?) '
