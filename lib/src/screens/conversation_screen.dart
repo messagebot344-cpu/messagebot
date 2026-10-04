@@ -167,7 +167,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
 
     return LayoutBuilder(
       builder: (context, constraints) {
-        final showDetails = constraints.maxWidth >= GrenierBreakpoints.desktopWide && _selection != null;
+        final showDetails = MediaQuery.sizeOf(context).width >= GrenierBreakpoints.desktopWide && constraints.maxWidth >= 900 && _selection != null;
         return Row(
           children: [
             Expanded(child: workspace),
