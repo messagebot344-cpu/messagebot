@@ -13,6 +13,7 @@ runtime_files = [
     ROOT/'lib/src/services/search_service_v4.dart', ROOT/'lib/src/study/similarity_engine.dart',
 ]
 runtime_files += list((ROOT/'lib/src/search_v4').glob('*.dart'))
+runtime_files += list((ROOT/'lib/src/offline_ai').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/conversation').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/study_certification').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/screens').glob('study_*.dart'))
