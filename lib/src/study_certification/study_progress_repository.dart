@@ -293,15 +293,18 @@ class StudyProgressRepository {
   }) {
     ensureProgress(sermonId: sermonId, packVersion: packVersion);
     final now = _now();
+    final marksCompletion =
+        status == StudyProgressStatus.readingCompleted ||
+        status == StudyProgressStatus.certified;
     database.db.execute(
-      'UPDATE study_progress SET status=?,completed_at=?,updated_at=? '
+      'UPDATE study_progress SET status=?,'
+      'completed_at=CASE WHEN ?=1 THEN COALESCE(completed_at,?) '
+      'ELSE completed_at END,updated_at=? '
       'WHERE sermon_id=? AND pack_version=?',
       [
         _statusName(status),
-        status == StudyProgressStatus.readingCompleted ||
-                status == StudyProgressStatus.certified
-            ? now
-            : null,
+        marksCompletion ? 1 : 0,
+        now,
         now,
         sermonId,
         packVersion,
