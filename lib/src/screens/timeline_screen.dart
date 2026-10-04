@@ -79,19 +79,19 @@ class _TimelineScreenState extends State<TimelineScreen> {
                             _query,
                           );
                           final validSentence = sentence != null &&
-                              sentence.startOffset >= 0 &&
-                              sentence.endOffset <= item.passage.text.length &&
-                              sentence.startOffset < sentence.endOffset;
+                              sentence!.startOffset >= 0 &&
+                              sentence!.endOffset <= item.passage.text.length &&
+                              sentence!.startOffset < sentence!.endOffset;
                           final excerpt = validSentence
                               ? item.passage.text
                                   .substring(
-                                    sentence.startOffset,
-                                    sentence.endOffset,
+                                    sentence!.startOffset,
+                                    sentence!.endOffset,
                                   )
-                                  .replaceAll(RegExp(r'\\s+'), ' ')
+                                  .replaceAll(RegExp(r'\s+'), ' ')
                                   .trim()
                               : item.passage.text
-                                  .replaceAll(RegExp(r'\\s+'), ' ')
+                                  .replaceAll(RegExp(r'\s+'), ' ')
                                   .trim();
                           return ListTile(
                             leading: CircleAvatar(child: Text('${sermon.year % 100}'.padLeft(2, '0'))),
@@ -106,9 +106,9 @@ class _TimelineScreenState extends State<TimelineScreen> {
                               context,
                               item,
                               highlightStartOffset:
-                                  validSentence ? sentence.startOffset : null,
+                                  validSentence ? sentence!.startOffset : null,
                               highlightEndOffset:
-                                  validSentence ? sentence.endOffset : null,
+                                  validSentence ? sentence!.endOffset : null,
                             ),
                           );
                         },
