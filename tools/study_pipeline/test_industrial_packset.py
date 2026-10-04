@@ -122,6 +122,28 @@ class IndustrialPacksetTest(unittest.TestCase):
             self.assertEqual(validation["published_packs"], 4)
             self.assertGreater(validation["evidence_checked"], 0)
 
+            db = sqlite3.connect(study)
+            try:
+                short_rule = db.execute(
+                    "SELECT exam_size,pass_threshold "
+                    "FROM study_exam_rules WHERE sermon_id=4"
+                ).fetchone()
+                self.assertEqual(short_rule, (10, 0.85))
+                short_categories = {
+                    row[0]: row[1]
+                    for row in db.execute(
+                        "SELECT category,question_count "
+                        "FROM study_exam_category_rules "
+                        "WHERE sermon_id=4"
+                    )
+                }
+                self.assertEqual(
+                    short_categories,
+                    {"comprehension": 7, "reasoning": 3},
+                )
+            finally:
+                db.close()
+
             manifest = (assets / "manifest.json").read_text(
                 encoding="utf-8"
             )
