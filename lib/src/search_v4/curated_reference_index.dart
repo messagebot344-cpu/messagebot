@@ -113,16 +113,17 @@ class CuratedReferenceIndex {
       );
     }
 
-    final payloads = <Map<String, dynamic>>[];
-    for (final path in files) {
-      final raw = jsonDecode(await assets.loadString(path));
-      if (raw is! Map<String, dynamic>) {
-        throw FormatException(
-          'Index de références thématiques invalide: $path',
-        );
-      }
-      payloads.add(raw);
-    }
+    final payloads = await Future.wait(
+      files.map((path) async {
+        final raw = jsonDecode(await assets.loadString(path));
+        if (raw is! Map<String, dynamic>) {
+          throw FormatException(
+            'Index de références thématiques invalide: $path',
+          );
+        }
+        return raw;
+      }),
+    );
     return CuratedReferenceIndex.fromPayloads(payloads);
   }
 
