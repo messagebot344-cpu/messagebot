@@ -27,11 +27,11 @@ class _CompactBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Row(
+    return const Row(
       children: [
-        const Icon(Icons.menu_book_rounded, size: 38, color: Colors.white),
-        const SizedBox(width: 12),
-        const Expanded(
+        Icon(Icons.menu_book_rounded, size: 38, color: Colors.white),
+        SizedBox(width: 12),
+        Expanded(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -52,8 +52,8 @@ class _CompactBanner extends StatelessWidget {
             ],
           ),
         ),
-        const SizedBox(width: 10),
-        const _TrustBadge(
+        SizedBox(width: 10),
+        _TrustBadge(
           icon: Icons.cloud_off_rounded,
           label: GrenierBrand.offlineLabel,
           emphasized: true,
@@ -99,9 +99,9 @@ class _FullBanner extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 20),
-        const ConstrainedBox(
-          constraints: BoxConstraints(maxWidth: 310),
-          child: Wrap(
+        ConstrainedBox(
+          constraints: const BoxConstraints(maxWidth: 310),
+          child: const Wrap(
             alignment: WrapAlignment.end,
             crossAxisAlignment: WrapCrossAlignment.center,
             spacing: 8,
