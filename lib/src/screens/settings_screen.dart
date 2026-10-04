@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import '../app_scope.dart';
+import '../theme/grenier_tokens.dart';
 
 class SettingsScreen extends StatelessWidget {
   const SettingsScreen({super.key});
@@ -99,11 +100,11 @@ class SettingsScreen extends StatelessWidget {
             contentPadding: EdgeInsets.zero,
             leading: const Icon(Icons.description_outlined),
             title: const Text('Licences des composants logiciels'),
-            onTap: () => showLicensePage(context: context, applicationName: 'Message Bot', applicationVersion: '4.0.0'),
+            onTap: () => showLicensePage(context: context, applicationName: GrenierBrand.name, applicationVersion: '4.0.0'),
           ),
           const SizedBox(height: 20),
           Text(
-            'Message Bot 4.0.0 • Corpus source version juin 2019 • Recherche V4 déterministe, hors ligne et non générative.',
+            'Le Grenier du Message • V4 – IR Expert • Corpus source version juin 2019 • Recherche déterministe, hors ligne et non générative.',
             style: Theme.of(context).textTheme.bodySmall,
           ),
         ],
