@@ -439,6 +439,40 @@ class StudyProgressRepository {
       );
     }
 
+    final selectedQuestions = <StudyQuestion>[];
+    for (final id in questionIds) {
+      final matches = questionPool.where((question) => question.id == id);
+      if (matches.length != 1) {
+        throw StateError('Question d’examen introuvable ou dupliquée: $id.');
+      }
+      selectedQuestions.add(matches.single);
+    }
+
+    for (final categoryRule in rules.categories) {
+      final count = selectedQuestions
+          .where((question) => question.category == categoryRule.category)
+          .length;
+      if (count != categoryRule.questionCount) {
+        throw StateError(
+          'La sélection ne respecte pas le quota '
+          '${categoryRule.category.name}.',
+        );
+      }
+    }
+
+    for (final question in selectedQuestions) {
+      final suppliedOrder =
+          optionOrderByQuestion[question.id] ?? const <int>[];
+      final optionIds = question.options.map((option) => option.id).toSet();
+      if (suppliedOrder.length != optionIds.length ||
+          suppliedOrder.toSet().length != suppliedOrder.length ||
+          !suppliedOrder.toSet().containsAll(optionIds)) {
+        throw StateError(
+          'Ordre d’options invalide pour la question ${question.id}.',
+        );
+      }
+    }
+
     final previous = database.db.select(
       'SELECT COALESCE(MAX(attempt_number),0) AS n '
       'FROM study_exam_attempts WHERE sermon_id=? AND pack_version=?',
@@ -541,8 +575,27 @@ class StudyProgressRepository {
         attemptId,
       ],
     );
+    setStatus(
+      sermonId: rules.sermonId,
+      packVersion: rules.packVersion,
+      status: evaluation.passed
+          ? StudyProgressStatus.examAvailable
+          : StudyProgressStatus.examFailed,
+    );
     return evaluation;
   }
+
+  int examAttemptCount({
+    required int sermonId,
+    required int packVersion,
+  }) =>
+      database.db
+          .select(
+            'SELECT COUNT(*) AS n FROM study_exam_attempts '
+            'WHERE sermon_id=? AND pack_version=? AND submitted_at IS NOT NULL',
+            [sermonId, packVersion],
+          )
+          .first['n'] as int;
 
   List<int> recentExamQuestionIds({
     required int sermonId,
