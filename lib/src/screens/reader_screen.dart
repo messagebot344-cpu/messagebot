@@ -4,7 +4,10 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 
 import '../app_scope.dart';
 import '../models/models.dart';
+import '../personal/personal_library.dart';
+import '../theme/grenier_tokens.dart';
 import 'collection_picker.dart';
+import 'highlights_screen.dart';
 import 'comparison_screen.dart';
 import 'passage_target.dart';
 import 'similar_passages_screen.dart';
@@ -39,6 +42,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
   int _generation = 0;
   int _lastSavedOrdinal = -1;
   bool _favorite = false;
+  Map<int, List<PassageHighlight>> _highlightsByPassage = const {};
+  Passage? _selectionPassage;
+  TextSelection? _selection;
 
   ItemPositionsListener _positionsListener = ItemPositionsListener.create();
   ItemScrollController _scrollController = ItemScrollController();
@@ -62,6 +68,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
       fallbackIndex: fallbackIndex,
     );
     _favorite = scope.personalLibrary.isFavorite(widget.sermon.code);
+    _highlightsByPassage = _collectHighlights(scope.personalLibrary, _passages);
     _generation = 1;
     _positionsListener.itemPositions.addListener(_saveVisiblePosition);
   }
@@ -98,47 +105,252 @@ class _ReaderScreenState extends State<ReaderScreen> {
     final passages = scope.repository.passagesForEdition(next.id);
     var position = scope.personalLibrary.readingPosition(next.id);
     if (passages.isNotEmpty) position = position.clamp(0, passages.length - 1).toInt();
+    final highlights = _collectHighlights(scope.personalLibrary, passages);
     _resetScrollControllers();
     setState(() {
       _edition = next;
       _passages = passages;
+      _highlightsByPassage = highlights;
+      _selectionPassage = null;
+      _selection = null;
       _initialOrdinal = position;
       _lastSavedOrdinal = -1;
       _generation++;
     });
   }
 
+  Map<int, List<PassageHighlight>> _collectHighlights(
+    PersonalLibrary library,
+    List<Passage> passages,
+  ) {
+    final passageIds = passages.map((passage) => passage.id).toSet();
+    final result = <int, List<PassageHighlight>>{};
+    for (final highlight in library.highlights(limit: 1000000)) {
+      if (!passageIds.contains(highlight.passageId)) continue;
+      result.putIfAbsent(highlight.passageId, () => <PassageHighlight>[]).add(highlight);
+    }
+    for (final values in result.values) {
+      values.sort((a, b) => a.startOffset.compareTo(b.startOffset));
+    }
+    return result;
+  }
+
+  void _onSelectionChanged(
+    Passage passage,
+    TextSelection selection,
+    SelectionChangedCause? cause,
+  ) {
+    if (!selection.isValid || selection.isCollapsed) {
+      if (_selectionPassage?.id == passage.id && _selection != null) {
+        setState(() {
+          _selectionPassage = null;
+          _selection = null;
+        });
+      }
+      return;
+    }
+    final start = selection.start;
+    final end = selection.end;
+    if (start < 0 || end <= start || end > passage.text.length) return;
+    setState(() {
+      _selectionPassage = passage;
+      _selection = TextSelection(baseOffset: start, extentOffset: end);
+    });
+  }
+
+  List<PassageHighlight> _overlappingSelectionHighlights() {
+    final passage = _selectionPassage;
+    final selection = _selection;
+    if (passage == null || selection == null || !selection.isValid || selection.isCollapsed) {
+      return const [];
+    }
+    return (_highlightsByPassage[passage.id] ?? const <PassageHighlight>[])
+        .where(
+          (highlight) =>
+              highlight.startOffset < selection.end &&
+              highlight.endOffset > selection.start,
+        )
+        .toList(growable: false);
+  }
+
+  void _applySelectionAction() {
+    final passage = _selectionPassage;
+    final selection = _selection;
+    if (passage == null || selection == null || !selection.isValid || selection.isCollapsed) {
+      return;
+    }
+    final scope = AppScope.of(context);
+    final overlaps = _overlappingSelectionHighlights();
+    if (overlaps.isNotEmpty) {
+      for (final highlight in overlaps) {
+        scope.personalLibrary.removeHighlight(highlight.id);
+      }
+      setState(() {
+        _highlightsByPassage = _collectHighlights(scope.personalLibrary, _passages);
+        _selectionPassage = null;
+        _selection = null;
+      });
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(content: Text('Surlignage retiré.')),
+      );
+      return;
+    }
+
+    final text = passage.text.substring(selection.start, selection.end);
+    scope.personalLibrary.addHighlight(
+      passageId: passage.id,
+      startOffset: selection.start,
+      endOffset: selection.end,
+      highlightedText: text,
+    );
+    setState(() {
+      _highlightsByPassage = _collectHighlights(scope.personalLibrary, _passages);
+      _selectionPassage = null;
+      _selection = null;
+    });
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(content: Text('Passage surligné.')),
+    );
+  }
+
+  Widget _selectionActionBar(BuildContext context) {
+    final passage = _selectionPassage;
+    final selection = _selection;
+    if (passage == null || selection == null || !selection.isValid || selection.isCollapsed) {
+      return const SizedBox.shrink();
+    }
+    final removing = _overlappingSelectionHighlights().isNotEmpty;
+    final selectedLength = selection.end - selection.start;
+    return Material(
+      elevation: 8,
+      color: Theme.of(context).colorScheme.surface,
+      child: SafeArea(
+        top: false,
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
+          child: Row(
+            children: [
+              Expanded(
+                child: Text(
+                  '$selectedLength caractères sélectionnés',
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.bodySmall,
+                ),
+              ),
+              IconButton(
+                tooltip: 'Annuler la sélection',
+                onPressed: () => setState(() {
+                  _selectionPassage = null;
+                  _selection = null;
+                }),
+                icon: const Icon(Icons.close),
+              ),
+              const SizedBox(width: 6),
+              FilledButton.icon(
+                onPressed: _applySelectionAction,
+                icon: Icon(
+                  removing ? Icons.remove_circle_outline : Icons.border_color_outlined,
+                ),
+                label: Text(
+                  removing ? 'Retirer le surlignage' : 'Surligner',
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
   Widget _passageText(BuildContext context, Passage passage, double fontSize) {
     final style = TextStyle(fontSize: fontSize, height: 1.55);
-    final highlighted = widget.initialPassageId == passage.id &&
+    final text = passage.text;
+    final saved = (_highlightsByPassage[passage.id] ?? const <PassageHighlight>[])
+        .where(
+          (highlight) =>
+              highlight.startOffset >= 0 &&
+              highlight.endOffset > highlight.startOffset &&
+              highlight.endOffset <= text.length &&
+              text.substring(highlight.startOffset, highlight.endOffset) ==
+                  highlight.highlightedText,
+        )
+        .toList(growable: false);
+
+    final hasTransientHighlight = widget.initialPassageId == passage.id &&
         hasValidHighlight(
           passage,
           startOffset: widget.highlightStartOffset,
           endOffset: widget.highlightEndOffset,
         );
-    if (!highlighted) {
-      return SelectableText(passage.text, style: style);
-    }
-    final start = widget.highlightStartOffset!;
-    final end = widget.highlightEndOffset!;
-    final scheme = Theme.of(context).colorScheme;
-    return SelectableText.rich(
-      TextSpan(
+    final transientStart = hasTransientHighlight ? widget.highlightStartOffset! : -1;
+    final transientEnd = hasTransientHighlight ? widget.highlightEndOffset! : -1;
+
+    if (saved.isEmpty && !hasTransientHighlight) {
+      return SelectableText(
+        text,
         style: style,
-        children: [
-          if (start > 0) TextSpan(text: passage.text.substring(0, start)),
-          TextSpan(
-            text: passage.text.substring(start, end),
-            style: TextStyle(
-              backgroundColor: scheme.tertiaryContainer,
-              color: scheme.onTertiaryContainer,
-              fontWeight: FontWeight.w700,
-            ),
-          ),
-          if (end < passage.text.length)
-            TextSpan(text: passage.text.substring(end)),
-        ],
-      ),
+        onSelectionChanged: (selection, cause) =>
+            _onSelectionChanged(passage, selection, cause),
+      );
+    }
+
+    final boundaries = <int>{0, text.length};
+    for (final highlight in saved) {
+      boundaries
+        ..add(highlight.startOffset)
+        ..add(highlight.endOffset);
+    }
+    if (hasTransientHighlight) {
+      boundaries
+        ..add(transientStart)
+        ..add(transientEnd);
+    }
+    final ordered = boundaries.toList()..sort();
+    final scheme = Theme.of(context).colorScheme;
+    final savedBackground = Theme.of(context).brightness == Brightness.dark
+        ? GrenierPalette.highlightDark
+        : GrenierPalette.highlightLight;
+    final spans = <TextSpan>[];
+
+    for (var index = 0; index < ordered.length - 1; index++) {
+      final start = ordered[index];
+      final end = ordered[index + 1];
+      if (end <= start) continue;
+      final isSaved = saved.any(
+        (highlight) =>
+            highlight.startOffset < end && highlight.endOffset > start,
+      );
+      final isTransient = hasTransientHighlight &&
+          transientStart < end &&
+          transientEnd > start;
+
+      TextStyle? segmentStyle;
+      if (isSaved) {
+        segmentStyle = TextStyle(
+          backgroundColor: savedBackground,
+          fontWeight: FontWeight.w700,
+        );
+      } else if (isTransient) {
+        segmentStyle = TextStyle(
+          backgroundColor: scheme.tertiaryContainer,
+          color: scheme.onTertiaryContainer,
+          fontWeight: FontWeight.w700,
+        );
+      }
+
+      spans.add(
+        TextSpan(
+          text: text.substring(start, end),
+          style: segmentStyle,
+        ),
+      );
+    }
+
+    return SelectableText.rich(
+      TextSpan(style: style, children: spans),
+      onSelectionChanged: (selection, cause) =>
+          _onSelectionChanged(passage, selection, cause),
     );
   }
 
@@ -228,6 +440,20 @@ class _ReaderScreenState extends State<ReaderScreen> {
           ],
         ),
         actions: [
+          IconButton(
+            tooltip: 'Historique des surlignages',
+            onPressed: () async {
+              await Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const HighlightsScreen()),
+              );
+              if (!mounted) return;
+              setState(() {
+                _highlightsByPassage =
+                    _collectHighlights(scope.personalLibrary, _passages);
+              });
+            },
+            icon: const Icon(Icons.history),
+          ),
           IconButton(
             tooltip: 'Rechercher dans cette prédication',
             onPressed: _searchInSermon,
@@ -353,6 +579,8 @@ class _ReaderScreenState extends State<ReaderScreen> {
                     },
                   ),
           ),
+          if (_selectionPassage != null && _selection != null)
+            _selectionActionBar(context),
         ],
       ),
     );
