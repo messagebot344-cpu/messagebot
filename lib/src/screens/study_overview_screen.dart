@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../app_scope.dart';
 import '../models/models.dart';
 import '../study_certification/study_exam_eligibility_engine.dart';
-import '../study_certification/study_pack_models.dart';
 import 'study_reading_screen.dart';
 
 class StudyOverviewScreen extends StatelessWidget {
@@ -262,7 +261,7 @@ class _ProgressCard extends StatelessWidget {
     final hours = studySeconds ~/ 3600;
     final minutes = (studySeconds % 3600) ~/ 60;
     if (hours > 0) return '${hours}h ${minutes}min';
-    return '${minutes} min';
+    return '$minutes min';
   }
 
   @override
