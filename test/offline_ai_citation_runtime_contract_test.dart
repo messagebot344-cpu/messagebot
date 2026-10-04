@@ -28,6 +28,7 @@ void main() {
       source,
       contains('if (semanticGateEnabled &&\n          naturalQuestion'),
     );
+    expect(source, contains('!hasStrongIndependentEvidence'));
     expect(
       source,
       contains('if (semanticGateEnabled &&\n          explanation.curatedReference'),
