@@ -100,6 +100,7 @@ class ConceptualQueryExpander {
     'sont',
     'etre',
     'avoir',
+    'faire',
     'dit',
     'dire',
     'parle',
@@ -115,6 +116,10 @@ class ConceptualQueryExpander {
     'propos',
     'signifie',
     'signification',
+    'prophete',
+    'frere',
+    'branham',
+    'message',
   };
 
   static const _conceptGroups = <Set<String>>[
