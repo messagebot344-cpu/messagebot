@@ -11,7 +11,11 @@ class RankedCandidateV4 {
 class DeterministicHybridRanker {
   const DeterministicHybridRanker();
 
-  List<RankedCandidateV4> rank(RetrievalBundleV4 bundle, {List<String> fuzzyTerms = const []}) {
+  List<RankedCandidateV4> rank(
+    RetrievalBundleV4 bundle, {
+    List<String> fuzzyTerms = const [],
+    List<String> conceptualTerms = const [],
+  }) {
     const k = 60.0;
     final scores = <int, double>{};
     final evidence = <int, _MutableExplanation>{};
@@ -38,6 +42,10 @@ class DeterministicHybridRanker {
     addRanked(bundle.broad, 1.15, (e) => e.broadTerms = true);
     addRanked(bundle.prefix, 0.85, (e) => e.prefix = true);
     addRanked(bundle.morphology, 0.75, (e) => e.morphology = true);
+    addRanked(bundle.conceptual, 0.62, (e) {
+      e.conceptual = true;
+      e.conceptualTerms.addAll(conceptualTerms);
+    });
     addRanked(bundle.fuzzy, 0.50, (e) { e.fuzzy = true; e.fuzzyTerms.addAll(fuzzyTerms); });
     addRanked(bundle.alternate, 0.35, (e) => e.alternateEdition = true);
 
@@ -54,9 +62,11 @@ class DeterministicHybridRanker {
           broadTerms: e.broadTerms,
           prefix: e.prefix,
           morphology: e.morphology,
+          conceptual: e.conceptual,
           fuzzy: e.fuzzy,
           alternateEdition: e.alternateEdition,
           fuzzyTerms: e.fuzzyTerms.toList(growable: false),
+          conceptualTerms: e.conceptualTerms.toList(growable: false),
         ),
       );
     }).toList(growable: false)
@@ -76,7 +86,9 @@ class _MutableExplanation {
   bool broadTerms = false;
   bool prefix = false;
   bool morphology = false;
+  bool conceptual = false;
   bool fuzzy = false;
   bool alternateEdition = false;
   final Set<String> fuzzyTerms = <String>{};
+  final Set<String> conceptualTerms = <String>{};
 }
