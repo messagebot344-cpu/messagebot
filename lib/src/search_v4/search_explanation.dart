@@ -9,6 +9,7 @@ class SearchExplanationV4 {
     this.morphology = false,
     this.conceptual = false,
     this.curatedReference = false,
+    this.curatedReferences = const <String>[],
     this.fuzzy = false,
     this.alternateEdition = false,
     this.fuzzyTerms = const <String>[],
@@ -24,10 +25,31 @@ class SearchExplanationV4 {
   final bool morphology;
   final bool conceptual;
   final bool curatedReference;
+  final List<String> curatedReferences;
   final bool fuzzy;
   final bool alternateEdition;
   final List<String> fuzzyTerms;
   final List<String> conceptualTerms;
+
+  SearchExplanationV4 withCuratedReferences(
+    Iterable<String> values,
+  ) =>
+      SearchExplanationV4(
+        direct: direct,
+        exactPhrase: exactPhrase,
+        proximity: proximity,
+        strongTerms: strongTerms,
+        broadTerms: broadTerms,
+        prefix: prefix,
+        morphology: morphology,
+        conceptual: conceptual,
+        curatedReference: curatedReference,
+        curatedReferences: values.toSet().toList(growable: false),
+        fuzzy: fuzzy,
+        alternateEdition: alternateEdition,
+        fuzzyTerms: fuzzyTerms,
+        conceptualTerms: conceptualTerms,
+      );
 
   List<String> get reasons {
     final values = <String>[];
@@ -46,7 +68,17 @@ class SearchExplanationV4 {
       );
     }
     if (curatedReference) {
-      values.add('Repère thématique validé manuellement, citation vérifiée dans le corpus');
+      if (curatedReferences.isEmpty) {
+        values.add(
+          'Repère thématique validé manuellement, citation vérifiée dans le corpus',
+        );
+      } else {
+        for (final reference in curatedReferences.take(3)) {
+          values.add(
+            'Repère thématique validé : $reference • texte vérifié dans le corpus',
+          );
+        }
+      }
     }
     if (fuzzy) values.add('Variante orthographique proche : ${fuzzyTerms.join(', ')}');
     if (alternateEdition) values.add('Correspondance dans une édition alternative');
