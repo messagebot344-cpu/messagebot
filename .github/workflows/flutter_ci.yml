@@ -141,3 +141,20 @@ jobs:
         with:
           name: message-bot-v4-windows
           path: build/windows/x64/runner/Release/
+  study-prototype-audit:
+    if: github.ref == 'refs/heads/feature/certifying-study-engine' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[prototype-audit]'))
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - name: Reconstruct validated corpus
+        run: |
+          mkdir -p build/study-audit
+          python tools/study_pipeline/reconstruct_corpus.py . build/study-audit/corpus.db
+      - name: Select representative prototype sermons
+        run: |
+          python tools/study_pipeline/select_prototype_sermons.py build/study-audit/corpus.db --report build/study-audit/prototype_candidates.json
+          rm -f build/study-audit/corpus.db
+      - uses: actions/upload-artifact@v7
+        with:
+          name: study-prototype-audit
+          path: build/study-audit/prototype_candidates.json
