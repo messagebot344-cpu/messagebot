@@ -5,6 +5,7 @@ import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import '../app_scope.dart';
 import '../models/models.dart';
 import 'collection_picker.dart';
+import 'passage_target.dart';
 import 'similar_passages_screen.dart';
 
 class BookReaderScreen extends StatefulWidget {
@@ -12,10 +13,14 @@ class BookReaderScreen extends StatefulWidget {
     super.key,
     required this.source,
     this.initialPassageId,
+    this.highlightStartOffset,
+    this.highlightEndOffset,
   });
 
   final CorpusSourceSummary source;
   final int? initialPassageId;
+  final int? highlightStartOffset;
+  final int? highlightEndOffset;
 
   @override
   State<BookReaderScreen> createState() => _BookReaderScreenState();
@@ -39,16 +44,13 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
     final scope = AppScope.of(context);
     _chapters = scope.repository.chaptersForBook(widget.source.id);
     _passages = scope.repository.passagesForBook(widget.source.id);
-    final initialId = widget.initialPassageId;
-    if (initialId != null) {
-      final found = _passages.indexWhere((p) => p.id == initialId);
-      if (found >= 0) _initialIndex = found;
-    } else {
-      _initialIndex = scope.personalLibrary.readingPosition(widget.source.id);
-      if (_passages.isNotEmpty) {
-        _initialIndex = _initialIndex.clamp(0, _passages.length - 1).toInt();
-      }
-    }
+    final fallbackIndex =
+        scope.personalLibrary.readingPosition(widget.source.id);
+    _initialIndex = resolvePassageIndex(
+      _passages,
+      passageId: widget.initialPassageId,
+      fallbackIndex: fallbackIndex,
+    );
     _positions.itemPositions.addListener(_savePosition);
   }
 
@@ -80,6 +82,40 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
       _scrollController.scrollTo(index: index, duration: const Duration(milliseconds: 350));
     }
     setState(() => _selectedChapterId = chapterId);
+  }
+
+  Widget _passageText(BuildContext context, Passage passage, double fontSize) {
+    final style = TextStyle(fontSize: fontSize, height: 1.55);
+    final highlighted = widget.initialPassageId == passage.id &&
+        hasValidHighlight(
+          passage,
+          startOffset: widget.highlightStartOffset,
+          endOffset: widget.highlightEndOffset,
+        );
+    if (!highlighted) {
+      return SelectableText(passage.text, style: style);
+    }
+    final start = widget.highlightStartOffset!;
+    final end = widget.highlightEndOffset!;
+    final scheme = Theme.of(context).colorScheme;
+    return SelectableText.rich(
+      TextSpan(
+        style: style,
+        children: [
+          if (start > 0) TextSpan(text: passage.text.substring(0, start)),
+          TextSpan(
+            text: passage.text.substring(start, end),
+            style: TextStyle(
+              backgroundColor: scheme.tertiaryContainer,
+              color: scheme.onTertiaryContainer,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          if (end < passage.text.length)
+            TextSpan(text: passage.text.substring(end)),
+        ],
+      ),
+    );
   }
 
   Future<void> _copy(Passage passage) async {
@@ -156,7 +192,7 @@ class _BookReaderScreenState extends State<BookReaderScreen> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          SelectableText(passage.text, style: TextStyle(fontSize: fontSize, height: 1.55)),
+                          _passageText(context, passage, fontSize),
                           const SizedBox(height: 8),
                           Wrap(
                             alignment: WrapAlignment.end,
