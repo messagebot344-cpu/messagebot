@@ -13,7 +13,7 @@ if str(HERE) not in sys.path:
     sys.path.insert(0, str(HERE))
 
 from create_study_pack_db import create_database
-from derive_paragraphs import derive_for_sermon, paragraph_spans, write_pack_foundation
+from derive_paragraphs import derive_for_sermon, paragraph_spans, study_paragraph_spans, write_pack_foundation
 
 
 class StudyPipelineFoundationTest(unittest.TestCase):
@@ -31,6 +31,21 @@ class StudyPipelineFoundationTest(unittest.TestCase):
         )
         for (start, end), value in zip(spans, values):
             self.assertEqual(text[start:end], value)
+
+    def test_study_paragraphs_stop_before_publisher_tail(self) -> None:
+        text = (
+            "Paragraphe du sermon.\n\n"
+            "Dernière pensée du sermon.\n\n"
+            "Shekinah Publications\nAdresse de distribution.\n\n"
+            "Veuillez trouver les autres prédications sur branham.fr"
+        )
+        spans = study_paragraph_spans(text)
+        values = [text[start:end] for start, end in spans]
+        self.assertEqual(
+            ["Paragraphe du sermon.", "Dernière pensée du sermon."],
+            values,
+        )
+        self.assertNotIn("Shekinah Publications", "\n".join(values))
 
     def test_derivation_is_generic_and_bound_to_corpus_metadata(self) -> None:
         with tempfile.TemporaryDirectory(prefix="grenier-study-pipeline-") as tmp:
