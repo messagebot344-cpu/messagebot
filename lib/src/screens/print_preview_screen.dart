@@ -23,7 +23,7 @@ class MessageBotPrintPreviewScreen extends StatelessWidget {
         canChangePageFormat: true,
         allowPrinting: true,
         allowSharing: true,
-        pdfFileName: 'Message_Bot.pdf',
+        pdfFileName: 'Le_Grenier_du_Message.pdf',
       ),
     );
   }
