@@ -448,6 +448,7 @@ git commit -m "feat: align secondary screens with Grenier design"
 ### Task 8: PDF/printing identity, dark mode, accessibility, and responsive hardening
 
 **Files:**
+- Modify: `lib/src/printing/print_models.dart`
 - Modify: `lib/src/printing/print_document_builder.dart`
 - Modify: `lib/src/printing/print_service.dart`
 - Modify: `lib/src/theme/grenier_theme.dart`
@@ -458,13 +459,21 @@ git commit -m "feat: align secondary screens with Grenier design"
 **Interfaces:**
 - Consumes: `GrenierBrand`, existing `PrintableTurn`, `PrintableResult`, existing `PrintService`.
 - Produces:
+  - `PrintableConversation({required String title, required List<PrintableTurn> turns})` in `print_models.dart`;
+  - `PrintDocumentBuilder.buildPassagePdf(PrintableResult result, {String? query}) -> Future<Uint8List>`;
+  - existing `PrintDocumentBuilder.buildTurnPdf(PrintableTurn turn) -> Future<Uint8List>` remains the “Tous les résultats” path;
+  - `PrintDocumentBuilder.buildConversationPdf(PrintableConversation conversation) -> Future<Uint8List>`;
   - PDF header title `Le Grenier du Message`;
-  - PDF includes query, filters, result count, rank, qualitative relevance, citation, canonical reference, page number, and existing required author/contact footer;
+  - PDFs include the applicable query/filter/result count/rank/qualitative relevance/citation/canonical reference/page number plus the existing required author/contact footer;
   - `PrintService` default filename changes to `Le_Grenier_du_Message.pdf` without changing its method signatures.
 
 - [ ] **Step 1: Write failing PDF branding test**
 
-Build a turn PDF and assert `debugPlainText`/debug sections contain `Le Grenier du Message`, the query, result rank, canonical citation/reference, and no visible `Message Bot` branding.
+Build all three PDF levels and assert:
+- passage PDF contains the exact citation/reference;
+- turn PDF contains `Le Grenier du Message`, query, filters, result count and ordered ranks;
+- conversation PDF contains every turn in order;
+- no visible `Message Bot` branding remains in generated document text.
 
 - [ ] **Step 2: Write failing accessibility/responsive tests**
 
@@ -493,7 +502,7 @@ Expected: PASS, analyzer clean.
 - [ ] **Step 6: Commit**
 
 ```bash
-git add lib/src/printing/print_document_builder.dart lib/src/printing/print_service.dart lib/src/theme/grenier_theme.dart lib/src/screens test/print_branding_test.dart test/grenier_accessibility_responsive_test.dart
+git add lib/src/printing/print_models.dart lib/src/printing/print_document_builder.dart lib/src/printing/print_service.dart lib/src/theme/grenier_theme.dart lib/src/screens test/print_branding_test.dart test/grenier_accessibility_responsive_test.dart
 git commit -m "feat: finalize Grenier PDF accessibility and responsive polish"
 ```
 
