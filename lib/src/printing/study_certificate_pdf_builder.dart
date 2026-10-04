@@ -194,7 +194,7 @@ class StudyCertificatePdfBuilder {
     final hours = seconds ~/ 3600;
     final minutes = (seconds % 3600) ~/ 60;
     if (hours > 0) return '${hours}h ${minutes}min';
-    return '${minutes} min';
+    return '$minutes min';
   }
 
   String _formatDate(DateTime value) {
