@@ -12,8 +12,12 @@ class TermAssociationEngine {
   final CorpusRepository repository;
   final TextNormalizer normalizer;
 
-  List<AssociatedTerm> related(String term, {int limit = 30}) {
-    final ids = repository.concordancePassageIds(term, limit: 300);
+  List<AssociatedTerm> related(
+    String term, {
+    int limit = 30,
+    int passageLimit = 300,
+  }) {
+    final ids = repository.concordancePassageIds(term, limit: passageLimit);
     final details = repository.studyDetailsForPassageIds(ids);
     final counts = <String, int>{};
     final source = normalizer.normalize(term);
