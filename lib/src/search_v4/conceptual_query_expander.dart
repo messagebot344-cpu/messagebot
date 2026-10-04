@@ -19,11 +19,13 @@ class ConceptualQueryExpander {
   ConceptualQueryExpander(
     this.repository, {
     this.normalizer = const TextNormalizer(),
+    this.useCorpusAssociations = true,
   }) : associationEngine = TermAssociationEngine(repository);
 
   final CorpusRepository repository;
   final TextNormalizer normalizer;
   final TermAssociationEngine associationEngine;
+  final bool useCorpusAssociations;
   final Map<String, List<String>> _associationCache = <String, List<String>>{};
 
   ConceptualExpansion expand(QuerySpecV4 spec) {
@@ -49,7 +51,7 @@ class ConceptualQueryExpander {
       }
     }
 
-    if (questionLike) {
+    if (questionLike && useCorpusAssociations) {
       for (final term in focus.take(3)) {
         related.addAll(_associatedTerms(term));
       }
