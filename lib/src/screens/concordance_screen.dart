@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../app_scope.dart';
 import '../models/models.dart';
+import '../search_v4/canonical_sentence_locator.dart';
 import 'passage_navigation.dart';
 
 class ConcordanceScreen extends StatefulWidget {
@@ -151,12 +152,35 @@ class _OccurrenceList extends StatelessWidget {
                   separatorBuilder: (_, __) => const Divider(height: 1),
                   itemBuilder: (context, index) {
                     final item = occurrences[index];
-                    final snippet = item.passage.text.replaceAll(RegExp(r'\s+'), ' ').trim();
+                    final sentence = const CanonicalSentenceLocator().locate(
+                      item.passage.id,
+                      item.passage.text,
+                      term,
+                    );
+                    final validSentence = sentence != null &&
+                        sentence.startOffset >= 0 &&
+                        sentence.endOffset <= item.passage.text.length &&
+                        sentence.startOffset < sentence.endOffset;
+                    final snippet = (validSentence
+                            ? item.passage.text.substring(
+                                sentence.startOffset,
+                                sentence.endOffset,
+                              )
+                            : item.passage.text)
+                        .replaceAll(RegExp(r'\s+'), ' ')
+                        .trim();
                     return ListTile(
                       title: Text(item.source.title, maxLines: 1, overflow: TextOverflow.ellipsis),
                       subtitle: Text('${item.referenceLabel}\n$snippet', maxLines: 4, overflow: TextOverflow.ellipsis),
                       isThreeLine: true,
-                      onTap: () => openStudyPassage(context, item),
+                      onTap: () => openStudyPassage(
+                        context,
+                        item,
+                        highlightStartOffset:
+                            validSentence ? sentence.startOffset : null,
+                        highlightEndOffset:
+                            validSentence ? sentence.endOffset : null,
+                      ),
                     );
                   },
                 ),
