@@ -151,7 +151,9 @@
         "femme",
         "compagne",
         "meda"
-      ]
+      ],
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le PDF cite 51-0930 — Expectation, mais cette référence ne correspond à aucun sermon résolvable dans le corpus V4 actuel. Conservée pour réconciliation future, jamais utilisée pour afficher ou booster une citation."
     },
     {
       "id": "r_551110",
