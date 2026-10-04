@@ -33,7 +33,7 @@ class StudyCertificatePdfBuilder {
       sermon.code,
       'Score : $score %',
       'Tentatives : $attemptCount',
-      'Temps d'etude : $studyDuration',
+      "Temps d'etude : $studyDuration",
       'Certification : ${certification.certificationId}',
       'Pack : ${certification.packVersion}',
       'Corpus : ${certification.corpusVersion}',
@@ -69,7 +69,7 @@ class StudyCertificatePdfBuilder {
               ),
               pw.Spacer(),
               pw.Text(
-                'CERTIFICATION DE RÉUSSITE',
+                'CERTIFICATION DE REUSSITE',
                 textAlign: pw.TextAlign.center,
                 style: pw.TextStyle(
                   fontSize: 30,
@@ -78,7 +78,7 @@ class StudyCertificatePdfBuilder {
               ),
               pw.SizedBox(height: 8),
               pw.Text(
-                'Parcours d'etude de la predication',
+                "Parcours d'etude de la predication",
                 textAlign: pw.TextAlign.center,
                 style: const pw.TextStyle(fontSize: 15),
               ),
@@ -105,9 +105,9 @@ class StudyCertificatePdfBuilder {
                   pw.SizedBox(width: 28),
                   _metric('Tentatives', '$attemptCount'),
                   pw.SizedBox(width: 28),
-                  _metric('Temps d'etude', studyDuration),
+                  _metric("Temps d'etude", studyDuration),
                   pw.SizedBox(width: 28),
-                  _metric('Réussite', _formatDate(certifiedAt)),
+                  _metric('Reussite', _formatDate(certifiedAt)),
                 ],
               ),
               pw.SizedBox(height: 20),
@@ -127,7 +127,7 @@ class StudyCertificatePdfBuilder {
                           borderRadius: pw.BorderRadius.circular(4),
                         ),
                         child: pw.Text(
-                          '${_category(entry.key)} : '
+                          '${_safe(_category(entry.key))} : '
                           '${(entry.value * 100).toStringAsFixed(1)} %',
                           style: const pw.TextStyle(fontSize: 9),
                         ),
@@ -140,9 +140,9 @@ class StudyCertificatePdfBuilder {
                 padding: const pw.EdgeInsets.all(12),
                 color: PdfColors.grey100,
                 child: pw.Text(
-                  'Certification de reussite du parcours d'etude de '
-                  'l'application Le Grenier du Message. Ceci n'est pas un '
-                  'diplome academique ou ecclesiastique officiel.',
+                  "Certification de reussite du parcours d'etude de "
+                  "l'application Le Grenier du Message. Ceci n'est pas un "
+                  "diplome academique ou ecclesiastique officiel.",
                   textAlign: pw.TextAlign.center,
                   style: const pw.TextStyle(fontSize: 9),
                 ),
