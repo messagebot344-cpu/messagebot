@@ -253,6 +253,7 @@ class SearchCoordinatorV4 {
               spec.raw,
               semanticDetails,
               referencePriors: curated.referencePriors,
+              questionIntent: spec.questionIntent,
             ) ??
             const <OfflineAiPassageMatch>[];
     final passageMatchById = <int, OfflineAiPassageMatch>{
@@ -263,13 +264,17 @@ class SearchCoordinatorV4 {
         passageMatches[i].passageId: i + 1,
     };
 
+    final naturalQuestion = spec.isNaturalQuestion;
+
     double combinedScore(RankedCandidateV4 candidate) {
       final semantic = passageMatchById[candidate.passageId]?.score ?? 0.0;
-      final exactBoost =
-          candidate.explanation.direct || candidate.explanation.exactPhrase
-              ? 0.24
+      final exactBoost = candidate.explanation.exactPhrase
+          ? 0.24
+          : !naturalQuestion && candidate.explanation.direct
+              ? 0.18
               : 0.0;
-      return candidate.score + semantic * 0.22 + exactBoost;
+      final semanticWeight = naturalQuestion ? 0.34 : 0.22;
+      return candidate.score + semantic * semanticWeight + exactBoost;
     }
 
     final rerankedCandidates = List<RankedCandidateV4>.from(candidates)
@@ -317,11 +322,6 @@ class SearchCoordinatorV4 {
           explanation.exactPhrase ||
           explanation.proximity ||
           explanation.strongTerms;
-      final naturalQuestion =
-          spec.exactPhrase == null &&
-          spec.sermonCode == null &&
-          tokens.length >= 3;
-
       final semanticGateEnabled = offlineAiCitationRanker != null;
 
       if (semanticGateEnabled &&
@@ -331,15 +331,14 @@ class SearchCoordinatorV4 {
         continue;
       }
 
-      // When the optional local citation ranker is available, natural-language
-      // questions require canonical semantic relevance (or direct/exact
-      // evidence). When it is unavailable, keep the deterministic V4 fallback
-      // fully operational instead of returning an artificially empty result.
-      if (semanticGateEnabled &&
-          naturalQuestion &&
-          passageMatch == null &&
-          !hasStrongIndependentEvidence) {
-        continue;
+      // A natural-language question is an answer-selection task, not merely a
+      // document search. Strong lexical overlap alone cannot bypass the
+      // canonical answer-relevance gate.
+      if (semanticGateEnabled && naturalQuestion) {
+        if (passageMatch == null ||
+            !offlineAiCitationRanker!.isStrongAnswer(passageMatch)) {
+          continue;
+        }
       }
 
       refs.add(PassageReference(
@@ -455,15 +454,20 @@ class SearchCoordinatorV4 {
 
     for (final hint in selectedHints) {
       final anchorTokens = <String>{
+        ...normalizer.tokens(
+          hint.reference.context,
+          removeStopWords: true,
+        ),
         for (final value in hint.reference.anchorTerms)
           ...normalizer.tokens(value, removeStopWords: true),
       };
-      // User terms are intentionally secondary: the manually validated anchor
-      // terms locate the cited area inside the referenced sermon.
+      // Human context + anchor terms locate the referenced area. User terms
+      // remain secondary so a paraphrased question does not drag the search
+      // away from the manually validated citation zone.
       anchorTokens.addAll(focusTerms.take(3));
       final fts = anchorTokens
           .where((value) => value.length >= 3)
-          .take(10)
+          .take(14)
           .map((value) => '"${value.replaceAll('"', '""')}"')
           .join(' OR ');
       if (fts.isEmpty) continue;
