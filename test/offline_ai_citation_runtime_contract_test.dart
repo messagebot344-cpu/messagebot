@@ -24,15 +24,10 @@ void main() {
       source,
       contains('final semanticGateEnabled = offlineAiCitationRanker != null;'),
     );
-    expect(
-      source,
-      contains('if (semanticGateEnabled &&\n          naturalQuestion'),
-    );
+    expect(source, contains('final naturalQuestion = spec.isNaturalQuestion;'));
+    expect(source, contains('if (semanticGateEnabled && naturalQuestion)'));
+    expect(source, contains('offlineAiCitationRanker!.isStrongAnswer'));
     expect(source, contains('!hasStrongIndependentEvidence'));
-    expect(
-      source,
-      contains('if (semanticGateEnabled &&\n          explanation.curatedReference'),
-    );
   });
 
   test('la fenêtre sémantique conserve aussi les candidats curated', () {
