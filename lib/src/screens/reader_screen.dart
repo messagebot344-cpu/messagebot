@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -42,6 +44,9 @@ class _ReaderScreenState extends State<ReaderScreen> {
   late int _initialOrdinal;
   int _generation = 0;
   int _lastSavedOrdinal = -1;
+  int? _pendingOrdinal;
+  Timer? _positionSaveDebounce;
+  late PersonalLibrary _personalLibrary;
   bool _favorite = false;
   Map<int, List<PassageHighlight>> _highlightsByPassage = const {};
   Passage? _selectionPassage;
@@ -55,6 +60,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     super.didChangeDependencies();
     if (_generation != 0) return;
     final scope = AppScope.of(context);
+    _personalLibrary = scope.personalLibrary;
     _editions = scope.repository.editionsForSermon(widget.sermon.id);
     _edition = _editions.firstWhere(
       (e) => e.id == widget.initialEditionId,
@@ -62,14 +68,14 @@ class _ReaderScreenState extends State<ReaderScreen> {
     );
     _passages = scope.repository.passagesForEdition(_edition.id);
     final fallbackIndex =
-        widget.initialOrdinal ?? scope.personalLibrary.readingPosition(_edition.id);
+        widget.initialOrdinal ?? _personalLibrary.readingPosition(_edition.id);
     _initialOrdinal = resolvePassageIndex(
       _passages,
       passageId: widget.initialPassageId,
       fallbackIndex: fallbackIndex,
     );
-    _favorite = scope.personalLibrary.isFavorite(widget.sermon.code);
-    _highlightsByPassage = _collectHighlights(scope.personalLibrary, _passages);
+    _favorite = _personalLibrary.isFavorite(widget.sermon.code);
+    _highlightsByPassage = _collectHighlights(_personalLibrary, _passages);
     _generation = 1;
     _positionsListener.itemPositions.addListener(_saveVisiblePosition);
   }
@@ -77,6 +83,11 @@ class _ReaderScreenState extends State<ReaderScreen> {
   @override
   void dispose() {
     _positionsListener.itemPositions.removeListener(_saveVisiblePosition);
+    _positionSaveDebounce?.cancel();
+    final pending = _pendingOrdinal;
+    if (pending != null && _generation != 0) {
+      _personalLibrary.setReadingPosition(_edition.id, pending);
+    }
     super.dispose();
   }
 
@@ -84,13 +95,29 @@ class _ReaderScreenState extends State<ReaderScreen> {
     if (_passages.isEmpty) return;
     final positions = _positionsListener.itemPositions.value;
     if (positions.isEmpty) return;
-    final visible = positions.where((p) => p.itemTrailingEdge > 0 && p.itemLeadingEdge < 1).toList();
+    final visible = positions
+        .where(
+          (p) => p.itemTrailingEdge > 0 && p.itemLeadingEdge < 1,
+        )
+        .toList();
     if (visible.isEmpty) return;
     visible.sort((a, b) => a.index.compareTo(b.index));
     final ordinal = visible.first.index;
-    if (ordinal == _lastSavedOrdinal) return;
-    _lastSavedOrdinal = ordinal;
-    AppScope.of(context).personalLibrary.setReadingPosition(_edition.id, ordinal);
+    if (ordinal == _lastSavedOrdinal || ordinal == _pendingOrdinal) return;
+
+    _pendingOrdinal = ordinal;
+    _positionSaveDebounce?.cancel();
+    final editionId = _edition.id;
+    _positionSaveDebounce = Timer(
+      const Duration(milliseconds: 350),
+      () {
+        final pending = _pendingOrdinal;
+        if (pending == null) return;
+        _personalLibrary.setReadingPosition(editionId, pending);
+        _lastSavedOrdinal = pending;
+        _pendingOrdinal = null;
+      },
+    );
   }
 
   void _resetScrollControllers() {
@@ -102,11 +129,17 @@ class _ReaderScreenState extends State<ReaderScreen> {
 
   void _switchEdition(String id) {
     final scope = AppScope.of(context);
+    final pending = _pendingOrdinal;
+    if (pending != null) {
+      _positionSaveDebounce?.cancel();
+      _personalLibrary.setReadingPosition(_edition.id, pending);
+      _pendingOrdinal = null;
+    }
     final next = _editions.firstWhere((e) => e.id == id);
     final passages = scope.repository.passagesForEdition(next.id);
-    var position = scope.personalLibrary.readingPosition(next.id);
+    var position = _personalLibrary.readingPosition(next.id);
     if (passages.isNotEmpty) position = position.clamp(0, passages.length - 1).toInt();
-    final highlights = _collectHighlights(scope.personalLibrary, passages);
+    final highlights = _collectHighlights(_personalLibrary, passages);
     _resetScrollControllers();
     setState(() {
       _edition = next;
@@ -124,11 +157,15 @@ class _ReaderScreenState extends State<ReaderScreen> {
     PersonalLibrary library,
     List<Passage> passages,
   ) {
-    final passageIds = passages.map((passage) => passage.id).toSet();
+    final passageIds = passages.map((passage) => passage.id);
     final result = <int, List<PassageHighlight>>{};
-    for (final highlight in library.highlights(limit: 1000000)) {
-      if (!passageIds.contains(highlight.passageId)) continue;
-      result.putIfAbsent(highlight.passageId, () => <PassageHighlight>[]).add(highlight);
+    for (final highlight in library.highlightsForPassages(passageIds)) {
+      result
+          .putIfAbsent(
+            highlight.passageId,
+            () => <PassageHighlight>[],
+          )
+          .add(highlight);
     }
     for (final values in result.values) {
       values.sort((a, b) => a.startOffset.compareTo(b.startOffset));
