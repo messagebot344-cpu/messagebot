@@ -176,3 +176,45 @@ jobs:
         with:
           name: study-prototype-sources
           path: build/study-source-export/prototype_sources.json
+
+
+  study-foundation-package:
+    if: github.ref == 'refs/heads/feature/certifying-study-engine' && contains(github.event.head_commit.message, '[package-study-foundation]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Package Study Pack foundation
+        run: python tools/study_pipeline/package_study_foundation.py
+      - name: Verify generated Study Pack assets
+        run: |
+          python - <<'PY'
+          import hashlib, json, sqlite3
+          from pathlib import Path
+          manifest = json.loads(Path("assets/study/manifest.json").read_text(encoding="utf-8"))
+          part = Path("assets/study/db_parts") / manifest["parts"][0]["name"]
+          assert part.stat().st_size == manifest["database_bytes"]
+          assert hashlib.sha256(part.read_bytes()).hexdigest() == manifest["database_sha256"]
+          db = sqlite3.connect(f"file:{part}?mode=ro", uri=True)
+          try:
+              assert db.execute("PRAGMA quick_check").fetchone()[0].lower() == "ok"
+              assert db.execute("SELECT value FROM study_pack_meta WHERE key='corpus_version'").fetchone()[0] == manifest["corpus_version"]
+              assert db.execute("SELECT value FROM study_pack_meta WHERE key='corpus_canonical_sha256'").fetchone()[0] == manifest["corpus_canonical_sha256"]
+          finally:
+              db.close()
+          print("STUDY_FOUNDATION_PACKAGE: OK")
+          PY
+      - name: Commit packaged foundation
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/study/manifest.json assets/study/db_parts/study_packs.db.part000
+          if git diff --cached --quiet; then
+            echo "Study foundation already up to date."
+            exit 0
+          fi
+          git commit -m "build: package Study Pack foundation"
+          git push origin HEAD:feature/certifying-study-engine
