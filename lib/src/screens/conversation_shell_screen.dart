@@ -25,7 +25,7 @@ class _ConversationShellScreenState extends State<ConversationShellScreen> {
   GrenierDestination _selected = GrenierDestination.home;
 
   Widget _pageFor(GrenierDestination destination) => switch (destination) {
-        GrenierDestination.home => const HomeScreen(),
+        GrenierDestination.home => HomeScreen(onStartConversation: _newConversation),
         GrenierDestination.library => const LibraryScreen(),
         GrenierDestination.conversations => const ConversationScreen(),
         GrenierDestination.collections => const CollectionsScreen(),
