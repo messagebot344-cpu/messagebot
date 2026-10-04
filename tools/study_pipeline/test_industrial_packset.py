@@ -59,7 +59,9 @@ def create_toy_corpus(path: Path) -> None:
                 ),
             )
             paragraphs: list[str] = []
-            for paragraph_index in range(3):
+            paragraph_count = 1 if sermon_id == 4 else 3
+            sentence_count = 30 if sermon_id == 4 else 7
+            for paragraph_index in range(paragraph_count):
                 sentences = [
                     (
                         f"Dans la prédication {name}, la section "
@@ -67,7 +69,7 @@ def create_toy_corpus(path: Path) -> None:
                         f"l’affirmation numéro {sentence_index + 1} "
                         "afin de vérifier une lecture attentive et fidèle."
                     )
-                    for sentence_index in range(7)
+                    for sentence_index in range(sentence_count)
                 ]
                 paragraphs.append(" ".join(sentences))
             text = "\n\n".join(paragraphs)
