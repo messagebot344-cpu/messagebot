@@ -16,7 +16,7 @@ void main() {
     final db = UserDatabase.openPath(path);
     expect(nested.existsSync(), isTrue);
     expect(File(path).existsSync(), isTrue);
-    expect(db.meta('schema_version'), '4');
+    expect(db.meta('schema_version'), '5');
 
     db.close();
     root.deleteSync(recursive: true);
@@ -39,6 +39,61 @@ void main() {
     expect(again.collections().single.name, 'Foi');
     expect(again.collectionPassageIds(collection), [42]);
     expect(again.notesForPassage(42).single.note, 'Note personnelle de test');
+    reopened.close();
+    dir.deleteSync(recursive: true);
+  });
+
+  test('user.db conserve les surlignages exacts après réouverture', () {
+    final dir = Directory.systemTemp.createTempSync('grenier-user-highlight-');
+    final path = '${dir.path}/user.db';
+    final db = UserDatabase.openPath(path);
+    final library = PersonalLibrary(db);
+    final id = library.addHighlight(
+      passageId: 42,
+      startOffset: 3,
+      endOffset: 12,
+      highlightedText: 'foi ferme',
+    );
+    expect(id, greaterThan(0));
+    db.close();
+
+    final reopened = UserDatabase.openPath(path);
+    final again = PersonalLibrary(reopened);
+    final highlight = again.highlightsForPassage(42).single;
+    expect(highlight.startOffset, 3);
+    expect(highlight.endOffset, 12);
+    expect(highlight.highlightedText, 'foi ferme');
+
+    again.removeHighlight(highlight.id);
+    expect(again.highlightsForPassage(42), isEmpty);
+    reopened.close();
+    dir.deleteSync(recursive: true);
+  });
+
+  test('migration V4 vers V5 conserve les données personnelles existantes', () {
+    final dir = Directory.systemTemp.createTempSync('grenier-user-v4-v5-');
+    final path = '${dir.path}/user.db';
+    final db = UserDatabase.openPath(path);
+    final library = PersonalLibrary(db);
+    library.addNote(99, 'Note existante');
+    library.addPassageBookmark(99);
+    db.db.execute('DROP TABLE IF EXISTS passage_highlights');
+    db.setMeta('schema_version', '4');
+    db.close();
+
+    final reopened = UserDatabase.openPath(path);
+    final again = PersonalLibrary(reopened);
+    expect(reopened.meta('schema_version'), '5');
+    expect(again.notesForPassage(99).single.note, 'Note existante');
+    expect(again.passageBookmarks, contains(99));
+
+    again.addHighlight(
+      passageId: 99,
+      startOffset: 0,
+      endOffset: 4,
+      highlightedText: 'Test',
+    );
+    expect(again.highlightsForPassage(99), hasLength(1));
     reopened.close();
     dir.deleteSync(recursive: true);
   });
