@@ -16,6 +16,7 @@ runtime_files += list((ROOT/'lib/src/search_v4').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/conversation').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/study_certification').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/screens').glob('study_*.dart'))
+runtime_files.append(ROOT/'lib/src/printing/study_certificate_pdf_builder.dart')
 for p in runtime_files:
     text=p.read_text(encoding='utf-8')
     for banned in ['semantic_index.dart','SemanticIndex(', 'SemanticSearchEngine(', 'semantic_vectors.f32','semantic_components.f32']:
@@ -44,6 +45,15 @@ for exact in ['Le Grenier du Message', 'V4 – IR Expert', 'Toute Sa Parole. Tou
 settings=(ROOT/'lib/src/screens/settings_screen.dart').read_text(encoding='utf-8')
 for exact in ['Ce logiciel est conçu par le frère Erly Rolvinst BASSOMBI','242 069101357','ebassombi@gmail.com']:
     if exact not in settings: fail(f'missing official Avant-propos text: {exact}')
+
+# Industrial certification pipeline must stay present and deterministic.
+for relative in [
+    'tools/study_pipeline/build_industrial_packset.py',
+    'tools/study_pipeline/validate_industrial_packset.py',
+]:
+    path = ROOT / relative
+    if not path.exists():
+        fail(f'missing industrial certification pipeline file: {relative}')
 
 # No network package dependency in pubspec.
 pub=(ROOT/'pubspec.yaml').read_text(encoding='utf-8')
