@@ -231,6 +231,39 @@ void main() {
     );
   });
 
+  test('les vecteurs canoniques sont réutilisés entre deux questions', () {
+    final ranker = OfflineAiCitationRanker.fromIndex(
+      smallIndex(),
+      minPassageScore: 0.02,
+    );
+    final good = passage(
+      id: 1,
+      code: 'TEST-1',
+      text:
+          'Quand vous priez, croyez ce que Dieu a promis. Le doute et l incrédulité empêchent une personne de recevoir la réponse.',
+    );
+    final bad = passage(
+      id: 2,
+      code: 'TEST-2',
+      text:
+          'Un homme travaille honnêtement et gère avec sagesse les dépenses de sa maison.',
+    );
+
+    final first = ranker.rankPassages(
+      'Pourquoi le doute peut-il empêcher une prière d être exaucée ?',
+      [bad, good],
+    );
+    expect(first, isNotEmpty);
+    expect(ranker.cachedPassageCount, 2);
+
+    final second = ranker.rankPassages(
+      'Quel rôle la foi joue-t-elle dans la prière ?',
+      [bad, good],
+    );
+    expect(second, isNotEmpty);
+    expect(ranker.cachedPassageCount, 2);
+  });
+
   test('une forte référence humaine ne force jamais un mauvais passage', () {
     final ranker = OfflineAiCitationRanker.fromIndex(
       smallIndex(),
