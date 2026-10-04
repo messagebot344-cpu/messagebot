@@ -9,6 +9,7 @@ import 'conversation_screen.dart';
 import 'grenier_home_screen.dart';
 import 'grenier_navigation.dart';
 import 'grenier_top_banner.dart';
+import 'highlights_screen.dart';
 import 'library_screen.dart';
 import 'personal_search_screen.dart';
 import 'settings_screen.dart';
@@ -44,6 +45,7 @@ class _ConversationShellScreenState extends State<ConversationShellScreen> {
       GrenierDestination.conversations => const ConversationScreen(),
       GrenierDestination.collections => const CollectionsScreen(),
       GrenierDestination.notes => const PersonalSearchScreen(),
+      GrenierDestination.highlights => const HighlightsScreen(),
       GrenierDestination.concordance => const ConcordanceScreen(),
       GrenierDestination.timeline => const TimelineScreen(),
       GrenierDestination.compare => const ComparisonPickerScreen(),
