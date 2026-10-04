@@ -154,7 +154,7 @@ class _StudyReadingScreenState extends State<StudyReadingScreen>
     );
   }
 
-  Future<void> _recordVisibleActivity() async {
+  void _recordVisibleActivity() {
     if (!mounted || !_active || _paragraphs.isEmpty) return;
     final visible = _positions.itemPositions.value;
     if (visible.isEmpty) return;
@@ -191,20 +191,14 @@ class _StudyReadingScreenState extends State<StudyReadingScreen>
       }
     }
 
-    if (!countedAny) return;
-    if (resumeParagraph != null) {
-      scope.studyProgressRepository.setResumePosition(
-        sermonId: widget.pack.sermonId,
-        packVersion: widget.pack.packVersion,
-        paragraphKey: resumeParagraph.paragraphKey,
-        passageId: resumeParagraph.passageId,
-        offset: resumeParagraph.startOffset,
-      );
-    }
-    scope.studyProgressRepository.addActiveStudySeconds(
+    if (!countedAny || resumeParagraph == null) return;
+    scope.studyProgressRepository.recordStudyHeartbeat(
       sermonId: widget.pack.sermonId,
       packVersion: widget.pack.packVersion,
       seconds: _activityTick.inSeconds,
+      paragraphKey: resumeParagraph.paragraphKey,
+      passageId: resumeParagraph.passageId,
+      offset: resumeParagraph.startOffset,
       appIsActive: true,
       studyScreenIsActive: true,
     );
