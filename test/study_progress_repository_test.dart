@@ -142,6 +142,35 @@ void main() {
     dir.deleteSync(recursive: true);
   });
 
+  test('heartbeat regroupe temps actif et position de reprise', () {
+    var now = 4000000;
+    final dir = Directory.systemTemp.createTempSync('grenier-study-heartbeat-');
+    final db = UserDatabase.openPath('${dir.path}/user.db');
+    final repository = StudyProgressRepository(db, now: () => now);
+
+    repository.ensureProgress(sermonId: 9, packVersion: 3);
+    now += 2000;
+    repository.recordStudyHeartbeat(
+      sermonId: 9,
+      packVersion: 3,
+      seconds: 2,
+      paragraphKey: 'heartbeat-p',
+      passageId: 909,
+      offset: 44,
+      appIsActive: true,
+      studyScreenIsActive: true,
+    );
+
+    final snapshot = repository.progress(9, 3)!;
+    expect(snapshot.activeStudySeconds, 2);
+    expect(snapshot.lastParagraphKey, 'heartbeat-p');
+    expect(snapshot.lastPassageId, 909);
+    expect(snapshot.lastOffset, 44);
+
+    db.close();
+    dir.deleteSync(recursive: true);
+  });
+
   test('reprise et temps actif persistent après fermeture', () {
     var now = 5000000;
     final dir = Directory.systemTemp.createTempSync('grenier-study-resume-');
