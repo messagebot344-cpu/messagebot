@@ -3,6 +3,7 @@ import '../models/models.dart';
 import '../search/search_contracts.dart';
 import '../services/corpus_repository.dart';
 import 'canonical_sentence_locator.dart';
+import 'conceptual_query_expander.dart';
 import 'deterministic_hybrid_ranker.dart';
 import 'exact_phrase_engine.dart';
 import 'fuzzy_term_matcher.dart';
@@ -37,7 +38,8 @@ class SearchCoordinatorV4 {
     this.ranker = const DeterministicHybridRanker(),
     this.sentenceLocator = const CanonicalSentenceLocator(),
   })  : exactEngine = ExactPhraseEngine(repository),
-        proximityEngine = ProximitySearchEngine(repository);
+        proximityEngine = ProximitySearchEngine(repository),
+        conceptualExpander = ConceptualQueryExpander(repository);
 
   final CorpusRepository repository;
   final QueryParserV4 parser;
@@ -48,6 +50,7 @@ class SearchCoordinatorV4 {
   final CanonicalSentenceLocator sentenceLocator;
   final ExactPhraseEngine exactEngine;
   final ProximitySearchEngine proximityEngine;
+  final ConceptualQueryExpander conceptualExpander;
 
   Future<SearchOutcomeV4> search(
     String raw, {
@@ -60,7 +63,8 @@ class SearchCoordinatorV4 {
     }
 
     const candidateLimit = 1800;
-    final tokens = spec.subjectTerms.take(12).toList(growable: false);
+    final conceptual = conceptualExpander.expand(spec);
+    final tokens = conceptual.focusTerms.take(12).toList(growable: false);
     final strongQuery = _quoted(tokens, ' AND ');
     final broadQuery = _quoted(tokens, ' OR ');
     final prefixQuery = tokens.take(8).map((e) => '${_safeToken(e)}*').join(' OR ');
@@ -96,6 +100,15 @@ class SearchCoordinatorV4 {
     final morphologyQuery = morphologyTerms.take(16).map((e) => '"${e.replaceAll('"', '""')}"').join(' OR ');
     final morphHits = morphologyQuery.isEmpty ? const <RankedPassage>[] : _search(spec, morphologyQuery, 900);
 
+    final conceptualTerms = conceptual.relatedTerms;
+    final conceptualQuery = conceptualTerms
+        .take(12)
+        .map((e) => '"${e.replaceAll('"', '""')}"')
+        .join(' OR ');
+    final conceptualHits = conceptualQuery.isEmpty
+        ? const <RankedPassage>[]
+        : _search(spec, conceptualQuery, 700);
+
     final fuzzyTerms = <String>[];
     for (final token in tokens.where((e) => e.length >= 4)) {
       final needle = token.length >= 4 ? token.substring(0, 3) : token;
@@ -118,10 +131,12 @@ class SearchCoordinatorV4 {
         broad: broad,
         prefix: prefix,
         morphology: morphHits,
+        conceptual: conceptualHits,
         fuzzy: fuzzyHits,
         alternate: alternate,
       ),
       fuzzyTerms: fuzzyTerms,
+      conceptualTerms: conceptualTerms,
     );
     if (ranked.isEmpty) {
       return SearchOutcomeV4(query: spec, references: const [], explanations: const {}, fuzzySuggestions: fuzzyTerms);
@@ -159,7 +174,11 @@ class SearchCoordinatorV4 {
           exact: explanation.exactPhrase,
           alternateEdition: explanation.alternateEdition,
         ),
-        sentence: sentenceLocator.locate(candidate.passageId, detail.passage.text, spec.effectiveText),
+        sentence: sentenceLocator.locate(
+          candidate.passageId,
+          detail.passage.text,
+          <String>[...tokens, ...conceptualTerms.take(4)].join(' '),
+        ),
       ));
       explanations[candidate.passageId] = explanation;
     }
