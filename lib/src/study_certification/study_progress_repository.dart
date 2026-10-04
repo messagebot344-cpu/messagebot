@@ -288,6 +288,16 @@ class StudyProgressRepository {
       )
       .first['n'] as int;
 
+  Set<int> completedSectionIds(int sermonId, int packVersion) => database.db
+      .select(
+        "SELECT section_id FROM study_section_progress "
+        "WHERE sermon_id=? AND pack_version=? AND state='completed'",
+        [sermonId, packVersion],
+      )
+      .map((row) => row['section_id'] as int)
+      .toSet();
+
+
   void setStatus({
     required int sermonId,
     required int packVersion,
@@ -367,7 +377,7 @@ class StudyProgressRepository {
       progress: progressSnapshot,
       rules: rules,
       sections: sections,
-      completedSectionIds: _completedSectionIds(
+      completedSectionIds: completedSectionIds(
         pack.sermonId,
         pack.packVersion,
       ),
@@ -553,7 +563,7 @@ class StudyProgressRepository {
       progress: progressSnapshot,
       rules: rules,
       sections: sections,
-      completedSectionIds: _completedSectionIds(
+      completedSectionIds: completedSectionIds(
         pack.sermonId,
         pack.packVersion,
       ),
@@ -652,14 +662,6 @@ class StudyProgressRepository {
     return certificationById(certificationId)!;
   }
 
-  Set<int> _completedSectionIds(int sermonId, int packVersion) => database.db
-      .select(
-        "SELECT section_id FROM study_section_progress "
-        "WHERE sermon_id=? AND pack_version=? AND state='completed'",
-        [sermonId, packVersion],
-      )
-      .map((row) => row['section_id'] as int)
-      .toSet();
 
   StudyCertification? certificationById(String certificationId) {
     final rows = database.db.select(
