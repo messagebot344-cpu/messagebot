@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 
 import '../app_scope.dart';
 import '../models/models.dart';
-import '../personal/personal_library.dart';
 import '../theme/grenier_tokens.dart';
 import 'passage_navigation.dart';
 
