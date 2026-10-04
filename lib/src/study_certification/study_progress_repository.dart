@@ -201,6 +201,37 @@ class StudyProgressRepository {
     return percent;
   }
 
+  double readingPercentForParagraphs({
+    required int sermonId,
+    required int packVersion,
+    required List<StudyParagraph> paragraphs,
+  }) {
+    if (paragraphs.isEmpty) return 0;
+    final total = paragraphs.fold<int>(
+      0,
+      (sum, paragraph) => sum + paragraph.characterCount,
+    );
+    if (total <= 0) return 0;
+    final keys = paragraphs.map((paragraph) => paragraph.paragraphKey).toList();
+    final marks = List.filled(keys.length, '?').join(',');
+    final rows = database.db.select(
+      "SELECT paragraph_key FROM study_paragraph_progress "
+      "WHERE sermon_id=? AND pack_version=? AND state='read' "
+      "AND paragraph_key IN ($marks)",
+      [sermonId, packVersion, ...keys],
+    );
+    final readKeys =
+        rows.map((row) => row['paragraph_key'] as String).toSet();
+    final readChars = paragraphs
+        .where((paragraph) => readKeys.contains(paragraph.paragraphKey))
+        .fold<int>(
+          0,
+          (sum, paragraph) => sum + paragraph.characterCount,
+        );
+    return (readChars / total).clamp(0.0, 1.0).toDouble();
+  }
+
+
   void setResumePosition({
     required int sermonId,
     required int packVersion,
