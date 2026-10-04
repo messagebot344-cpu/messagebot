@@ -168,7 +168,12 @@ class _DocumentHitCard extends StatelessWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       child: InkWell(
-        onTap: () => openStudyPassage(context, item),
+        onTap: () => openStudyPassage(
+          context,
+          item,
+          highlightStartOffset: hit.highlightStartOffset,
+          highlightEndOffset: hit.highlightEndOffset,
+        ),
         child: Padding(
           padding: const EdgeInsets.all(16),
           child: Column(
@@ -212,7 +217,12 @@ class _DocumentHitCard extends StatelessWidget {
               Align(
                 alignment: Alignment.centerRight,
                 child: TextButton.icon(
-                  onPressed: () => openStudyPassage(context, item),
+                  onPressed: () => openStudyPassage(
+          context,
+          item,
+          highlightStartOffset: hit.highlightStartOffset,
+          highlightEndOffset: hit.highlightEndOffset,
+        ),
                   icon: const Icon(Icons.open_in_new),
                   label: const Text('Ouvrir au passage'),
                 ),
