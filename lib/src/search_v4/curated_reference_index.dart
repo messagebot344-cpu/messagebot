@@ -367,7 +367,7 @@ class CuratedReferenceIndex {
   }
 
   Set<String> _semanticTokens(String value) => normalizer
-      .tokens(value, removeStopWords: true)
+      .semanticTokens(value, removeStopWords: true)
       .where((token) => !_routingNoise.contains(token))
       .toSet();
 
