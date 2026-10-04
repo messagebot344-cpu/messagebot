@@ -438,7 +438,13 @@ class StudyProgressRepository {
     required int packVersion,
     required String corpusVersion,
     required String level,
+    required StudyExamRules rules,
   }) {
+    if (rules.sermonId != sermonId || rules.packVersion != packVersion) {
+      throw StateError(
+        'Les règles d’examen ne correspondent pas au parcours certifié.',
+      );
+    }
     final attemptRows = database.db.select(
       'SELECT overall_score,category_scores_json,passed '
       'FROM study_exam_attempts WHERE attempt_id=? AND sermon_id=? '
@@ -450,20 +456,46 @@ class StudyProgressRepository {
         'Une certification exige une tentative d’examen réussie.',
       );
     }
+
+    final score = (attemptRows.first['overall_score'] as num).toDouble();
+    final categoryScoresJson =
+        attemptRows.first['category_scores_json'] as String? ?? '{}';
+    final decoded = jsonDecode(categoryScoresJson);
+    if (decoded is! Map<String, dynamic>) {
+      throw StateError('Scores de catégories invalides.');
+    }
+    final categoryScores = <String, double>{
+      for (final entry in decoded.entries)
+        entry.key: (entry.value as num).toDouble(),
+    };
+
+    if (score < rules.passThreshold) {
+      throw StateError(
+        'Le score global est inférieur au seuil de certification.',
+      );
+    }
+    for (final rule in rules.categories) {
+      final minimum = rule.minimumScore;
+      if (minimum == null) continue;
+      final actual = categoryScores[_categoryName(rule.category)];
+      if (actual == null || actual < minimum) {
+        throw StateError(
+          'Une catégorie obligatoire est sous son seuil de certification.',
+        );
+      }
+    }
+
     final progressSnapshot = ensureProgress(
       sermonId: sermonId,
       packVersion: packVersion,
     );
-    final score = (attemptRows.first['overall_score'] as num).toDouble();
-    final categoryScores =
-        attemptRows.first['category_scores_json'] as String? ?? '{}';
     final certifiedAt = _now();
     final integritySource = [
       sermonId,
       packVersion,
       corpusVersion,
       score.toStringAsFixed(6),
-      categoryScores,
+      categoryScoresJson,
       progressSnapshot.activeStudySeconds,
       attemptId,
       certifiedAt,
@@ -486,7 +518,7 @@ class StudyProgressRepository {
         packVersion,
         corpusVersion,
         score,
-        categoryScores,
+        categoryScoresJson,
         progressSnapshot.activeStudySeconds,
         attemptId,
         certifiedAt,
