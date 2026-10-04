@@ -23,6 +23,8 @@ jobs:
         run: |
           python tools/v4_runtime_guard.py
           python tools/validate_v4_release.py
+      - name: Test Study Pack foundation pipeline
+        run: python tools/study_pipeline/test_foundation.py
       - uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.35.4'
