@@ -379,7 +379,7 @@ class CorpusRepository {
         : db.select(
             'SELECT term,document_count,total_occurrences FROM term_stats '
             'WHERE term LIKE ? ORDER BY CASE WHEN term=? THEN 0 ELSE 1 END,total_occurrences DESC,term LIMIT ?',
-            ['%$q%', q, limit],
+            ['$q%', q, limit],
           );
     return rows.map((r) => TermStat(
       term: r['term'] as String,
