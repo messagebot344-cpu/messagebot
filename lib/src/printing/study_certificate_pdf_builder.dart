@@ -37,7 +37,7 @@ class StudyCertificatePdfBuilder {
       'Certification : ${certification.certificationId}',
       'Pack : ${certification.packVersion}',
       'Corpus : ${certification.corpusVersion}',
-      'Ceci n’est pas un diplome academique ou ecclesiastique officiel.',
+      'Ceci n’est pas un diplôme académique ou ecclésiastique officiel.',
     ].join('\n');
 
     doc.addPage(
