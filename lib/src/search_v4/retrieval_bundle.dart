@@ -10,6 +10,7 @@ class RetrievalBundleV4 {
     this.prefix = const <RankedPassage>[],
     this.morphology = const <RankedPassage>[],
     this.conceptual = const <RankedPassage>[],
+    this.curated = const <RankedPassage>[],
     this.fuzzy = const <RankedPassage>[],
     this.alternate = const <RankedPassage>[],
   });
@@ -22,6 +23,7 @@ class RetrievalBundleV4 {
   final List<RankedPassage> prefix;
   final List<RankedPassage> morphology;
   final List<RankedPassage> conceptual;
+  final List<RankedPassage> curated;
   final List<RankedPassage> fuzzy;
   final List<RankedPassage> alternate;
 }
