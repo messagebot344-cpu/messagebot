@@ -304,8 +304,7 @@ class SearchCoordinatorV4 {
       if (semanticGateEnabled &&
           naturalQuestion &&
           passageMatch == null &&
-          !explanation.direct &&
-          !explanation.exactPhrase) {
+          !hasStrongIndependentEvidence) {
         continue;
       }
 
