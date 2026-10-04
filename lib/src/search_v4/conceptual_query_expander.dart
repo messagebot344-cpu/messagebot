@@ -71,6 +71,7 @@ class ConceptualQueryExpander {
   }
 
   List<String> _associatedTerms(String term) {
+    if (_associationBlocked.contains(term)) return const <String>[];
     return _associationCache.putIfAbsent(term, () {
       final values = associationEngine.related(term, limit: 10);
       return values
@@ -124,6 +125,19 @@ class ConceptualQueryExpander {
     'message',
   };
 
+  static const _associationBlocked = <String>{
+    'dieu',
+    'jesus',
+    'christ',
+    'seigneur',
+    'homme',
+    'monde',
+    'chose',
+    'frere',
+    'prophete',
+    'message',
+  };
+
   static const _conceptGroups = <Set<String>>[
     {'foi', 'croire', 'croyance', 'confiance'},
     {'salut', 'sauver', 'sauve', 'redemption', 'racheter', 'rachete'},
@@ -132,7 +146,7 @@ class ConceptualQueryExpander {
     {'bapteme', 'baptiser', 'baptise', 'immersion'},
     {'esprit', 'pentecote', 'onction', 'saint-esprit'},
     {'mariage', 'epoux', 'epouse', 'mari', 'femme', 'union', 'divorce'},
-    {'dime', 'dixieme', 'offrande', 'donner'},
+    {'dime', 'dixieme'},
     {'communion', 'cene', 'souper'},
     {'predestination', 'predestine', 'election', 'elu'},
     {'grace', 'misericorde', 'pardon'},
