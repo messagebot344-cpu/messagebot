@@ -44,6 +44,34 @@ void main() {
     expect(expansion.relatedTerms, contains('guerir'));
   });
 
+  test('question boilerplate is removed while the real subject is preserved', () {
+    final spec = const QueryParserV4().parse(
+      'Que dit le prophète sur la dîme ?',
+    );
+    final expansion = ConceptualQueryExpander(
+      CorpusRepository(),
+      useCorpusAssociations: false,
+    ).expand(spec);
+
+    expect(expansion.questionLike, isTrue);
+    expect(expansion.focusTerms, contains('dime'));
+    expect(expansion.focusTerms, isNot(contains('dit')));
+    expect(expansion.focusTerms, isNot(contains('prophete')));
+    expect(expansion.relatedTerms, contains('dixieme'));
+  });
+
+  test('plain literal search does not trigger conceptual expansion', () {
+    final spec = const QueryParserV4().parse('la dîme');
+    final expansion = ConceptualQueryExpander(
+      CorpusRepository(),
+      useCorpusAssociations: false,
+    ).expand(spec);
+
+    expect(expansion.questionLike, isFalse);
+    expect(expansion.focusTerms, contains('dime'));
+    expect(expansion.relatedTerms, isEmpty);
+  });
+
   test('safe morphology stays bounded', () {
     final values = const MorphologyEngine().expandSafe('promesses');
     expect(values.length, lessThanOrEqualTo(8));
