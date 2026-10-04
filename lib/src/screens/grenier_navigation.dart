@@ -108,38 +108,52 @@ class GrenierDesktopSidebar extends StatelessWidget {
                 ),
               ),
               const SizedBox(height: 10),
-              ...GrenierDestination.values.map(
-                (destination) => _DestinationTile(
-                  destination: destination,
-                  selected: selected == destination,
-                  onTap: () => onSelect(destination),
-                ),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(14, 10, 14, 6),
-                child: Divider(color: Colors.white24),
-              ),
-              const Padding(
-                padding: EdgeInsets.fromLTRB(16, 4, 16, 6),
-                child: Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text('Conversations récentes', style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600, fontSize: 12)),
-                ),
-              ),
               Expanded(
-                child: recentConversations.isEmpty
-                    ? const Center(child: Padding(padding: EdgeInsets.all(16), child: Text('Aucune conversation', style: TextStyle(color: Colors.white54))))
-                    : ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: recentConversations.length,
-                        itemBuilder: (context, index) {
-                          final summary = recentConversations[index];
-                          return ListTile(
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  children: [
+                    ...GrenierDestination.values.map(
+                      (destination) => _DestinationTile(
+                        destination: destination,
+                        selected: selected == destination,
+                        onTap: () => onSelect(destination),
+                      ),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(14, 10, 14, 6),
+                      child: Divider(color: Colors.white24),
+                    ),
+                    const Padding(
+                      padding: EdgeInsets.fromLTRB(16, 4, 16, 6),
+                      child: Align(
+                        alignment: Alignment.centerLeft,
+                        child: Text(
+                          'Conversations récentes',
+                          style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600, fontSize: 12),
+                        ),
+                      ),
+                    ),
+                    if (recentConversations.isEmpty)
+                      const Padding(
+                        padding: EdgeInsets.all(16),
+                        child: Text('Aucune conversation', style: TextStyle(color: Colors.white54)),
+                      )
+                    else
+                      ...recentConversations.map((summary) => ListTile(
                             dense: true,
                             selected: summary.id == selectedConversationId,
                             selectedTileColor: Colors.white.withValues(alpha: 0.09),
-                            leading: Icon(summary.pinned ? Icons.push_pin : Icons.chat_bubble_outline, size: 17, color: Colors.white60),
-                            title: Text(summary.title, maxLines: 1, overflow: TextOverflow.ellipsis, style: const TextStyle(color: Colors.white, fontSize: 12.5)),
+                            leading: Icon(
+                              summary.pinned ? Icons.push_pin : Icons.chat_bubble_outline,
+                              size: 17,
+                              color: Colors.white60,
+                            ),
+                            title: Text(
+                              summary.title,
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(color: Colors.white, fontSize: 12.5),
+                            ),
                             onTap: () => onOpenConversation(summary.id),
                             trailing: onTogglePin == null && onDeleteConversation == null
                                 ? null
@@ -151,13 +165,17 @@ class GrenierDesktopSidebar extends StatelessWidget {
                                       if (value == 'delete') onDeleteConversation?.call(summary.id);
                                     },
                                     itemBuilder: (_) => [
-                                      PopupMenuItem(value: 'pin', child: Text(summary.pinned ? 'Désépingler' : 'Épingler')),
-                                      if (onDeleteConversation != null) const PopupMenuItem(value: 'delete', child: Text('Supprimer')),
+                                      PopupMenuItem(
+                                        value: 'pin',
+                                        child: Text(summary.pinned ? 'Désépingler' : 'Épingler'),
+                                      ),
+                                      if (onDeleteConversation != null)
+                                        const PopupMenuItem(value: 'delete', child: Text('Supprimer')),
                                     ],
                                   ),
-                          );
-                        },
-                      ),
+                          )),
+                  ],
+                ),
               ),
               const Padding(
                 padding: EdgeInsets.fromLTRB(16, 8, 16, 14),
