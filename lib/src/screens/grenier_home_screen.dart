@@ -103,9 +103,9 @@ class GrenierHomeScreen extends StatelessWidget {
                     ),
                     const SizedBox(height: 28),
                     if (mobile)
-                      Column(
+                      const Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
-                        children: const [
+                        children: [
                           _TrustChip(
                             icon: Icons.wifi_off_rounded,
                             label: GrenierBrand.offlineLabel,
