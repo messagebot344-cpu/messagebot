@@ -183,7 +183,7 @@ def validate(corpus_path: Path, study_path: Path) -> dict:
                 )
 
             category_counts: dict[str, int] = {}
-            prompt_seen: set[str] = set()
+            signature_seen: set[str] = set()
             for question in questions:
                 question_id = int(question["id"])
                 category = str(question["category"])
@@ -277,11 +277,22 @@ def validate(corpus_path: Path, study_path: Path) -> dict:
                 normalized_prompt = " ".join(
                     str(prompt_row["prompt"]).lower().split()
                 )
-                if normalized_prompt in prompt_seen:
-                    warnings.append(
-                        f"pack {label} has repeated normalized prompt"
+                option_texts = [
+                    " ".join(
+                        str(row["option_text"]).lower().split()
                     )
-                prompt_seen.add(normalized_prompt)
+                    for row in study.execute(
+                        "SELECT option_text FROM study_question_options "
+                        "WHERE question_id=? ORDER BY ordinal",
+                        (question_id,),
+                    ).fetchall()
+                ]
+                signature = normalized_prompt + "|" + "|".join(option_texts)
+                if signature in signature_seen:
+                    errors.append(
+                        f"pack {label} has duplicate certification question"
+                    )
+                signature_seen.add(signature)
 
             for category_rule in categories:
                 category = str(category_rule["category"])
