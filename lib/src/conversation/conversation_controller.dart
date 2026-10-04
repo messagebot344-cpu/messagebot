@@ -134,12 +134,29 @@ class ConversationController extends ChangeNotifier {
   void loadConversation(int id) {
     final records = repository.loadConversation(id);
     _conversationId = id;
-    _turns = records.map((record) => ConversationTurnView(
-      record: record,
-      hits: searchService.resolvePersisted(record.hits, query: record.query),
-      explanations: const <int, SearchExplanationV4>{},
-    )).toList(growable: false);
-    _activeFilters = _turns.isEmpty ? const ConversationFilterSet() : _turns.last.record.filters;
+    _turns = records.map((record) {
+      final visibleRefs =
+          record.hits.take(_maxResultsPerTurn).toList(growable: false);
+      final visibleRecord = ConversationTurnRecord(
+        id: record.id,
+        conversationId: record.conversationId,
+        query: record.query,
+        filters: record.filters,
+        createdAt: record.createdAt,
+        hits: visibleRefs,
+      );
+      return ConversationTurnView(
+        record: visibleRecord,
+        hits: searchService.resolvePersisted(
+          visibleRefs,
+          query: record.query,
+        ),
+        explanations: const <int, SearchExplanationV4>{},
+      );
+    }).toList(growable: false);
+    _activeFilters = _turns.isEmpty
+        ? const ConversationFilterSet()
+        : _turns.last.record.filters;
     notifyListeners();
   }
 
