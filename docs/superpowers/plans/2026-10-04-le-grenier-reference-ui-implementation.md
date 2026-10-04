@@ -237,50 +237,80 @@ git commit -m "feat: add Grenier reference home"
 
 ---
 
-### Task 4: Conversation workspace, header, filters, and composer
+### Task 4: Conversation workspace, filter editor, header, and composer
 
 **Files:**
+- Modify: `lib/src/conversation/conversation_controller.dart`
+- Create: `lib/src/screens/conversation_filter_sheet.dart`
 - Modify: `lib/src/screens/conversation_screen.dart`
 - Modify: `lib/src/screens/conversation_composer.dart`
 - Modify: `lib/src/screens/conversation_result_message.dart`
+- Test: `test/conversation_filter_controller_test.dart`
 - Test: `test/conversation_workspace_widget_test.dart`
 
 **Interfaces:**
-- Consumes: current `ConversationController.turns`, `currentFilters`, `searching`, and `send(String)`.
+- Consumes: current `ConversationController.turns`, `searching`, `send(String)`, and existing immutable `ConversationFilterSet.copyWith(...)`.
 - Produces:
+  - `ConversationController.activeFilters -> ConversationFilterSet`; initialized from the latest loaded turn or empty for a new conversation.
+  - `ConversationController.setActiveFilters(ConversationFilterSet value) -> void`.
+  - `ConversationController.clearSubjectFilter() -> void`.
+  - `ConversationController.clearPeriodFilter() -> void`.
+  - `ConversationController.clearSourceFilter() -> void`.
+  - `send(String)` uses `activeFilters` as inherited filters and replaces `activeFilters` with the resolved filters from the completed turn.
+  - `ConversationFilterSheet({required ConversationFilterSet initialValue, required ValueChanged<ConversationFilterSet> onApply})` edits subject terms, year range, and source type.
   - `ConversationComposer({required Future<void> Function(String) onSend, required bool busy, bool centered = false, ConversationFilterSet filters = const ConversationFilterSet()})`.
-  - documentary response header preserves `ConversationResultMessageHeader({count, filters, fuzzySuggestions})`.
+  - documentary response header preserves `ConversationResultMessageHeader({count, filters, fuzzySuggestions})` and adds real chip-removal/add-filter callbacks.
   - conversation screen exposes a lazy scrollable workspace; no eager nested list of all result cards.
 
-- [ ] **Step 1: Write failing workspace tests**
+- [ ] **Step 1: Write failing active-filter controller tests**
+
+Assert:
+- a new conversation starts with empty `activeFilters`;
+- `setActiveFilters` updates only local conversation UI state and not `corpus.db`;
+- removing subject/period/source clears only that category;
+- loading an existing conversation restores the latest turn filters;
+- after a successful `send`, `activeFilters` equals the resolved turn filters.
+
+- [ ] **Step 2: Run controller test to verify RED**
+
+Run: `flutter test test/conversation_filter_controller_test.dart`  
+Expected: FAIL because active-filter editing APIs do not exist.
+
+- [ ] **Step 3: Implement active-filter state and filter sheet**
+
+Keep filter state in `ConversationController`; do not persist a new schema. `ConversationFilterSheet` edits subject, `yearMin`, `yearMax`, and source type and returns one immutable `ConversationFilterSet`.
+
+- [ ] **Step 4: Write failing workspace tests**
 
 Assert:
 - user query is in a right-aligned blue bubble;
 - result count and active filter chips are present;
+- `Ajouter un filtre` opens `ConversationFilterSheet`;
+- deleting the Sujet/Période/Source chip invokes the matching controller clear method;
 - composer is anchored below scrollable content;
 - busy state shows progress and prevents duplicate submit.
 
 Add Review Focus test `conversation_results_use_lazy_list_on_long_turn`: construct a test turn with >100 lightweight result placeholders and assert the scrollable is a `ListView`/sliver-backed lazy list rather than an eager `Column` containing all result cards.
 
-- [ ] **Step 2: Run RED**
+- [ ] **Step 5: Run widget test to verify RED**
 
 Run: `flutter test test/conversation_workspace_widget_test.dart`  
-Expected: FAIL on new layout/behavior assertions.
+Expected: FAIL on new layout/filter behavior assertions.
 
-- [ ] **Step 3: Refactor the workspace**
+- [ ] **Step 6: Refactor the workspace**
 
-Separate turn row generation from visual components, keep result rendering lazy, and style the composer to match the reference: rounded field, blue circular send action, filter/context chips close to the composer where width permits.
+Separate turn row generation from visual components, keep result rendering lazy, and style the composer to match the reference: rounded field, blue circular send action, active-filter chips and `Ajouter un filtre` close to the composer/response header where width permits.
 
-- [ ] **Step 4: Run GREEN**
+- [ ] **Step 7: Run GREEN**
 
-Run: `flutter test test/conversation_workspace_widget_test.dart && flutter analyze`  
+Run: `flutter test test/conversation_filter_controller_test.dart test/conversation_workspace_widget_test.dart && flutter analyze`  
 Expected: PASS with no analyzer issues.
 
-- [ ] **Step 5: Commit**
+- [ ] **Step 8: Commit**
 
 ```bash
-git add lib/src/screens/conversation_screen.dart lib/src/screens/conversation_composer.dart lib/src/screens/conversation_result_message.dart test/conversation_workspace_widget_test.dart
-git commit -m "feat: rebuild documentary conversation workspace"
+git add lib/src/conversation/conversation_controller.dart lib/src/screens/conversation_filter_sheet.dart lib/src/screens/conversation_screen.dart lib/src/screens/conversation_composer.dart lib/src/screens/conversation_result_message.dart test/conversation_filter_controller_test.dart test/conversation_workspace_widget_test.dart
+git commit -m "feat: rebuild documentary conversation workspace and filters"
 ```
 
 ---
@@ -464,15 +494,16 @@ git commit -m "feat: align secondary screens with Grenier design"
   - existing `PrintDocumentBuilder.buildTurnPdf(PrintableTurn turn) -> Future<Uint8List>` remains the “Tous les résultats” path;
   - `PrintDocumentBuilder.buildConversationPdf(PrintableConversation conversation) -> Future<Uint8List>`;
   - PDF header title `Le Grenier du Message`;
-  - PDFs include the applicable query/filter/result count/rank/qualitative relevance/citation/canonical reference/page number plus the existing required author/contact footer;
+  - `PrintDocumentBuilder({DateTime Function()? now})` accepts an injectable clock for deterministic generated-date tests;
+  - PDFs include the applicable generated date, query/filter/result count/rank/qualitative relevance/citation/canonical reference/page number plus the existing required author/contact footer;
   - `PrintService` default filename changes to `Le_Grenier_du_Message.pdf` without changing its method signatures.
 
 - [ ] **Step 1: Write failing PDF branding test**
 
 Build all three PDF levels and assert:
-- passage PDF contains the exact citation/reference;
+- passage PDF contains the exact citation/reference and generated date from an injected fixed clock;
 - turn PDF contains `Le Grenier du Message`, query, filters, result count and ordered ranks;
-- conversation PDF contains every turn in order;
+- conversation PDF contains every turn in order and the same deterministic generated date;
 - no visible `Message Bot` branding remains in generated document text.
 
 - [ ] **Step 2: Write failing accessibility/responsive tests**
