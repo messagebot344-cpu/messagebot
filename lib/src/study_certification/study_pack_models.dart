@@ -294,6 +294,7 @@ class StudyCertification {
     required this.packVersion,
     required this.corpusVersion,
     required this.score,
+    required this.categoryScores,
     required this.studySeconds,
     required this.attemptId,
     required this.certifiedAt,
@@ -306,6 +307,7 @@ class StudyCertification {
   final int packVersion;
   final String corpusVersion;
   final double score;
+  final Map<String, double> categoryScores;
   final int studySeconds;
   final int attemptId;
   final int certifiedAt;
