@@ -7,7 +7,7 @@ on:
 
 concurrency:
   group: message-bot-v4-ci-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
 
 env:
   GIT_CONFIG_COUNT: 1
@@ -218,3 +218,43 @@ jobs:
           fi
           git commit -m "build: package Study Pack foundation"
           git push origin HEAD:feature/certifying-study-engine
+
+  study-industrial-package:
+    if: github.event_name == 'push' && contains(github.event.head_commit.message, '[package-study-industrial]')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Reconstruct validated corpus
+        run: |
+          mkdir -p build/study-industrial
+          python tools/study_pipeline/reconstruct_corpus.py . build/study-industrial/corpus.db
+      - name: Build deterministic industrial Study Pack set
+        run: |
+          python tools/study_pipeline/build_industrial_packset.py \
+            build/study-industrial/corpus.db \
+            build/study-industrial/study_packs.db \
+            --assets-dir assets/study \
+            --report reports/study_industrial_report.json
+      - name: Validate every published Study Pack against canonical corpus
+        run: |
+          python tools/study_pipeline/validate_industrial_packset.py \
+            build/study-industrial/corpus.db \
+            build/study-industrial/study_packs.db \
+            --report reports/study_industrial_validation.json
+          rm -f build/study-industrial/corpus.db build/study-industrial/study_packs.db
+      - name: Commit validated Study Pack set
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/study reports/study_industrial_report.json reports/study_industrial_validation.json
+          if git diff --cached --quiet; then
+            echo "Industrial Study Pack set already up to date."
+            exit 0
+          fi
+          git commit -m "build: package validated industrial Study Packs"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+
