@@ -460,6 +460,21 @@ class CorpusRepository {
         .toList(growable: false);
   }
 
+  Map<String, int> bookChapterCounts(Iterable<String> sourceIds) {
+    final ids = sourceIds.toSet().toList(growable: false);
+    if (ids.isEmpty) return const <String, int>{};
+    final marks = List.filled(ids.length, '?').join(',');
+    final rows = db.select(
+      'SELECT source_id,COUNT(*) AS n FROM book_chapters '
+      'WHERE source_id IN ($marks) GROUP BY source_id',
+      ids,
+    );
+    return <String, int>{
+      for (final row in rows)
+        row['source_id'] as String: row['n'] as int,
+    };
+  }
+
   CorpusSourceSummary? sourceById(String sourceId) {
     final rows = db.select(
       'SELECT id,source_type,title,code,year FROM sources WHERE id=? LIMIT 1',
