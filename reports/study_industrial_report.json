@@ -1,7 +1,7 @@
 {
   "artifact_kind": "industrial_study_pack_report",
   "generator": "deterministic-safe-v1",
-  "corpus_version": "2019.06-source / app-build-2026.09.22-v4",
+  "corpus_version": "2019.06-source__app-2026.09.22-v4",
   "sermons_detected": 1211,
   "sermons_processed": 1211,
   "packs_generated": 1211,
