@@ -201,6 +201,8 @@ class StudyQuestion {
     required this.certificationEligible,
     required this.options,
     required this.evidenceIds,
+    this.correctAnswerPayload,
+    this.scoringPayload,
     this.sectionId,
   });
 
@@ -217,6 +219,16 @@ class StudyQuestion {
   final bool certificationEligible;
   final List<StudyQuestionOption> options;
   final List<int> evidenceIds;
+
+  /// Structured, build-validated answer contract from study_packs.db.
+  ///
+  /// This is deliberately data-only: runtime scoring remains deterministic
+  /// and never calls a network or generative model.
+  final Object? correctAnswerPayload;
+
+  /// Optional deterministic scoring rubric. Only rubric modes understood by
+  /// StudyAnswerScoringEngine may be used for certification.
+  final Object? scoringPayload;
 }
 
 class StudyExamCategoryRule {
