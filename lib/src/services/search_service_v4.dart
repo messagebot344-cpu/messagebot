@@ -38,19 +38,19 @@ class SearchServiceV4 {
       if (detail == null) continue;
       final sentence = ref.sentence;
       final validSentence = sentence != null &&
-          sentence.startOffset >= 0 &&
-          sentence.endOffset <= detail.passage.text.length &&
-          sentence.startOffset < sentence.endOffset;
+          sentence!.startOffset >= 0 &&
+          sentence!.endOffset <= detail.passage.text.length &&
+          sentence!.startOffset < sentence!.endOffset;
       final highlight = validSentence
-          ? detail.passage.text.substring(sentence.startOffset, sentence.endOffset)
+          ? detail.passage.text.substring(sentence!.startOffset, sentence!.endOffset)
           : _fallbackHighlight(detail.passage.text);
       values.add(ResolvedV4Hit(
         hit: DocumentSearchHit(
           studyPassage: detail,
           score: ref.score,
           highlightSentence: highlight,
-          highlightStartOffset: validSentence ? sentence.startOffset : null,
-          highlightEndOffset: validSentence ? sentence.endOffset : null,
+          highlightStartOffset: validSentence ? sentence!.startOffset : null,
+          highlightEndOffset: validSentence ? sentence!.endOffset : null,
         ),
         explanation: outcome.explanations[ref.passageId] ?? const SearchExplanationV4(),
       ));
@@ -115,20 +115,20 @@ class SearchServiceV4 {
           query,
         );
     final valid = resolved != null &&
-        resolved.startOffset >= 0 &&
-        resolved.endOffset <= detail.passage.text.length &&
-        resolved.startOffset < resolved.endOffset;
+        resolved!.startOffset >= 0 &&
+        resolved!.endOffset <= detail.passage.text.length &&
+        resolved!.startOffset < resolved!.endOffset;
     return DocumentSearchHit(
       studyPassage: detail,
       score: score,
       highlightSentence: valid
           ? detail.passage.text.substring(
-              resolved.startOffset,
-              resolved.endOffset,
+              resolved!.startOffset,
+              resolved!.endOffset,
             )
           : _bestSentence(detail.passage.text, query),
-      highlightStartOffset: valid ? resolved.startOffset : null,
-      highlightEndOffset: valid ? resolved.endOffset : null,
+      highlightStartOffset: valid ? resolved!.startOffset : null,
+      highlightEndOffset: valid ? resolved!.endOffset : null,
     );
   }
 
