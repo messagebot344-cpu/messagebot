@@ -1,0 +1,5020 @@
+{
+  "schema_version": 1,
+  "index_id": "curated-prayer-fasting-v1",
+  "purpose": "Human-validated thematic routing hints. This index never replaces corpus.db; every surfaced quotation must still resolve to the canonical corpus.",
+  "source_guides": [
+    {
+      "id": "prayer-fasting",
+      "title": "La prière — Pourquoi nos prières ne sont pas exaucées — Comment prier et être exaucé — Le véritable jeûne",
+      "author": "William Marrion Branham — Banque de références thématiques",
+      "provenance": "manual_research_text_fascicle",
+      "trust": "author-curated-reference-map",
+      "source_file_name": "Fascicule_Priere_Exaucement_Jeune_Branham_200plus_citations.text",
+      "source_file_sha256": "c041b62fa1ffc70af47db06f9c513844a8fae25c272098ff5621ed7e908dfe87",
+      "source_file_bytes": 72181,
+      "source_lines": 1740,
+      "source_entries": 248
+    }
+  ],
+  "references": [
+    {
+      "id": "prayer_001",
+      "sermon_code": "56-0427",
+      "sermon_title": "Faith",
+      "locator": "§5",
+      "context": "La prière produit un changement",
+      "anchor_terms": [
+        "priere",
+        "produit",
+        "changement",
+        "prayer",
+        "changes",
+        "things"
+      ],
+      "source_entry_number": 1,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_002",
+      "sermon_code": "56-0427",
+      "sermon_title": "Faith",
+      "locator": "§5",
+      "context": "Persévérance dans la prière",
+      "anchor_terms": [
+        "priere",
+        "perseverance",
+        "you'll",
+        "never",
+        "pray",
+        "too"
+      ],
+      "source_entry_number": 2,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_003",
+      "sermon_code": "53-0604",
+      "sermon_title": "The Angel of the Lord",
+      "locator": "§20",
+      "context": "Puissance de la prière",
+      "anchor_terms": [
+        "priere",
+        "puissance",
+        "prayer",
+        "changed",
+        "death",
+        "life"
+      ],
+      "source_entry_number": 3,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_004",
+      "sermon_code": "53-0604",
+      "sermon_title": "The Angel of the Lord",
+      "locator": "§20",
+      "context": "Puissance de la prière",
+      "anchor_terms": [
+        "priere",
+        "puissance",
+        "prayer",
+        "changes",
+        "things"
+      ],
+      "source_entry_number": 4,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_005",
+      "sermon_code": "59-0415A",
+      "sermon_title": "God's Provided Way",
+      "locator": "§7",
+      "context": "Promesse que Dieu répond",
+      "anchor_terms": [
+        "dieu",
+        "promesse",
+        "repond",
+        "god",
+        "promised",
+        "answer",
+        "prayer"
+      ],
+      "source_entry_number": 5,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_006",
+      "sermon_code": "59-0415A",
+      "sermon_title": "God's Provided Way",
+      "locator": "§7",
+      "context": "Confiance simple en Dieu",
+      "anchor_terms": [
+        "dieu",
+        "confiance",
+        "simple",
+        "believe",
+        "god",
+        "answers",
+        "prayer"
+      ],
+      "source_entry_number": 6,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_007",
+      "sermon_code": "56-0513",
+      "sermon_title": "Teaching on Moses",
+      "locator": "§40",
+      "context": "Certitude de l'exaucement",
+      "anchor_terms": [
+        "certitude",
+        "l'exaucement",
+        "god",
+        "answers",
+        "prayer"
+      ],
+      "source_entry_number": 7,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_008",
+      "sermon_code": "56-0513",
+      "sermon_title": "Teaching on Moses",
+      "locator": "§40",
+      "context": "Dieu peut différer la réponse",
+      "anchor_terms": [
+        "dieu",
+        "differer",
+        "reponse",
+        "sometimes",
+        "makes",
+        "wait"
+      ],
+      "source_entry_number": 8,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_009",
+      "sermon_code": "59-0612",
+      "sermon_title": "All the Days of Our Life",
+      "locator": "§59",
+      "context": "Dieu répond à Ses enfants",
+      "anchor_terms": [
+        "dieu",
+        "repond",
+        "enfants",
+        "answer",
+        "children"
+      ],
+      "source_entry_number": 9,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_010",
+      "sermon_code": "59-0612",
+      "sermon_title": "All the Days of Our Life",
+      "locator": "§59",
+      "context": "Dieu n'a pas de favoris pour la prière",
+      "anchor_terms": [
+        "priere",
+        "dieu",
+        "n'a",
+        "favoris",
+        "specials"
+      ],
+      "source_entry_number": 10,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_011",
+      "sermon_code": "58-0620",
+      "sermon_title": "The Queen of the South",
+      "locator": "§57",
+      "context": "Dieu répond à celui qui croit",
+      "anchor_terms": [
+        "dieu",
+        "repond",
+        "celui",
+        "croit",
+        "answer",
+        "anybody's",
+        "prayer"
+      ],
+      "source_entry_number": 11,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_012",
+      "sermon_code": "58-0620",
+      "sermon_title": "The Queen of the South",
+      "locator": "§57",
+      "context": "Croire ce que l'on demande",
+      "anchor_terms": [
+        "croire",
+        "l'on",
+        "demande",
+        "believe",
+        "they're",
+        "praying"
+      ],
+      "source_entry_number": 12,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_013",
+      "sermon_code": "61-0317",
+      "sermon_title": "Abraham's Grace Covenant",
+      "locator": "§38",
+      "context": "La prière agit",
+      "anchor_terms": [
+        "priere",
+        "agit",
+        "prayer",
+        "changes",
+        "things"
+      ],
+      "source_entry_number": 13,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_014",
+      "sermon_code": "61-0317",
+      "sermon_title": "Abraham's Grace Covenant",
+      "locator": "§38",
+      "context": "La foi personnelle compte",
+      "anchor_terms": [
+        "foi",
+        "personnelle",
+        "compte",
+        "it's",
+        "own",
+        "faith",
+        "god"
+      ],
+      "source_entry_number": 14,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_015",
+      "sermon_code": "52-0717",
+      "sermon_title": "Get the People to Believe",
+      "locator": "§58",
+      "context": "La prière et la conversion",
+      "anchor_terms": [
+        "priere",
+        "conversion",
+        "prayer",
+        "changes",
+        "sinner",
+        "christian"
+      ],
+      "source_entry_number": 15,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_016",
+      "sermon_code": "52-0717",
+      "sermon_title": "Get the People to Believe",
+      "locator": "§58",
+      "context": "La prière pour les malades",
+      "anchor_terms": [
+        "priere",
+        "malades",
+        "prayer",
+        "changes",
+        "sick",
+        "man",
+        "well"
+      ],
+      "source_entry_number": 16,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_017",
+      "sermon_code": "63-0818",
+      "sermon_title": "The Sign of the Uniting Time",
+      "locator": "§19",
+      "context": "Prier dans la détresse",
+      "anchor_terms": [
+        "prier",
+        "detresse",
+        "day",
+        "trouble",
+        "call"
+      ],
+      "source_entry_number": 17,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_018",
+      "sermon_code": "63-0818",
+      "sermon_title": "The Sign of the Uniting Time",
+      "locator": "§19",
+      "context": "Confiance dans la réponse",
+      "anchor_terms": [
+        "confiance",
+        "reponse",
+        "thou",
+        "wilt",
+        "answer"
+      ],
+      "source_entry_number": 18,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_019",
+      "sermon_code": "60-0326",
+      "sermon_title": "The Unchangeable God",
+      "locator": "§12",
+      "context": "Dieu répond selon Sa manière",
+      "anchor_terms": [
+        "dieu",
+        "repond",
+        "maniere",
+        "god",
+        "way",
+        "answering",
+        "prayer"
+      ],
+      "source_entry_number": 19,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_020",
+      "sermon_code": "60-0326",
+      "sermon_title": "The Unchangeable God",
+      "locator": "§12",
+      "context": "La réponse peut prendre une forme inattendue",
+      "anchor_terms": [
+        "reponse",
+        "prendre",
+        "forme",
+        "inattendue",
+        "god",
+        "send",
+        "way"
+      ],
+      "source_entry_number": 20,
+      "source_section": "A — LA PRIÈRE : NATURE ET PUISSANCE"
+    },
+    {
+      "id": "prayer_021",
+      "sermon_code": "57-0301",
+      "sermon_title": "Blind Bartimaeus",
+      "locator": "§9",
+      "context": "Importance de la prière secrète",
+      "anchor_terms": [
+        "priere",
+        "importance",
+        "secrete",
+        "it's",
+        "secret",
+        "prayer",
+        "jesus",
+        "spoke"
+      ],
+      "source_entry_number": 21,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_022",
+      "sermon_code": "57-0301",
+      "sermon_title": "Blind Bartimaeus",
+      "locator": "§9",
+      "context": "Prière dans le secret",
+      "anchor_terms": [
+        "priere",
+        "secret",
+        "enter",
+        "closet"
+      ],
+      "source_entry_number": 22,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_023",
+      "sermon_code": "63-1226",
+      "sermon_title": "Church Order",
+      "locator": "§91-92",
+      "context": "La prière personnelle doit être secrète",
+      "anchor_terms": [
+        "priere",
+        "personnelle",
+        "secrete",
+        "prayer",
+        "secret"
+      ],
+      "source_entry_number": 23,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_024",
+      "sermon_code": "63-1226",
+      "sermon_title": "Church Order",
+      "locator": "§91-92",
+      "context": "Vie de prière personnelle",
+      "anchor_terms": [
+        "priere",
+        "vie",
+        "personnelle",
+        "praying's",
+        "home"
+      ],
+      "source_entry_number": 24,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_025",
+      "sermon_code": "56-0219",
+      "sermon_title": "Being Led of the Holy Spirit",
+      "locator": "§24",
+      "context": "Prière discrète",
+      "anchor_terms": [
+        "priere",
+        "discrete",
+        "enter",
+        "secret",
+        "closet"
+      ],
+      "source_entry_number": 25,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_026",
+      "sermon_code": "56-0219",
+      "sermon_title": "Being Led of the Holy Spirit",
+      "locator": "§24",
+      "context": "Dieu voit la prière secrète",
+      "anchor_terms": [
+        "priere",
+        "dieu",
+        "voit",
+        "secrete",
+        "seeth",
+        "secret",
+        "reward",
+        "thee",
+        "openly"
+      ],
+      "source_entry_number": 26,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_027",
+      "sermon_code": "57-0127A",
+      "sermon_title": "The Impersonation of Christianity",
+      "locator": "passage sur la prière secrète",
+      "context": "Dieu entend partout",
+      "anchor_terms": [
+        "dieu",
+        "entend",
+        "partout",
+        "god",
+        "hear",
+        "prayer",
+        "anywhere"
+      ],
+      "source_entry_number": 27,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_028",
+      "sermon_code": "57-0127A",
+      "sermon_title": "The Impersonation of Christianity",
+      "locator": "passage sur la prière secrète",
+      "context": "Exemple personnel de prière secrète",
+      "anchor_terms": [
+        "priere",
+        "exemple",
+        "personnel",
+        "secrete",
+        "went",
+        "closet"
+      ],
+      "source_entry_number": 28,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_029",
+      "sermon_code": "59-0301E",
+      "sermon_title": "What Does Thou Here?",
+      "locator": "§59",
+      "context": "Prière silencieuse et intercession",
+      "anchor_terms": [
+        "priere",
+        "intercession",
+        "silencieuse",
+        "pray",
+        "silently",
+        "while"
+      ],
+      "source_entry_number": 29,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_030",
+      "sermon_code": "59-0301E",
+      "sermon_title": "What Does Thou Here?",
+      "locator": "§59",
+      "context": "Confession et demande de miséricorde",
+      "anchor_terms": [
+        "confession",
+        "demande",
+        "misericorde",
+        "pray",
+        "forgiveness",
+        "mercy"
+      ],
+      "source_entry_number": 30,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_031",
+      "sermon_code": "60-0221",
+      "sermon_title": "Hearing, Recognizing, Acting on the Word of God",
+      "locator": "§2",
+      "context": "S'approcher du trône de grâce",
+      "anchor_terms": [
+        "s'approcher",
+        "trone",
+        "grace",
+        "approach",
+        "thy",
+        "throne",
+        "mercy"
+      ],
+      "source_entry_number": 31,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_032",
+      "sermon_code": "60-0221",
+      "sermon_title": "Hearing, Recognizing, Acting on the Word of God",
+      "locator": "§2",
+      "context": "Prier au Nom de Jésus",
+      "anchor_terms": [
+        "jesus",
+        "prier",
+        "nom",
+        "ask",
+        "anything",
+        "name"
+      ],
+      "source_entry_number": 32,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_033",
+      "sermon_code": "58-0209A",
+      "sermon_title": "Hear Ye Him",
+      "locator": "§1",
+      "context": "Disposition intérieure à la prière",
+      "anchor_terms": [
+        "priere",
+        "disposition",
+        "interieure",
+        "hearts",
+        "open",
+        "minds"
+      ],
+      "source_entry_number": 33,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_034",
+      "sermon_code": "58-0209A",
+      "sermon_title": "Hear Ye Him",
+      "locator": "§1",
+      "context": "Attendre la conduite du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "attendre",
+        "conduite",
+        "ready",
+        "waiting",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 34,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_035",
+      "sermon_code": "58-0619E",
+      "sermon_title": "Can We See Jesus?",
+      "locator": "§1",
+      "context": "Prier au Nom de Jésus",
+      "anchor_terms": [
+        "jesus",
+        "prier",
+        "nom",
+        "come",
+        "all-sufficient",
+        "name"
+      ],
+      "source_entry_number": 35,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_036",
+      "sermon_code": "58-0619E",
+      "sermon_title": "Can We See Jesus?",
+      "locator": "§1",
+      "context": "Assurance en priant",
+      "anchor_terms": [
+        "assurance",
+        "priant",
+        "know",
+        "hear"
+      ],
+      "source_entry_number": 36,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_037",
+      "sermon_code": "61-0516M",
+      "sermon_title": "God's Provided Way",
+      "locator": "§14",
+      "context": "Approche de Dieu par la prière",
+      "anchor_terms": [
+        "priere",
+        "dieu",
+        "approche",
+        "come",
+        "thy",
+        "presence",
+        "way",
+        "prayer"
+      ],
+      "source_entry_number": 37,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_038",
+      "sermon_code": "61-0516M",
+      "sermon_title": "God's Provided Way",
+      "locator": "§14",
+      "context": "Prière au Nom de Jésus",
+      "anchor_terms": [
+        "priere",
+        "jesus",
+        "nom",
+        "come",
+        "all-sufficient",
+        "name",
+        "lord"
+      ],
+      "source_entry_number": 38,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_039",
+      "sermon_code": "65-0220",
+      "sermon_title": "God's Chosen Place of Worship",
+      "locator": "§32",
+      "context": "Prier au Nom de Jésus-Christ",
+      "anchor_terms": [
+        "jesus",
+        "prier",
+        "nom",
+        "jesus-christ",
+        "pray",
+        "name"
+      ],
+      "source_entry_number": 39,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_040",
+      "sermon_code": "65-0220",
+      "sermon_title": "God's Chosen Place of Worship",
+      "locator": "§32",
+      "context": "Demander au Nom de Jésus",
+      "anchor_terms": [
+        "jesus",
+        "demander",
+        "nom",
+        "we've",
+        "ask",
+        "jesus'",
+        "name"
+      ],
+      "source_entry_number": 40,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_041",
+      "sermon_code": "62-0628",
+      "sermon_title": "A Greater than Solomon Is Here",
+      "locator": "§1-2",
+      "context": "Joindre sa foi à celle des autres",
+      "anchor_terms": [
+        "foi",
+        "joindre",
+        "celle",
+        "autres",
+        "lay",
+        "prayer",
+        "theirs",
+        "altar"
+      ],
+      "source_entry_number": 41,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_042",
+      "sermon_code": "62-0628",
+      "sermon_title": "A Greater than Solomon Is Here",
+      "locator": "§2",
+      "context": "Dieu connaît la requête intérieure",
+      "anchor_terms": [
+        "dieu",
+        "connait",
+        "requete",
+        "interieure",
+        "know",
+        "every",
+        "reason",
+        "behind",
+        "hand"
+      ],
+      "source_entry_number": 42,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_043",
+      "sermon_code": "60-1126",
+      "sermon_title": "Why?",
+      "locator": "§1",
+      "context": "Garder sa requête devant Dieu",
+      "anchor_terms": [
+        "dieu",
+        "garder",
+        "requete",
+        "devant",
+        "hold",
+        "request",
+        "heart",
+        "pray"
+      ],
+      "source_entry_number": 43,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_044",
+      "sermon_code": "60-1126",
+      "sermon_title": "Why?",
+      "locator": "§1",
+      "context": "Commencer par la confession",
+      "anchor_terms": [
+        "commencer",
+        "confession",
+        "asking",
+        "first",
+        "forgive",
+        "trespasses"
+      ],
+      "source_entry_number": 44,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_045",
+      "sermon_code": "63-0623M",
+      "sermon_title": "Standing in the Gap",
+      "locator": "§1-2",
+      "context": "Présenter son besoin à Dieu",
+      "anchor_terms": [
+        "dieu",
+        "presenter",
+        "besoin",
+        "hold",
+        "heart",
+        "things",
+        "need"
+      ],
+      "source_entry_number": 45,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_046",
+      "sermon_code": "63-0623M",
+      "sermon_title": "Standing in the Gap",
+      "locator": "§2",
+      "context": "Approcher avec foi",
+      "anchor_terms": [
+        "foi",
+        "approcher",
+        "coming",
+        "believing"
+      ],
+      "source_entry_number": 46,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_047",
+      "sermon_code": "64-0823M",
+      "sermon_title": "Questions and Answers, Part 1",
+      "locator": "§1",
+      "context": "Commencer par l'action de grâce",
+      "anchor_terms": [
+        "commencer",
+        "l'action",
+        "grace",
+        "thank",
+        "thee",
+        "morning",
+        "depths",
+        "heart"
+      ],
+      "source_entry_number": 47,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_048",
+      "sermon_code": "64-0823M",
+      "sermon_title": "Questions and Answers, Part 1",
+      "locator": "§1",
+      "context": "Reconnaissance dans la prière",
+      "anchor_terms": [
+        "priere",
+        "reconnaissance",
+        "pray",
+        "receive",
+        "thanksgiving"
+      ],
+      "source_entry_number": 48,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_049",
+      "sermon_code": "65-0426",
+      "sermon_title": "Proving His Word",
+      "locator": "§1",
+      "context": "Prière précise selon les besoins",
+      "anchor_terms": [
+        "priere",
+        "precise",
+        "besoins",
+        "pray",
+        "you'll",
+        "minister",
+        "each",
+        "need"
+      ],
+      "source_entry_number": 49,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_050",
+      "sermon_code": "65-0426",
+      "sermon_title": "Proving His Word",
+      "locator": "§1",
+      "context": "Terminer au Nom de Jésus",
+      "anchor_terms": [
+        "jesus",
+        "terminer",
+        "nom",
+        "ask",
+        "jesus'",
+        "name"
+      ],
+      "source_entry_number": 50,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_051",
+      "sermon_code": "60-0731",
+      "sermon_title": "Show Us the Father and It Will Satisfy Us",
+      "locator": "§1",
+      "context": "Confession",
+      "anchor_terms": [
+        "confession",
+        "ask",
+        "lord",
+        "grace",
+        "forgive"
+      ],
+      "source_entry_number": 51,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_052",
+      "sermon_code": "60-0731",
+      "sermon_title": "Show Us the Father and It Will Satisfy Us",
+      "locator": "§1",
+      "context": "Demander miséricorde",
+      "anchor_terms": [
+        "demander",
+        "misericorde",
+        "give",
+        "justice",
+        "mercy"
+      ],
+      "source_entry_number": 52,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_053",
+      "sermon_code": "57-0303A",
+      "sermon_title": "Why Many Christians Struggle to Live the Christian Life",
+      "locator": "§1",
+      "context": "Orientation de la prière vers Dieu",
+      "anchor_terms": [
+        "priere",
+        "dieu",
+        "orientation",
+        "worship",
+        "thee"
+      ],
+      "source_entry_number": 53,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_054",
+      "sermon_code": "57-0303A",
+      "sermon_title": "Why Many Christians Struggle to Live the Christian Life",
+      "locator": "§1",
+      "context": "Présenter le désir du cœur",
+      "anchor_terms": [
+        "presenter",
+        "desir",
+        "give",
+        "deep",
+        "desire",
+        "want"
+      ],
+      "source_entry_number": 54,
+      "source_section": "B — COMMENT PRIER"
+    },
+    {
+      "id": "prayer_055",
+      "sermon_code": "53-0511",
+      "sermon_title": "We Have Found Him, Come and See",
+      "locator": "§21",
+      "context": "Demeurer en Christ et dans la Parole",
+      "anchor_terms": [
+        "parole",
+        "demeurer",
+        "christ",
+        "abide",
+        "word"
+      ],
+      "source_entry_number": 55,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_056",
+      "sermon_code": "53-0511",
+      "sermon_title": "We Have Found Him, Come and See",
+      "locator": "§21",
+      "context": "Croire avant de voir",
+      "anchor_terms": [
+        "croire",
+        "voir",
+        "believe",
+        "receive"
+      ],
+      "source_entry_number": 56,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_057",
+      "sermon_code": "52-0727",
+      "sermon_title": "Led by the Holy Spirit",
+      "locator": "§29-30",
+      "context": "Foi au moment de prier",
+      "anchor_terms": [
+        "foi",
+        "moment",
+        "prier",
+        "pray",
+        "believe",
+        "receive"
+      ],
+      "source_entry_number": 57,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_058",
+      "sermon_code": "52-0727",
+      "sermon_title": "Led by the Holy Spirit",
+      "locator": "§29",
+      "context": "S'appuyer sur la Parole",
+      "anchor_terms": [
+        "parole",
+        "s'appuyer",
+        "god",
+        "says",
+        "it's",
+        "true"
+      ],
+      "source_entry_number": 58,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_059",
+      "sermon_code": "52-0224",
+      "sermon_title": "Believing God",
+      "locator": "§67",
+      "context": "Demeurer dans la Parole",
+      "anchor_terms": [
+        "parole",
+        "demeurer",
+        "ask",
+        "it'll",
+        "done",
+        "unto"
+      ],
+      "source_entry_number": 59,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_060",
+      "sermon_code": "52-0224",
+      "sermon_title": "Believing God",
+      "locator": "§67",
+      "context": "Accord et présence de Christ",
+      "anchor_terms": [
+        "accord",
+        "presence",
+        "christ",
+        "wherever",
+        "two",
+        "three",
+        "gathered",
+        "together",
+        "name"
+      ],
+      "source_entry_number": 60,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_061",
+      "sermon_code": "59-0412A",
+      "sermon_title": "Be Certain of God",
+      "locator": "§24",
+      "context": "Éliminer le doute",
+      "anchor_terms": [
+        "doute",
+        "eliminer",
+        "don't",
+        "doubt",
+        "believe"
+      ],
+      "source_entry_number": 61,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_062",
+      "sermon_code": "59-0412A",
+      "sermon_title": "Be Certain of God",
+      "locator": "§24",
+      "context": "Conditions spirituelles de la confiance",
+      "anchor_terms": [
+        "conditions",
+        "spirituelles",
+        "confiance",
+        "met",
+        "god's",
+        "requirements"
+      ],
+      "source_entry_number": 62,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_063",
+      "sermon_code": "53-0829",
+      "sermon_title": "The Testimony of Jesus Christ",
+      "locator": "passage sur Marc 11:24",
+      "context": "Recevoir par la foi",
+      "anchor_terms": [
+        "foi",
+        "recevoir",
+        "believe",
+        "receive"
+      ],
+      "source_entry_number": 63,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_064",
+      "sermon_code": "53-0829",
+      "sermon_title": "The Testimony of Jesus Christ",
+      "locator": "passage sur Marc 11:24",
+      "context": "La foi en Dieu",
+      "anchor_terms": [
+        "foi",
+        "dieu",
+        "faith",
+        "god"
+      ],
+      "source_entry_number": 64,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_065",
+      "sermon_code": "59-1123",
+      "sermon_title": "Speak to This Mountain",
+      "locator": "§38",
+      "context": "Demander dans la foi",
+      "anchor_terms": [
+        "foi",
+        "demander",
+        "ask",
+        "given",
+        "unto"
+      ],
+      "source_entry_number": 65,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_066",
+      "sermon_code": "59-1123",
+      "sermon_title": "Speak to This Mountain",
+      "locator": "§38",
+      "context": "S'appuyer sur la Parole",
+      "anchor_terms": [
+        "parole",
+        "s'appuyer",
+        "take",
+        "word"
+      ],
+      "source_entry_number": 66,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_067",
+      "sermon_code": "53-0508",
+      "sermon_title": "God Commissioning Moses",
+      "locator": "§16",
+      "context": "Prier au Nom de Jésus avec foi",
+      "anchor_terms": [
+        "foi",
+        "jesus",
+        "prier",
+        "nom",
+        "ask",
+        "name",
+        "believe"
+      ],
+      "source_entry_number": 67,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_068",
+      "sermon_code": "53-0508",
+      "sermon_title": "God Commissioning Moses",
+      "locator": "§16",
+      "context": "Ne pas laisser l'obstacle dominer la foi",
+      "anchor_terms": [
+        "foi",
+        "laisser",
+        "l'obstacle",
+        "dominer",
+        "let",
+        "nothing",
+        "stand",
+        "way"
+      ],
+      "source_entry_number": 68,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_069",
+      "sermon_code": "55-0113",
+      "sermon_title": "The Fundamental Foundation for Faith",
+      "locator": "§17",
+      "context": "Confiance fondée sur la Parole",
+      "anchor_terms": [
+        "parole",
+        "confiance",
+        "fondee",
+        "ask"
+      ],
+      "source_entry_number": 69,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_070",
+      "sermon_code": "55-0113",
+      "sermon_title": "The Fundamental Foundation for Faith",
+      "locator": "§17",
+      "context": "La fidélité de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "fidelite",
+        "he's",
+        "god",
+        "cannot",
+        "take",
+        "back",
+        "word"
+      ],
+      "source_entry_number": 70,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_071",
+      "sermon_code": "63-0127",
+      "sermon_title": "An Absolute",
+      "locator": "passage sur Jean 15:7",
+      "context": "Christ et la Parole",
+      "anchor_terms": [
+        "parole",
+        "christ",
+        "both",
+        "word"
+      ],
+      "source_entry_number": 71,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_072",
+      "sermon_code": "63-0127",
+      "sermon_title": "An Absolute",
+      "locator": "passage sur Jean 15:7",
+      "context": "Condition de Jean 15:7",
+      "anchor_terms": [
+        "condition",
+        "jean",
+        "ask"
+      ],
+      "source_entry_number": 72,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_073",
+      "sermon_code": "61-1231E",
+      "sermon_title": "If God Be With Us, Then Where Is All the Miracles?",
+      "locator": "§58",
+      "context": "Obéissance à la Parole",
+      "anchor_terms": [
+        "parole",
+        "obeissance",
+        "obey",
+        "word"
+      ],
+      "source_entry_number": 73,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_074",
+      "sermon_code": "61-1231E",
+      "sermon_title": "If God Be With Us, Then Where Is All the Miracles?",
+      "locator": "§58",
+      "context": "Demeurer avec la Parole",
+      "anchor_terms": [
+        "parole",
+        "demeurer",
+        "stay",
+        "word"
+      ],
+      "source_entry_number": 74,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_075",
+      "sermon_code": "62-0401",
+      "sermon_title": "Wisdom versus Faith",
+      "locator": "§128-129",
+      "context": "Commencer par la Parole",
+      "anchor_terms": [
+        "parole",
+        "commencer",
+        "first",
+        "thing",
+        "word",
+        "ask",
+        "father"
+      ],
+      "source_entry_number": 75,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_076",
+      "sermon_code": "62-0401",
+      "sermon_title": "Wisdom versus Faith",
+      "locator": "§128",
+      "context": "Persévérer dans la Parole",
+      "anchor_terms": [
+        "parole",
+        "perseverer",
+        "stay",
+        "word"
+      ],
+      "source_entry_number": 76,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_077",
+      "sermon_code": "47-0412",
+      "sermon_title": "Faith Is the Substance",
+      "locator": "§44",
+      "context": "Foi sans hésitation",
+      "anchor_terms": [
+        "foi",
+        "hesitation",
+        "can't",
+        "wavering"
+      ],
+      "source_entry_number": 77,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_078",
+      "sermon_code": "47-0412",
+      "sermon_title": "Faith Is the Substance",
+      "locator": "§44",
+      "context": "Foi pure et demande",
+      "anchor_terms": [
+        "foi",
+        "pure",
+        "demande",
+        "ask",
+        "it'll",
+        "given"
+      ],
+      "source_entry_number": 78,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_079",
+      "sermon_code": "59-0813",
+      "sermon_title": "Why?",
+      "locator": "§8",
+      "context": "Refuser le doute",
+      "anchor_terms": [
+        "doute",
+        "refuser",
+        "don't",
+        "doubt"
+      ],
+      "source_entry_number": 79,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_080",
+      "sermon_code": "59-0813",
+      "sermon_title": "Why?",
+      "locator": "§8",
+      "context": "Persévérance après la prière",
+      "anchor_terms": [
+        "priere",
+        "perseverance",
+        "hold",
+        "steady",
+        "knowing",
+        "it's",
+        "done"
+      ],
+      "source_entry_number": 80,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_081",
+      "sermon_code": "60-0309",
+      "sermon_title": "Why?",
+      "locator": "§71",
+      "context": "Approcher avec foi",
+      "anchor_terms": [
+        "foi",
+        "approcher",
+        "come",
+        "believing"
+      ],
+      "source_entry_number": 81,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_082",
+      "sermon_code": "60-0309",
+      "sermon_title": "Why?",
+      "locator": "§71",
+      "context": "Rejeter le doute",
+      "anchor_terms": [
+        "doute",
+        "rejeter",
+        "don't",
+        "doubt"
+      ],
+      "source_entry_number": 82,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_083",
+      "sermon_code": "63-0304",
+      "sermon_title": "An Absolute",
+      "locator": "§20",
+      "context": "Prière au Nom de Jésus",
+      "anchor_terms": [
+        "priere",
+        "jesus",
+        "nom",
+        "asks",
+        "father",
+        "anything",
+        "name"
+      ],
+      "source_entry_number": 83,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_084",
+      "sermon_code": "63-0304",
+      "sermon_title": "An Absolute",
+      "locator": "§20",
+      "context": "Foi stable",
+      "anchor_terms": [
+        "foi",
+        "stable",
+        "we're",
+        "really",
+        "anchored",
+        "believe"
+      ],
+      "source_entry_number": 84,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_085",
+      "sermon_code": "51-0928",
+      "sermon_title": "At Thy Word, Lord",
+      "locator": "§55",
+      "context": "Croire la promesse",
+      "anchor_terms": [
+        "croire",
+        "promesse",
+        "whatever",
+        "desire",
+        "heart",
+        "believe"
+      ],
+      "source_entry_number": 85,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_086",
+      "sermon_code": "51-0928",
+      "sermon_title": "At Thy Word, Lord",
+      "locator": "§55",
+      "context": "Foi immédiate",
+      "anchor_terms": [
+        "foi",
+        "immediate",
+        "pray",
+        "believe",
+        "receive"
+      ],
+      "source_entry_number": 86,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_087",
+      "sermon_code": "52-1027",
+      "sermon_title": "Jesus Christ the Same Yesterday, Today, and Forever",
+      "locator": "§10",
+      "context": "Recevoir par la foi maintenant",
+      "anchor_terms": [
+        "foi",
+        "recevoir",
+        "maintenant",
+        "believe",
+        "receive"
+      ],
+      "source_entry_number": 87,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_088",
+      "sermon_code": "52-1027",
+      "sermon_title": "Jesus Christ the Same Yesterday, Today, and Forever",
+      "locator": "§10",
+      "context": "Foi et exaucement",
+      "anchor_terms": [
+        "foi",
+        "exaucement",
+        "whatever",
+        "you've",
+        "asked",
+        "believe"
+      ],
+      "source_entry_number": 88,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_089",
+      "sermon_code": "50-0711",
+      "sermon_title": "Ministry Explained",
+      "locator": "§17-18",
+      "context": "Ordre de la foi",
+      "anchor_terms": [
+        "foi",
+        "ordre",
+        "first",
+        "believe",
+        "you've"
+      ],
+      "source_entry_number": 89,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_090",
+      "sermon_code": "50-0711",
+      "sermon_title": "Ministry Explained",
+      "locator": "§18",
+      "context": "Confession de foi",
+      "anchor_terms": [
+        "foi",
+        "confession",
+        "make",
+        "believe",
+        "god"
+      ],
+      "source_entry_number": 90,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_091",
+      "sermon_code": "60-0326",
+      "sermon_title": "The Unchangeable God",
+      "locator": "§6",
+      "context": "Approche de Dieu par la foi",
+      "anchor_terms": [
+        "foi",
+        "dieu",
+        "approche",
+        "he's",
+        "come",
+        "believing",
+        "god"
+      ],
+      "source_entry_number": 91,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_092",
+      "sermon_code": "63-0116",
+      "sermon_title": "The Evening Messenger",
+      "locator": "§132",
+      "context": "Demander avec foi",
+      "anchor_terms": [
+        "foi",
+        "demander",
+        "ask",
+        "way",
+        "faith"
+      ],
+      "source_entry_number": 92,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_093",
+      "sermon_code": "63-0116",
+      "sermon_title": "The Evening Messenger",
+      "locator": "§132",
+      "context": "Croire pendant la prière",
+      "anchor_terms": [
+        "priere",
+        "croire",
+        "pendant",
+        "believe",
+        "receive",
+        "while",
+        "pray"
+      ],
+      "source_entry_number": 93,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_094",
+      "sermon_code": "62-0319",
+      "sermon_title": "The End-time Sign Seed",
+      "locator": "§92",
+      "context": "Confession après la demande",
+      "anchor_terms": [
+        "confession",
+        "demande",
+        "believe",
+        "asked"
+      ],
+      "source_entry_number": 94,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_095",
+      "sermon_code": "62-0319",
+      "sermon_title": "The End-time Sign Seed",
+      "locator": "§92",
+      "context": "Acceptation par la foi",
+      "anchor_terms": [
+        "foi",
+        "acceptation",
+        "accept",
+        "right"
+      ],
+      "source_entry_number": 95,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_096",
+      "sermon_code": "60-0221",
+      "sermon_title": "Hearing, Recognizing, Acting on the Word of God",
+      "locator": "§2",
+      "context": "Demander sous la conduite du Saint-Esprit",
+      "anchor_terms": [
+        "saint-esprit",
+        "demander",
+        "sous",
+        "conduite",
+        "choose",
+        "holy",
+        "spirit",
+        "things",
+        "ask"
+      ],
+      "source_entry_number": 96,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_097",
+      "sermon_code": "59-0810",
+      "sermon_title": "The Reaction to an Action",
+      "locator": "§4",
+      "context": "Iniquité cachée",
+      "anchor_terms": [
+        "iniquite",
+        "cachee",
+        "god",
+        "never",
+        "hear",
+        "prayer",
+        "long",
+        "hide",
+        "iniquity"
+      ],
+      "source_entry_number": 97,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_098",
+      "sermon_code": "59-0810",
+      "sermon_title": "The Reaction to an Action",
+      "locator": "§9",
+      "context": "Péché caché",
+      "anchor_terms": [
+        "peche",
+        "cache",
+        "god",
+        "answer",
+        "there's",
+        "something",
+        "we're",
+        "hiding"
+      ],
+      "source_entry_number": 98,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_099",
+      "sermon_code": "62-0721",
+      "sermon_title": "Behold, a Greater than Solomon Is Here",
+      "locator": "passage sur Psaume 66:18",
+      "context": "Iniquité connue et non abandonnée",
+      "anchor_terms": [
+        "iniquite",
+        "connue",
+        "non",
+        "abandonnee",
+        "regard",
+        "iniquity",
+        "heart",
+        "god",
+        "hear"
+      ],
+      "source_entry_number": 99,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_100",
+      "sermon_code": "62-0721",
+      "sermon_title": "Behold, a Greater than Solomon Is Here",
+      "locator": "même passage",
+      "context": "Définition pratique de l'iniquité",
+      "anchor_terms": [
+        "definition",
+        "pratique",
+        "l'iniquite",
+        "iniquity",
+        "something",
+        "know",
+        "you're"
+      ],
+      "source_entry_number": 100,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_101",
+      "sermon_code": "59-0706",
+      "sermon_title": "Thinking on Our Ways",
+      "locator": "§36",
+      "context": "Péché non confessé",
+      "anchor_terms": [
+        "peche",
+        "non",
+        "confesse",
+        "hearts",
+        "condemning",
+        "unconfessed",
+        "sin"
+      ],
+      "source_entry_number": 101,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_102",
+      "sermon_code": "59-0706",
+      "sermon_title": "Thinking on Our Ways",
+      "locator": "§36",
+      "context": "Condamnation intérieure",
+      "anchor_terms": [
+        "condamnation",
+        "interieure",
+        "faith",
+        "hearts",
+        "condemn"
+      ],
+      "source_entry_number": 102,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_103",
+      "sermon_code": "59-0712",
+      "sermon_title": "A Total Deliverance",
+      "locator": "§43-44",
+      "context": "Péché non confessé",
+      "anchor_terms": [
+        "peche",
+        "non",
+        "confesse",
+        "long",
+        "sin",
+        "that's",
+        "confessed",
+        "never",
+        "hear"
+      ],
+      "source_entry_number": 103,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_104",
+      "sermon_code": "59-0712",
+      "sermon_title": "A Total Deliverance",
+      "locator": "§44",
+      "context": "Réparer le tort avant de prier",
+      "anchor_terms": [
+        "reparer",
+        "tort",
+        "prier",
+        "i've",
+        "something",
+        "make",
+        "right"
+      ],
+      "source_entry_number": 104,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_105",
+      "sermon_code": "59-0609",
+      "sermon_title": "What Hearest Thou, Elijah?",
+      "locator": "§47",
+      "context": "Mettre sa vie en ordre",
+      "anchor_terms": [
+        "mettre",
+        "vie",
+        "ordre",
+        "there's",
+        "something",
+        "life",
+        "condemns",
+        "you'd",
+        "better",
+        "make",
+        "thing",
+        "right"
+      ],
+      "source_entry_number": 105,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_106",
+      "sermon_code": "59-0609",
+      "sermon_title": "What Hearest Thou, Elijah?",
+      "locator": "§47",
+      "context": "Préjugé, égoïsme et obstacles intérieurs",
+      "anchor_terms": [
+        "prejuge",
+        "egoisme",
+        "obstacles",
+        "interieurs",
+        "holy",
+        "spirit",
+        "can't",
+        "deal"
+      ],
+      "source_entry_number": 106,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_107",
+      "sermon_code": "64-0308",
+      "sermon_title": "The Token",
+      "locator": "§55-56",
+      "context": "Confiance d'un cœur non condamné",
+      "anchor_terms": [
+        "confiance",
+        "d'un",
+        "non",
+        "condamne",
+        "hearts",
+        "condemn",
+        "request"
+      ],
+      "source_entry_number": 107,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_108",
+      "sermon_code": "64-0308",
+      "sermon_title": "The Token",
+      "locator": "§55",
+      "context": "Vie non mise en ordre",
+      "anchor_terms": [
+        "vie",
+        "non",
+        "mise",
+        "ordre",
+        "going",
+        "ask",
+        "god",
+        "know",
+        "you're",
+        "wrong"
+      ],
+      "source_entry_number": 108,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_109",
+      "sermon_code": "63-0724",
+      "sermon_title": "God Doesn't Call Man to Judgment Without Warning",
+      "locator": "§2",
+      "context": "Cœur libre de condamnation",
+      "anchor_terms": [
+        "libre",
+        "condamnation",
+        "heart",
+        "condemns",
+        "know",
+        "god",
+        "hears"
+      ],
+      "source_entry_number": 109,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_110",
+      "sermon_code": "59-0610",
+      "sermon_title": "As I Thought on My Ways",
+      "locator": "§28",
+      "context": "Condition de confiance",
+      "anchor_terms": [
+        "condition",
+        "confiance",
+        "hearts",
+        "condemn",
+        "god",
+        "answers",
+        "prayer"
+      ],
+      "source_entry_number": 110,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_111",
+      "sermon_code": "59-0610",
+      "sermon_title": "As I Thought on My Ways",
+      "locator": "§29",
+      "context": "Foi sans condamnation",
+      "anchor_terms": [
+        "foi",
+        "condamnation",
+        "condemnation",
+        "hearts",
+        "believe"
+      ],
+      "source_entry_number": 111,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_112",
+      "sermon_code": "54-0900",
+      "sermon_title": "Have Faith in God",
+      "locator": "§28",
+      "context": "L'incrédulité comme racine du péché",
+      "anchor_terms": [
+        "incredulite",
+        "l'incredulite",
+        "racine",
+        "peche",
+        "sin",
+        "unbelief"
+      ],
+      "source_entry_number": 112,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_113",
+      "sermon_code": "54-0900",
+      "sermon_title": "Have Faith in God",
+      "locator": "§27",
+      "context": "La foi comme condition",
+      "anchor_terms": [
+        "foi",
+        "condition",
+        "things",
+        "possible",
+        "believe"
+      ],
+      "source_entry_number": 113,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_114",
+      "sermon_code": "52-0725",
+      "sermon_title": "Faith (Africa Trip Report)",
+      "locator": "§60-62",
+      "context": "Incrédulité qui bloque",
+      "anchor_terms": [
+        "incredulite",
+        "bloque",
+        "that's",
+        "devil",
+        "unbelief"
+      ],
+      "source_entry_number": 114,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_115",
+      "sermon_code": "52-0725",
+      "sermon_title": "Faith (Africa Trip Report)",
+      "locator": "§62",
+      "context": "Responsabilité de la foi personnelle",
+      "anchor_terms": [
+        "foi",
+        "responsabilite",
+        "personnelle",
+        "faith",
+        "heal",
+        "own",
+        "individual"
+      ],
+      "source_entry_number": 115,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_116",
+      "sermon_code": "57-0516",
+      "sermon_title": "We Would See Jesus",
+      "locator": "§45",
+      "context": "Sincérité de la foi",
+      "anchor_terms": [
+        "foi",
+        "sincerite",
+        "don't",
+        "make-believe",
+        "really",
+        "believe",
+        "heart"
+      ],
+      "source_entry_number": 116,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_117",
+      "sermon_code": "57-0516",
+      "sermon_title": "We Would See Jesus",
+      "locator": "§45",
+      "context": "Sincérité devant Dieu",
+      "anchor_terms": [
+        "dieu",
+        "sincerite",
+        "devant",
+        "sincere"
+      ],
+      "source_entry_number": 117,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_118",
+      "sermon_code": "51-0717",
+      "sermon_title": "The Manifestation of the Spirit",
+      "locator": "§19",
+      "context": "La prière n'est pas un mérite",
+      "anchor_terms": [
+        "priere",
+        "n'est",
+        "merite",
+        "doesn't",
+        "save",
+        "merits",
+        "prayer"
+      ],
+      "source_entry_number": 118,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_119",
+      "sermon_code": "51-0717",
+      "sermon_title": "The Manifestation of the Spirit",
+      "locator": "§19",
+      "context": "La foi plutôt que l'émotion",
+      "anchor_terms": [
+        "foi",
+        "plutot",
+        "l'emotion",
+        "it's",
+        "faith",
+        "come"
+      ],
+      "source_entry_number": 119,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_120",
+      "sermon_code": "63-1130E",
+      "sermon_title": "Go Awake Jesus",
+      "locator": "passage sur Jacques 4",
+      "context": "Ne pas demander",
+      "anchor_terms": [
+        "demander",
+        "ask"
+      ],
+      "source_entry_number": 120,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_121",
+      "sermon_code": "63-1130E",
+      "sermon_title": "Go Awake Jesus",
+      "locator": "même passage",
+      "context": "Manque de foi",
+      "anchor_terms": [
+        "foi",
+        "manque",
+        "ask",
+        "believe"
+      ],
+      "source_entry_number": 121,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_122",
+      "sermon_code": "64-0620B",
+      "sermon_title": "Who Is Jesus?",
+      "locator": "passage sur Jacques 4:3",
+      "context": "Mauvaise motivation dans la demande",
+      "anchor_terms": [
+        "mauvaise",
+        "motivation",
+        "demande",
+        "ask",
+        "receive",
+        "amiss"
+      ],
+      "source_entry_number": 122,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_123",
+      "sermon_code": "57-0517",
+      "sermon_title": "The Queen of Sheba",
+      "locator": "§16-17",
+      "context": "Mauvais motif",
+      "anchor_terms": [
+        "mauvais",
+        "motif",
+        "it's",
+        "wrong",
+        "motive"
+      ],
+      "source_entry_number": 123,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_124",
+      "sermon_code": "57-0517",
+      "sermon_title": "The Queen of Sheba",
+      "locator": "§17",
+      "context": "Motif juste",
+      "anchor_terms": [
+        "motif",
+        "juste",
+        "ought",
+        "right",
+        "type",
+        "motive"
+      ],
+      "source_entry_number": 124,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_125",
+      "sermon_code": "58-0517E",
+      "sermon_title": "The Sin of Unbelief",
+      "locator": "§1",
+      "context": "Incrédulité à confesser",
+      "anchor_terms": [
+        "incredulite",
+        "confesser",
+        "pray",
+        "you'll",
+        "cleanse",
+        "heart",
+        "minds",
+        "shadow",
+        "unbelief"
+      ],
+      "source_entry_number": 125,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_126",
+      "sermon_code": "60-0309",
+      "sermon_title": "Why?",
+      "locator": "§71",
+      "context": "Doute",
+      "anchor_terms": [
+        "doute",
+        "doubt",
+        "bit",
+        "won't",
+        "good"
+      ],
+      "source_entry_number": 126,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_127",
+      "sermon_code": "55-1115",
+      "sermon_title": "Blind Bartimaeus",
+      "locator": "§84",
+      "context": "Le doute comme attaque",
+      "anchor_terms": [
+        "doute",
+        "attaque",
+        "that's",
+        "satan",
+        "doubter"
+      ],
+      "source_entry_number": 127,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_128",
+      "sermon_code": "55-1115",
+      "sermon_title": "Blind Bartimaeus",
+      "locator": "§84",
+      "context": "Obstacle du doute",
+      "anchor_terms": [
+        "doute",
+        "obstacle",
+        "thing",
+        "keep",
+        "receiving"
+      ],
+      "source_entry_number": 128,
+      "source_section": "D — POURQUOI CERTAINES PRIÈRES NE SONT PAS EXAUCÉES"
+    },
+    {
+      "id": "prayer_129",
+      "sermon_code": "58-1001",
+      "sermon_title": "Lifting Him Up Out of History",
+      "locator": "§29",
+      "context": "Persévérer malgré le délai",
+      "anchor_terms": [
+        "perseverer",
+        "malgre",
+        "delai",
+        "doesn't",
+        "answer",
+        "tonight",
+        "tomorrow",
+        "night"
+      ],
+      "source_entry_number": 129,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_130",
+      "sermon_code": "58-1001",
+      "sermon_title": "Lifting Him Up Out of History",
+      "locator": "§29",
+      "context": "Ne pas abandonner",
+      "anchor_terms": [
+        "abandonner",
+        "doesn't",
+        "answer",
+        "year",
+        "next"
+      ],
+      "source_entry_number": 130,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_131",
+      "sermon_code": "56-0513",
+      "sermon_title": "Teaching on Moses",
+      "locator": "§40",
+      "context": "Persévérance malgré les circonstances",
+      "anchor_terms": [
+        "perseverance",
+        "malgre",
+        "circonstances",
+        "everything",
+        "going",
+        "wrong",
+        "that's",
+        "sign",
+        "quit",
+        "praying"
+      ],
+      "source_entry_number": 131,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_132",
+      "sermon_code": "59-0708E",
+      "sermon_title": "Be Certain of God",
+      "locator": "§35",
+      "context": "Tenir la promesse jusqu'à la réponse",
+      "anchor_terms": [
+        "tenir",
+        "promesse",
+        "jusqu'a",
+        "reponse",
+        "hold",
+        "onto",
+        "until",
+        "god",
+        "answers"
+      ],
+      "source_entry_number": 132,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_133",
+      "sermon_code": "59-0708E",
+      "sermon_title": "Be Certain of God",
+      "locator": "§35",
+      "context": "Assurance malgré l'attente",
+      "anchor_terms": [
+        "assurance",
+        "malgre",
+        "l'attente",
+        "sure",
+        "answer",
+        "prayer"
+      ],
+      "source_entry_number": 133,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_134",
+      "sermon_code": "59-0412A",
+      "sermon_title": "Be Certain of God",
+      "locator": "§24",
+      "context": "La réponse peut être différée",
+      "anchor_terms": [
+        "reponse",
+        "differee",
+        "might",
+        "come",
+        "right"
+      ],
+      "source_entry_number": 134,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_135",
+      "sermon_code": "59-0412A",
+      "sermon_title": "Be Certain of God",
+      "locator": "§24",
+      "context": "Persévérance fondée sur la promesse",
+      "anchor_terms": [
+        "perseverance",
+        "fondee",
+        "promesse",
+        "it's",
+        "come",
+        "god's",
+        "promise",
+        "true"
+      ],
+      "source_entry_number": 135,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_136",
+      "sermon_code": "63-0120E",
+      "sermon_title": "Just One More Time, Lord",
+      "locator": "§84",
+      "context": "Attente devant Dieu",
+      "anchor_terms": [
+        "dieu",
+        "attente",
+        "devant",
+        "hold",
+        "request",
+        "till",
+        "god",
+        "speaks"
+      ],
+      "source_entry_number": 136,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_137",
+      "sermon_code": "63-0120E",
+      "sermon_title": "Just One More Time, Lord",
+      "locator": "§84",
+      "context": "Persévérance dans la foi",
+      "anchor_terms": [
+        "foi",
+        "perseverance",
+        "faith",
+        "god",
+        "don't",
+        "doubt"
+      ],
+      "source_entry_number": 137,
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+    },
+    {
+      "id": "prayer_138",
+      "sermon_code": "52-0717",
+      "sermon_title": "Get the People to Believe",
+      "locator": "§4",
+      "context": "Intercession",
+      "anchor_terms": [
+        "intercession",
+        "sometimes",
+        "prayer",
+        "help"
+      ],
+      "source_entry_number": 138,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_139",
+      "sermon_code": "61-0210",
+      "sermon_title": "Abraham's Covenant Confirmed",
+      "locator": "fin du sermon",
+      "context": "Prière mutuelle",
+      "anchor_terms": [
+        "priere",
+        "mutuelle",
+        "pray",
+        "another"
+      ],
+      "source_entry_number": 139,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_140",
+      "sermon_code": "61-0210",
+      "sermon_title": "Abraham's Covenant Confirmed",
+      "locator": "fin du sermon",
+      "context": "Confiance dans l'intercession",
+      "anchor_terms": [
+        "intercession",
+        "confiance",
+        "l'intercession",
+        "god",
+        "answers",
+        "prayer"
+      ],
+      "source_entry_number": 140,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_141",
+      "sermon_code": "54-0220",
+      "sermon_title": "Expectation",
+      "locator": "passage sur Jacques 5",
+      "context": "Intercession fraternelle",
+      "anchor_terms": [
+        "intercession",
+        "fraternelle",
+        "another",
+        "prayed"
+      ],
+      "source_entry_number": 141,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_142",
+      "sermon_code": "54-0220",
+      "sermon_title": "Expectation",
+      "locator": "passage sur Jacques 5",
+      "context": "Prière fervente",
+      "anchor_terms": [
+        "priere",
+        "fervente",
+        "effectual",
+        "fervent",
+        "prayer",
+        "righteous",
+        "man",
+        "availeth"
+      ],
+      "source_entry_number": 142,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_143",
+      "sermon_code": "54-0228A",
+      "sermon_title": "Expectations and What Love Is",
+      "locator": "§22",
+      "context": "Tous les croyants peuvent intercéder",
+      "anchor_terms": [
+        "croyants",
+        "peuvent",
+        "interceder",
+        "every",
+        "person",
+        "believes",
+        "right",
+        "pray",
+        "sick"
+      ],
+      "source_entry_number": 143,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_144",
+      "sermon_code": "54-0228A",
+      "sermon_title": "Expectations and What Love Is",
+      "locator": "§22",
+      "context": "Prière mutuelle",
+      "anchor_terms": [
+        "priere",
+        "mutuelle",
+        "pray",
+        "another",
+        "may",
+        "healed"
+      ],
+      "source_entry_number": 144,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_145",
+      "sermon_code": "51-0507",
+      "sermon_title": "Expectations",
+      "locator": "§11",
+      "context": "Intercession non réservée à un homme",
+      "anchor_terms": [
+        "intercession",
+        "non",
+        "reservee",
+        "homme",
+        "anybody's",
+        "right",
+        "pray"
+      ],
+      "source_entry_number": 145,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_146",
+      "sermon_code": "51-0507",
+      "sermon_title": "Expectations",
+      "locator": "§11",
+      "context": "Accord dans la prière",
+      "anchor_terms": [
+        "priere",
+        "accord",
+        "two",
+        "three",
+        "gathered",
+        "together",
+        "agree",
+        "pray"
+      ],
+      "source_entry_number": 146,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_147",
+      "sermon_code": "50-0227",
+      "sermon_title": "God in His People",
+      "locator": "§6",
+      "context": "Prière pastorale",
+      "anchor_terms": [
+        "priere",
+        "pastorale",
+        "every",
+        "minister",
+        "gospel",
+        "right",
+        "pray",
+        "congregation"
+      ],
+      "source_entry_number": 147,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_148",
+      "sermon_code": "50-0227",
+      "sermon_title": "God in His People",
+      "locator": "§6",
+      "context": "Confession et intercession",
+      "anchor_terms": [
+        "intercession",
+        "confession",
+        "confess",
+        "faults",
+        "another",
+        "pray"
+      ],
+      "source_entry_number": 148,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_149",
+      "sermon_code": "60-0608",
+      "sermon_title": "Having Conferences",
+      "locator": "§99",
+      "context": "Prière de foi mutuelle",
+      "anchor_terms": [
+        "priere",
+        "foi",
+        "mutuelle",
+        "let",
+        "pray",
+        "prayer",
+        "faith",
+        "another"
+      ],
+      "source_entry_number": 149,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_150",
+      "sermon_code": "57-1229",
+      "sermon_title": "Faith",
+      "locator": "§68",
+      "context": "Prière fervente",
+      "anchor_terms": [
+        "priere",
+        "fervente",
+        "effectual",
+        "fervent",
+        "prayer",
+        "availeth"
+      ],
+      "source_entry_number": 150,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_151",
+      "sermon_code": "63-0901E",
+      "sermon_title": "Desperations",
+      "locator": "§54",
+      "context": "Prière dans la ferveur",
+      "anchor_terms": [
+        "priere",
+        "ferveur",
+        "effectual",
+        "fervent",
+        "prayer",
+        "something"
+      ],
+      "source_entry_number": 151,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_152",
+      "sermon_code": "63-0901E",
+      "sermon_title": "Desperations",
+      "locator": "§55",
+      "context": "Confession avant l'intercession",
+      "anchor_terms": [
+        "intercession",
+        "confession",
+        "l'intercession",
+        "confess",
+        "faults",
+        "another"
+      ],
+      "source_entry_number": 152,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_153",
+      "sermon_code": "57-0623",
+      "sermon_title": "Believe from the Heart",
+      "locator": "§1",
+      "context": "Prière de foi",
+      "anchor_terms": [
+        "priere",
+        "foi",
+        "prayer",
+        "faith",
+        "save",
+        "sick"
+      ],
+      "source_entry_number": 153,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_154",
+      "sermon_code": "57-0623",
+      "sermon_title": "Believe from the Heart",
+      "locator": "§1",
+      "context": "Intercession biblique",
+      "anchor_terms": [
+        "intercession",
+        "biblique",
+        "pray",
+        "other",
+        "may",
+        "healed"
+      ],
+      "source_entry_number": 154,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_155",
+      "sermon_code": "56-0406",
+      "sermon_title": "The Infallible Word of God",
+      "locator": "§83",
+      "context": "Prière fervente",
+      "anchor_terms": [
+        "priere",
+        "fervente",
+        "effectual",
+        "fervent",
+        "prayer",
+        "righteous",
+        "man",
+        "availeth"
+      ],
+      "source_entry_number": 155,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_156",
+      "sermon_code": "56-0715",
+      "sermon_title": "The Mark of the Beast",
+      "locator": "§70",
+      "context": "Exemple de prière de foi",
+      "anchor_terms": [
+        "priere",
+        "foi",
+        "exemple",
+        "offer",
+        "prayer",
+        "faith"
+      ],
+      "source_entry_number": 156,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_157",
+      "sermon_code": "59-0209",
+      "sermon_title": "Blind Bartimaeus",
+      "locator": "§29",
+      "context": "Prière silencieuse en assemblée",
+      "anchor_terms": [
+        "priere",
+        "silencieuse",
+        "assemblee",
+        "pray",
+        "silently"
+      ],
+      "source_entry_number": 157,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_158",
+      "sermon_code": "57-0301",
+      "sermon_title": "Blind Bartimaeus",
+      "locator": "§70",
+      "context": "Intercession pour autrui",
+      "anchor_terms": [
+        "intercession",
+        "autrui",
+        "you're",
+        "praying",
+        "god",
+        "heal"
+      ],
+      "source_entry_number": 158,
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+    },
+    {
+      "id": "prayer_159",
+      "sermon_code": "50-0813E",
+      "sermon_title": "God Revealing Himself to His People",
+      "locator": "§24",
+      "context": "Prière prolongée",
+      "anchor_terms": [
+        "priere",
+        "prolongee",
+        "i'd",
+        "praying",
+        "night"
+      ],
+      "source_entry_number": 159,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_160",
+      "sermon_code": "50-0813E",
+      "sermon_title": "God Revealing Himself to His People",
+      "locator": "§24",
+      "context": "Persévérance personnelle",
+      "anchor_terms": [
+        "perseverance",
+        "personnelle",
+        "walk",
+        "around",
+        "room",
+        "i'd",
+        "pray",
+        "again"
+      ],
+      "source_entry_number": 160,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_161",
+      "sermon_code": "53-1127",
+      "sermon_title": "Prayer Line",
+      "locator": "§1",
+      "context": "Prière avant la direction divine",
+      "anchor_terms": [
+        "priere",
+        "direction",
+        "divine",
+        "that's",
+        "praying"
+      ],
+      "source_entry_number": 161,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_162",
+      "sermon_code": "53-1127",
+      "sermon_title": "Prayer Line",
+      "locator": "§1",
+      "context": "Sincérité",
+      "anchor_terms": [
+        "sincerite",
+        "sincere",
+        "pray"
+      ],
+      "source_entry_number": 162,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_163",
+      "sermon_code": "50-0814",
+      "sermon_title": "Testimony",
+      "locator": "§6",
+      "context": "Confiance dans la prière des ministres",
+      "anchor_terms": [
+        "priere",
+        "confiance",
+        "ministres",
+        "god",
+        "answer",
+        "pray"
+      ],
+      "source_entry_number": 163,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_164",
+      "sermon_code": "58-0501",
+      "sermon_title": "We Would See Jesus",
+      "locator": "§55",
+      "context": "Foi de l'auditoire",
+      "anchor_terms": [
+        "foi",
+        "l'auditoire",
+        "people",
+        "praying"
+      ],
+      "source_entry_number": 164,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_165",
+      "sermon_code": "58-0501",
+      "sermon_title": "We Would See Jesus",
+      "locator": "§55",
+      "context": "Attitude pendant la prière",
+      "anchor_terms": [
+        "priere",
+        "attitude",
+        "pendant",
+        "don't",
+        "fear",
+        "excited",
+        "faith"
+      ],
+      "source_entry_number": 165,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_166",
+      "sermon_code": "57-0323",
+      "sermon_title": "God in His Word",
+      "locator": "§77",
+      "context": "Prière silencieuse reconnue",
+      "anchor_terms": [
+        "priere",
+        "silencieuse",
+        "reconnue",
+        "praying",
+        "call"
+      ],
+      "source_entry_number": 166,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_167",
+      "sermon_code": "57-0323",
+      "sermon_title": "God in His Word",
+      "locator": "§77",
+      "context": "Foi et réception",
+      "anchor_terms": [
+        "foi",
+        "reception",
+        "thou",
+        "canst",
+        "believe",
+        "receive"
+      ],
+      "source_entry_number": 167,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_168",
+      "sermon_code": "57-1208",
+      "sermon_title": "I Stand at the Door and Knock",
+      "locator": "§63",
+      "context": "Présenter son besoin",
+      "anchor_terms": [
+        "presenter",
+        "besoin",
+        "want",
+        "every",
+        "that's",
+        "need",
+        "anything",
+        "pray"
+      ],
+      "source_entry_number": 168,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_169",
+      "sermon_code": "57-1208",
+      "sermon_title": "I Stand at the Door and Knock",
+      "locator": "§63",
+      "context": "Recevoir ce que Dieu confirme",
+      "anchor_terms": [
+        "dieu",
+        "recevoir",
+        "confirme",
+        "embrace",
+        "receive"
+      ],
+      "source_entry_number": 169,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_170",
+      "sermon_code": "61-0409",
+      "sermon_title": "We Would See Jesus",
+      "locator": "§80",
+      "context": "Confiance dans l'intercession",
+      "anchor_terms": [
+        "intercession",
+        "confiance",
+        "l'intercession",
+        "believe",
+        "heart",
+        "god",
+        "hear",
+        "prayer"
+      ],
+      "source_entry_number": 170,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_171",
+      "sermon_code": "65-0725E",
+      "sermon_title": "What Is the Attraction on the Mountain?",
+      "locator": "§1",
+      "context": "Sincérité dans la prière",
+      "anchor_terms": [
+        "priere",
+        "sincerite",
+        "that's",
+        "sincere",
+        "prayer",
+        "tonight"
+      ],
+      "source_entry_number": 171,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_172",
+      "sermon_code": "65-0725E",
+      "sermon_title": "What Is the Attraction on the Mountain?",
+      "locator": "§1",
+      "context": "Prière alignée sur la Parole",
+      "anchor_terms": [
+        "priere",
+        "parole",
+        "alignee",
+        "pray",
+        "vindicate",
+        "word"
+      ],
+      "source_entry_number": 172,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_173",
+      "sermon_code": "56-0225",
+      "sermon_title": "Jesus Christ the Same Yesterday, Today, and Forever",
+      "locator": "§1",
+      "context": "Prière contre l'incrédulité",
+      "anchor_terms": [
+        "priere",
+        "incredulite",
+        "contre",
+        "l'incredulite",
+        "help",
+        "unbelief"
+      ],
+      "source_entry_number": 173,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_174",
+      "sermon_code": "56-0225",
+      "sermon_title": "Jesus Christ the Same Yesterday, Today, and Forever",
+      "locator": "§1",
+      "context": "Rejet du doute",
+      "anchor_terms": [
+        "doute",
+        "rejet",
+        "may",
+        "doubts",
+        "driven"
+      ],
+      "source_entry_number": 174,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_175",
+      "sermon_code": "61-0316",
+      "sermon_title": "The Church Choosing Law for Grace",
+      "locator": "§75-76",
+      "context": "Prière et transformation",
+      "anchor_terms": [
+        "priere",
+        "transformation",
+        "prayer",
+        "changes",
+        "things",
+        "makes",
+        "new",
+        "creatures"
+      ],
+      "source_entry_number": 175,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_176",
+      "sermon_code": "61-0827",
+      "sermon_title": "The Message of Grace",
+      "locator": "§91",
+      "context": "Intercession pour ceux qui répondent à l'appel",
+      "anchor_terms": [
+        "intercession",
+        "ceux",
+        "repondent",
+        "l'appel",
+        "god",
+        "pray",
+        "people",
+        "stands",
+        "feet"
+      ],
+      "source_entry_number": 176,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_177",
+      "sermon_code": "58-0315",
+      "sermon_title": "Faith",
+      "locator": "§38",
+      "context": "Prière de repentance",
+      "anchor_terms": [
+        "priere",
+        "repentance",
+        "god",
+        "merciful"
+      ],
+      "source_entry_number": 177,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_178",
+      "sermon_code": "58-0315",
+      "sermon_title": "Faith",
+      "locator": "§38",
+      "context": "Dieu entend là où l'on se trouve",
+      "anchor_terms": [
+        "dieu",
+        "entend",
+        "l'on",
+        "trouve",
+        "god",
+        "hear",
+        "right"
+      ],
+      "source_entry_number": 178,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_179",
+      "sermon_code": "63-0113M",
+      "sermon_title": "Letting Off Pressure",
+      "locator": "§66",
+      "context": "Intercession pour une requête",
+      "anchor_terms": [
+        "intercession",
+        "requete",
+        "pray",
+        "you'll",
+        "give",
+        "desire"
+      ],
+      "source_entry_number": 179,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_180",
+      "sermon_code": "57-0306",
+      "sermon_title": "God Keeps His Word, Part 1",
+      "locator": "§1",
+      "context": "Prière avant la prédication",
+      "anchor_terms": [
+        "priere",
+        "predication",
+        "may",
+        "holy",
+        "spirit",
+        "take",
+        "word",
+        "god"
+      ],
+      "source_entry_number": 180,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_181",
+      "sermon_code": "61-0224",
+      "sermon_title": "Be Not Afraid",
+      "locator": "§1",
+      "context": "Action de grâce",
+      "anchor_terms": [
+        "action",
+        "grace",
+        "humbly",
+        "come",
+        "thy",
+        "presence",
+        "thanksgiving"
+      ],
+      "source_entry_number": 181,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_182",
+      "sermon_code": "58-0207",
+      "sermon_title": "Jesus Christ the Same Yesterday, Today, and Forever",
+      "locator": "§1",
+      "context": "Demander conscience de la présence de Dieu",
+      "anchor_terms": [
+        "dieu",
+        "demander",
+        "conscience",
+        "presence",
+        "make",
+        "god-conscious",
+        "tonight"
+      ],
+      "source_entry_number": 182,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_183",
+      "sermon_code": "62-0506",
+      "sermon_title": "Possessing All Things",
+      "locator": "§16",
+      "context": "Demande directe",
+      "anchor_terms": [
+        "demande",
+        "directe",
+        "god",
+        "answer",
+        "prayer"
+      ],
+      "source_entry_number": 183,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_184",
+      "sermon_code": "58-0325",
+      "sermon_title": "Faith by Experience",
+      "locator": "§1",
+      "context": "Assurance dans la prière",
+      "anchor_terms": [
+        "priere",
+        "assurance",
+        "know",
+        "ask",
+        "receive"
+      ],
+      "source_entry_number": 184,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_185",
+      "sermon_code": "53-0405E",
+      "sermon_title": "Witnesses",
+      "locator": "§84",
+      "context": "Prière pendant l'appel",
+      "anchor_terms": [
+        "priere",
+        "pendant",
+        "l'appel",
+        "prayer",
+        "while",
+        "altar",
+        "call",
+        "made"
+      ],
+      "source_entry_number": 185,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_186",
+      "sermon_code": "60-0604",
+      "sermon_title": "To Whom Shall We Go?",
+      "locator": "§81",
+      "context": "Prière collective",
+      "anchor_terms": [
+        "priere",
+        "collective",
+        "everybody",
+        "raise",
+        "voice",
+        "pray"
+      ],
+      "source_entry_number": 186,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_187",
+      "sermon_code": "56-0801",
+      "sermon_title": "The Arrow of God's Deliverance Shot from a Bow",
+      "locator": "passage final",
+      "context": "Prière complète pour l'âme et le corps",
+      "anchor_terms": [
+        "priere",
+        "complete",
+        "l'ame",
+        "corps",
+        "save",
+        "sinners",
+        "call",
+        "home",
+        "backsliders",
+        "heal",
+        "sick"
+      ],
+      "source_entry_number": 187,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_188",
+      "sermon_code": "61-0125",
+      "sermon_title": "Why?",
+      "locator": "§10",
+      "context": "Ne pas imiter le jeûne d'un autre",
+      "anchor_terms": [
+        "jeune",
+        "imiter",
+        "d'un",
+        "autre",
+        "somebody",
+        "else",
+        "done",
+        "that's",
+        "sign",
+        "you're",
+        "supposed"
+      ],
+      "source_entry_number": 188,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_189",
+      "sermon_code": "61-0125",
+      "sermon_title": "Why?",
+      "locator": "§10",
+      "context": "Être conduit par Dieu pour jeûner",
+      "anchor_terms": [
+        "jeune",
+        "dieu",
+        "conduit",
+        "jeuner",
+        "let",
+        "god",
+        "lead",
+        "you're"
+      ],
+      "source_entry_number": 189,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_190",
+      "sermon_code": "55-0724",
+      "sermon_title": "Enticing Spirits",
+      "locator": "§62",
+      "context": "Ne pas imposer un jeûne sans direction",
+      "anchor_terms": [
+        "jeune",
+        "imposer",
+        "direction",
+        "nothing",
+        "word",
+        "telling",
+        "fast",
+        "unless",
+        "god",
+        "tell"
+      ],
+      "source_entry_number": 190,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_191",
+      "sermon_code": "55-0724",
+      "sermon_title": "Enticing Spirits",
+      "locator": "§62",
+      "context": "Attitude durant le jeûne",
+      "anchor_terms": [
+        "jeune",
+        "attitude",
+        "durant",
+        "fasting",
+        "brother",
+        "you'll",
+        "joy",
+        "happy"
+      ],
+      "source_entry_number": 191,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_192",
+      "sermon_code": "62-0601",
+      "sermon_title": "Taking Sides with Jesus",
+      "locator": "§97",
+      "context": "Faux jeûne légaliste",
+      "anchor_terms": [
+        "jeune",
+        "faux",
+        "legaliste",
+        "call",
+        "fasting",
+        "see",
+        "legalism"
+      ],
+      "source_entry_number": 192,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_193",
+      "sermon_code": "62-0601",
+      "sermon_title": "Taking Sides with Jesus",
+      "locator": "§97",
+      "context": "Jeûne de forme sans vraie séparation",
+      "anchor_terms": [
+        "jeune",
+        "forme",
+        "vraie",
+        "separation",
+        "eat",
+        "ever"
+      ],
+      "source_entry_number": 193,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_194",
+      "sermon_code": "54-0103E",
+      "sermon_title": "Questions and Answers, Part 2",
+      "locator": "§75",
+      "context": "Le jeûne de Jésus lié à la conduite de l'Esprit",
+      "anchor_terms": [
+        "jeune",
+        "jesus",
+        "lie",
+        "conduite",
+        "l'esprit",
+        "spirit",
+        "led",
+        "wilderness"
+      ],
+      "source_entry_number": 194,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_195",
+      "sermon_code": "54-0103E",
+      "sermon_title": "Questions and Answers, Part 2",
+      "locator": "§75",
+      "context": "Exemple de Jésus",
+      "anchor_terms": [
+        "jesus",
+        "exemple",
+        "fasted"
+      ],
+      "source_entry_number": 195,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_196",
+      "sermon_code": "65-0919",
+      "sermon_title": "Thirst",
+      "locator": "passage sur le jeûne",
+      "context": "Jeûne et limites physiques",
+      "anchor_terms": [
+        "jeune",
+        "limites",
+        "physiques",
+        "live",
+        "longer",
+        "without",
+        "food",
+        "water"
+      ],
+      "source_entry_number": 196,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_197",
+      "sermon_code": "65-0919",
+      "sermon_title": "Thirst",
+      "locator": "même passage",
+      "context": "Prudence concernant l'eau",
+      "anchor_terms": [
+        "prudence",
+        "concernant",
+        "l'eau",
+        "couldn't",
+        "long",
+        "without",
+        "water"
+      ],
+      "source_entry_number": 197,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_198",
+      "sermon_code": "50-0813A",
+      "sermon_title": "The Resurrection of Lazarus",
+      "locator": "§4",
+      "context": "Effet du jeûne selon son témoignage",
+      "anchor_terms": [
+        "jeune",
+        "effet",
+        "temoignage",
+        "that's",
+        "power",
+        "fasting"
+      ],
+      "source_entry_number": 198,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_199",
+      "sermon_code": "50-0813A",
+      "sermon_title": "The Resurrection of Lazarus",
+      "locator": "§4",
+      "context": "Jeûne associé à la vigilance spirituelle",
+      "anchor_terms": [
+        "jeune",
+        "associe",
+        "vigilance",
+        "spirituelle",
+        "fasting",
+        "prayerful",
+        "every",
+        "minute",
+        "guard"
+      ],
+      "source_entry_number": 199,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_200",
+      "sermon_code": "54-1204",
+      "sermon_title": "God Perfecting His Church",
+      "locator": "§83",
+      "context": "Exemple personnel de jeûne",
+      "anchor_terms": [
+        "jeune",
+        "exemple",
+        "personnel",
+        "i'm",
+        "going",
+        "fasting",
+        "hour"
+      ],
+      "source_entry_number": 200,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_201",
+      "sermon_code": "51-0413",
+      "sermon_title": "The Works That I Do Bear Witness of Me",
+      "locator": "§8",
+      "context": "Jeûne associé à la prière",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "associe",
+        "fast",
+        "day",
+        "fasting",
+        "praying"
+      ],
+      "source_entry_number": 201,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_202",
+      "sermon_code": "59-1223",
+      "sermon_title": "Questions and Answers",
+      "locator": "§6",
+      "context": "Exemple montrant qu'un jeûne peut devenir excessif",
+      "anchor_terms": [
+        "jeune",
+        "exemple",
+        "montrant",
+        "qu'un",
+        "devenir",
+        "excessif",
+        "fasted",
+        "till",
+        "can't",
+        "hardly",
+        "stand"
+      ],
+      "source_entry_number": 202,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_203",
+      "sermon_code": "60-0330",
+      "sermon_title": "Blind Bartimaeus",
+      "locator": "§6",
+      "context": "Exemple personnel",
+      "anchor_terms": [
+        "exemple",
+        "personnel",
+        "i'd",
+        "fasting",
+        "three",
+        "days"
+      ],
+      "source_entry_number": 203,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_204",
+      "sermon_code": "63-0721",
+      "sermon_title": "He Cares. Do You Care?",
+      "locator": "§20",
+      "context": "Prière et jeûne avant le ministère",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "ministere",
+        "coming",
+        "right",
+        "room",
+        "praying",
+        "fasting"
+      ],
+      "source_entry_number": 204,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_205",
+      "sermon_code": "50-0715",
+      "sermon_title": "Led by the Spirit",
+      "locator": "§23",
+      "context": "Jeûne avec prière",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "praying",
+        "last",
+        "night",
+        "fasting"
+      ],
+      "source_entry_number": 205,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_206",
+      "sermon_code": "56-1215",
+      "sermon_title": "Hear Ye Him",
+      "locator": "§24",
+      "context": "Le problème peut être l'incrédulité",
+      "anchor_terms": [
+        "incredulite",
+        "probleme",
+        "l'incredulite",
+        "don't",
+        "power",
+        "unbelief"
+      ],
+      "source_entry_number": 206,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_207",
+      "sermon_code": "56-1215",
+      "sermon_title": "Hear Ye Him",
+      "locator": "§24",
+      "context": "Question sur l'échec malgré la puissance reçue",
+      "anchor_terms": [
+        "question",
+        "l'echec",
+        "malgre",
+        "puissance",
+        "recue",
+        "couldn't",
+        "cast"
+      ],
+      "source_entry_number": 207,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_208",
+      "sermon_code": "63-0825E",
+      "sermon_title": "Perfect Faith",
+      "locator": "§23",
+      "context": "Puissance sans foi suffisante",
+      "anchor_terms": [
+        "foi",
+        "puissance",
+        "suffisante",
+        "power",
+        "faith",
+        "use"
+      ],
+      "source_entry_number": 208,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_209",
+      "sermon_code": "63-0825E",
+      "sermon_title": "Perfect Faith",
+      "locator": "§23",
+      "context": "Puissance disponible",
+      "anchor_terms": [
+        "puissance",
+        "disponible",
+        "holy",
+        "spirit",
+        "power"
+      ],
+      "source_entry_number": 209,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_210",
+      "sermon_code": "55-0828E",
+      "sermon_title": "Sir, We Would See Jesus",
+      "locator": "passage sur Marc 9:29",
+      "context": "Prière et jeûne dans certains combats",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "certains",
+        "combats",
+        "kind",
+        "come",
+        "forth",
+        "nothing",
+        "prayer",
+        "fasting"
+      ],
+      "source_entry_number": 210,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_211",
+      "sermon_code": "51-0714",
+      "sermon_title": "Expectations",
+      "locator": "§18-19",
+      "context": "Foi dans le combat",
+      "anchor_terms": [
+        "foi",
+        "combat",
+        "things",
+        "possible",
+        "believes"
+      ],
+      "source_entry_number": 211,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_212",
+      "sermon_code": "61-0317",
+      "sermon_title": "Abraham's Grace Covenant",
+      "locator": "passage sur Marc 9:29",
+      "context": "Prière et jeûne",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "kind",
+        "come",
+        "forth",
+        "nothing",
+        "prayer",
+        "fasting"
+      ],
+      "source_entry_number": 212,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_213",
+      "sermon_code": "61-0413",
+      "sermon_title": "Why?",
+      "locator": "passage sur Matthieu 17:21",
+      "context": "Prière et jeûne",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "howbeit",
+        "kind",
+        "goeth",
+        "prayer",
+        "fasting"
+      ],
+      "source_entry_number": 213,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_214",
+      "sermon_code": "61-0413",
+      "sermon_title": "Why?",
+      "locator": "§19",
+      "context": "Préparation par la prière",
+      "anchor_terms": [
+        "priere",
+        "preparation",
+        "day",
+        "long",
+        "i've",
+        "prayed"
+      ],
+      "source_entry_number": 214,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_215",
+      "sermon_code": "61-0212E",
+      "sermon_title": "And Thy Seed Shall Possess the Gate of His Enemies",
+      "locator": "§50",
+      "context": "Le jeûne de Jésus et la tentation",
+      "anchor_terms": [
+        "jeune",
+        "jesus",
+        "tentation",
+        "fasting",
+        "forty",
+        "days",
+        "eat"
+      ],
+      "source_entry_number": 215,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_216",
+      "sermon_code": "61-0212E",
+      "sermon_title": "And Thy Seed Shall Possess the Gate of His Enemies",
+      "locator": "§50",
+      "context": "Le jeûne ne remplace pas la Parole",
+      "anchor_terms": [
+        "jeune",
+        "parole",
+        "remplace",
+        "met",
+        "word",
+        "god"
+      ],
+      "source_entry_number": 216,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_217",
+      "sermon_code": "61-0119A",
+      "sermon_title": "Godhead Explained",
+      "locator": "passage d'Actes 10",
+      "context": "Corneille : jeûne et prière",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "corneille",
+        "four",
+        "days",
+        "ago",
+        "fasting",
+        "until",
+        "hour"
+      ],
+      "source_entry_number": 217,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_218",
+      "sermon_code": "62-0318",
+      "sermon_title": "The Spoken Word Is the Original Seed",
+      "locator": "§349 / Actes 10",
+      "context": "Jeûne dans le récit de Corneille",
+      "anchor_terms": [
+        "jeune",
+        "recit",
+        "corneille",
+        "four",
+        "days",
+        "ago",
+        "fasting",
+        "until",
+        "hour"
+      ],
+      "source_entry_number": 218,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_219",
+      "sermon_code": "58-0302",
+      "sermon_title": "Door to the Heart",
+      "locator": "§36-37",
+      "context": "Foi ample dans les promesses",
+      "anchor_terms": [
+        "foi",
+        "ample",
+        "promesses",
+        "ask",
+        "great",
+        "things",
+        "believe"
+      ],
+      "source_entry_number": 219,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_220",
+      "sermon_code": "58-0302",
+      "sermon_title": "Door to the Heart",
+      "locator": "§37",
+      "context": "Foi centrée sur Christ",
+      "anchor_terms": [
+        "foi",
+        "centree",
+        "christ",
+        "place",
+        "unadulterated",
+        "faith",
+        "finished",
+        "works"
+      ],
+      "source_entry_number": 220,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_221",
+      "sermon_code": "63-1114",
+      "sermon_title": "Influence",
+      "locator": "§1",
+      "context": "Humilité devant sa faiblesse",
+      "anchor_terms": [
+        "humilite",
+        "devant",
+        "faiblesse",
+        "lord",
+        "help",
+        "unbelief",
+        "tonight"
+      ],
+      "source_entry_number": 221,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_222",
+      "sermon_code": "63-1114",
+      "sermon_title": "Influence",
+      "locator": "§1",
+      "context": "Action de grâce",
+      "anchor_terms": [
+        "action",
+        "grace",
+        "thankful",
+        "presence"
+      ],
+      "source_entry_number": 222,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_223",
+      "sermon_code": "59-0414",
+      "sermon_title": "Thirsting for Life",
+      "locator": "§1",
+      "context": "Confession",
+      "anchor_terms": [
+        "confession",
+        "come",
+        "thee",
+        "confess",
+        "faults",
+        "sins"
+      ],
+      "source_entry_number": 223,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_224",
+      "sermon_code": "59-0414",
+      "sermon_title": "Thirsting for Life",
+      "locator": "§1-2",
+      "context": "Reconnaître son incrédulité",
+      "anchor_terms": [
+        "incredulite",
+        "reconnaitre",
+        "help",
+        "thou",
+        "unbelief",
+        "lord"
+      ],
+      "source_entry_number": 224,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_225",
+      "sermon_code": "61-0316",
+      "sermon_title": "The Church Choosing Law for Grace",
+      "locator": "§76",
+      "context": "Priorité au problème spirituel",
+      "anchor_terms": [
+        "priorite",
+        "probleme",
+        "spirituel",
+        "expect",
+        "healing",
+        "won't",
+        "even",
+        "soul",
+        "healed",
+        "unbelief"
+      ],
+      "source_entry_number": 225,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_226",
+      "sermon_code": "63-1130E",
+      "sermon_title": "Go Awake Jesus",
+      "locator": "§2",
+      "context": "Abandon à Dieu",
+      "anchor_terms": [
+        "dieu",
+        "abandon",
+        "surrender",
+        "ourselves"
+      ],
+      "source_entry_number": 226,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_227",
+      "sermon_code": "63-1130E",
+      "sermon_title": "Go Awake Jesus",
+      "locator": "§2",
+      "context": "Demande dans l'abandon",
+      "anchor_terms": [
+        "demande",
+        "l'abandon",
+        "answer",
+        "every",
+        "request",
+        "lord"
+      ],
+      "source_entry_number": 227,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_228",
+      "sermon_code": "58-1005M",
+      "sermon_title": "Hear His Voice",
+      "locator": "§95",
+      "context": "Disponibilité à Dieu",
+      "anchor_terms": [
+        "dieu",
+        "disponibilite",
+        "servant",
+        "follow"
+      ],
+      "source_entry_number": 228,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_229",
+      "sermon_code": "60-0626",
+      "sermon_title": "The Unfailing Realities of the Living God",
+      "locator": "§68",
+      "context": "Abandon total",
+      "anchor_terms": [
+        "abandon",
+        "total",
+        "god",
+        "wants",
+        "complete",
+        "surrender"
+      ],
+      "source_entry_number": 229,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_230",
+      "sermon_code": "60-0626",
+      "sermon_title": "The Unfailing Realities of the Living God",
+      "locator": "§68",
+      "context": "Condition de conduite divine",
+      "anchor_terms": [
+        "condition",
+        "conduite",
+        "divine",
+        "you've",
+        "surrender"
+      ],
+      "source_entry_number": 230,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_231",
+      "sermon_code": "58-1004",
+      "sermon_title": "Faith Is Our Victory",
+      "locator": "passage sur Matthieu 6",
+      "context": "Demander",
+      "anchor_terms": [
+        "demander",
+        "ask",
+        "given"
+      ],
+      "source_entry_number": 231,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_232",
+      "sermon_code": "58-1004",
+      "sermon_title": "Faith Is Our Victory",
+      "locator": "passage sur Matthieu 6",
+      "context": "Chercher Dieu",
+      "anchor_terms": [
+        "dieu",
+        "chercher",
+        "seek",
+        "find"
+      ],
+      "source_entry_number": 232,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_233",
+      "sermon_code": "60-0608",
+      "sermon_title": "Having Conferences",
+      "locator": "§9",
+      "context": "Sérieux avec Dieu",
+      "anchor_terms": [
+        "dieu",
+        "serieux",
+        "real",
+        "business",
+        "god"
+      ],
+      "source_entry_number": 233,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_234",
+      "sermon_code": "57-0901E",
+      "sermon_title": "Hebrews, Chapter 4",
+      "locator": "passage sur le Notre Père",
+      "context": "Soumettre la prière à la volonté de Dieu",
+      "anchor_terms": [
+        "priere",
+        "volonte",
+        "dieu",
+        "soumettre",
+        "thy",
+        "done"
+      ],
+      "source_entry_number": 234,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_235",
+      "sermon_code": "62-0724",
+      "sermon_title": "Sir, We Would See Jesus",
+      "locator": "§95",
+      "context": "Éprouver la demande et la promesse par la Parole",
+      "anchor_terms": [
+        "parole",
+        "eprouver",
+        "demande",
+        "promesse",
+        "isn't",
+        "god's",
+        "word",
+        "don't",
+        "believe"
+      ],
+      "source_entry_number": 235,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_236",
+      "sermon_code": "62-0724",
+      "sermon_title": "Sir, We Would See Jesus",
+      "locator": "§95",
+      "context": "Attendre l'accomplissement de la Parole",
+      "anchor_terms": [
+        "parole",
+        "attendre",
+        "l'accomplissement",
+        "look",
+        "god",
+        "keep",
+        "promise"
+      ],
+      "source_entry_number": 236,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_237",
+      "sermon_code": "50-0813A",
+      "sermon_title": "The Resurrection of Lazarus",
+      "locator": "§4",
+      "context": "Aspect pratique rapporté par Branham",
+      "anchor_terms": [
+        "aspect",
+        "pratique",
+        "rapporte",
+        "branham",
+        "keep",
+        "stomach",
+        "empty"
+      ],
+      "source_entry_number": 237,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_238",
+      "sermon_code": "54-1204",
+      "sermon_title": "God Perfecting His Church",
+      "locator": "§83",
+      "context": "Jeûne accompagné de foi",
+      "anchor_terms": [
+        "jeune",
+        "foi",
+        "accompagne",
+        "i'm",
+        "going",
+        "believe",
+        "lord",
+        "jesus",
+        "christ"
+      ],
+      "source_entry_number": 238,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_239",
+      "sermon_code": "51-0413",
+      "sermon_title": "The Works That I Do Bear Witness of Me",
+      "locator": "§8",
+      "context": "La foi nourrie par la Parole",
+      "anchor_terms": [
+        "parole",
+        "foi",
+        "nourrie",
+        "faith",
+        "cometh",
+        "hearing"
+      ],
+      "source_entry_number": 239,
+      "source_section": "C — COMMENT PRIER ET ÊTRE EXAUCÉ"
+    },
+    {
+      "id": "prayer_240",
+      "sermon_code": "63-0721",
+      "sermon_title": "He Cares. Do You Care?",
+      "locator": "§20",
+      "context": "Prière et jeûne avec attente de Dieu",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "dieu",
+        "attente",
+        "anointing",
+        "holy",
+        "spirit"
+      ],
+      "source_entry_number": 240,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_241",
+      "sermon_code": "62-0601",
+      "sermon_title": "Taking Sides with Jesus",
+      "locator": "§97",
+      "context": "Distinguer jeûne et légalisme",
+      "anchor_terms": [
+        "jeune",
+        "distinguer",
+        "legalisme",
+        "legalism"
+      ],
+      "source_entry_number": 241,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_242",
+      "sermon_code": "56-1215",
+      "sermon_title": "Hear Ye Him",
+      "locator": "§24",
+      "context": "L'incrédulité explique certains échecs",
+      "anchor_terms": [
+        "incredulite",
+        "l'incredulite",
+        "explique",
+        "certains",
+        "echecs",
+        "unbelief"
+      ],
+      "source_entry_number": 242,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    },
+    {
+      "id": "prayer_243",
+      "sermon_code": "59-1223",
+      "sermon_title": "Questions and Answers",
+      "locator": "§6",
+      "context": "Jeûne et prière dans la recherche spirituelle",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "recherche",
+        "spirituelle",
+        "fasting",
+        "praying",
+        "holy",
+        "ghost"
+      ],
+      "source_entry_number": 243,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_244",
+      "sermon_code": "50-0715",
+      "sermon_title": "Led by the Spirit",
+      "locator": "§23",
+      "context": "Dieu coordonne les circonstances",
+      "anchor_terms": [
+        "dieu",
+        "coordonne",
+        "circonstances",
+        "works",
+        "both",
+        "ends"
+      ],
+      "source_entry_number": 244,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_245",
+      "sermon_code": "60-0330",
+      "sermon_title": "Blind Bartimaeus",
+      "locator": "§6",
+      "context": "Fin naturelle d'un jeûne",
+      "anchor_terms": [
+        "jeune",
+        "fin",
+        "naturelle",
+        "d'un",
+        "kind",
+        "little",
+        "hungry"
+      ],
+      "source_entry_number": 245,
+      "source_section": "H — LE VÉRITABLE JEÛNE"
+    },
+    {
+      "id": "prayer_246",
+      "sermon_code": "61-0413",
+      "sermon_title": "Why?",
+      "locator": "§19",
+      "context": "Dépendance envers Dieu",
+      "anchor_terms": [
+        "dieu",
+        "dependance",
+        "envers",
+        "god",
+        "i'm",
+        "depending"
+      ],
+      "source_entry_number": 246,
+      "source_section": "J — DISPOSITION INTÉRIEURE"
+    },
+    {
+      "id": "prayer_247",
+      "sermon_code": "62-0318",
+      "sermon_title": "The Spoken Word Is the Original Seed",
+      "locator": "§349",
+      "context": "Direction surnaturelle et Parole",
+      "anchor_terms": [
+        "parole",
+        "direction",
+        "surnaturelle",
+        "angel",
+        "directed"
+      ],
+      "source_entry_number": 247,
+      "source_section": "G — EXEMPLES DE PRIÈRE ET D'EXAUCEMENT"
+    },
+    {
+      "id": "prayer_248",
+      "sermon_code": "61-0119A",
+      "sermon_title": "Godhead Explained",
+      "locator": "Actes 10",
+      "context": "Prière pendant le jeûne",
+      "anchor_terms": [
+        "priere",
+        "jeune",
+        "pendant",
+        "ninth",
+        "hour",
+        "prayed",
+        "house"
+      ],
+      "source_entry_number": 248,
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+    }
+  ],
+  "topics": [
+    {
+      "id": "prayer_all",
+      "label": "Prière, exaucement et jeûne",
+      "aliases": [
+        "prière",
+        "prier",
+        "prières",
+        "exaucement",
+        "prière exaucée",
+        "prières exaucées",
+        "jeûne",
+        "jeûner",
+        "prière et jeûne"
+      ],
+      "keywords": [
+        "priere",
+        "prier",
+        "exaucement",
+        "jeune",
+        "foi",
+        "intercession"
+      ],
+      "reference_ids": [
+        "prayer_001",
+        "prayer_002",
+        "prayer_003",
+        "prayer_004",
+        "prayer_005",
+        "prayer_006",
+        "prayer_007",
+        "prayer_008",
+        "prayer_009",
+        "prayer_010",
+        "prayer_011",
+        "prayer_012",
+        "prayer_013",
+        "prayer_014",
+        "prayer_015",
+        "prayer_016",
+        "prayer_017",
+        "prayer_018",
+        "prayer_019",
+        "prayer_020",
+        "prayer_021",
+        "prayer_022",
+        "prayer_023",
+        "prayer_024",
+        "prayer_025",
+        "prayer_026",
+        "prayer_027",
+        "prayer_028",
+        "prayer_029",
+        "prayer_030",
+        "prayer_031",
+        "prayer_032",
+        "prayer_033",
+        "prayer_034",
+        "prayer_035",
+        "prayer_036",
+        "prayer_037",
+        "prayer_038",
+        "prayer_039",
+        "prayer_040",
+        "prayer_041",
+        "prayer_042",
+        "prayer_043",
+        "prayer_044",
+        "prayer_045",
+        "prayer_046",
+        "prayer_047",
+        "prayer_048",
+        "prayer_049",
+        "prayer_050",
+        "prayer_051",
+        "prayer_052",
+        "prayer_053",
+        "prayer_054",
+        "prayer_055",
+        "prayer_056",
+        "prayer_057",
+        "prayer_058",
+        "prayer_059",
+        "prayer_060",
+        "prayer_061",
+        "prayer_062",
+        "prayer_063",
+        "prayer_064",
+        "prayer_065",
+        "prayer_066",
+        "prayer_067",
+        "prayer_068",
+        "prayer_069",
+        "prayer_070",
+        "prayer_071",
+        "prayer_072",
+        "prayer_073",
+        "prayer_074",
+        "prayer_075",
+        "prayer_076",
+        "prayer_077",
+        "prayer_078",
+        "prayer_079",
+        "prayer_080",
+        "prayer_081",
+        "prayer_082",
+        "prayer_083",
+        "prayer_084",
+        "prayer_085",
+        "prayer_086",
+        "prayer_087",
+        "prayer_088",
+        "prayer_089",
+        "prayer_090",
+        "prayer_091",
+        "prayer_092",
+        "prayer_093",
+        "prayer_094",
+        "prayer_095",
+        "prayer_096",
+        "prayer_097",
+        "prayer_098",
+        "prayer_099",
+        "prayer_100",
+        "prayer_101",
+        "prayer_102",
+        "prayer_103",
+        "prayer_104",
+        "prayer_105",
+        "prayer_106",
+        "prayer_107",
+        "prayer_108",
+        "prayer_109",
+        "prayer_110",
+        "prayer_111",
+        "prayer_112",
+        "prayer_113",
+        "prayer_114",
+        "prayer_115",
+        "prayer_116",
+        "prayer_117",
+        "prayer_118",
+        "prayer_119",
+        "prayer_120",
+        "prayer_121",
+        "prayer_122",
+        "prayer_123",
+        "prayer_124",
+        "prayer_125",
+        "prayer_126",
+        "prayer_127",
+        "prayer_128",
+        "prayer_129",
+        "prayer_130",
+        "prayer_131",
+        "prayer_132",
+        "prayer_133",
+        "prayer_134",
+        "prayer_135",
+        "prayer_136",
+        "prayer_137",
+        "prayer_138",
+        "prayer_139",
+        "prayer_140",
+        "prayer_141",
+        "prayer_142",
+        "prayer_143",
+        "prayer_144",
+        "prayer_145",
+        "prayer_146",
+        "prayer_147",
+        "prayer_148",
+        "prayer_149",
+        "prayer_150",
+        "prayer_151",
+        "prayer_152",
+        "prayer_153",
+        "prayer_154",
+        "prayer_155",
+        "prayer_156",
+        "prayer_157",
+        "prayer_158",
+        "prayer_159",
+        "prayer_160",
+        "prayer_161",
+        "prayer_162",
+        "prayer_163",
+        "prayer_164",
+        "prayer_165",
+        "prayer_166",
+        "prayer_167",
+        "prayer_168",
+        "prayer_169",
+        "prayer_170",
+        "prayer_171",
+        "prayer_172",
+        "prayer_173",
+        "prayer_174",
+        "prayer_175",
+        "prayer_176",
+        "prayer_177",
+        "prayer_178",
+        "prayer_179",
+        "prayer_180",
+        "prayer_181",
+        "prayer_182",
+        "prayer_183",
+        "prayer_184",
+        "prayer_185",
+        "prayer_186",
+        "prayer_187",
+        "prayer_188",
+        "prayer_189",
+        "prayer_190",
+        "prayer_191",
+        "prayer_192",
+        "prayer_193",
+        "prayer_194",
+        "prayer_195",
+        "prayer_196",
+        "prayer_197",
+        "prayer_198",
+        "prayer_199",
+        "prayer_200",
+        "prayer_201",
+        "prayer_202",
+        "prayer_203",
+        "prayer_204",
+        "prayer_205",
+        "prayer_206",
+        "prayer_207",
+        "prayer_208",
+        "prayer_209",
+        "prayer_210",
+        "prayer_211",
+        "prayer_212",
+        "prayer_213",
+        "prayer_214",
+        "prayer_215",
+        "prayer_216",
+        "prayer_217",
+        "prayer_218",
+        "prayer_219",
+        "prayer_220",
+        "prayer_221",
+        "prayer_222",
+        "prayer_223",
+        "prayer_224",
+        "prayer_225",
+        "prayer_226",
+        "prayer_227",
+        "prayer_228",
+        "prayer_229",
+        "prayer_230",
+        "prayer_231",
+        "prayer_232",
+        "prayer_233",
+        "prayer_234",
+        "prayer_235",
+        "prayer_236",
+        "prayer_237",
+        "prayer_238",
+        "prayer_239",
+        "prayer_240",
+        "prayer_241",
+        "prayer_242",
+        "prayer_243",
+        "prayer_244",
+        "prayer_245",
+        "prayer_246",
+        "prayer_247",
+        "prayer_248"
+      ]
+    },
+    {
+      "id": "prayer_nature_power",
+      "label": "Nature et puissance de la prière",
+      "aliases": [
+        "qu'est-ce que la prière",
+        "pourquoi prier",
+        "puissance de la prière",
+        "la prière change les choses"
+      ],
+      "keywords": [
+        "priere",
+        "puissance",
+        "reponse"
+      ],
+      "reference_ids": [
+        "prayer_001",
+        "prayer_002",
+        "prayer_003",
+        "prayer_004",
+        "prayer_005",
+        "prayer_006",
+        "prayer_007",
+        "prayer_008",
+        "prayer_009",
+        "prayer_010",
+        "prayer_011",
+        "prayer_012",
+        "prayer_013",
+        "prayer_014",
+        "prayer_015",
+        "prayer_016",
+        "prayer_017",
+        "prayer_018",
+        "prayer_019",
+        "prayer_020"
+      ]
+    },
+    {
+      "id": "how_to_pray",
+      "label": "Comment prier",
+      "aliases": [
+        "comment prier",
+        "prière secrète",
+        "prier au nom de Jésus",
+        "attitude dans la prière"
+      ],
+      "keywords": [
+        "priere",
+        "secrete",
+        "jesus",
+        "misericorde"
+      ],
+      "reference_ids": [
+        "prayer_021",
+        "prayer_022",
+        "prayer_023",
+        "prayer_024",
+        "prayer_025",
+        "prayer_026",
+        "prayer_027",
+        "prayer_028",
+        "prayer_029",
+        "prayer_030",
+        "prayer_031",
+        "prayer_032",
+        "prayer_033",
+        "prayer_034",
+        "prayer_035",
+        "prayer_036",
+        "prayer_037",
+        "prayer_038",
+        "prayer_039",
+        "prayer_040",
+        "prayer_041",
+        "prayer_042",
+        "prayer_043",
+        "prayer_044",
+        "prayer_045",
+        "prayer_046",
+        "prayer_047",
+        "prayer_048",
+        "prayer_049",
+        "prayer_050",
+        "prayer_051",
+        "prayer_052",
+        "prayer_053",
+        "prayer_054"
+      ]
+    },
+    {
+      "id": "answered_prayer",
+      "label": "Comment prier et être exaucé",
+      "aliases": [
+        "comment être exaucé",
+        "prière exaucée",
+        "prières exaucées",
+        "recevoir la réponse de Dieu",
+        "conditions de l'exaucement",
+        "prier avec foi"
+      ],
+      "keywords": [
+        "exaucement",
+        "foi",
+        "croire",
+        "demande",
+        "promesse"
+      ],
+      "reference_ids": [
+        "prayer_055",
+        "prayer_056",
+        "prayer_057",
+        "prayer_058",
+        "prayer_059",
+        "prayer_060",
+        "prayer_061",
+        "prayer_062",
+        "prayer_063",
+        "prayer_064",
+        "prayer_065",
+        "prayer_066",
+        "prayer_067",
+        "prayer_068",
+        "prayer_069",
+        "prayer_070",
+        "prayer_071",
+        "prayer_072",
+        "prayer_073",
+        "prayer_074",
+        "prayer_075",
+        "prayer_076",
+        "prayer_077",
+        "prayer_078",
+        "prayer_079",
+        "prayer_080",
+        "prayer_081",
+        "prayer_082",
+        "prayer_083",
+        "prayer_084",
+        "prayer_085",
+        "prayer_086",
+        "prayer_087",
+        "prayer_088",
+        "prayer_089",
+        "prayer_090",
+        "prayer_091",
+        "prayer_092",
+        "prayer_093",
+        "prayer_094",
+        "prayer_095",
+        "prayer_096",
+        "prayer_239"
+      ]
+    },
+    {
+      "id": "unanswered_prayer",
+      "label": "Pourquoi certaines prières ne sont pas exaucées",
+      "aliases": [
+        "pourquoi mes prières ne sont pas exaucées",
+        "pourquoi ma prière n'est pas exaucée",
+        "prière non exaucée",
+        "prières non exaucées",
+        "Dieu ne répond pas à ma prière",
+        "obstacle à la prière",
+        "mauvais motif"
+      ],
+      "keywords": [
+        "doute",
+        "incredulite",
+        "peche",
+        "motif",
+        "obstacle"
+      ],
+      "reference_ids": [
+        "prayer_097",
+        "prayer_098",
+        "prayer_099",
+        "prayer_100",
+        "prayer_101",
+        "prayer_102",
+        "prayer_103",
+        "prayer_104",
+        "prayer_105",
+        "prayer_106",
+        "prayer_107",
+        "prayer_108",
+        "prayer_109",
+        "prayer_110",
+        "prayer_111",
+        "prayer_112",
+        "prayer_113",
+        "prayer_114",
+        "prayer_115",
+        "prayer_116",
+        "prayer_117",
+        "prayer_118",
+        "prayer_119",
+        "prayer_120",
+        "prayer_121",
+        "prayer_122",
+        "prayer_123",
+        "prayer_124",
+        "prayer_125",
+        "prayer_126",
+        "prayer_127",
+        "prayer_128"
+      ]
+    },
+    {
+      "id": "perseverance_waiting",
+      "label": "Persévérance et attente",
+      "aliases": [
+        "persévérer dans la prière",
+        "attendre la réponse de Dieu",
+        "Dieu tarde à répondre",
+        "continuer à prier"
+      ],
+      "keywords": [
+        "perseverance",
+        "attente",
+        "retard"
+      ],
+      "reference_ids": [
+        "prayer_129",
+        "prayer_130",
+        "prayer_131",
+        "prayer_132",
+        "prayer_133",
+        "prayer_134",
+        "prayer_135",
+        "prayer_136",
+        "prayer_137"
+      ]
+    },
+    {
+      "id": "intercession_faith",
+      "label": "Intercession et prière de foi",
+      "aliases": [
+        "prière de foi",
+        "intercession",
+        "prier pour quelqu'un",
+        "prière pour les malades"
+      ],
+      "keywords": [
+        "intercession",
+        "foi",
+        "malades"
+      ],
+      "reference_ids": [
+        "prayer_138",
+        "prayer_139",
+        "prayer_140",
+        "prayer_141",
+        "prayer_142",
+        "prayer_143",
+        "prayer_144",
+        "prayer_145",
+        "prayer_146",
+        "prayer_147",
+        "prayer_148",
+        "prayer_149",
+        "prayer_150",
+        "prayer_151",
+        "prayer_152",
+        "prayer_153",
+        "prayer_154",
+        "prayer_155",
+        "prayer_156",
+        "prayer_157",
+        "prayer_158"
+      ]
+    },
+    {
+      "id": "prayer_examples",
+      "label": "Exemples de prière et d'exaucement",
+      "aliases": [
+        "exemples de prières exaucées",
+        "témoignage d'exaucement",
+        "comment Branham priait",
+        "expérience de prière"
+      ],
+      "keywords": [
+        "exemple",
+        "exaucement",
+        "temoignage"
+      ],
+      "reference_ids": [
+        "prayer_159",
+        "prayer_160",
+        "prayer_161",
+        "prayer_162",
+        "prayer_163",
+        "prayer_164",
+        "prayer_165",
+        "prayer_166",
+        "prayer_167",
+        "prayer_168",
+        "prayer_169",
+        "prayer_170",
+        "prayer_171",
+        "prayer_172",
+        "prayer_173",
+        "prayer_174",
+        "prayer_175",
+        "prayer_176",
+        "prayer_177",
+        "prayer_178",
+        "prayer_179",
+        "prayer_180",
+        "prayer_181",
+        "prayer_182",
+        "prayer_183",
+        "prayer_184",
+        "prayer_185",
+        "prayer_186",
+        "prayer_187",
+        "prayer_244",
+        "prayer_247"
+      ]
+    },
+    {
+      "id": "true_fasting",
+      "label": "Le véritable jeûne",
+      "aliases": [
+        "véritable jeûne",
+        "comment jeûner",
+        "jeûne chrétien",
+        "jeûne selon Branham",
+        "forcer un jeûne"
+      ],
+      "keywords": [
+        "jeune",
+        "forcer"
+      ],
+      "reference_ids": [
+        "prayer_188",
+        "prayer_189",
+        "prayer_190",
+        "prayer_191",
+        "prayer_192",
+        "prayer_193",
+        "prayer_194",
+        "prayer_195",
+        "prayer_196",
+        "prayer_197",
+        "prayer_198",
+        "prayer_199",
+        "prayer_200",
+        "prayer_201",
+        "prayer_202",
+        "prayer_203",
+        "prayer_204",
+        "prayer_205",
+        "prayer_237",
+        "prayer_238",
+        "prayer_241",
+        "prayer_243",
+        "prayer_245"
+      ]
+    },
+    {
+      "id": "fasting_spiritual_warfare",
+      "label": "Prière, jeûne et combat spirituel",
+      "aliases": [
+        "jeûne et combat spirituel",
+        "prière et jeûne",
+        "jeûne et délivrance"
+      ],
+      "keywords": [
+        "combat",
+        "spirituel",
+        "jeune",
+        "delivrance"
+      ],
+      "reference_ids": [
+        "prayer_206",
+        "prayer_207",
+        "prayer_208",
+        "prayer_209",
+        "prayer_210",
+        "prayer_211",
+        "prayer_212",
+        "prayer_213",
+        "prayer_214",
+        "prayer_215",
+        "prayer_216",
+        "prayer_217",
+        "prayer_218",
+        "prayer_240",
+        "prayer_242",
+        "prayer_248"
+      ]
+    },
+    {
+      "id": "inner_disposition_prayer",
+      "label": "Disposition intérieure",
+      "aliases": [
+        "attitude du cœur dans la prière",
+        "humilité dans la prière",
+        "sincérité dans la prière",
+        "confession avant de prier"
+      ],
+      "keywords": [
+        "sincerite",
+        "humilite",
+        "confession",
+        "coeur"
+      ],
+      "reference_ids": [
+        "prayer_219",
+        "prayer_220",
+        "prayer_221",
+        "prayer_222",
+        "prayer_223",
+        "prayer_224",
+        "prayer_225",
+        "prayer_226",
+        "prayer_227",
+        "prayer_228",
+        "prayer_229",
+        "prayer_230",
+        "prayer_231",
+        "prayer_232",
+        "prayer_233",
+        "prayer_234",
+        "prayer_235",
+        "prayer_236",
+        "prayer_246"
+      ]
+    }
+  ]
+}
