@@ -73,7 +73,11 @@ class ConceptualQueryExpander {
   List<String> _associatedTerms(String term) {
     if (_associationBlocked.contains(term)) return const <String>[];
     return _associationCache.putIfAbsent(term, () {
-      final values = associationEngine.related(term, limit: 10);
+      final values = associationEngine.related(
+        term,
+        limit: 10,
+        passageLimit: 120,
+      );
       return values
           .where((value) => value.count >= 3)
           .map((value) => value.term)
