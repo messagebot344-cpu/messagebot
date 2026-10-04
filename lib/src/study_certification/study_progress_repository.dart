@@ -563,7 +563,7 @@ class StudyProgressRepository {
   List<StudyCertification> certifications() => database.db
       .select(
         'SELECT certification_id,sermon_id,pack_version,corpus_version,'
-        'score,study_seconds,attempt_id,certified_at,level,integrity_hash '
+        'score,category_scores_json,study_seconds,attempt_id,certified_at,level,integrity_hash '
         'FROM study_certifications ORDER BY certified_at DESC',
       )
       .map(
@@ -573,6 +573,9 @@ class StudyProgressRepository {
           packVersion: row['pack_version'] as int,
           corpusVersion: row['corpus_version'] as String,
           score: (row['score'] as num).toDouble(),
+          categoryScores: _decodeCategoryScores(
+            row['category_scores_json'] as String,
+          ),
           studySeconds: row['study_seconds'] as int,
           attemptId: row['attempt_id'] as int,
           certifiedAt: row['certified_at'] as int,
