@@ -120,7 +120,8 @@ with tempfile.NamedTemporaryFile(suffix='.db') as tmp:
                                         'JOIN passages p ON p.id=passages_fts.rowid '
                                         'JOIN editions e ON e.id=p.edition_id '
                                         'JOIN sermons s ON s.id=p.sermon_id '
-                                        'WHERE passages_fts MATCH ? AND e.is_primary=1 AND s.code=? LIMIT 1',
+                                        'WHERE passages_fts MATCH ? AND s.code=? '
+                                        'ORDER BY e.is_primary DESC LIMIT 1',
                                         (fts,code),
                                     ).fetchone()
                                 except sqlite3.Error:
