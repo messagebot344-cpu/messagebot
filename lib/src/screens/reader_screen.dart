@@ -6,6 +6,7 @@ import '../app_scope.dart';
 import '../models/models.dart';
 import 'collection_picker.dart';
 import 'comparison_screen.dart';
+import 'passage_target.dart';
 import 'similar_passages_screen.dart';
 
 class ReaderScreen extends StatefulWidget {
@@ -13,12 +14,18 @@ class ReaderScreen extends StatefulWidget {
     super.key,
     required this.sermon,
     required this.initialEditionId,
+    this.initialPassageId,
     this.initialOrdinal,
+    this.highlightStartOffset,
+    this.highlightEndOffset,
   });
 
   final SermonSummary sermon;
   final String initialEditionId;
+  final int? initialPassageId;
   final int? initialOrdinal;
+  final int? highlightStartOffset;
+  final int? highlightEndOffset;
 
   @override
   State<ReaderScreen> createState() => _ReaderScreenState();
@@ -47,12 +54,13 @@ class _ReaderScreenState extends State<ReaderScreen> {
       orElse: () => _editions.first,
     );
     _passages = scope.repository.passagesForEdition(_edition.id);
-    _initialOrdinal = widget.initialOrdinal ?? scope.personalLibrary.readingPosition(_edition.id);
-    if (_passages.isNotEmpty) {
-      _initialOrdinal = _initialOrdinal.clamp(0, _passages.length - 1).toInt();
-    } else {
-      _initialOrdinal = 0;
-    }
+    final fallbackIndex =
+        widget.initialOrdinal ?? scope.personalLibrary.readingPosition(_edition.id);
+    _initialOrdinal = resolvePassageIndex(
+      _passages,
+      passageId: widget.initialPassageId,
+      fallbackIndex: fallbackIndex,
+    );
     _favorite = scope.personalLibrary.isFavorite(widget.sermon.code);
     _generation = 1;
     _positionsListener.itemPositions.addListener(_saveVisiblePosition);
@@ -98,6 +106,40 @@ class _ReaderScreenState extends State<ReaderScreen> {
       _lastSavedOrdinal = -1;
       _generation++;
     });
+  }
+
+  Widget _passageText(BuildContext context, Passage passage, double fontSize) {
+    final style = TextStyle(fontSize: fontSize, height: 1.55);
+    final highlighted = widget.initialPassageId == passage.id &&
+        hasValidHighlight(
+          passage,
+          startOffset: widget.highlightStartOffset,
+          endOffset: widget.highlightEndOffset,
+        );
+    if (!highlighted) {
+      return SelectableText(passage.text, style: style);
+    }
+    final start = widget.highlightStartOffset!;
+    final end = widget.highlightEndOffset!;
+    final scheme = Theme.of(context).colorScheme;
+    return SelectableText.rich(
+      TextSpan(
+        style: style,
+        children: [
+          if (start > 0) TextSpan(text: passage.text.substring(0, start)),
+          TextSpan(
+            text: passage.text.substring(start, end),
+            style: TextStyle(
+              backgroundColor: scheme.tertiaryContainer,
+              color: scheme.onTertiaryContainer,
+              fontWeight: FontWeight.w700,
+            ),
+          ),
+          if (end < passage.text.length)
+            TextSpan(text: passage.text.substring(end)),
+        ],
+      ),
+    );
   }
 
   Future<void> _toggleFavorite() async {
@@ -261,7 +303,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                             child: Column(
                               crossAxisAlignment: CrossAxisAlignment.stretch,
                               children: [
-                                SelectableText(passage.text, style: TextStyle(fontSize: fontSize, height: 1.55)),
+                                _passageText(context, passage, fontSize),
                                 const SizedBox(height: 8),
                                 Wrap(
                                   alignment: WrapAlignment.end,
