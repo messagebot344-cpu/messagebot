@@ -33,11 +33,11 @@ class StudyCertificatePdfBuilder {
       sermon.code,
       'Score : $score %',
       'Tentatives : $attemptCount',
-      'Temps d’étude : $studyDuration',
+      'Temps d'etude : $studyDuration',
       'Certification : ${certification.certificationId}',
       'Pack : ${certification.packVersion}',
       'Corpus : ${certification.corpusVersion}',
-      'Ceci n’est pas un diplôme académique ou ecclésiastique officiel.',
+      'Ceci n’est pas un diplome academique ou ecclesiastique officiel.',
     ].join('\n');
 
     doc.addPage(
@@ -78,7 +78,7 @@ class StudyCertificatePdfBuilder {
               ),
               pw.SizedBox(height: 8),
               pw.Text(
-                'Parcours d’étude de la prédication',
+                'Parcours d'etude de la predication',
                 textAlign: pw.TextAlign.center,
                 style: const pw.TextStyle(fontSize: 15),
               ),
@@ -105,7 +105,7 @@ class StudyCertificatePdfBuilder {
                   pw.SizedBox(width: 28),
                   _metric('Tentatives', '$attemptCount'),
                   pw.SizedBox(width: 28),
-                  _metric('Temps d’étude', studyDuration),
+                  _metric('Temps d'etude', studyDuration),
                   pw.SizedBox(width: 28),
                   _metric('Réussite', _formatDate(certifiedAt)),
                 ],
@@ -140,9 +140,9 @@ class StudyCertificatePdfBuilder {
                 padding: const pw.EdgeInsets.all(12),
                 color: PdfColors.grey100,
                 child: pw.Text(
-                  'Certification de réussite du parcours d’étude de '
-                  'l’application Le Grenier du Message. Ceci n’est pas un '
-                  'diplôme académique ou ecclésiastique officiel.',
+                  'Certification de reussite du parcours d'etude de '
+                  'l'application Le Grenier du Message. Ceci n'est pas un '
+                  'diplome academique ou ecclesiastique officiel.',
                   textAlign: pw.TextAlign.center,
                   style: const pw.TextStyle(fontSize: 9),
                 ),
@@ -157,13 +157,13 @@ class StudyCertificatePdfBuilder {
               pw.Text(
                 'Pack v${certification.packVersion} | '
                 'Corpus ${_safe(certification.corpusVersion)} | '
-                'Intégrité ${certification.integrityHash.substring(0, 20)}…',
+                'Integrite ${certification.integrityHash.substring(0, 20)}...',
                 textAlign: pw.TextAlign.center,
                 style: const pw.TextStyle(fontSize: 7.5),
               ),
               pw.SizedBox(height: 8),
               pw.Text(
-                'Document généré localement le ${_formatDate(generatedAt)}.',
+                'Document genere localement le ${_formatDate(generatedAt)}.',
                 textAlign: pw.TextAlign.center,
                 style: const pw.TextStyle(fontSize: 7.5),
               ),
@@ -220,6 +220,6 @@ class StudyCertificatePdfBuilder {
       .replaceAll('”', '"')
       .replaceAll('—', '-')
       .replaceAll('–', '-')
-      .replaceAll('…', '...')
+      .replaceAll('...', '...')
       .replaceAll('\u00a0', ' ');
 }
