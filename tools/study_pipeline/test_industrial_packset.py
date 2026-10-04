@@ -131,7 +131,11 @@ class IndustrialPacksetTest(unittest.TestCase):
             self.assertEqual(report["packs_rejected"], 0)
             self.assertGreater(report["total_questions_validated"], 90)
 
-            validation = validate(corpus, study)
+            validation = validate(
+                corpus,
+                study,
+                corpus_manifest_path=corpus_manifest,
+            )
             self.assertEqual(validation["errors"], [])
             self.assertEqual(validation["published_packs"], 4)
             self.assertGreater(validation["evidence_checked"], 0)
