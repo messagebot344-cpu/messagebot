@@ -117,17 +117,17 @@ void main() {
 
     expect(
       top1Rate,
-      greaterThanOrEqualTo(0.85),
+      greaterThanOrEqualTo(0.90),
       reason: 'Le routing de référence doit rester précis en Top-1.',
     );
     expect(
       top3Rate,
-      greaterThanOrEqualTo(0.90),
+      greaterThanOrEqualTo(0.95),
       reason: 'La bonne référence doit presque toujours être dans le Top-3.',
     );
     expect(
       top5Rate,
-      greaterThanOrEqualTo(0.90),
+      greaterThanOrEqualTo(0.95),
       reason: 'Le Top-5 ne doit pas régresser.',
     );
   });
