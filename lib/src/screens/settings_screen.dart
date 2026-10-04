@@ -68,14 +68,28 @@ class SettingsScreen extends StatelessWidget {
           const ListTile(
             contentPadding: EdgeInsets.zero,
             leading: Icon(Icons.rule_folder_outlined),
-            title: Text('Recherche déterministe locale'),
-            subtitle: Text('FTS5/BM25, citation exacte, proximité, variantes morphologiques et correspondances orthographiques. Aucun LLM, embedding neuronal ou LSA n’est chargé au runtime.'),
+            title: Text('Recherche canonique déterministe'),
+            subtitle: Text('FTS5/BM25, citation exacte, proximité, variantes morphologiques et correspondances orthographiques. Les passages affichés viennent toujours du corpus local.'),
+          ),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: Icon(
+              scope.searchService.offlineAiReady
+                  ? Icons.psychology_alt_outlined
+                  : Icons.psychology_outlined,
+            ),
+            title: const Text('IA sémantique locale légère'),
+            subtitle: Text(
+              scope.searchService.offlineAiReady
+                  ? 'Active. Elle rapproche la question des thèmes validés, sans réseau et sans générer de citation ni de réponse doctrinale.'
+                  : 'Indisponible. La recherche V4 déterministe continue de fonctionner normalement.',
+            ),
           ),
           const ListTile(
             contentPadding: EdgeInsets.zero,
             leading: Icon(Icons.cloud_off_outlined),
             title: Text('100 % hors ligne'),
-            subtitle: Text('Le corpus, la recherche, les conversations et les données personnelles restent locaux.'),
+            subtitle: Text('Le corpus, la recherche, l’IA sémantique, les conversations et les données personnelles restent locaux. Aucun LLM génératif ni service cloud n’est utilisé.'),
           ),
           const Divider(height: 32),
           Text('Corpus', style: Theme.of(context).textTheme.titleLarge),
