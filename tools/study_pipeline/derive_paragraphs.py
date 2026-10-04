@@ -14,6 +14,15 @@ SEPARATOR_RE = re.compile(r"\n[ \t]*\n+")
 PRINTED_NUMBER_RE = re.compile(r"^(\d{1,4})(?:[.)])?(?:\s*\n|\s{2,})")
 
 
+# Study-only boundaries for known publisher/distribution tails. These markers
+# never alter corpus.db: they only stop the derived certifying-study layer
+# before editorial material appended after the sermon itself.
+STUDY_EDITORIAL_START_MARKERS = (
+    "\nshekinah publications",
+    "\nveuillez trouver les autres prédications sur branham.fr",
+)
+
+
 @dataclass(frozen=True)
 class DerivedParagraph:
     paragraph_key: str
