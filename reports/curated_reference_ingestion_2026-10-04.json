@@ -56,10 +56,11 @@
     }
   ],
   "totals": {
-    "entries": 1795,
-    "resolved": 1766,
+    "numbered_entries": 1795,
+    "routing_references": 1796,
+    "resolved": 1767,
     "unresolved": 29,
-    "active_ratio": 0.9838440111420613
+    "active_ratio": 0.9838530066815144
   },
   "runtime_changes": [
     "Curated references are ranked by user-query overlap with each manual thematic marker, so deep references are eligible.",
@@ -68,6 +69,7 @@
     "Release validation checks every active curated sermon code and anchor against the canonical corpus.",
     "No quote text from the fascicles is stored as displayable canonical text.",
     "The 1060-reference doctrine/service fascicle is indexed across 15 major sections plus five ministry-specific routes.",
-    "The 200-reference finance/family/deliverance fascicle keeps the source's explicit caution around 'mari/femme de nuit' and does not elevate that terminology into doctrine."
+    "The 200-reference finance/family/deliverance fascicle keeps the source's explicit caution around 'mari/femme de nuit' and does not elevate that terminology into doctrine.",
+    "The explicit Church Order 63-1226 summary locator for arriving about 30 minutes before service is indexed as one additional summary routing reference; it is not counted among the 1795 numbered fascicle entries."
   ]
 }
