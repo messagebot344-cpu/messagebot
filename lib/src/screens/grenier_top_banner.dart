@@ -7,58 +7,113 @@ class GrenierTopBanner extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 104,
-      width: double.infinity,
-      color: GrenierPalette.navy,
-      padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 14),
-      child: Row(
-        children: [
-          const Icon(Icons.menu_book_rounded, size: 42, color: Colors.white),
-          const SizedBox(width: 14),
-          const SizedBox(
-            width: 190,
-            child: Text(
-              'Toute Sa Parole\nà portée de recherche.',
-              style: TextStyle(color: Colors.white70, height: 1.25),
-            ),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final compact = constraints.maxWidth < GrenierBreakpoints.desktopWide;
+        return Container(
+          height: 104,
+          width: double.infinity,
+          color: GrenierPalette.navy,
+          padding: EdgeInsets.symmetric(horizontal: compact ? 16 : 22, vertical: 14),
+          child: compact ? const _CompactBanner() : const _FullBanner(),
+        );
+      },
+    );
+  }
+}
+
+class _CompactBanner extends StatelessWidget {
+  const _CompactBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Icon(Icons.menu_book_rounded, size: 38, color: Colors.white),
+        const SizedBox(width: 12),
+        const Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                GrenierBrand.name,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white, fontSize: 21, fontWeight: FontWeight.w800),
+              ),
+              SizedBox(height: 3),
+              Text(
+                GrenierBrand.tagline,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                style: TextStyle(color: Colors.white70, fontSize: 11.5),
+              ),
+            ],
           ),
-          const SizedBox(width: 20),
-          const Expanded(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Text(
-                  GrenierBrand.name,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w700, fontFamily: 'serif'),
-                ),
-                SizedBox(height: 3),
-                Text(
-                  GrenierBrand.tagline,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(color: Colors.white70, fontSize: 12.5),
-                ),
-              ],
-            ),
+        ),
+        const SizedBox(width: 10),
+        const _TrustBadge(
+          icon: Icons.cloud_off_rounded,
+          label: GrenierBrand.offlineLabel,
+          emphasized: true,
+        ),
+      ],
+    );
+  }
+}
+
+class _FullBanner extends StatelessWidget {
+  const _FullBanner();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        const Icon(Icons.menu_book_rounded, size: 42, color: Colors.white),
+        const SizedBox(width: 14),
+        const SizedBox(
+          width: 190,
+          child: Text(
+            'Toute Sa Parole\nà portée de recherche.',
+            style: TextStyle(color: Colors.white70, height: 1.25),
           ),
-          const SizedBox(width: 20),
-          ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 310),
-            child: const Wrap(
-              alignment: WrapAlignment.end,
-              crossAxisAlignment: WrapCrossAlignment.center,
-              spacing: 8,
-              runSpacing: 6,
-              children: [
-                _TrustBadge(icon: Icons.cloud_off_rounded, label: GrenierBrand.offlineLabel, emphasized: true),
-                _TrustBadge(icon: Icons.shield_outlined, label: GrenierBrand.noAiLabel),
-                _TrustBadge(icon: Icons.verified_outlined, label: GrenierBrand.canonicalOnlyLabel),
-              ],
-            ),
+        ),
+        const SizedBox(width: 20),
+        const Expanded(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                GrenierBrand.name,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.w700, fontFamily: 'serif'),
+              ),
+              SizedBox(height: 3),
+              Text(
+                GrenierBrand.tagline,
+                textAlign: TextAlign.center,
+                style: TextStyle(color: Colors.white70, fontSize: 12.5),
+              ),
+            ],
           ),
-        ],
-      ),
+        ),
+        const SizedBox(width: 20),
+        const ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 310),
+          child: Wrap(
+            alignment: WrapAlignment.end,
+            crossAxisAlignment: WrapCrossAlignment.center,
+            spacing: 8,
+            runSpacing: 6,
+            children: [
+              _TrustBadge(icon: Icons.cloud_off_rounded, label: GrenierBrand.offlineLabel, emphasized: true),
+              _TrustBadge(icon: Icons.shield_outlined, label: GrenierBrand.noAiLabel),
+              _TrustBadge(icon: Icons.verified_outlined, label: GrenierBrand.canonicalOnlyLabel),
+            ],
+          ),
+        ),
+      ],
     );
   }
 }
