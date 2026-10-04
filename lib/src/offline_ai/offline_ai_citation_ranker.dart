@@ -187,8 +187,10 @@ class OfflineAiCitationRanker {
     if (queryVector.isEmpty) return const [];
 
     final normalizedQuery = normalizer.normalize(query);
-    final queryTokens =
-        normalizer.tokens(query, removeStopWords: true).toSet();
+    final queryTokens = normalizer
+        .tokens(query, removeStopWords: true)
+        .where((token) => !_noise.contains(token))
+        .toSet();
     final values = <OfflineAiCitationMatch>[];
 
     for (final reference in references) {
