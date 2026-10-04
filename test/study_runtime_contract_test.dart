@@ -54,7 +54,7 @@ void main() {
     final parts = (manifest['parts'] as List).cast<Map<String, dynamic>>();
     expect(parts, isNotEmpty);
     var totalBytes = 0;
-    final combined = BytesBuilder(copy: false);
+    final combined = <int>[];
     for (final part in parts) {
       final file = File('assets/study/db_parts/${part['name']}');
       expect(file.existsSync(), isTrue);
@@ -62,11 +62,11 @@ void main() {
       expect(bytes.length, part['bytes']);
       expect(sha256.convert(bytes).toString(), part['sha256']);
       totalBytes += bytes.length;
-      combined.add(bytes);
+      combined.addAll(bytes);
     }
     expect(totalBytes, manifest['database_bytes']);
     expect(
-      sha256.convert(combined.takeBytes()).toString(),
+      sha256.convert(combined).toString(),
       manifest['database_sha256'],
     );
   });
