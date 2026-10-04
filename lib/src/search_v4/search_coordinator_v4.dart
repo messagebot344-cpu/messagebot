@@ -191,9 +191,24 @@ class SearchCoordinatorV4 {
       candidates.map((e) => e.passageId),
     );
 
-    // A bounded canonical window keeps the local AI fast on small phones
-    // while still reranking far more passages than can appear on screen.
-    final semanticWindow = candidates.take(240).toList(growable: false);
+    // A bounded canonical window keeps the local AI fast on small phones.
+    // Start with the strongest deterministic candidates, then make sure that
+    // curated candidates are not silently excluded just because they ranked
+    // outside the first lexical window.
+    final semanticWindow = <RankedCandidateV4>[];
+    final semanticWindowIds = <int>{};
+    for (final candidate in candidates.take(240)) {
+      if (semanticWindowIds.add(candidate.passageId)) {
+        semanticWindow.add(candidate);
+      }
+    }
+    for (final candidate in candidates) {
+      if (semanticWindow.length >= 360) break;
+      if (!curated.references.containsKey(candidate.passageId)) continue;
+      if (semanticWindowIds.add(candidate.passageId)) {
+        semanticWindow.add(candidate);
+      }
+    }
     final semanticDetails = <StudyPassage>[
       for (final candidate in semanticWindow)
         if (details[candidate.passageId] != null)
@@ -273,16 +288,21 @@ class SearchCoordinatorV4 {
           spec.sermonCode == null &&
           tokens.length >= 3;
 
-      if (explanation.curatedReference &&
+      final semanticGateEnabled = offlineAiCitationRanker != null;
+
+      if (semanticGateEnabled &&
+          explanation.curatedReference &&
           !hasStrongIndependentEvidence &&
           passageMatch == null) {
         continue;
       }
 
-      // For natural-language questions, broad/fuzzy/topic similarity alone
-      // must not manufacture confidence. Either canonical text relevance or
-      // genuinely strong corpus evidence is required.
-      if (naturalQuestion &&
+      // When the optional local citation ranker is available, natural-language
+      // questions require canonical semantic relevance (or direct/exact
+      // evidence). When it is unavailable, keep the deterministic V4 fallback
+      // fully operational instead of returning an artificially empty result.
+      if (semanticGateEnabled &&
+          naturalQuestion &&
           passageMatch == null &&
           !explanation.direct &&
           !explanation.exactPhrase) {
