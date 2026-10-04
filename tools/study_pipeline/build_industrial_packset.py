@@ -62,6 +62,47 @@ def sentence_spans(value: str) -> list[tuple[int, int]]:
     return result
 
 
+def excerpt_spans(
+    value: str,
+    *,
+    minimum: int = 70,
+    target: int = 180,
+    maximum: int = 240,
+) -> list[tuple[int, int]]:
+    """Return non-overlapping exact substrings without rewriting source text."""
+    result: list[tuple[int, int]] = []
+    cursor = 0
+    length = len(value)
+    while cursor < length:
+        while cursor < length and value[cursor].isspace():
+            cursor += 1
+        if cursor >= length:
+            break
+        hard_end = min(length, cursor + maximum)
+        preferred_end = min(length, cursor + target)
+        end = preferred_end
+
+        if end < length:
+            right = value.find(" ", end, hard_end + 1)
+            if right >= 0:
+                end = right
+            else:
+                left = value.rfind(" ", cursor + minimum, end)
+                if left > cursor:
+                    end = left
+
+        while end > cursor and value[end - 1].isspace():
+            end -= 1
+        if end - cursor >= minimum:
+            result.append((cursor, end))
+
+        next_cursor = max(end, cursor + 1)
+        while next_cursor < length and not value[next_cursor].isspace():
+            next_cursor += 1
+        cursor = next_cursor
+    return result
+
+
 def stable_index(seed: str, size: int) -> int:
     digest = hashlib.sha256(seed.encode("utf-8")).digest()
     return int.from_bytes(digest[:8], "big") % max(1, size)
@@ -98,25 +139,58 @@ def candidates_for_sermon(
 ) -> list[SentenceCandidate]:
     texts = paragraph_text_map(corpus, paragraphs)
     result: list[SentenceCandidate] = []
+    seen: set[str] = set()
+
+    def append_candidate(
+        paragraph: DerivedParagraph,
+        source: str,
+        local_start: int,
+        local_end: int,
+    ) -> None:
+        text = source[
+            paragraph.start_offset + local_start:
+            paragraph.start_offset + local_end
+        ]
+        key = normalize(text)
+        if not key or key in seen:
+            return
+        seen.add(key)
+        result.append(
+            SentenceCandidate(
+                sermon_id=sermon_id,
+                paragraph_key=paragraph.paragraph_key,
+                passage_id=paragraph.passage_id,
+                start_offset=paragraph.start_offset + local_start,
+                end_offset=paragraph.start_offset + local_end,
+                source_page_start=paragraph.source_page_start,
+                source_page_end=paragraph.source_page_end,
+                text=text,
+            )
+        )
+
     for paragraph in paragraphs:
         source = texts.get(paragraph.passage_id)
         if source is None:
             continue
         exact_paragraph = source[paragraph.start_offset:paragraph.end_offset]
         for local_start, local_end in sentence_spans(exact_paragraph):
-            text = exact_paragraph[local_start:local_end]
-            result.append(
-                SentenceCandidate(
-                    sermon_id=sermon_id,
-                    paragraph_key=paragraph.paragraph_key,
-                    passage_id=paragraph.passage_id,
-                    start_offset=paragraph.start_offset + local_start,
-                    end_offset=paragraph.start_offset + local_end,
-                    source_page_start=paragraph.source_page_start,
-                    source_page_end=paragraph.source_page_end,
-                    text=text,
-                )
-            )
+            append_candidate(paragraph, source, local_start, local_end)
+
+    # Some short or weakly punctuated sermons expose too few sentence-sized
+    # candidates for a robust 2.4x exam bank. Add exact, non-overlapping source
+    # excerpts only when needed; offsets and hashes remain canonical.
+    if len(result) < 24:
+        for paragraph in paragraphs:
+            source = texts.get(paragraph.passage_id)
+            if source is None:
+                continue
+            exact_paragraph = source[
+                paragraph.start_offset:paragraph.end_offset
+            ]
+            for local_start, local_end in excerpt_spans(exact_paragraph):
+                append_candidate(paragraph, source, local_start, local_end)
+                if len(result) >= 30:
+                    return result
     return result
 
 
@@ -381,18 +455,49 @@ class PackWriter:
         return result
 
 
-def select_blank_word(sentence: str) -> tuple[str, str] | None:
+def select_blank_variants(
+    sentence: str,
+    *,
+    limit: int = 1,
+) -> list[tuple[str, str]]:
     matches = [
         match
         for match in WORD_RE.finditer(sentence)
         if normalize(match.group(0)) not in STOP_WORDS
     ]
-    if not matches:
-        return None
-    match = matches[len(matches) // 2]
-    word = match.group(0)
-    prompt = sentence[:match.start()] + "____" + sentence[match.end():]
-    return prompt, word
+    if not matches or limit <= 0:
+        return []
+
+    preferred = [
+        len(matches) // 2,
+        len(matches) // 3,
+        (2 * len(matches)) // 3,
+        0,
+        len(matches) - 1,
+    ]
+    result: list[tuple[str, str]] = []
+    used_indexes: set[int] = set()
+    used_words: set[str] = set()
+    for index in preferred:
+        index = max(0, min(index, len(matches) - 1))
+        if index in used_indexes:
+            continue
+        used_indexes.add(index)
+        match = matches[index]
+        word = match.group(0)
+        key = normalize(word)
+        if key in used_words:
+            continue
+        used_words.add(key)
+        prompt = (
+            sentence[:match.start()]
+            + "____"
+            + sentence[match.end():]
+        )
+        result.append((prompt, word))
+        if len(result) >= limit:
+            break
+    return result
 
 
 def insert_sections(
@@ -477,6 +582,7 @@ def build_questions_for_sermon(
     section_count = len(section_ids)
     quote_limit = 4 if section_count >= 3 else (8 if section_count == 2 else 12)
     blank_limit = quote_limit
+    blank_variants = 1 if section_count >= 3 else 2
     reasoning_limit = 1 if section_count >= 3 else (3 if section_count == 2 else 6)
 
     for section_index, values in enumerate(section_candidates):
@@ -503,8 +609,9 @@ def build_questions_for_sermon(
                     category="comprehension",
                     difficulty=3,
                     prompt=(
-                        "Laquelle de ces citations appartient exactement "
-                        "à cette prédication ?"
+                        f"Partie {section_index + 1}, extrait "
+                        f"{local_index + 1}. Laquelle de ces citations "
+                        "appartient exactement à cette prédication ?"
                     ),
                     options=options,
                     evidence=[item],
@@ -513,33 +620,42 @@ def build_questions_for_sermon(
                 counts["comprehension"] += 1
 
         for local_index, item in enumerate(values[:blank_limit]):
-            blank = select_blank_word(item.text)
-            if blank is None:
-                continue
-            prompt_text, correct_word = blank
-            distractors = writer.word_distractors(
-                correct_word,
-                seed=f"blank|{sermon['id']}|{section_index}|{local_index}",
+            variants = select_blank_variants(
+                item.text,
+                limit=blank_variants,
             )
-            if len(distractors) != 3:
-                continue
-            writer.create_question(
-                sermon_id=int(sermon["id"]),
-                pack_version=pack_version,
-                section_id=section_id,
-                qtype="fill_blank",
-                category="comprehension",
-                difficulty=4,
-                prompt=(
-                    "Quel mot complète exactement cette citation ?\n\n"
-                    + prompt_text
-                ),
-                options=[(correct_word, True)]
-                + [(value, False) for value in distractors],
-                evidence=[item],
-                generator_kind="deterministic_fill_blank_v1",
-            )
-            counts["comprehension"] += 1
+            for variant_index, (prompt_text, correct_word) in enumerate(
+                variants
+            ):
+                distractors = writer.word_distractors(
+                    correct_word,
+                    seed=(
+                        f"blank|{sermon['id']}|{section_index}|"
+                        f"{local_index}|{variant_index}"
+                    ),
+                )
+                if len(distractors) != 3:
+                    continue
+                writer.create_question(
+                    sermon_id=int(sermon["id"]),
+                    pack_version=pack_version,
+                    section_id=section_id,
+                    qtype="fill_blank",
+                    category="comprehension",
+                    difficulty=4,
+                    prompt=(
+                        f"Partie {section_index + 1}, extrait "
+                        f"{local_index + 1}, variante "
+                        f"{variant_index + 1}. Quel mot complète "
+                        "exactement cette citation ?\n\n"
+                        + prompt_text
+                    ),
+                    options=[(correct_word, True)]
+                    + [(value, False) for value in distractors],
+                    evidence=[item],
+                    generator_kind="deterministic_fill_blank_v1",
+                )
+                counts["comprehension"] += 1
 
         if len(section_ids) >= 3:
             for local_index, item in enumerate(values[:2]):
@@ -574,6 +690,7 @@ def build_questions_for_sermon(
                     category="context",
                     difficulty=4,
                     prompt=(
+                        f"Repère {section_index + 1}.{local_index + 1}. "
                         "Dans quelle partie du parcours se trouve "
                         "cette citation exacte ?\n\n«"
                         + item.text
@@ -607,8 +724,9 @@ def build_questions_for_sermon(
                 category="reasoning",
                 difficulty=5,
                 prompt=(
-                    "Remettez ces citations dans l’ordre où elles "
-                    "apparaissent dans la prédication."
+                    f"Partie {section_index + 1}, séquence "
+                    f"{group_index + 1}. Remettez ces citations dans "
+                    "l’ordre où elles apparaissent dans la prédication."
                 ),
                 options=options,
                 evidence=ordered,
