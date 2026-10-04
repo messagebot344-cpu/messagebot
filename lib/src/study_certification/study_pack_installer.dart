@@ -21,6 +21,8 @@ class StudyPackInstaller {
   static const manifestAsset = 'assets/study/manifest.json';
 
   Future<StudyPackInstallResult> ensureInstalled({
+    required String expectedCorpusVersion,
+    required String expectedCanonicalSha256,
     void Function(double progress, String message)? onProgress,
   }) async {
     final manifest = jsonDecode(
@@ -30,6 +32,20 @@ class StudyPackInstaller {
     final packsetVersion = manifest['packset_version'] as String;
     final expectedBytes = manifest['database_bytes'] as int;
     final expectedSha = manifest['database_sha256'] as String;
+    final manifestCorpusVersion = manifest['corpus_version'] as String;
+    final manifestCanonicalSha =
+        manifest['corpus_canonical_sha256'] as String;
+    if (manifestCorpusVersion != expectedCorpusVersion) {
+      throw StateError(
+        'Le paquet d’étude exige un autre corpus: '
+        '$manifestCorpusVersion != $expectedCorpusVersion.',
+      );
+    }
+    if (manifestCanonicalSha != expectedCanonicalSha256) {
+      throw StateError(
+        'Le paquet d’étude ne correspond pas au texte canonique installé.',
+      );
+    }
     final parts = (manifest['parts'] as List).cast<Map<String, dynamic>>();
 
     final support = await getApplicationSupportDirectory();
@@ -99,7 +115,12 @@ class StudyPackInstaller {
           'Empreinte globale du paquet d’étude invalide.',
         );
       }
-      _validateDatabase(temp, schemaVersion);
+      _validateDatabase(
+        temp,
+        schemaVersion,
+        expectedCorpusVersion: expectedCorpusVersion,
+        expectedCanonicalSha256: expectedCanonicalSha256,
+      );
 
       if (await backup.exists()) await backup.delete();
       var oldMoved = false;
@@ -167,8 +188,10 @@ class StudyPackInstaller {
 
   void _validateDatabase(
     File file,
-    int expectedSchemaVersion,
-  ) {
+    int expectedSchemaVersion, {
+    required String expectedCorpusVersion,
+    required String expectedCanonicalSha256,
+  }) {
     final db = sqlite3.open(file.path, mode: OpenMode.readOnly);
     try {
       final quick = db.select('PRAGMA quick_check');
@@ -185,6 +208,25 @@ class StudyPackInstaller {
               expectedSchemaVersion) {
         throw StateError(
           'Version du schéma Study Pack incompatible.',
+        );
+      }
+      final corpusRows = db.select(
+        "SELECT key,value FROM study_pack_meta "
+        "WHERE key IN ('corpus_version','corpus_canonical_sha256')",
+      );
+      final values = <String, String>{
+        for (final row in corpusRows)
+          row['key'] as String: row['value'] as String,
+      };
+      if (values['corpus_version'] != expectedCorpusVersion) {
+        throw StateError(
+          'Version du corpus Study Pack incompatible.',
+        );
+      }
+      if (values['corpus_canonical_sha256'] !=
+          expectedCanonicalSha256) {
+        throw StateError(
+          'Empreinte canonique Study Pack incompatible.',
         );
       }
     } finally {
