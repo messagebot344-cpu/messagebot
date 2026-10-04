@@ -15,6 +15,7 @@ runtime_files = [
 runtime_files += list((ROOT/'lib/src/search_v4').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/conversation').glob('*.dart'))
 runtime_files += list((ROOT/'lib/src/study_certification').glob('*.dart'))
+runtime_files += list((ROOT/'lib/src/screens').glob('study_*.dart'))
 for p in runtime_files:
     text=p.read_text(encoding='utf-8')
     for banned in ['semantic_index.dart','SemanticIndex(', 'SemanticSearchEngine(', 'semantic_vectors.f32','semantic_components.f32']:
