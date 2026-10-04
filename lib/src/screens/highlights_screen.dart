@@ -86,7 +86,7 @@ class _HighlightsScreenState extends State<HighlightsScreen> {
                 child: Column(
                   mainAxisSize: MainAxisSize.min,
                   children: [
-                    Icon(Icons.format_color_fill_outlined, size: 54),
+                    Icon(Icons.border_color_outlined, size: 54),
                     SizedBox(height: 14),
                     Text(
                       'Aucun passage surligné',
@@ -129,7 +129,7 @@ class _HighlightsScreenState extends State<HighlightsScreen> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 const Icon(
-                                  Icons.format_color_fill,
+                                  Icons.border_color,
                                   size: 20,
                                   color: GrenierPalette.actionBlue,
                                 ),
