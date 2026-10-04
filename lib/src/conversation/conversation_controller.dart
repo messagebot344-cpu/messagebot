@@ -33,17 +33,40 @@ class ConversationController extends ChangeNotifier {
   List<ConversationTurnView> _turns = const [];
   List<ConversationSummary> _conversations = const [];
   String _conversationSearch = '';
+  ConversationFilterSet _activeFilters = const ConversationFilterSet();
 
   int? get conversationId => _conversationId;
   bool get searching => _searching;
   List<ConversationTurnView> get turns => _turns;
   List<ConversationSummary> get conversations => _conversations;
   bool get hasConversation => _conversationId != null;
-  ConversationFilterSet get currentFilters => _turns.isEmpty ? const ConversationFilterSet() : _turns.last.record.filters;
+  ConversationFilterSet get activeFilters => _activeFilters;
+  ConversationFilterSet get currentFilters => _activeFilters;
 
   void startNewConversation() {
     _conversationId = null;
     _turns = const [];
+    _activeFilters = const ConversationFilterSet();
+    notifyListeners();
+  }
+
+  void setActiveFilters(ConversationFilterSet value) {
+    _activeFilters = value;
+    notifyListeners();
+  }
+
+  void clearSubjectFilter() {
+    _activeFilters = _activeFilters.copyWith(subjectTerms: const <String>[]);
+    notifyListeners();
+  }
+
+  void clearPeriodFilter() {
+    _activeFilters = _activeFilters.copyWith(clearYearMin: true, clearYearMax: true);
+    notifyListeners();
+  }
+
+  void clearSourceFilter() {
+    _activeFilters = _activeFilters.copyWith(clearSourceType: true, clearSourceId: true);
     notifyListeners();
   }
 
@@ -85,6 +108,7 @@ class ConversationController extends ChangeNotifier {
       final explanationById = <int, SearchExplanationV4>{
         for (final value in outcome.hits) value.hit.studyPassage.passage.id: value.explanation,
       };
+      _activeFilters = outcome.filters;
       _turns = [
         ..._turns,
         ConversationTurnView(
@@ -109,6 +133,7 @@ class ConversationController extends ChangeNotifier {
       hits: searchService.resolvePersisted(record.hits, query: record.query),
       explanations: const <int, SearchExplanationV4>{},
     )).toList(growable: false);
+    _activeFilters = _turns.isEmpty ? const ConversationFilterSet() : _turns.last.record.filters;
     notifyListeners();
   }
 
