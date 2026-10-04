@@ -1,6 +1,17 @@
 import '../conversation/conversation_models.dart';
 import 'text_normalizer.dart';
 
+enum QuestionIntent {
+  none,
+  why,
+  how,
+  definition,
+  comparison,
+  condition,
+  who,
+  other,
+}
+
 class QuerySpecV4 {
   const QuerySpecV4({
     required this.raw,
@@ -19,7 +30,49 @@ class QuerySpecV4 {
   final String? sermonCode;
 
   bool get isEmpty => normalized.isEmpty;
-  String get effectiveText => subjectTerms.isEmpty ? normalized : subjectTerms.join(' ');
+  String get effectiveText =>
+      subjectTerms.isEmpty ? normalized : subjectTerms.join(' ');
+
+  QuestionIntent get questionIntent {
+    if (exactPhrase != null) return QuestionIntent.none;
+    final value = normalized;
+    if (value.isEmpty) return QuestionIntent.none;
+    if (RegExp(r'^(pourquoi|pour quelle raison|quelle raison)\b')
+        .hasMatch(value)) {
+      return QuestionIntent.why;
+    }
+    if (RegExp(r'^(comment|que faire|quoi faire|de quelle maniere)\b')
+        .hasMatch(value)) {
+      return QuestionIntent.how;
+    }
+    if (RegExp(
+      r'^(qu est ce que|c est quoi|que signifie|quelle est la signification|definis|definir)\b',
+    ).hasMatch(value)) {
+      return QuestionIntent.definition;
+    }
+    if (RegExp(
+      r'\b(difference|differencie|comparer|comparaison|plutot que)\b',
+    ).hasMatch(value)) {
+      return QuestionIntent.comparison;
+    }
+    if (RegExp(r'^(quand|dans quel cas|a quelle condition|si )')
+        .hasMatch(value)) {
+      return QuestionIntent.condition;
+    }
+    if (RegExp(r'^(qui|quel|quelle|quels|quelles)\b')
+        .hasMatch(value)) {
+      return QuestionIntent.who;
+    }
+    if (raw.trim().endsWith('?') ||
+        RegExp(
+          r'^(peut on|doit on|faut il|est ce que|parle moi|explique moi|montre moi|je veux savoir|je cherche)\b',
+        ).hasMatch(value)) {
+      return QuestionIntent.other;
+    }
+    return QuestionIntent.none;
+  }
+
+  bool get isNaturalQuestion => questionIntent != QuestionIntent.none;
 }
 
 class QueryParserV4 {
