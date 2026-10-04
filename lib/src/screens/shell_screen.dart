@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+import '../theme/grenier_tokens.dart';
+
 import 'favorites_screen.dart';
 import 'home_screen.dart';
 import 'library_screen.dart';
@@ -18,13 +20,13 @@ class _ShellScreenState extends State<ShellScreen> {
   int _index = 0;
 
   static const _titles = ['Accueil', 'Rechercher', 'Bibliothèque', 'Étudier', 'Favoris'];
-  static const _screens = [
-    HomeScreen(),
-    SearchScreen(),
-    LibraryScreen(),
-    StudyScreen(),
-    FavoritesScreen(),
-  ];
+  List<Widget> get _screens => [
+        HomeScreen(onStartConversation: () => setState(() => _index = 1)),
+        const SearchScreen(),
+        const LibraryScreen(),
+        const StudyScreen(),
+        const FavoritesScreen(),
+      ];
 
   void _openSettings() {
     Navigator.of(context).push(MaterialPageRoute(builder: (_) => const SettingsScreen()));
@@ -39,7 +41,7 @@ class _ShellScreenState extends State<ShellScreen> {
         if (wide) {
           return Scaffold(
             appBar: AppBar(
-              title: Text('Message Bot — ${_titles[_index]}'),
+              title: Text('${GrenierBrand.name} — ${_titles[_index]}'),
               actions: [
                 IconButton(
                   tooltip: 'Réglages et à propos',
