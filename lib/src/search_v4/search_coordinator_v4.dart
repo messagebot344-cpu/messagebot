@@ -1,5 +1,6 @@
 import '../conversation/conversation_models.dart';
 import '../models/models.dart';
+import '../offline_ai/offline_ai_citation_ranker.dart';
 import '../offline_ai/offline_ai_semantic_router.dart';
 import '../search/search_contracts.dart';
 import '../services/corpus_repository.dart';
@@ -41,6 +42,7 @@ class SearchCoordinatorV4 {
     this.sentenceLocator = const CanonicalSentenceLocator(),
     this.curatedReferenceIndex,
     this.offlineAiRouter,
+    this.offlineAiCitationRanker,
   })  : exactEngine = ExactPhraseEngine(repository),
         proximityEngine = ProximitySearchEngine(repository),
         conceptualExpander = ConceptualQueryExpander(repository);
@@ -54,6 +56,7 @@ class SearchCoordinatorV4 {
   final CanonicalSentenceLocator sentenceLocator;
   final CuratedReferenceIndex? curatedReferenceIndex;
   final OfflineAiSemanticRouter? offlineAiRouter;
+  final OfflineAiCitationRanker? offlineAiCitationRanker;
   final ExactPhraseEngine exactEngine;
   final ProximitySearchEngine proximityEngine;
   final ConceptualQueryExpander conceptualExpander;
@@ -131,10 +134,17 @@ class SearchCoordinatorV4 {
 
     final offlineAiMatches =
         offlineAiRouter?.match(spec.raw) ?? const <OfflineAiTopicMatch>[];
+    final offlineAiCitationMatches =
+        offlineAiCitationRanker?.rankReferences(
+              spec.raw,
+              limit: 48,
+            ) ??
+            const <OfflineAiCitationMatch>[];
     final curated = _curatedHits(
       rawQuery: spec.raw,
       focusTerms: tokens,
       offlineAiMatches: offlineAiMatches,
+      offlineAiCitationMatches: offlineAiCitationMatches,
     );
 
     final fuzzyTerms = <String>[];
@@ -173,18 +183,66 @@ class SearchCoordinatorV4 {
 
     final topScore = ranked.first.score;
     final threshold = topScore * 0.12;
-    final candidates = ranked.where((e) => e.score >= threshold).take(maxResults * 4).toList(growable: false);
-    final details = repository.studyDetailsForPassageIds(candidates.map((e) => e.passageId));
+    final candidates = ranked
+        .where((e) => e.score >= threshold)
+        .take(maxResults * 4)
+        .toList(growable: false);
+    final details = repository.studyDetailsForPassageIds(
+      candidates.map((e) => e.passageId),
+    );
+
+    // A bounded canonical window keeps the local AI fast on small phones
+    // while still reranking far more passages than can appear on screen.
+    final semanticWindow = candidates.take(240).toList(growable: false);
+    final semanticDetails = <StudyPassage>[
+      for (final candidate in semanticWindow)
+        if (details[candidate.passageId] != null)
+          details[candidate.passageId]!,
+    ];
+    final passageMatches =
+        offlineAiCitationRanker?.rankPassages(
+              spec.raw,
+              semanticDetails,
+              referencePriors: curated.referencePriors,
+            ) ??
+            const <OfflineAiPassageMatch>[];
+    final passageMatchById = <int, OfflineAiPassageMatch>{
+      for (final match in passageMatches) match.passageId: match,
+    };
+    final semanticRanks = <int, int>{
+      for (var i = 0; i < passageMatches.length; i++)
+        passageMatches[i].passageId: i + 1,
+    };
+
+    double combinedScore(RankedCandidateV4 candidate) {
+      final semantic = passageMatchById[candidate.passageId]?.score ?? 0.0;
+      final exactBoost =
+          candidate.explanation.direct || candidate.explanation.exactPhrase
+              ? 0.24
+              : 0.0;
+      return candidate.score + semantic * 0.22 + exactBoost;
+    }
+
+    final rerankedCandidates = List<RankedCandidateV4>.from(candidates)
+      ..sort((a, b) {
+        final byScore =
+            combinedScore(b).compareTo(combinedScore(a));
+        return byScore != 0
+            ? byScore
+            : a.passageId.compareTo(b.passageId);
+      });
+
     final primarySermons = <int>{
-      for (final item in candidates)
-        if (details[item.passageId]?.edition?.isPrimary == true && details[item.passageId]?.sermon != null)
+      for (final item in rerankedCandidates)
+        if (details[item.passageId]?.edition?.isPrimary == true &&
+            details[item.passageId]?.sermon != null)
           details[item.passageId]!.sermon!.id,
     };
 
     final refs = <PassageReference>[];
     final explanations = <int, SearchExplanationV4>{};
     final seen = <int>{};
-    for (final candidate in candidates) {
+    for (final candidate in rerankedCandidates) {
       if (refs.length >= maxResults) break;
       if (!seen.add(candidate.passageId)) continue;
       final detail = details[candidate.passageId];
@@ -192,28 +250,64 @@ class SearchCoordinatorV4 {
       if (detail.edition != null && !detail.edition!.isPrimary && detail.sermon != null && primarySermons.contains(detail.sermon!.id)) {
         continue;
       }
+      final passageMatch =
+          passageMatchById[candidate.passageId];
       final explanation = candidate.explanation
           .withCuratedReferences(
             curated.references[candidate.passageId] ?? const <String>[],
           )
           .withOfflineAiTopics(
             curated.aiTopics[candidate.passageId] ?? const <String>[],
-          );
+          )
+          .withOfflineAiCitationScore(passageMatch?.score);
+
+      // A curated-only result must pass canonical text relevance. Direct,
+      // exact and strong lexical evidence remain valid independent routes.
+      final hasStrongIndependentEvidence =
+          explanation.direct ||
+          explanation.exactPhrase ||
+          explanation.proximity ||
+          explanation.strongTerms;
+      final naturalQuestion =
+          spec.exactPhrase == null &&
+          spec.sermonCode == null &&
+          tokens.length >= 3;
+
+      if (explanation.curatedReference &&
+          !hasStrongIndependentEvidence &&
+          passageMatch == null) {
+        continue;
+      }
+
+      // For natural-language questions, broad/fuzzy/topic similarity alone
+      // must not manufacture confidence. Either canonical text relevance or
+      // genuinely strong corpus evidence is required.
+      if (naturalQuestion &&
+          passageMatch == null &&
+          !explanation.direct &&
+          !explanation.exactPhrase) {
+        continue;
+      }
+
       refs.add(PassageReference(
         passageId: candidate.passageId,
         editionId: detail.edition?.id ?? detail.source.id,
         sermonId: detail.sermon?.id ?? 0,
-        score: candidate.score,
+        score: combinedScore(candidate),
         evidence: SearchEvidence(
           direct: explanation.direct,
           exact: explanation.exactPhrase,
+          semanticRank: semanticRanks[candidate.passageId],
+          semanticScore: passageMatch?.score,
           alternateEdition: explanation.alternateEdition,
+          termCoverage: passageMatch?.coverageScore,
         ),
-        sentence: sentenceLocator.locate(
-          candidate.passageId,
-          detail.passage.text,
-          <String>[...tokens, ...conceptualTerms.take(4)].join(' '),
-        ),
+        sentence: passageMatch?.sentence ??
+            sentenceLocator.locate(
+              candidate.passageId,
+              detail.passage.text,
+              <String>[...tokens, ...conceptualTerms.take(4)].join(' '),
+            ),
       ));
       explanations[candidate.passageId] = explanation;
     }
@@ -230,10 +324,12 @@ class SearchCoordinatorV4 {
     List<RankedPassage> hits,
     Map<int, List<String>> references,
     Map<int, List<String>> aiTopics,
+    Map<int, double> referencePriors,
   }) _curatedHits({
     required String rawQuery,
     required List<String> focusTerms,
     required List<OfflineAiTopicMatch> offlineAiMatches,
+    required List<OfflineAiCitationMatch> offlineAiCitationMatches,
   }) {
     final index = curatedReferenceIndex;
     if (index == null) {
@@ -241,6 +337,7 @@ class SearchCoordinatorV4 {
         hits: const <RankedPassage>[],
         references: const <int, List<String>>{},
         aiTopics: const <int, List<String>>{},
+        referencePriors: const <int, double>{},
       );
     }
 
@@ -248,15 +345,47 @@ class SearchCoordinatorV4 {
       for (final match in offlineAiMatches)
         match.topicId: match.score,
     };
-    final hints = index.searchHints(
-      rawQuery,
-      offlineAiTopicScores: aiScores,
-    );
-    if (hints.isEmpty) {
+    final bestHints = <String, CuratedSearchHint>{
+      for (final hint in index.searchHints(
+        rawQuery,
+        referenceLimit: 24,
+        offlineAiTopicScores: aiScores,
+      ))
+        hint.reference.id: hint,
+    };
+
+    for (final match in offlineAiCitationMatches) {
+      final label = match.topicLabels.isEmpty
+          ? 'Citation sémantiquement pertinente'
+          : match.topicLabels.first;
+      final candidate = CuratedSearchHint(
+        reference: match.reference,
+        topicLabel: label,
+        matchScore: 2.6 + match.score * 5.0,
+        offlineAiScore: match.score,
+      );
+      final previous = bestHints[match.reference.id];
+      if (previous == null ||
+          candidate.matchScore > previous.matchScore) {
+        bestHints[match.reference.id] = candidate;
+      }
+    }
+
+    final hints = bestHints.values.toList(growable: false)
+      ..sort((a, b) {
+        final byScore = b.matchScore.compareTo(a.matchScore);
+        return byScore != 0
+            ? byScore
+            : a.reference.id.compareTo(b.reference.id);
+      });
+    final selectedHints = hints.take(48).toList(growable: false);
+
+    if (selectedHints.isEmpty) {
       return (
         hits: const <RankedPassage>[],
         references: const <int, List<String>>{},
         aiTopics: const <int, List<String>>{},
+        referencePriors: const <int, double>{},
       );
     }
 
@@ -264,8 +393,9 @@ class SearchCoordinatorV4 {
     final seen = <int>{};
     final references = <int, List<String>>{};
     final aiTopics = <int, List<String>>{};
+    final referencePriors = <int, double>{};
 
-    for (final hint in hints) {
+    for (final hint in selectedHints) {
       final anchorTokens = <String>{
         for (final value in hint.reference.anchorTerms)
           ...normalizer.tokens(value, removeStopWords: true),
@@ -301,6 +431,12 @@ class SearchCoordinatorV4 {
           if (!topics.contains(hint.topicLabel)) {
             topics.add(hint.topicLabel);
           }
+          final previousPrior =
+              referencePriors[hit.passageId] ?? 0.0;
+          if (hint.offlineAiScore > previousPrior) {
+            referencePriors[hit.passageId] =
+                hint.offlineAiScore;
+          }
         }
         if (seen.add(hit.passageId)) {
           result.add(hit);
@@ -315,6 +451,7 @@ class SearchCoordinatorV4 {
                 for (final entry in aiTopics.entries)
                   entry.key: List.unmodifiable(entry.value),
               },
+              referencePriors: Map.unmodifiable(referencePriors),
             );
           }
         }
@@ -330,6 +467,7 @@ class SearchCoordinatorV4 {
         for (final entry in aiTopics.entries)
           entry.key: List.unmodifiable(entry.value),
       },
+      referencePriors: Map.unmodifiable(referencePriors),
     );
   }
 
