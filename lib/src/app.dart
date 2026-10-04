@@ -6,6 +6,7 @@ import 'conversation/conversation_repository.dart';
 import 'personal/personal_library.dart';
 import 'personal/user_database.dart';
 import 'screens/conversation_shell_screen.dart';
+import 'search_v4/curated_reference_index.dart';
 import 'services/corpus_installer.dart';
 import 'services/corpus_repository.dart';
 import 'services/preferences_service.dart';
@@ -87,7 +88,12 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
           _message = 'Initialisation de la recherche documentaire V4…';
         });
       }
-      final searchService = SearchServiceV4(repository: repository);
+      final curatedReferenceIndex =
+          await CuratedReferenceIndex.loadAsset();
+      final searchService = SearchServiceV4(
+        repository: repository,
+        curatedReferenceIndex: curatedReferenceIndex,
+      );
       final studyEngine = StudyEngine(repository);
       final studyProgressRepository = StudyProgressRepository(userDatabase);
       final conversationRepository = ConversationRepository(userDatabase);
