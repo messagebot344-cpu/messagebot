@@ -126,7 +126,7 @@ class SearchCoordinatorV4 {
         ? const <RankedPassage>[]
         : _search(effectiveSpec, conceptualQuery, 700);
 
-    final curatedHits = _curatedHits(
+    final curated = _curatedHits(
       rawQuery: spec.raw,
       focusTerms: tokens,
     );
@@ -154,7 +154,7 @@ class SearchCoordinatorV4 {
         prefix: prefix,
         morphology: morphHits,
         conceptual: conceptualHits,
-        curated: curatedHits,
+        curated: curated.hits,
         fuzzy: fuzzyHits,
         alternate: alternate,
       ),
@@ -186,7 +186,9 @@ class SearchCoordinatorV4 {
       if (detail.edition != null && !detail.edition!.isPrimary && detail.sermon != null && primarySermons.contains(detail.sermon!.id)) {
         continue;
       }
-      final explanation = candidate.explanation;
+      final explanation = candidate.explanation.withCuratedReferences(
+        curated.references[candidate.passageId] ?? const <String>[],
+      );
       refs.add(PassageReference(
         passageId: candidate.passageId,
         editionId: detail.edition?.id ?? detail.source.id,
@@ -214,18 +216,26 @@ class SearchCoordinatorV4 {
     );
   }
 
-  List<RankedPassage> _curatedHits({
+  ({
+    List<RankedPassage> hits,
+    Map<int, List<String>> references,
+  }) _curatedHits({
     required String rawQuery,
     required List<String> focusTerms,
   }) {
     final index = curatedReferenceIndex;
-    if (index == null) return const <RankedPassage>[];
+    if (index == null) {
+      return (hits: const <RankedPassage>[], references: const {});
+    }
 
     final hints = index.searchHints(rawQuery);
-    if (hints.isEmpty) return const <RankedPassage>[];
+    if (hints.isEmpty) {
+      return (hits: const <RankedPassage>[], references: const {});
+    }
 
     final result = <RankedPassage>[];
     final seen = <int>{};
+    final references = <int, List<String>>{};
 
     for (final hint in hints) {
       final anchorTokens = <String>{
@@ -247,14 +257,35 @@ class SearchCoordinatorV4 {
         [hint.reference.sermonCode],
         limit: 18,
       );
+      final label =
+          '${hint.reference.sermonCode} • ${hint.reference.locator}';
       for (final hit in hits) {
+        final labels = references.putIfAbsent(
+          hit.passageId,
+          () => <String>[],
+        );
+        if (!labels.contains(label)) labels.add(label);
         if (seen.add(hit.passageId)) {
           result.add(hit);
-          if (result.length >= 180) return result;
+          if (result.length >= 180) {
+            return (
+              hits: result,
+              references: {
+                for (final entry in references.entries)
+                  entry.key: List.unmodifiable(entry.value),
+              },
+            );
+          }
         }
       }
     }
-    return result;
+    return (
+      hits: result,
+      references: {
+        for (final entry in references.entries)
+          entry.key: List.unmodifiable(entry.value),
+      },
+    );
   }
 
   List<RankedPassage> _search(QuerySpecV4 spec, String fts, int limit) {
