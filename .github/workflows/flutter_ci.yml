@@ -228,6 +228,8 @@ jobs:
       - uses: actions/checkout@v7
         with:
           fetch-depth: 0
+      - name: Verify industrial Study Pack generator
+        run: python -m unittest tools.study_pipeline.test_industrial_packset
       - name: Reconstruct validated corpus
         run: |
           mkdir -p build/study-industrial
