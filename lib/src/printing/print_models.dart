@@ -8,8 +8,23 @@ class PrintableResult {
 }
 
 class PrintableTurn {
-  const PrintableTurn({required this.query, required this.filters, required this.results});
+  const PrintableTurn({
+    required this.query,
+    required this.filters,
+    required this.results,
+  });
+
   final String query;
   final ConversationFilterSet filters;
   final List<PrintableResult> results;
+}
+
+class PrintableConversation {
+  const PrintableConversation({
+    required this.title,
+    required this.turns,
+  });
+
+  final String title;
+  final List<PrintableTurn> turns;
 }
