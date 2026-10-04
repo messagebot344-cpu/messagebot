@@ -90,7 +90,16 @@ class ConversationResultCard extends StatelessWidget {
               icon: Icon(expanded ? Icons.unfold_less : Icons.unfold_more),
               label: Text(expanded ? 'Réduire' : 'Développer'),
             ),
-            TextButton.icon(onPressed: () => openStudyPassage(context, item), icon: const Icon(Icons.open_in_new), label: const Text('Ouvrir')),
+            TextButton.icon(
+              onPressed: () => openStudyPassage(
+                context,
+                item,
+                highlightStartOffset: hit.highlightStartOffset,
+                highlightEndOffset: hit.highlightEndOffset,
+              ),
+              icon: const Icon(Icons.open_in_new),
+              label: const Text('Ouvrir'),
+            ),
             TextButton.icon(
               onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => SimilarPassagesScreen(passageId: passage.id))),
               icon: const Icon(Icons.hub_outlined),
