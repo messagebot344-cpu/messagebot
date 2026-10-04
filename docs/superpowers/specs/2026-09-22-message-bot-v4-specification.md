@@ -5,6 +5,8 @@
 **Base :** Message Bot V3 FINAL consolidé  
 **Cible :** Android + Windows, Flutter 3.35.4  
 
+> **Mise à jour du 4 octobre 2026 — interface :** les décisions d'identité visuelle, de nom public affiché et de composition UI de ce document sont remplacées, en cas de conflit, par `docs/superpowers/specs/2026-10-04-le-grenier-du-message-reference-ui-design.md`. Les contrats fonctionnels IR, corpus, offline et fidélité canonique du présent document restent applicables.
+
 
 ## Identité officielle et Avant-propos
 
