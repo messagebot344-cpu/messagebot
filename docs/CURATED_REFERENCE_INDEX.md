@@ -42,3 +42,12 @@ résultats tant qu’elle n’a pas été réconciliée.
 Cette architecture permet d’ajouter progressivement d’autres études (mariage,
 foyer, foi, prière, guérison, doctrine, etc.) sans recoder le moteur de
 recherche.
+
+
+## Compatibilité des Study Packs
+
+Le générateur industriel doit utiliser l’identifiant `corpus_version` du
+manifest distribué avec l’application, et non le libellé historique conservé
+dans `corpus_meta`. Le hash canonique doit être identique avant toute
+génération. Cette règle empêche un Study Pack valide sur le fond mais refusé
+au démarrage à cause d’un simple écart de libellé de version.
