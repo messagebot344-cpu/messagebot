@@ -13,7 +13,9 @@
       "source_file_sha256": "c041b62fa1ffc70af47db06f9c513844a8fae25c272098ff5621ed7e908dfe87",
       "source_file_bytes": 72181,
       "source_lines": 1740,
-      "source_entries": 248
+      "source_entries": 248,
+      "resolved_entries": 236,
+      "unresolved_entries": 12
     }
   ],
   "references": [
@@ -775,7 +777,9 @@
         "trespasses"
       ],
       "source_entry_number": 44,
-      "source_section": "B — COMMENT PRIER"
+      "source_section": "B — COMMENT PRIER",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_045",
@@ -2215,7 +2219,9 @@
         "night"
       ],
       "source_entry_number": 129,
-      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_130",
@@ -2305,7 +2311,9 @@
         "right"
       ],
       "source_entry_number": 134,
-      "source_section": "E — PERSÉVÉRANCE ET ATTENTE"
+      "source_section": "E — PERSÉVÉRANCE ET ATTENTE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_135",
@@ -2407,7 +2415,9 @@
         "prayer"
       ],
       "source_entry_number": 140,
-      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_141",
@@ -2422,7 +2432,9 @@
         "prayed"
       ],
       "source_entry_number": 141,
-      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_142",
@@ -2621,7 +2633,9 @@
         "another"
       ],
       "source_entry_number": 152,
-      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_153",
@@ -2655,7 +2669,9 @@
         "healed"
       ],
       "source_entry_number": 154,
-      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_155",
@@ -2707,7 +2723,9 @@
         "silently"
       ],
       "source_entry_number": 157,
-      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_158",
@@ -2724,7 +2742,9 @@
         "heal"
       ],
       "source_entry_number": 158,
-      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI"
+      "source_section": "F — INTERCESSION ET PRIÈRE DE FOI",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_159",
@@ -3775,7 +3795,9 @@
         "hour"
       ],
       "source_entry_number": 217,
-      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_218",
@@ -3882,7 +3904,9 @@
         "sins"
       ],
       "source_entry_number": 223,
-      "source_section": "J — DISPOSITION INTÉRIEURE"
+      "source_section": "J — DISPOSITION INTÉRIEURE",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "prayer_224",
@@ -4310,7 +4334,9 @@
         "house"
       ],
       "source_entry_number": 248,
-      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL"
+      "source_section": "I — PRIÈRE, JEÛNE ET COMBAT SPIRITUEL",
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le code/titre de cette référence du fascicule ne correspond à aucun sermon résolvable dans le corpus canonique V4 actuel. Conservée pour réconciliation future et exclue du routage runtime."
     }
   ],
   "topics": [
