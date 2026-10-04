@@ -102,29 +102,54 @@ class GrenierHomeScreen extends StatelessWidget {
                       ),
                     ),
                     const SizedBox(height: 28),
-                    Wrap(
-                      alignment: WrapAlignment.center,
-                      spacing: 8,
-                      runSpacing: 8,
-                      children: [
-                        _TrustChip(
-                          icon: Icons.wifi_off_rounded,
-                          label: GrenierBrand.offlineLabel,
-                          mobile: mobile,
-                          positive: true,
-                        ),
-                        _TrustChip(
-                          icon: Icons.psychology_alt_outlined,
-                          label: GrenierBrand.noAiLabel,
-                          mobile: mobile,
-                        ),
-                        _TrustChip(
-                          icon: Icons.verified_outlined,
-                          label: GrenierBrand.canonicalOnlyLabel,
-                          mobile: mobile,
-                        ),
-                      ],
-                    ),
+                    if (mobile)
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: const [
+                          _TrustChip(
+                            icon: Icons.wifi_off_rounded,
+                            label: GrenierBrand.offlineLabel,
+                            mobile: true,
+                            positive: true,
+                          ),
+                          SizedBox(height: 8),
+                          _TrustChip(
+                            icon: Icons.psychology_alt_outlined,
+                            label: GrenierBrand.noAiLabel,
+                            mobile: true,
+                          ),
+                          SizedBox(height: 8),
+                          _TrustChip(
+                            icon: Icons.verified_outlined,
+                            label: GrenierBrand.canonicalOnlyLabel,
+                            mobile: true,
+                          ),
+                        ],
+                      )
+                    else
+                      const Wrap(
+                        alignment: WrapAlignment.center,
+                        spacing: 8,
+                        runSpacing: 8,
+                        children: [
+                          _TrustChip(
+                            icon: Icons.wifi_off_rounded,
+                            label: GrenierBrand.offlineLabel,
+                            mobile: false,
+                            positive: true,
+                          ),
+                          _TrustChip(
+                            icon: Icons.psychology_alt_outlined,
+                            label: GrenierBrand.noAiLabel,
+                            mobile: false,
+                          ),
+                          _TrustChip(
+                            icon: Icons.verified_outlined,
+                            label: GrenierBrand.canonicalOnlyLabel,
+                            mobile: false,
+                          ),
+                        ],
+                      ),
                   ],
                 ),
               ),
@@ -166,11 +191,19 @@ class _TrustChip extends StatelessWidget {
         borderRadius: BorderRadius.circular(18),
       ),
       child: Row(
-        mainAxisSize: MainAxisSize.min,
+        mainAxisSize: mobile ? MainAxisSize.max : MainAxisSize.min,
+        mainAxisAlignment: mobile ? MainAxisAlignment.center : MainAxisAlignment.start,
         children: [
           Icon(icon, size: 17, color: foreground),
           const SizedBox(width: 7),
-          Text(label, style: TextStyle(color: foreground, fontSize: 12)),
+          Flexible(
+            child: Text(
+              label,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
+              style: TextStyle(color: foreground, fontSize: 12),
+            ),
+          ),
         ],
       ),
     );
