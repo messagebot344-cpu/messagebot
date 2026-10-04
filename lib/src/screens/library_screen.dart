@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../app_scope.dart';
@@ -14,11 +16,21 @@ class LibraryScreen extends StatefulWidget {
 
 class _LibraryScreenState extends State<LibraryScreen> {
   final _filter = TextEditingController();
+  Timer? _filterDebounce;
   String _query = '';
   CorpusSourceType _type = CorpusSourceType.sermon;
 
+  void _onFilterChanged(String value) {
+    _filterDebounce?.cancel();
+    _filterDebounce = Timer(const Duration(milliseconds: 180), () {
+      if (!mounted) return;
+      setState(() => _query = value);
+    });
+  }
+
   @override
   void dispose() {
+    _filterDebounce?.cancel();
     _filter.dispose();
     super.dispose();
   }
@@ -32,6 +44,9 @@ class _LibraryScreenState extends State<LibraryScreen> {
     final books = _type == CorpusSourceType.book
         ? scope.repository.listBookSources(filter: _query)
         : const <CorpusSourceSummary>[];
+    final chapterCounts = _type == CorpusSourceType.book
+        ? scope.repository.bookChapterCounts(books.map((book) => book.id))
+        : const <String, int>{};
     return Column(
       children: [
         Padding(
@@ -49,7 +64,7 @@ class _LibraryScreenState extends State<LibraryScreen> {
               const SizedBox(height: 12),
               TextField(
                 controller: _filter,
-                onChanged: (value) => setState(() => _query = value),
+                onChanged: _onFilterChanged,
                 decoration: InputDecoration(
                   labelText: _type == CorpusSourceType.sermon ? 'Filtrer par titre ou numéro' : 'Filtrer les livres',
                   prefixIcon: const Icon(Icons.filter_alt_outlined),
@@ -81,7 +96,10 @@ class _LibraryScreenState extends State<LibraryScreen> {
                   : ListView.separated(
                       itemCount: books.length,
                       separatorBuilder: (_, __) => const Divider(height: 1),
-                      itemBuilder: (context, index) => _BookTile(source: books[index]),
+                      itemBuilder: (context, index) => _BookTile(
+                        source: books[index],
+                        chapterCount: chapterCounts[books[index].id] ?? 0,
+                      ),
                     )),
         ),
       ],
@@ -128,8 +146,12 @@ class _SermonTileState extends State<_SermonTile> {
 }
 
 class _BookTile extends StatefulWidget {
-  const _BookTile({required this.source});
+  const _BookTile({
+    required this.source,
+    required this.chapterCount,
+  });
   final CorpusSourceSummary source;
+  final int chapterCount;
 
   @override
   State<_BookTile> createState() => _BookTileState();
@@ -140,11 +162,10 @@ class _BookTileState extends State<_BookTile> {
   Widget build(BuildContext context) {
     final scope = AppScope.of(context);
     final favorite = scope.personalLibrary.isFavorite(widget.source.id);
-    final chapters = scope.repository.chaptersForBook(widget.source.id);
     return ListTile(
       leading: const CircleAvatar(child: Icon(Icons.menu_book_outlined)),
       title: Text(widget.source.title),
-      subtitle: Text('${chapters.length} chapitre(s) • texte séparé des prédications'),
+      subtitle: Text('${widget.chapterCount} chapitre(s) • texte séparé des prédications'),
       trailing: IconButton(
         tooltip: favorite ? 'Retirer des favoris' : 'Ajouter aux favoris',
         icon: Icon(favorite ? Icons.bookmark : Icons.bookmark_border),
