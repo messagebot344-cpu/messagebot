@@ -32,7 +32,7 @@ class ConceptualQueryExpander {
     final normalized = normalizer.normalize(spec.raw);
     final questionLike = spec.raw.contains('?') ||
         RegExp(
-          r'^(comment|pourquoi|quel|quelle|quels|quelles|que|quoi|qui|quand|ou|est ce|peut on|doit on|faut il)\b',
+          r'^(comment|pourquoi|quel|quelle|quels|quelles|que|quoi|qui|quand|ou|est ce|peut on|doit on|faut il|parle moi|dis moi|explique moi|montre moi|je veux savoir|je cherche)\b',
         ).hasMatch(normalized);
 
     final focus = <String>[];
@@ -43,10 +43,12 @@ class ConceptualQueryExpander {
     }
 
     final related = <String>{};
-    for (final term in focus) {
-      for (final group in _conceptGroups) {
-        if (group.contains(term)) {
-          related.addAll(group);
+    if (questionLike) {
+      for (final term in focus) {
+        for (final group in _conceptGroups) {
+          if (group.contains(term)) {
+            related.addAll(group);
+          }
         }
       }
     }
