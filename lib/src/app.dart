@@ -88,8 +88,15 @@ class _GrenierBootstrapState extends State<GrenierBootstrap> {
           _message = 'Initialisation de la recherche documentaire V4…';
         });
       }
-      final curatedReferenceIndex =
-          await CuratedReferenceIndex.loadAsset();
+      CuratedReferenceIndex? curatedReferenceIndex;
+      try {
+        curatedReferenceIndex =
+            await CuratedReferenceIndex.loadAsset();
+      } catch (_) {
+        // The curated layer is optional runtime guidance. A damaged optional
+        // asset must never prevent access to the canonical V4 corpus.
+        curatedReferenceIndex = null;
+      }
       final searchService = SearchServiceV4(
         repository: repository,
         curatedReferenceIndex: curatedReferenceIndex,
