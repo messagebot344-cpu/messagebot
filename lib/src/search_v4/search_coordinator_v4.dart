@@ -77,7 +77,10 @@ class SearchCoordinatorV4 {
     }
 
     const candidateLimit = 1800;
-    final conceptual = conceptualExpander.expand(spec);
+    final conceptual = conceptualExpander.expand(
+      spec,
+      includeCorpusAssociations: false,
+    );
     final tokens = conceptual.focusTerms.take(12).toList(growable: false);
     final effectiveSpec = QuerySpecV4(
       raw: spec.raw,
@@ -120,6 +123,12 @@ class SearchCoordinatorV4 {
     final broad = broadQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, broadQuery, candidateLimit);
     final prefix = prefixQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, prefixQuery, 900);
 
+    final strongEvidenceCount =
+        direct.length + exact.length + proximity.length + strong.length;
+    final conceptualWithAssociations = strongEvidenceCount < 40
+        ? conceptualExpander.expand(spec)
+        : conceptual;
+
     final morphologyTerms = <String>{};
     for (final token in tokens) {
       morphologyTerms.addAll(morphology.expandSafe(token));
@@ -128,7 +137,7 @@ class SearchCoordinatorV4 {
     final morphologyQuery = morphologyTerms.take(16).map((e) => '"${e.replaceAll('"', '""')}"').join(' OR ');
     final morphHits = morphologyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, morphologyQuery, 900);
 
-    final conceptualTerms = conceptual.relatedTerms;
+    final conceptualTerms = conceptualWithAssociations.relatedTerms;
     final conceptualQuery = conceptualTerms
         .take(12)
         .map((e) => '"${e.replaceAll('"', '""')}"')
@@ -155,8 +164,6 @@ class SearchCoordinatorV4 {
     // Fuzzy expansion is a fallback. Running term-stat lookups for every
     // well-formed query is expensive and adds no value when strong corpus
     // evidence is already abundant.
-    final strongEvidenceCount =
-        direct.length + exact.length + proximity.length + strong.length;
     final needsFuzzyFallback = strongEvidenceCount < 40;
     final fuzzyTerms = <String>[];
     if (needsFuzzyFallback) {
