@@ -8,6 +8,7 @@ class SearchExplanationV4 {
     this.prefix = false,
     this.morphology = false,
     this.conceptual = false,
+    this.curatedReference = false,
     this.fuzzy = false,
     this.alternateEdition = false,
     this.fuzzyTerms = const <String>[],
@@ -22,6 +23,7 @@ class SearchExplanationV4 {
   final bool prefix;
   final bool morphology;
   final bool conceptual;
+  final bool curatedReference;
   final bool fuzzy;
   final bool alternateEdition;
   final List<String> fuzzyTerms;
@@ -42,6 +44,9 @@ class SearchExplanationV4 {
             ? 'Contexte conceptuel local du corpus'
             : 'Contexte conceptuel local : ${conceptualTerms.join(', ')}',
       );
+    }
+    if (curatedReference) {
+      values.add('Repère thématique validé manuellement, citation vérifiée dans le corpus');
     }
     if (fuzzy) values.add('Variante orthographique proche : ${fuzzyTerms.join(', ')}');
     if (alternateEdition) values.add('Correspondance dans une édition alternative');

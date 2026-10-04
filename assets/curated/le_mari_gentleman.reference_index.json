@@ -1,0 +1,600 @@
+{
+  "schema_version": 1,
+  "index_id": "curated-reference-index-v1",
+  "purpose": "Human-validated thematic routing hints. This index never replaces corpus.db; every surfaced quotation must still resolve to the canonical corpus.",
+  "source_guides": [
+    {
+      "id": "le_mari_gentleman_la_resistance",
+      "title": "Le Mari Gentleman",
+      "subtitle": "Aimer sa femme, gouverner son cœur et bâtir une atmosphère où la présence de Dieu est honorée",
+      "author": "Frère Erly Rolvinst BASSOMBI",
+      "provenance": "manual_research_pdf",
+      "trust": "author-curated-reference-map"
+    }
+  ],
+  "references": [
+    {
+      "id": "r_570806",
+      "sermon_code": "57-0806",
+      "sermon_title": "Dieu projetant Son amour",
+      "locator": "E-5 et passages voisins",
+      "context": "L’amour doit gouverner le foyer; confiance entre époux.",
+      "anchor_terms": [
+        "amour",
+        "foyer",
+        "confiance",
+        "femme"
+      ]
+    },
+    {
+      "id": "r_570519e",
+      "sermon_code": "57-0519E",
+      "sermon_title": "L’Amour",
+      "locator": "E-18 à E-23",
+      "context": "Scène domestique, prière intérieure, empathie, service concret et changement d’atmosphère.",
+      "anchor_terms": [
+        "atmosphere",
+        "maison",
+        "femme",
+        "priere",
+        "service",
+        "carottes"
+      ]
+    },
+    {
+      "id": "r_570305",
+      "sermon_code": "57-0305",
+      "sermon_title": "Amour Divin",
+      "locator": "§§16-18",
+      "context": "Personnes qui créent une atmosphère; présence du Seigneur et atmosphère de foi.",
+      "anchor_terms": [
+        "atmosphere",
+        "presence",
+        "seigneur",
+        "foi",
+        "amour"
+      ]
+    },
+    {
+      "id": "r_570818",
+      "sermon_code": "57-0818",
+      "sermon_title": "Time-Tested Memorials Of God",
+      "locator": "E-12 à E-15",
+      "context": "Rester amoureux, honorer son conjoint, attention conjugale après des années de mariage.",
+      "anchor_terms": [
+        "amoureux",
+        "honorer",
+        "femme",
+        "epouse",
+        "attention"
+      ]
+    },
+    {
+      "id": "r_640830m",
+      "sermon_code": "64-0830M",
+      "sermon_title": "Questions And Answers #3",
+      "locator": "E-306 à E-309",
+      "context": "Gentleman chrétien, douceur, respect, révérence et dialogue dans le couple.",
+      "anchor_terms": [
+        "gentleman",
+        "femme",
+        "respect",
+        "reverence",
+        "gentil"
+      ]
+    },
+    {
+      "id": "r_630901e",
+      "sermon_code": "63-0901E",
+      "sermon_title": "Poussé à bout / Desperations",
+      "locator": "E-68 à E-71",
+      "context": "Amour, foi et nécessité d’exprimer l’amour à son épouse.",
+      "anchor_terms": [
+        "amour",
+        "femme",
+        "aime",
+        "exprimer",
+        "embrasser"
+      ]
+    },
+    {
+      "id": "r_570519a",
+      "sermon_code": "57-0519A",
+      "sermon_title": "Hear Ye Him",
+      "locator": "E-48 à E-50",
+      "context": "Confiance conjugale, prière avec les enfants et rejet du traitement cruel.",
+      "anchor_terms": [
+        "famille",
+        "femme",
+        "enfants",
+        "prier",
+        "confiance"
+      ]
+    },
+    {
+      "id": "r_630825e",
+      "sermon_code": "63-0825E",
+      "sermon_title": "Perfect Faith",
+      "locator": "§§54-55",
+      "context": "Amour conjugal, loyauté et actions qui prouvent l’amour.",
+      "anchor_terms": [
+        "vie",
+        "prouve",
+        "amour",
+        "femme",
+        "loyaute"
+      ]
+    },
+    {
+      "id": "r_631114",
+      "sermon_code": "63-1114",
+      "sermon_title": "Influence",
+      "locator": "§§17-18, 108-110",
+      "context": "Influence de la vie, conscience de Dieu, honneur, respect et bonté.",
+      "anchor_terms": [
+        "honneur",
+        "respect",
+        "amour",
+        "bonté",
+        "influence"
+      ]
+    },
+    {
+      "id": "r_510930",
+      "sermon_code": "51-0930",
+      "sermon_title": "Expectation",
+      "locator": "E-4",
+      "context": "Appréciation publique de Meda Branham comme compagne et reine du foyer.",
+      "anchor_terms": [
+        "reine",
+        "foyer",
+        "femme",
+        "compagne",
+        "meda"
+      ],
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le PDF cite 51-0930 — Expectation, mais cette référence ne correspond à aucun sermon résolvable dans le corpus V4 actuel. Conservée pour réconciliation future, jamais utilisée pour afficher ou booster une citation."
+    },
+    {
+      "id": "r_551110",
+      "sermon_code": "55-1110",
+      "sermon_title": "A Hidden Life In Christ",
+      "locator": "E-42",
+      "context": "L’atmosphère qu’une personne crée autour d’elle.",
+      "anchor_terms": [
+        "atmosphere",
+        "autour",
+        "creez",
+        "personne"
+      ]
+    },
+    {
+      "id": "r_540216",
+      "sermon_code": "54-0216",
+      "sermon_title": "Explaining Healing, And Jairus",
+      "locator": "E-35",
+      "context": "Scène domestique parallèle et responsabilité d’influencer l’atmosphère par la prière et le service.",
+      "anchor_terms": [
+        "atmosphere",
+        "maison",
+        "femme",
+        "priere",
+        "service"
+      ]
+    },
+    {
+      "id": "r_610808",
+      "sermon_code": "61-0808",
+      "sermon_title": "Thy House",
+      "locator": "E-23",
+      "context": "Foi et désir spirituel pour les enfants.",
+      "anchor_terms": [
+        "maison",
+        "enfants",
+        "foi",
+        "spirituel"
+      ]
+    },
+    {
+      "id": "r_651205",
+      "sermon_code": "65-1205",
+      "sermon_title": "Things That Are To Be",
+      "locator": "passage sur lady and gentleman",
+      "context": "Exhortation à vivre comme lady and gentleman, comme des chrétiens.",
+      "anchor_terms": [
+        "lady",
+        "gentleman",
+        "chretiens"
+      ]
+    },
+    {
+      "id": "r_560621",
+      "sermon_code": "56-0621",
+      "sermon_title": "The Law Having A Shadow",
+      "locator": "E-49",
+      "context": "Illustration de la fidélité motivée par l’amour.",
+      "anchor_terms": [
+        "amour",
+        "femme",
+        "fidelite",
+        "aime"
+      ]
+    },
+    {
+      "id": "r_640500",
+      "sermon_code": "64-0500",
+      "sermon_title": "Lettre audio à Lee Vayle",
+      "locator": "E-90 à E-94",
+      "context": "Tension domestique avec Meda, porte fermée, rappel du cas de Miriam, prière de Branham et découverte du kyste.",
+      "anchor_terms": [
+        "meda",
+        "miriam",
+        "femme",
+        "priere",
+        "reine"
+      ]
+    },
+    {
+      "id": "r_631229e",
+      "sermon_code": "63-1229E",
+      "sermon_title": "Look Away To Jesus",
+      "locator": "§§49-58",
+      "context": "Reprise de l’épisode, intercession pour Meda, récit de la guérison du kyste et application à la révérence.",
+      "anchor_terms": [
+        "meda",
+        "kyste",
+        "priere",
+        "aime",
+        "dieu"
+      ]
+    },
+    {
+      "id": "r_530607a",
+      "sermon_code": "53-0607A",
+      "sermon_title": "The Ministry Of Christ",
+      "locator": "§11",
+      "context": "Avertissement à être prudent dans la manière de traiter les chrétiens; référence aux petits et à leurs anges.",
+      "anchor_terms": [
+        "chretiens",
+        "petits",
+        "anges",
+        "prudence"
+      ]
+    },
+    {
+      "id": "r_630803e",
+      "sermon_code": "63-0803E",
+      "sermon_title": "Influence",
+      "locator": "§§41-42",
+      "context": "Les anges de Dieu campent autour de ceux qui Le craignent; conscience de la présence de Dieu.",
+      "anchor_terms": [
+        "anges",
+        "campent",
+        "craignent",
+        "dieu",
+        "presence"
+      ]
+    },
+    {
+      "id": "r_580313",
+      "sermon_code": "58-0313",
+      "sermon_title": "Love",
+      "locator": "E-38",
+      "context": "Miniature creator et atmosphère créée par la manière de vivre et de penser.",
+      "anchor_terms": [
+        "atmosphere",
+        "vivre",
+        "penser",
+        "createur"
+      ]
+    },
+    {
+      "id": "r_591123",
+      "sermon_code": "59-1123",
+      "sermon_title": "Speak To This Mountain",
+      "locator": "§§35-37, 60",
+      "context": "Distinction entre parole humaine ordinaire et parole sous une onction spécifique; épisode de Hattie Wright.",
+      "anchor_terms": [
+        "saint-esprit",
+        "parler",
+        "onction",
+        "hattie",
+        "wright"
+      ]
+    }
+  ],
+  "topics": [
+    {
+      "id": "marriage_overview",
+      "label": "Mariage et foyer chrétien",
+      "aliases": [
+        "mariage",
+        "foyer chrétien",
+        "mari chrétien",
+        "époux chrétien",
+        "comment être un bon mari",
+        "comment traiter sa femme"
+      ],
+      "keywords": [
+        "mariage",
+        "foyer",
+        "mari",
+        "epouse",
+        "femme"
+      ],
+      "reference_ids": [
+        "r_570806",
+        "r_640830m",
+        "r_570818",
+        "r_570519e"
+      ]
+    },
+    {
+      "id": "love_governs_home",
+      "label": "L’amour doit gouverner le foyer",
+      "aliases": [
+        "amour dans le foyer",
+        "gouverner le foyer par l'amour",
+        "aimer sa femme",
+        "amour conjugal"
+      ],
+      "keywords": [
+        "amour",
+        "foyer",
+        "aimer",
+        "femme"
+      ],
+      "reference_ids": [
+        "r_570806",
+        "r_630901e",
+        "r_630825e"
+      ]
+    },
+    {
+      "id": "gentleman_husband",
+      "label": "Le mari gentleman",
+      "aliases": [
+        "gentleman chrétien",
+        "mari gentleman",
+        "être gentil avec sa femme",
+        "respecter sa femme",
+        "douceur dans le mariage"
+      ],
+      "keywords": [
+        "gentleman",
+        "gentil",
+        "respect",
+        "reverence",
+        "douceur"
+      ],
+      "reference_ids": [
+        "r_640830m",
+        "r_651205",
+        "r_631114"
+      ]
+    },
+    {
+      "id": "home_atmosphere",
+      "label": "Atmosphère du foyer",
+      "aliases": [
+        "atmosphère du foyer",
+        "ambiance dans la maison",
+        "changer l'atmosphère de la maison",
+        "paix dans le foyer",
+        "tension dans le foyer"
+      ],
+      "keywords": [
+        "atmosphere",
+        "maison",
+        "foyer",
+        "paix",
+        "tension"
+      ],
+      "reference_ids": [
+        "r_570519e",
+        "r_570305",
+        "r_551110",
+        "r_540216",
+        "r_580313"
+      ]
+    },
+    {
+      "id": "affection_and_honor",
+      "label": "Affection et honneur envers l’épouse",
+      "aliases": [
+        "honorer sa femme",
+        "montrer de l'affection",
+        "exprimer son amour",
+        "rester amoureux de sa femme",
+        "valoriser son épouse"
+      ],
+      "keywords": [
+        "honorer",
+        "affection",
+        "amour",
+        "epouse",
+        "femme"
+      ],
+      "reference_ids": [
+        "r_570818",
+        "r_510930",
+        "r_630901e",
+        "r_631114"
+      ]
+    },
+    {
+      "id": "service_in_fatigue",
+      "label": "Servir son épouse dans la fatigue",
+      "aliases": [
+        "aider sa femme quand elle est fatiguée",
+        "femme épuisée",
+        "servir sa femme",
+        "aider à la maison",
+        "partager les tâches"
+      ],
+      "keywords": [
+        "fatigue",
+        "service",
+        "aider",
+        "maison",
+        "epuisee"
+      ],
+      "reference_ids": [
+        "r_570519e",
+        "r_540216"
+      ]
+    },
+    {
+      "id": "fidelity_and_trust",
+      "label": "Fidélité, confiance et transparence",
+      "aliases": [
+        "fidélité dans le mariage",
+        "confiance entre époux",
+        "être fidèle à sa femme",
+        "transparence dans le couple"
+      ],
+      "keywords": [
+        "fidelite",
+        "confiance",
+        "loyaute",
+        "couple",
+        "femme"
+      ],
+      "reference_ids": [
+        "r_570519a",
+        "r_560621",
+        "r_630825e"
+      ]
+    },
+    {
+      "id": "conflict_and_communication",
+      "label": "Communication et conflits",
+      "aliases": [
+        "dispute dans le foyer",
+        "conflit avec sa femme",
+        "comment parler à sa femme",
+        "ne pas humilier son épouse",
+        "résoudre un conflit conjugal"
+      ],
+      "keywords": [
+        "conflit",
+        "dispute",
+        "dialogue",
+        "respect",
+        "humilier"
+      ],
+      "reference_ids": [
+        "r_640830m",
+        "r_631114",
+        "r_570519e"
+      ]
+    },
+    {
+      "id": "family_prayer_and_children",
+      "label": "Prière familiale et enfants",
+      "aliases": [
+        "prière en famille",
+        "autel familial",
+        "prier avec sa femme",
+        "prier avec les enfants",
+        "foi des enfants"
+      ],
+      "keywords": [
+        "priere",
+        "famille",
+        "enfants",
+        "foi",
+        "maison"
+      ],
+      "reference_ids": [
+        "r_570519a",
+        "r_610808"
+      ]
+    },
+    {
+      "id": "honor_gods_daughter",
+      "label": "Honorer une épouse croyante comme enfant de Dieu",
+      "aliases": [
+        "fille de Dieu",
+        "ne pas maltraiter sa femme",
+        "ne pas tourmenter son épouse",
+        "respecter une femme croyante",
+        "protéger le cœur de sa femme"
+      ],
+      "keywords": [
+        "fille",
+        "dieu",
+        "epouse",
+        "respect",
+        "chretiens"
+      ],
+      "reference_ids": [
+        "r_530607a",
+        "r_630803e",
+        "r_640500",
+        "r_631229e"
+      ]
+    },
+    {
+      "id": "words_and_spiritual_atmosphere",
+      "label": "Paroles et atmosphère spirituelle",
+      "aliases": [
+        "poids des paroles",
+        "paroles dans le foyer",
+        "créer une atmosphère",
+        "paroles sous l'onction",
+        "miniature creator"
+      ],
+      "keywords": [
+        "paroles",
+        "atmosphere",
+        "onction",
+        "penser",
+        "esprit"
+      ],
+      "reference_ids": [
+        "r_580313",
+        "r_591123",
+        "r_640500"
+      ]
+    },
+    {
+      "id": "marital_reverence",
+      "label": "Révérence et dignité dans la vie conjugale",
+      "aliases": [
+        "révérence dans le couple",
+        "dignité de l'épouse",
+        "respect dans la vie intime",
+        "accord dans le mariage"
+      ],
+      "keywords": [
+        "reverence",
+        "dignite",
+        "respect",
+        "accord",
+        "couple"
+      ],
+      "reference_ids": [
+        "r_640830m",
+        "r_631114"
+      ]
+    }
+  ],
+  "bible_references": [
+    "Éphésiens 5.21-33",
+    "Colossiens 3.19",
+    "1 Pierre 3.7",
+    "Malachie 2.13-16",
+    "Matthieu 18.6,10",
+    "Psaume 34.7,18",
+    "Éphésiens 4.26-32",
+    "1 Corinthiens 13.4-7",
+    "1 Corinthiens 7.3-5",
+    "Proverbes 15.1",
+    "Proverbes 18.21",
+    "Jacques 1.19-20",
+    "Philippiens 2.3-5",
+    "Hébreux 1.14",
+    "Galates 6.7-10"
+  ]
+}

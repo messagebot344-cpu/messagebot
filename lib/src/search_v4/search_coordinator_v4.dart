@@ -4,6 +4,7 @@ import '../search/search_contracts.dart';
 import '../services/corpus_repository.dart';
 import 'canonical_sentence_locator.dart';
 import 'conceptual_query_expander.dart';
+import 'curated_reference_index.dart';
 import 'deterministic_hybrid_ranker.dart';
 import 'exact_phrase_engine.dart';
 import 'fuzzy_term_matcher.dart';
@@ -37,6 +38,7 @@ class SearchCoordinatorV4 {
     this.fuzzyMatcher = const FuzzyTermMatcher(),
     this.ranker = const DeterministicHybridRanker(),
     this.sentenceLocator = const CanonicalSentenceLocator(),
+    this.curatedReferenceIndex,
   })  : exactEngine = ExactPhraseEngine(repository),
         proximityEngine = ProximitySearchEngine(repository),
         conceptualExpander = ConceptualQueryExpander(repository);
@@ -48,6 +50,7 @@ class SearchCoordinatorV4 {
   final FuzzyTermMatcher fuzzyMatcher;
   final DeterministicHybridRanker ranker;
   final CanonicalSentenceLocator sentenceLocator;
+  final CuratedReferenceIndex? curatedReferenceIndex;
   final ExactPhraseEngine exactEngine;
   final ProximitySearchEngine proximityEngine;
   final ConceptualQueryExpander conceptualExpander;
@@ -123,6 +126,11 @@ class SearchCoordinatorV4 {
         ? const <RankedPassage>[]
         : _search(effectiveSpec, conceptualQuery, 700);
 
+    final curatedHits = _curatedHits(
+      rawQuery: spec.raw,
+      focusTerms: tokens,
+    );
+
     final fuzzyTerms = <String>[];
     for (final token in tokens.where((e) => e.length >= 4)) {
       final needle = token.length >= 4 ? token.substring(0, 3) : token;
@@ -146,6 +154,7 @@ class SearchCoordinatorV4 {
         prefix: prefix,
         morphology: morphHits,
         conceptual: conceptualHits,
+        curated: curatedHits,
         fuzzy: fuzzyHits,
         alternate: alternate,
       ),
@@ -203,6 +212,49 @@ class SearchCoordinatorV4 {
       explanations: explanations,
       fuzzySuggestions: fuzzyTerms.toSet().toList(growable: false),
     );
+  }
+
+  List<RankedPassage> _curatedHits({
+    required String rawQuery,
+    required List<String> focusTerms,
+  }) {
+    final index = curatedReferenceIndex;
+    if (index == null) return const <RankedPassage>[];
+
+    final hints = index.searchHints(rawQuery);
+    if (hints.isEmpty) return const <RankedPassage>[];
+
+    final result = <RankedPassage>[];
+    final seen = <int>{};
+
+    for (final hint in hints) {
+      final anchorTokens = <String>{
+        for (final value in hint.reference.anchorTerms)
+          ...normalizer.tokens(value, removeStopWords: true),
+      };
+      // User terms are intentionally secondary: the manually validated anchor
+      // terms locate the cited area inside the referenced sermon.
+      anchorTokens.addAll(focusTerms.take(3));
+      final fts = anchorTokens
+          .where((value) => value.length >= 3)
+          .take(10)
+          .map((value) => '"${value.replaceAll('"', '""')}"')
+          .join(' OR ');
+      if (fts.isEmpty) continue;
+
+      final hits = repository.lexicalSearchSermons(
+        fts,
+        [hint.reference.sermonCode],
+        limit: 18,
+      );
+      for (final hit in hits) {
+        if (seen.add(hit.passageId)) {
+          result.add(hit);
+          if (result.length >= 180) return result;
+        }
+      }
+    }
+    return result;
   }
 
   List<RankedPassage> _search(QuerySpecV4 spec, String fts, int limit) {
