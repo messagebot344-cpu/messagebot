@@ -22,8 +22,8 @@ void main() {
   test('tous les guides humains sont agrégés sans remplacer le corpus', () {
     final index = loadAll();
 
-    expect(index.references.length, 1795);
-    expect(index.topics.length, greaterThanOrEqualTo(79));
+    expect(index.references.length, 1796);
+    expect(index.topics.length, greaterThanOrEqualTo(80));
     expect(
       index.references.values
           .where((reference) => !reference.corpusResolved)
