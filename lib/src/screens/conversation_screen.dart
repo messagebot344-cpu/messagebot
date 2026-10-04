@@ -252,7 +252,7 @@ class _ConversationScreenState extends State<ConversationScreen> {
       }
 
       final topScore = turn.hits.first.score;
-      final persistedByPassage = <int, PersistedHitRef>{
+      final persistedByPassage = {
         for (final hit in turn.record.hits) hit.passageId: hit,
       };
       slivers.add(SliverPadding(
