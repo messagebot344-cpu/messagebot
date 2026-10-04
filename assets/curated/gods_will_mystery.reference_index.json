@@ -13,7 +13,9 @@
       "source_file_sha256": "65c5817f5a429ee478280855161cc4bb2c9c74713d15651dc8210bee2bee3815",
       "source_file_bytes": 35552,
       "source_lines": 709,
-      "source_entries": 101
+      "source_entries": 101,
+      "resolved_entries": 100,
+      "unresolved_entries": 1
     }
   ],
   "references": [
@@ -1464,7 +1466,9 @@
         "till",
         "appreciate"
       ],
-      "source_entry_number": 76
+      "source_entry_number": 76,
+      "corpus_status": "unresolved",
+      "unresolved_reason": "Le sermon existe dans le corpus canonique V4, mais les ancres issues du fascicule ne retrouvent pas cet extrait dans les éditions canoniques embarquées. Conservée pour réconciliation future et exclue du routage runtime."
     },
     {
       "id": "god_will_077",
