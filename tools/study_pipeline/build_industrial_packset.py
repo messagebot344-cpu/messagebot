@@ -474,12 +474,17 @@ def build_questions_for_sermon(
     sermon_text = normalize(" ".join(item.text for item in candidates))
     counts = {"comprehension": 0, "context": 0, "reasoning": 0}
 
+    section_count = len(section_ids)
+    quote_limit = 4 if section_count >= 3 else (8 if section_count == 2 else 12)
+    blank_limit = quote_limit
+    reasoning_limit = 1 if section_count >= 3 else (3 if section_count == 2 else 6)
+
     for section_index, values in enumerate(section_candidates):
         if not values:
             continue
         section_id = section_ids[section_index]
 
-        for local_index, item in enumerate(values[:4]):
+        for local_index, item in enumerate(values[:quote_limit]):
             distractors = writer.quote_distractors(
                 int(sermon["id"]),
                 item.text,
@@ -507,7 +512,7 @@ def build_questions_for_sermon(
                 )
                 counts["comprehension"] += 1
 
-        for local_index, item in enumerate(values[:4]):
+        for local_index, item in enumerate(values[:blank_limit]):
             blank = select_blank_word(item.text)
             if blank is None:
                 continue
@@ -580,8 +585,19 @@ def build_questions_for_sermon(
                 )
                 counts["context"] += 1
 
-        if len(values) >= 3:
-            ordered = values[:3]
+        unique_values: list[SentenceCandidate] = []
+        seen_texts: set[str] = set()
+        for item in values:
+            key = normalize(item.text)
+            if key in seen_texts:
+                continue
+            seen_texts.add(key)
+            unique_values.append(item)
+
+        available_groups = len(unique_values) // 3
+        for group_index in range(min(reasoning_limit, available_groups)):
+            start = group_index * 3
+            ordered = unique_values[start : start + 3]
             options = [(item.text, False) for item in ordered]
             writer.create_question(
                 sermon_id=int(sermon["id"]),
@@ -611,11 +627,31 @@ def configure_exam(
     pack_version: int,
     counts: dict[str, int],
 ) -> tuple[bool, str]:
-    required = {
-        "comprehension": 6,
-        "context": 2,
-        "reasoning": 2,
-    }
+    if counts.get("context", 0) >= 2:
+        required = {
+            "comprehension": 6,
+            "context": 2,
+            "reasoning": 2,
+        }
+        rules = [
+            ("comprehension", 0.50, 6, 0.75),
+            ("context", 0.20, 2, 0.70),
+            ("reasoning", 0.30, 2, 0.70),
+        ]
+    else:
+        # Very short sermons may legitimately have fewer than three study
+        # sections. They still receive a 10-question exam, but context is
+        # assessed through a larger exact-comprehension/reasoning mix rather
+        # than inventing fake section choices.
+        required = {
+            "comprehension": 7,
+            "reasoning": 3,
+        }
+        rules = [
+            ("comprehension", 0.65, 7, 0.75),
+            ("reasoning", 0.35, 3, 0.70),
+        ]
+
     exam_size = sum(required.values())
     total = sum(counts.values())
     minimum_bank = math.ceil(exam_size * 2.4)
@@ -641,11 +677,6 @@ def configure_exam(
             2.4,
         ),
     )
-    rules = [
-        ("comprehension", 0.50, 6, 0.75),
-        ("context", 0.20, 2, 0.70),
-        ("reasoning", 0.30, 2, 0.70),
-    ]
     study.executemany(
         "INSERT INTO study_exam_category_rules("
         "sermon_id,pack_version,category,weight,question_count,minimum_score"
@@ -794,8 +825,8 @@ def build_packset(
                         pack_version=pack_version,
                     )
                     sections = split_sections(paragraphs)
-                    if len(sections) < 3:
-                        raise RuntimeError("fewer than 3 study sections")
+                    if not sections:
+                        raise RuntimeError("no study sections")
                     section_ids, _ = insert_sections(
                         study,
                         sermon_id,
@@ -862,10 +893,28 @@ def build_packset(
                 study.rollback()
                 with study:
                     study.execute(
-                        "UPDATE study_packs SET status='rejected',"
-                        "validation_status='rejected' "
-                        "WHERE sermon_id=? AND pack_version=?",
-                        (sermon_id, pack_version),
+                        "INSERT OR REPLACE INTO study_packs("
+                        "sermon_id,sermon_code,title,pack_version,"
+                        "pack_schema_version,corpus_version,"
+                        "corpus_canonical_sha256,primary_edition_id,"
+                        "bible_pack_version,status,validation_status,"
+                        "generated_at,published_at"
+                        ") VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)",
+                        (
+                            sermon_id,
+                            sermon["code"],
+                            sermon["title"],
+                            pack_version,
+                            1,
+                            meta["corpus_version"],
+                            meta["canonical_text_sha256"],
+                            sermon["primary_edition_id"],
+                            None,
+                            "rejected",
+                            "rejected",
+                            0,
+                            None,
+                        ),
                     )
                     study.execute(
                         "INSERT INTO study_validation_issues("
