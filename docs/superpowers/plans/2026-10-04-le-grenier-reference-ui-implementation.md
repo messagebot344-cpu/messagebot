@@ -309,6 +309,7 @@ git commit -m "feat: add Grenier reference home"
 - Consumes: current `ConversationController.turns`, `searching`, `send(String)`, and existing immutable `ConversationFilterSet.copyWith(...)`.
 - Produces:
   - `ConversationController.activeFilters -> ConversationFilterSet`; initialized from the latest loaded turn or empty for a new conversation.
+  - existing `ConversationController.currentFilters` remains source-compatible and delegates to `activeFilters`.
   - `ConversationController.setActiveFilters(ConversationFilterSet value) -> void`.
   - `ConversationController.clearSubjectFilter() -> void`.
   - `ConversationController.clearPeriodFilter() -> void`.
@@ -442,6 +443,7 @@ testWidgets('reference result card exposes the approved actions', (tester) async
     expect(find.text(label), findsOneWidget);
   }
   expect(find.textContaining('Très pertinent'), findsWidgets);
+  expect(find.textContaining(RegExp(r'\\d+%')), findsNothing);
 });
 
 testWidgets('details pane collapses safely below wide breakpoint', (tester) async {
@@ -528,11 +530,11 @@ testWidgets('compare picker uses current result as passage A', (tester) async {
 });
 
 testWidgets('scripture reference result opens its canonical passage', (tester) async {
-  final opened = <int>[];
-  await pumpScriptureReferenceScreen(tester, onOpenPassageId: opened.add);
+  await pumpScriptureReferenceScreenWithSermonFixture(tester);
   await submitScriptureQuery(tester, 'Jean 3:16');
   await tester.tap(find.byKey(const Key('scripture-result-0')));
-  expect(opened, isNotEmpty);
+  await tester.pumpAndSettle();
+  expect(find.byType(ReaderScreen), findsOneWidget);
 });
 ```
 
