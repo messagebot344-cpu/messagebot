@@ -1,3 +1,4 @@
+import 'dart:collection';
 import 'dart:math' as math;
 
 import '../models/models.dart';
@@ -175,8 +176,13 @@ class OfflineAiCitationRanker {
   final Map<String, List<String>> _topicLabelsByReference;
   final Map<String, Set<String>> _referenceTokensByReference;
   final Map<String, String> _normalizedContextByReference;
+  final LinkedHashMap<int, _PreparedPassage> _passageCache =
+      LinkedHashMap<int, _PreparedPassage>();
+
+  static const int _passageCacheLimit = 160;
 
   int get activeReferenceCount => references.length;
+  int get cachedPassageCount => _passageCache.length;
 
   /// Scores every active curated reference, then returns only the strongest.
   List<OfflineAiCitationMatch> rankReferences(
@@ -255,33 +261,18 @@ class OfflineAiCitationRanker {
       final text = detail.passage.text;
       if (text.trim().isEmpty) continue;
 
-      final passageVector = _normalize(
-        _textFeatures(
-          normalizer: normalizer,
-          dimensions: dimensions,
-          text: text,
-          wordWeight: 1.0,
-          bigramWeight: 0.80,
-          subwordWeight: 0.18,
-        ),
-        idf: _idf,
-        unknownIdf: 1.0,
-      );
-      final wholeSimilarity = _dot(queryVector, passageVector);
+      final prepared = _preparePassage(detail);
+      final wholeSimilarity = _dot(queryVector, prepared.vector);
 
-      final passageTokens = normalizer
-          .tokens(text, removeStopWords: true)
-          .where((token) => !_noise.contains(token))
-          .toSet();
       final overlap =
-          queryTokens.where(passageTokens.contains).length;
+          queryTokens.where(prepared.tokens.contains).length;
       final coverage = queryTokens.isEmpty
           ? 0.0
           : overlap / queryTokens.length;
 
-      final sentence = _bestSentence(
+      final sentence = _bestPreparedSentence(
         passageId: detail.passage.id,
-        text: text,
+        prepared: prepared,
         queryVector: queryVector,
         queryTokens: queryTokens,
       );
@@ -336,45 +327,91 @@ class OfflineAiCitationRanker {
         unknownIdf: 1.0,
       );
 
-  (SentenceReference?, double) _bestSentence({
+  _PreparedPassage _preparePassage(StudyPassage detail) {
+    final passageId = detail.passage.id;
+    final cached = _passageCache.remove(passageId);
+    if (cached != null) {
+      _passageCache[passageId] = cached;
+      return cached;
+    }
+
+    final text = detail.passage.text;
+    final vector = _normalize(
+      _textFeatures(
+        normalizer: normalizer,
+        dimensions: dimensions,
+        text: text,
+        wordWeight: 1.0,
+        bigramWeight: 0.80,
+        subwordWeight: 0.18,
+      ),
+      idf: _idf,
+      unknownIdf: 1.0,
+    );
+    final tokens = normalizer
+        .tokens(text, removeStopWords: true)
+        .where((token) => !_noise.contains(token))
+        .toSet();
+    final sentences = <_PreparedSentence>[];
+    for (final span in _sentenceSpans(text)) {
+      sentences.add(
+        _PreparedSentence(
+          span: span,
+          vector: _normalize(
+            _textFeatures(
+              normalizer: normalizer,
+              dimensions: dimensions,
+              text: span.text,
+              wordWeight: 1.0,
+              bigramWeight: 0.95,
+              subwordWeight: 0.20,
+            ),
+            idf: _idf,
+            unknownIdf: 1.0,
+          ),
+          tokens: Set<String>.unmodifiable(
+            normalizer
+                .tokens(span.text, removeStopWords: true)
+                .where((token) => !_noise.contains(token)),
+          ),
+        ),
+      );
+    }
+
+    final prepared = _PreparedPassage(
+      vector: Map<int, double>.unmodifiable(vector),
+      tokens: Set<String>.unmodifiable(tokens),
+      sentences: List<_PreparedSentence>.unmodifiable(sentences),
+    );
+    _passageCache[passageId] = prepared;
+    if (_passageCache.length > _passageCacheLimit) {
+      _passageCache.remove(_passageCache.keys.first);
+    }
+    return prepared;
+  }
+
+  (SentenceReference?, double) _bestPreparedSentence({
     required int passageId,
-    required String text,
+    required _PreparedPassage prepared,
     required Map<int, double> queryVector,
     required Set<String> queryTokens,
   }) {
-    final spans = _sentenceSpans(text);
-    if (spans.isEmpty) return (null, 0.0);
+    if (prepared.sentences.isEmpty) return (null, 0.0);
 
-    _SentenceSpan? best;
+    _PreparedSentence? best;
     var bestScore = -1.0;
 
-    for (final span in spans) {
-      final vector = _normalize(
-        _textFeatures(
-          normalizer: normalizer,
-          dimensions: dimensions,
-          text: span.text,
-          wordWeight: 1.0,
-          bigramWeight: 0.95,
-          subwordWeight: 0.20,
-        ),
-        idf: _idf,
-        unknownIdf: 1.0,
-      );
-      final semantic = _dot(queryVector, vector);
-      final tokens = normalizer
-          .tokens(span.text, removeStopWords: true)
-          .where((token) => !_noise.contains(token))
-          .toSet();
+    for (final sentence in prepared.sentences) {
+      final semantic = _dot(queryVector, sentence.vector);
       final overlap =
-          queryTokens.where(tokens.contains).length;
+          queryTokens.where(sentence.tokens.contains).length;
       final coverage = queryTokens.isEmpty
           ? 0.0
           : overlap / queryTokens.length;
       final score = semantic * 0.78 + coverage * 0.22;
       if (score > bestScore) {
         bestScore = score;
-        best = span;
+        best = sentence;
       }
     }
 
@@ -382,9 +419,9 @@ class OfflineAiCitationRanker {
     return (
       SentenceReference(
         passageId: passageId,
-        startOffset: best.start,
-        endOffset: best.end,
-        ordinal: best.ordinal,
+        startOffset: best.span.start,
+        endOffset: best.span.end,
+        ordinal: best.span.ordinal,
       ),
       bestScore.clamp(0.0, 1.0).toDouble(),
     );
@@ -586,6 +623,30 @@ class OfflineAiCitationRanker {
     'faut',
     'etre',
   };
+}
+
+class _PreparedPassage {
+  const _PreparedPassage({
+    required this.vector,
+    required this.tokens,
+    required this.sentences,
+  });
+
+  final Map<int, double> vector;
+  final Set<String> tokens;
+  final List<_PreparedSentence> sentences;
+}
+
+class _PreparedSentence {
+  const _PreparedSentence({
+    required this.span,
+    required this.vector,
+    required this.tokens,
+  });
+
+  final _SentenceSpan span;
+  final Map<int, double> vector;
+  final Set<String> tokens;
 }
 
 class _SentenceSpan {
