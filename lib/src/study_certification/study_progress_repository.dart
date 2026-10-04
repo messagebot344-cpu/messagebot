@@ -85,12 +85,15 @@ class StudyProgressRepository {
     required bool appIsActive,
     required bool studyScreenIsActive,
   }) {
-    ensureProgress(sermonId: sermonId, packVersion: packVersion);
+    final current = ensureProgress(
+      sermonId: sermonId,
+      packVersion: packVersion,
+    );
     if (!appIsActive ||
         !studyScreenIsActive ||
         visibleMilliseconds <= 0 ||
         visibleRatio < minimumVisibleRatio) {
-      return progress(sermonId, packVersion)!.readingPercent;
+      return current.readingPercent;
     }
 
     final now = _now();
@@ -108,6 +111,9 @@ class StudyProgressRepository {
     final firstSeen =
         rows.isEmpty ? now : rows.first['first_seen_at'] as int? ?? now;
     final wasRead = rows.isNotEmpty && rows.first['state'] == 'read';
+    if (wasRead) {
+      return current.readingPercent;
+    }
 
     database.db.execute(
       'INSERT INTO study_paragraph_progress('
