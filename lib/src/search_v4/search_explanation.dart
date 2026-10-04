@@ -12,6 +12,8 @@ class SearchExplanationV4 {
     this.curatedReferences = const <String>[],
     this.offlineAiSemantic = false,
     this.offlineAiTopics = const <String>[],
+    this.offlineAiCitation = false,
+    this.offlineAiCitationScore,
     this.fuzzy = false,
     this.alternateEdition = false,
     this.fuzzyTerms = const <String>[],
@@ -30,6 +32,8 @@ class SearchExplanationV4 {
   final List<String> curatedReferences;
   final bool offlineAiSemantic;
   final List<String> offlineAiTopics;
+  final bool offlineAiCitation;
+  final double? offlineAiCitationScore;
   final bool fuzzy;
   final bool alternateEdition;
   final List<String> fuzzyTerms;
@@ -51,6 +55,8 @@ class SearchExplanationV4 {
         curatedReferences: values.toSet().toList(growable: false),
         offlineAiSemantic: offlineAiSemantic,
         offlineAiTopics: offlineAiTopics,
+        offlineAiCitation: offlineAiCitation,
+        offlineAiCitationScore: offlineAiCitationScore,
         fuzzy: fuzzy,
         alternateEdition: alternateEdition,
         fuzzyTerms: fuzzyTerms,
@@ -74,6 +80,36 @@ class SearchExplanationV4 {
       curatedReferences: curatedReferences,
       offlineAiSemantic: topics.isNotEmpty,
       offlineAiTopics: topics,
+      offlineAiCitation: offlineAiCitation,
+      offlineAiCitationScore: offlineAiCitationScore,
+      fuzzy: fuzzy,
+      alternateEdition: alternateEdition,
+      fuzzyTerms: fuzzyTerms,
+      conceptualTerms: conceptualTerms,
+    );
+  }
+
+  SearchExplanationV4 withOfflineAiCitationScore(
+    double? score,
+  ) {
+    final normalized =
+        score?.clamp(0.0, 1.0).toDouble();
+    return SearchExplanationV4(
+      direct: direct,
+      exactPhrase: exactPhrase,
+      proximity: proximity,
+      strongTerms: strongTerms,
+      broadTerms: broadTerms,
+      prefix: prefix,
+      morphology: morphology,
+      conceptual: conceptual,
+      curatedReference: curatedReference,
+      curatedReferences: curatedReferences,
+      offlineAiSemantic: offlineAiSemantic,
+      offlineAiTopics: offlineAiTopics,
+      offlineAiCitation:
+          normalized != null && normalized > 0,
+      offlineAiCitationScore: normalized,
       fuzzy: fuzzy,
       alternateEdition: alternateEdition,
       fuzzyTerms: fuzzyTerms,
@@ -115,6 +151,14 @@ class SearchExplanationV4 {
         offlineAiTopics.isEmpty
             ? 'IA sémantique locale : rapprochement thématique hors ligne'
             : 'IA sémantique locale : ${offlineAiTopics.take(3).join(', ')}',
+      );
+    }
+    if (offlineAiCitation) {
+      final score = offlineAiCitationScore;
+      values.add(
+        score == null
+            ? 'IA locale : citation analysée comme réponse pertinente'
+            : 'IA locale : pertinence de la citation ${(score * 100).round()} %',
       );
     }
     if (fuzzy) values.add('Variante orthographique proche : ${fuzzyTerms.join(', ')}');

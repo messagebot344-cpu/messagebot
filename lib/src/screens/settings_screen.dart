@@ -81,7 +81,7 @@ class SettingsScreen extends StatelessWidget {
             title: const Text('IA sémantique locale légère'),
             subtitle: Text(
               scope.searchService.offlineAiReady
-                  ? 'Active. Elle rapproche la question des thèmes validés, sans réseau et sans générer de citation ni de réponse doctrinale.'
+                  ? 'Active. Elle compare la question à ${scope.searchService.offlineAiCitationCount} références validées, puis relit le texte canonique candidat phrase par phrase. Aucun texte de citation n’est généré.'
                   : 'Indisponible. La recherche V4 déterministe continue de fonctionner normalement.',
             ),
           ),

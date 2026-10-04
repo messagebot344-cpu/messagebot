@@ -276,7 +276,9 @@ class OfflineAiCitationRanker {
         prior * 0.10
       ).clamp(0.0, 1.0).toDouble();
 
-      if (finalScore < minPassageScore && prior <= 0) continue;
+      // A human reference may guide retrieval, but it can never bypass
+      // the canonical answer-relevance threshold.
+      if (finalScore < minPassageScore) continue;
 
       values.add(
         OfflineAiPassageMatch(
