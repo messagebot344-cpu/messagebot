@@ -17,7 +17,7 @@ class StudyProgressRepository {
   static const double minimumVisibleRatio = 0.60;
 
   int requiredVisibleMilliseconds(int characterCount) {
-    final seconds = (characterCount / 35).ceil().clamp(2, 30);
+    final seconds = (characterCount / 35).ceil().clamp(2, 30).toInt();
     return seconds * 1000;
   }
 
@@ -189,7 +189,7 @@ class StudyProgressRepository {
           0,
           (sum, paragraph) => sum + paragraph.characterCount,
         );
-    final percent = (readChars / total).clamp(0.0, 1.0);
+    final percent = (readChars / total).clamp(0.0, 1.0).toDouble();
     final now = _now();
     database.db.execute(
       'UPDATE study_progress SET reading_percent=?,last_studied_at=?,'
