@@ -38,6 +38,28 @@ def _trimmed_bounds(text: str, start: int, end: int) -> tuple[int, int]:
     return start, end
 
 
+def sermon_content_end(text: str) -> int:
+    """Return the canonical offset where publisher/distribution tail begins.
+
+    The returned offset is only a study-layer boundary. The canonical text in
+    corpus.db is never rewritten or deleted.
+    """
+    lowered = text.lower()
+    candidates = [
+        lowered.find(marker)
+        for marker in STUDY_EDITORIAL_START_MARKERS
+        if lowered.find(marker) >= 0
+    ]
+    return min(candidates) if candidates else len(text)
+
+
+def study_paragraph_spans(text: str) -> list[tuple[int, int]]:
+    end = sermon_content_end(text)
+    if end <= 0:
+        return []
+    return paragraph_spans(text[:end])
+
+
 def paragraph_spans(text: str) -> list[tuple[int, int]]:
     if not text:
         return []
@@ -102,7 +124,7 @@ def derive_for_sermon(
     global_ordinal = 0
     for row in rows:
         text = row["text_display"]
-        for start, end in paragraph_spans(text):
+        for start, end in study_paragraph_spans(text):
             exact = text[start:end]
             text_hash = hashlib.sha256(exact.encode("utf-8")).hexdigest()
             number_match = PRINTED_NUMBER_RE.match(exact)
