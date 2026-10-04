@@ -537,7 +537,7 @@ class StudyProgressRepository {
   StudyCertification? certificationById(String certificationId) {
     final rows = database.db.select(
       'SELECT certification_id,sermon_id,pack_version,corpus_version,'
-      'score,study_seconds,attempt_id,certified_at,level,integrity_hash '
+      'score,category_scores_json,study_seconds,attempt_id,certified_at,level,integrity_hash '
       'FROM study_certifications WHERE certification_id=? LIMIT 1',
       [certificationId],
     );
@@ -549,6 +549,9 @@ class StudyProgressRepository {
       packVersion: row['pack_version'] as int,
       corpusVersion: row['corpus_version'] as String,
       score: (row['score'] as num).toDouble(),
+      categoryScores: _decodeCategoryScores(
+        row['category_scores_json'] as String,
+      ),
       studySeconds: row['study_seconds'] as int,
       attemptId: row['attempt_id'] as int,
       certifiedAt: row['certified_at'] as int,
@@ -578,6 +581,27 @@ class StudyProgressRepository {
         ),
       )
       .toList(growable: false);
+
+  Map<String, double> _decodeCategoryScores(String value) {
+    final decoded = jsonDecode(value);
+    if (decoded is! Map<String, dynamic>) {
+      throw const FormatException('Scores de catégories invalides.');
+    }
+    return Map.unmodifiable({
+      for (final entry in decoded.entries)
+        entry.key: (entry.value as num).toDouble(),
+    });
+  }
+
+  String _categoryName(StudyQuestionCategory value) => switch (value) {
+        StudyQuestionCategory.comprehension => 'comprehension',
+        StudyQuestionCategory.context => 'context',
+        StudyQuestionCategory.reasoning => 'reasoning',
+        StudyQuestionCategory.bible => 'bible',
+        StudyQuestionCategory.doctrine => 'doctrine',
+        StudyQuestionCategory.comparison => 'comparison',
+        StudyQuestionCategory.caseAnalysis => 'case_analysis',
+      };
 
   StudyProgressStatus _statusFromName(String value) => switch (value) {
         'not_started' => StudyProgressStatus.notStarted,
