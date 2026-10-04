@@ -23,6 +23,10 @@ void main() {
       QuestionIntent.definition,
     );
     expect(
+      parser.parse("Qu'est-ce que le Saint-Esprit ?").questionIntent,
+      QuestionIntent.definition,
+    );
+    expect(
       parser.parse('Quelle différence entre volonté parfaite et permissive ?')
           .questionIntent,
       QuestionIntent.comparison,
