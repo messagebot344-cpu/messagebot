@@ -36,3 +36,6 @@ Task 1: Ruling: V4 runtime guard mandated the superseded “Message Bot” brand
 
 Task 1: complete (commits c99a8ce..7f19bb4, tests: GitHub Actions flutter analyze + flutter test → success in job 111350470770)
 
+Task 2: Ruling: desktop widget test initially used Flutter's 800×600 default instead of the plan's 1440×900 contract — corrected the harness to 1440×900 while preserving all product assertions — cost if wrong: a short desktop window could still need extra vertical adaptation outside the specified reference viewport.
+Task 2: complete (commits 6e3235c..256bb60, tests: GitHub Actions flutter analyze + flutter test → success in job 111352200606)
+
