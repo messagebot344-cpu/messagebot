@@ -77,6 +77,11 @@ with tempfile.NamedTemporaryFile(suffix='.db') as tmp:
                         local_ids.add(ref_id)
                         check(bool(code), f'{rel}:{ref_id}: sermon_code missing')
                         check(bool(anchors), f'{rel}:{ref_id}: anchor_terms missing')
+                        corpus_status=str(ref.get('corpus_status') or 'resolved').strip()
+                        if corpus_status != 'resolved':
+                            reason=str(ref.get('unresolved_reason') or '').strip()
+                            check(bool(reason), f'{rel}:{ref_id}: unresolved reference needs unresolved_reason')
+                            continue
                         sermon=con.execute('SELECT id FROM sermons WHERE code=? LIMIT 1',(code,)).fetchone()
                         if sermon is None:
                             title=str(ref.get('sermon_title') or '').strip()
