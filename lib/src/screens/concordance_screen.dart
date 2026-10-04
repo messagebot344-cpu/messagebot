@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 
 import '../app_scope.dart';
@@ -14,6 +16,7 @@ class ConcordanceScreen extends StatefulWidget {
 
 class _ConcordanceScreenState extends State<ConcordanceScreen> {
   final TextEditingController _controller = TextEditingController();
+  Timer? _lookupDebounce;
   List<TermStat> _terms = const [];
   List<StudyPassage> _occurrences = const [];
   String? _selectedTerm;
@@ -21,15 +24,34 @@ class _ConcordanceScreenState extends State<ConcordanceScreen> {
 
   @override
   void dispose() {
+    _lookupDebounce?.cancel();
     _controller.dispose();
     super.dispose();
   }
 
   void _lookupTerms(String value) {
-    setState(() {
-      _terms = AppScope.of(context).studyEngine.concordance.searchTerms(value, limit: 80);
-      _occurrences = const [];
-      _selectedTerm = null;
+    _lookupDebounce?.cancel();
+    final query = value.trim();
+    if (query.isEmpty) {
+      setState(() {
+        _terms = const [];
+        _occurrences = const [];
+        _selectedTerm = null;
+      });
+      return;
+    }
+    _lookupDebounce = Timer(const Duration(milliseconds: 180), () {
+      if (!mounted) return;
+      final terms = AppScope.of(context)
+          .studyEngine
+          .concordance
+          .searchTerms(query, limit: 80);
+      if (!mounted) return;
+      setState(() {
+        _terms = terms;
+        _occurrences = const [];
+        _selectedTerm = null;
+      });
     });
   }
 
