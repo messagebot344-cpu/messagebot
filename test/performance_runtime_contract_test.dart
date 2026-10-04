@@ -45,6 +45,19 @@ void main() {
     );
   });
 
+  test('les associations conceptuelles coûteuses sont différées', () {
+    final coordinator =
+        File('lib/src/search_v4/search_coordinator_v4.dart')
+            .readAsStringSync();
+    final expander =
+        File('lib/src/search_v4/conceptual_query_expander.dart')
+            .readAsStringSync();
+
+    expect(coordinator, contains('includeCorpusAssociations: false'));
+    expect(coordinator, contains('strongEvidenceCount < 40'));
+    expect(expander, contains('bool includeCorpusAssociations = true'));
+  });
+
   test('le suivi étude est borné et évite les écritures inutiles', () {
     final screen =
         File('lib/src/screens/study_reading_screen.dart')
@@ -54,8 +67,10 @@ void main() {
             .readAsStringSync();
 
     expect(screen, contains('Duration(seconds: 2)'));
+    expect(screen, contains('recordStudyHeartbeat'));
     expect(screen, contains('if (latestReadingPercent == _readingPercent) return;'));
     expect(repository, contains('if (wasRead)'));
+    expect(repository, contains('void recordStudyHeartbeat'));
     expect(repository, contains('var nextReadingPercent = current.readingPercent;'));
     expect(
       repository,
