@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../app_scope.dart';
 import '../theme/grenier_tokens.dart';
 import 'collections_screen.dart';
+import 'comparison_picker_screen.dart';
 import 'concordance_screen.dart';
 import 'conversation_screen.dart';
 import 'grenier_home_screen.dart';
@@ -11,6 +12,7 @@ import 'grenier_top_banner.dart';
 import 'library_screen.dart';
 import 'personal_search_screen.dart';
 import 'settings_screen.dart';
+import 'scripture_references_screen.dart';
 import 'study_screen.dart';
 import 'timeline_screen.dart';
 
@@ -45,8 +47,8 @@ class _ConversationShellScreenState extends State<ConversationShellScreen> {
       GrenierDestination.notes => const PersonalSearchScreen(),
       GrenierDestination.concordance => const ConcordanceScreen(),
       GrenierDestination.timeline => const TimelineScreen(),
-      GrenierDestination.compare => const StudyScreen(),
-      GrenierDestination.scripture => const StudyScreen(),
+      GrenierDestination.compare => const ComparisonPickerScreen(),
+      GrenierDestination.scripture => const ScriptureReferencesScreen(),
       GrenierDestination.settings => const SettingsScreen(),
     };
   }
