@@ -77,6 +77,6 @@ void main() {
     );
     expect(conversationBytes, isNotEmpty);
     expect(builder.debugPlainText, contains('Conversation de test'));
-    expect('Que dit-il sur la foi ?'.allMatches(builder.debugPlainText).length, 2);
+    expect(RegExp(RegExp.escape('Que dit-il sur la foi ?')).allMatches(builder.debugPlainText).length, 2);
   });
 }
