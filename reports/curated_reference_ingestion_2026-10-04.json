@@ -38,19 +38,36 @@
       "resolved": 103,
       "unresolved": 0,
       "sha256": "acc7c00d6a851288d0ae522932eaca23b7a0534ece5c6dac136740c479914670"
+    },
+    {
+      "file": "Fascicule_1060_Citations_Dons_Ministeres_Doctrines_Service_Branham.text",
+      "entries": 1060,
+      "resolved": 1050,
+      "unresolved": 10,
+      "sha256": "98874d8b027401f9b4f25b21322bf34f16d108bbad669d9c89bac1251e60388f"
+    },
+    {
+      "file": "Fascicule_Finances_Pauvrete_Liens_Famille_Delivrance_Branham_200plus.text",
+      "entries": 200,
+      "resolved": 199,
+      "unresolved": 1,
+      "sha256": "84a2fa2a42ef51c5f3ed49607bfab5bcd5eab9086fba1fd3042178553be0ee17",
+      "guardrail": "The terms mari/femme de nuit are not represented as a Branham doctrine; routing points only to related discernment material."
     }
   ],
   "totals": {
-    "entries": 535,
-    "resolved": 517,
-    "unresolved": 18,
-    "active_ratio": 0.9663551401869159
+    "entries": 1795,
+    "resolved": 1766,
+    "unresolved": 29,
+    "active_ratio": 0.9838440111420613
   },
   "runtime_changes": [
     "Curated references are ranked by user-query overlap with each manual thematic marker, so deep references are eligible.",
     "Curated sermon lookup prefers primary editions but can use canonical alternate editions when needed.",
     "Unresolved references are preserved with reasons and excluded from runtime routing.",
     "Release validation checks every active curated sermon code and anchor against the canonical corpus.",
-    "No quote text from the fascicles is stored as displayable canonical text."
+    "No quote text from the fascicles is stored as displayable canonical text.",
+    "The 1060-reference doctrine/service fascicle is indexed across 15 major sections plus five ministry-specific routes.",
+    "The 200-reference finance/family/deliverance fascicle keeps the source's explicit caution around 'mari/femme de nuit' and does not elevate that terminology into doctrine."
   ]
 }

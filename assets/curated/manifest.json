@@ -1,12 +1,14 @@
 {
   "schema_version": 1,
-  "index_version": "2026.10.04-2",
+  "index_version": "2026.10.04-3",
   "description": "Curated human reference maps used only as deterministic search-routing hints. Canonical quotations always come from corpus.db.",
   "files": [
     "assets/curated/le_mari_gentleman.reference_index.json",
     "assets/curated/prayer_fasting.reference_index.json",
     "assets/curated/marriage_choice_church.reference_index.json",
     "assets/curated/gods_will_mystery.reference_index.json",
-    "assets/curated/holy_spirit.reference_index.json"
+    "assets/curated/holy_spirit.reference_index.json",
+    "assets/curated/doctrine_service_1060.reference_index.json",
+    "assets/curated/finance_family_deliverance_200.reference_index.json"
   ]
 }

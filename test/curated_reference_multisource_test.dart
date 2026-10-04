@@ -6,13 +6,10 @@ import 'package:le_grenier_du_message/src/search_v4/curated_reference_index.dart
 
 void main() {
   CuratedReferenceIndex loadAll() {
-    const paths = <String>[
-      'assets/curated/le_mari_gentleman.reference_index.json',
-      'assets/curated/prayer_fasting.reference_index.json',
-      'assets/curated/marriage_choice_church.reference_index.json',
-      'assets/curated/gods_will_mystery.reference_index.json',
-      'assets/curated/holy_spirit.reference_index.json',
-    ];
+    final manifest = jsonDecode(
+      File('assets/curated/manifest.json').readAsStringSync(),
+    ) as Map<String, dynamic>;
+    final paths = (manifest['files'] as List).cast<String>();
     final payloads = paths
         .map(
           (path) => jsonDecode(File(path).readAsStringSync())
@@ -22,16 +19,16 @@ void main() {
     return CuratedReferenceIndex.fromPayloads(payloads);
   }
 
-  test('les cinq guides humains sont agrégés sans remplacer le corpus', () {
+  test('tous les guides humains sont agrégés sans remplacer le corpus', () {
     final index = loadAll();
 
-    expect(index.references.length, 535);
-    expect(index.topics.length, 53);
+    expect(index.references.length, 1795);
+    expect(index.topics.length, greaterThanOrEqualTo(79));
     expect(
       index.references.values
           .where((reference) => !reference.corpusResolved)
           .length,
-      18,
+      29,
     );
   });
 
@@ -43,7 +40,7 @@ void main() {
 
     expect(hints, isNotEmpty);
     expect(
-      hints.take(6).any(
+      hints.take(8).any(
             (hint) =>
                 hint.reference.sourceIndexId ==
                     'curated-prayer-fasting-v1' &&
@@ -106,13 +103,86 @@ void main() {
     );
   });
 
+  test('les dons prophétiques utilisent le fascicule de 1060 repères', () {
+    final index = loadAll();
+    final hints = index.searchHints(
+      'Comment développer la sensibilité au prophétique sans imiter un don ?',
+    );
+
+    expect(
+      hints.take(10).any(
+            (hint) =>
+                hint.reference.sourceIndexId ==
+                'curated-doctrine-service-1060-v1',
+          ),
+      isTrue,
+    );
+  });
+
+  test('venir trente minutes avant le service retrouve Church Order', () {
+    final index = loadAll();
+    final hints = index.searchHints(
+      'Pourquoi venir trente minutes avant le service et rester révérencieux ?',
+    );
+
+    expect(
+      hints.take(12).any(
+            (hint) =>
+                hint.reference.sourceIndexId ==
+                    'curated-doctrine-service-1060-v1' &&
+                hint.reference.sermonCode == '63-1226',
+          ),
+      isTrue,
+    );
+  });
+
+  test('les finances chrétiennes exploitent le fascicule de 200 repères', () {
+    final index = loadAll();
+    final hints = index.searchHints(
+      'Comment gérer mes dettes et mon budget de façon chrétienne ?',
+    );
+
+    expect(
+      hints.take(10).any(
+            (hint) =>
+                hint.reference.sourceIndexId ==
+                'curated-finance-family-deliverance-200-v1',
+          ),
+      isTrue,
+    );
+  });
+
+  test('mari de nuit route vers le discernement sans en faire une doctrine', () {
+    final index = loadAll();
+    final hints = index.searchHints(
+      'Que dit Branham sur ce que certains appellent mari de nuit ?',
+    );
+
+    expect(
+      hints.take(10).any(
+            (hint) =>
+                hint.reference.sourceIndexId ==
+                'curated-finance-family-deliverance-200-v1',
+          ),
+      isTrue,
+    );
+
+    final raw = File(
+      'assets/curated/finance_family_deliverance_200.reference_index.json',
+    ).readAsStringSync();
+    expect(
+      raw,
+      contains("does not define 'mari/femme de nuit' as a Branham doctrine"),
+    );
+  });
+
   test('les index humains ne stockent aucun texte de citation à afficher', () {
-    for (final path in <String>[
-      'assets/curated/prayer_fasting.reference_index.json',
-      'assets/curated/marriage_choice_church.reference_index.json',
-      'assets/curated/gods_will_mystery.reference_index.json',
-      'assets/curated/holy_spirit.reference_index.json',
-    ]) {
+    final manifest = jsonDecode(
+      File('assets/curated/manifest.json').readAsStringSync(),
+    ) as Map<String, dynamic>;
+    final paths = (manifest['files'] as List).cast<String>();
+
+    for (final path in paths) {
       final raw = File(path).readAsStringSync();
       expect(raw, isNot(contains('"quote_text"')));
       expect(raw, isNot(contains('"exact_quote"')));
