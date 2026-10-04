@@ -71,10 +71,18 @@ class SearchServiceV4 {
   Future<ResolvedSearchOutcomeV4> searchOutcome(
     String query, {
     ConversationFilterSet inherited = const ConversationFilterSet(),
-    int maxResults = 800,
+    int maxResults = 120,
   }) async {
-    final outcome = await coordinator.search(query, inherited: inherited, maxResults: maxResults);
-    final details = repository.studyDetailsForPassageIds(outcome.references.map((e) => e.passageId));
+    final outcome = await coordinator.search(
+      query,
+      inherited: inherited,
+      maxResults: maxResults,
+    );
+    final details = outcome.details.isNotEmpty
+        ? outcome.details
+        : repository.studyDetailsForPassageIds(
+            outcome.references.map((e) => e.passageId),
+          );
     final values = <ResolvedV4Hit>[];
     for (final ref in outcome.references) {
       final detail = details[ref.passageId];
