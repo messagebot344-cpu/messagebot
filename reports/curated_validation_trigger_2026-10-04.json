@@ -1,0 +1,14 @@
+{
+  "purpose": "Independent final CI validation of the complete curated index.",
+  "curated_references_total": 1795,
+  "active_references": 1766,
+  "quarantined_references": 29,
+  "expected_checks": [
+    "canonical-release-validation",
+    "study-pipeline",
+    "flutter-analyze",
+    "flutter-test",
+    "android-arm64",
+    "windows-release"
+  ]
+}
