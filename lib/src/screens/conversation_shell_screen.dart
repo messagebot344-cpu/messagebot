@@ -13,7 +13,6 @@ import 'library_screen.dart';
 import 'personal_search_screen.dart';
 import 'settings_screen.dart';
 import 'scripture_references_screen.dart';
-import 'study_screen.dart';
 import 'timeline_screen.dart';
 
 class ConversationShellScreen extends StatefulWidget {
