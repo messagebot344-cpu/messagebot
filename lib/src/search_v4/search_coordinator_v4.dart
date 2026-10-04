@@ -76,7 +76,12 @@ class SearchCoordinatorV4 {
       return SearchOutcomeV4(query: spec, references: const [], explanations: const {});
     }
 
-    const candidateLimit = 1800;
+    // Retrieval pools scale with the number of results the caller can
+    // actually consume. Keeping thousands of FTS rows for an 80-result UI
+    // wastes SQLite, allocation and ranking work without improving display.
+    final candidateLimit = (maxResults * 10).clamp(600, 1200).toInt();
+    final expansionLimit = (candidateLimit * 0.55).round();
+    final secondaryLimit = (candidateLimit * 0.40).round();
     final conceptual = conceptualExpander.expand(
       spec,
       includeCorpusAssociations: false,
@@ -121,7 +126,7 @@ class SearchCoordinatorV4 {
         : proximityEngine.search(effectiveSpec, limit: candidateLimit);
     final strong = strongQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, strongQuery, candidateLimit);
     final broad = broadQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, broadQuery, candidateLimit);
-    final prefix = prefixQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, prefixQuery, 900);
+    final prefix = prefixQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, prefixQuery, expansionLimit);
 
     final strongEvidenceCount =
         direct.length + exact.length + proximity.length + strong.length;
@@ -135,7 +140,7 @@ class SearchCoordinatorV4 {
     }
     morphologyTerms.removeAll(tokens);
     final morphologyQuery = morphologyTerms.take(16).map((e) => '"${e.replaceAll('"', '""')}"').join(' OR ');
-    final morphHits = morphologyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, morphologyQuery, 900);
+    final morphHits = morphologyQuery.isEmpty ? const <RankedPassage>[] : _search(effectiveSpec, morphologyQuery, expansionLimit);
 
     final conceptualTerms = conceptualWithAssociations.relatedTerms;
     final conceptualQuery = conceptualTerms
@@ -144,7 +149,7 @@ class SearchCoordinatorV4 {
         .join(' OR ');
     final conceptualHits = conceptualQuery.isEmpty
         ? const <RankedPassage>[]
-        : _search(effectiveSpec, conceptualQuery, 700);
+        : _search(effectiveSpec, conceptualQuery, secondaryLimit);
 
     final offlineAiMatches =
         offlineAiRouter?.match(spec.raw) ?? const <OfflineAiTopicMatch>[];
@@ -184,10 +189,10 @@ class SearchCoordinatorV4 {
         .join(' OR ');
     final fuzzyHits = fuzzyQuery.isEmpty
         ? const <RankedPassage>[]
-        : _search(effectiveSpec, fuzzyQuery, 700);
+        : _search(effectiveSpec, fuzzyQuery, secondaryLimit);
     final alternate = strongQuery.isEmpty || effectiveSpec.filters.sourceType == 'book'
         ? const <RankedPassage>[]
-        : repository.lexicalSearchAlternates(strongQuery, limit: 500);
+        : repository.lexicalSearchAlternates(strongQuery, limit: secondaryLimit);
 
     final ranked = ranker.rank(
       RetrievalBundleV4(
