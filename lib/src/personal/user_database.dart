@@ -24,6 +24,7 @@ class UserDatabase {
     final result = UserDatabase._(database, path);
     result._ensureBaseSchema();
     result.ensureV4Schema();
+    result.ensureV5Schema();
     return result;
   }
 
@@ -137,6 +138,37 @@ class UserDatabase {
       ''');
       db.execute("INSERT INTO user_notes_fts(user_notes_fts) VALUES('rebuild')");
       setMeta('schema_version', '4');
+      db.execute('COMMIT');
+    } catch (_) {
+      db.execute('ROLLBACK');
+      rethrow;
+    }
+  }
+
+  void ensureV5Schema() {
+    final current = int.tryParse(meta('schema_version') ?? '1') ?? 1;
+    if (current >= 5 && _hasTable('passage_highlights')) return;
+    db.execute('BEGIN IMMEDIATE');
+    try {
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS passage_highlights(
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          passage_id INTEGER NOT NULL,
+          start_offset INTEGER NOT NULL,
+          end_offset INTEGER NOT NULL,
+          highlighted_text TEXT NOT NULL,
+          created_at INTEGER NOT NULL,
+          updated_at INTEGER NOT NULL,
+          CHECK(start_offset >= 0),
+          CHECK(end_offset > start_offset),
+          UNIQUE(passage_id,start_offset,end_offset)
+        )
+      ''');
+      db.execute(
+        'CREATE INDEX IF NOT EXISTS idx_passage_highlights_passage '
+        'ON passage_highlights(passage_id,start_offset,end_offset)',
+      );
+      setMeta('schema_version', '5');
       db.execute('COMMIT');
     } catch (_) {
       db.execute('ROLLBACK');
