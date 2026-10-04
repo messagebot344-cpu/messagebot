@@ -457,7 +457,25 @@ Cette tranche ne publie encore aucun Study Pack et ne branche pas encore le parc
 
 ## 16. Tranche de correction 50 % — packaging et intégration runtime
 
-La deuxième tranche démarre par un paquet Study Pack local reproductible,
-strictement lié à `corpus_version` et `canonical_text_sha256`. Le paquet
-fondation ne publie encore aucune certification : il fournit uniquement la
-base SQLite locale validée nécessaire au branchement sûr du runtime.
+La deuxième tranche ajoute :
+
+- un paquet Study Pack local reproductible, strictement lié à
+  `corpus_version` et `canonical_text_sha256` ;
+- installation atomique et validation SHA-256/SQLite avant ouverture ;
+- exposition de `StudyPackRepository` et `StudyProgressRepository` dans
+  `AppScope` ;
+- accès « Étudier & obtenir la certification » depuis chaque lecteur de
+  prédication ;
+- écran d’accueil d’étude avec progression, sections, temps actif et état
+  d’éligibilité à l’examen ;
+- lecteur certifiant basé sur le texte canonique exact, avec vérification du
+  hash de chaque paragraphe avant affichage ;
+- progression pondérée par caractères, visibilité réelle du viewport et temps
+  actif uniquement lorsque l’application est au premier plan ;
+- progression de section calculée à partir des paragraphes réellement lus ;
+- extension du garde-fou offline aux écrans et services de certification ;
+- tests de contrat du packaging et du branchement runtime.
+
+Le paquet fondation ne publie volontairement aucune question ni certification.
+Les Study Packs pédagogiques ne pourront être marqués `published` qu’après la
+phase de génération/validation documentaire.
