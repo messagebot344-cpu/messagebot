@@ -3,6 +3,7 @@ import 'dart:typed_data';
 import 'package:pdf/pdf.dart';
 import 'package:pdf/widgets.dart' as pw;
 
+import '../conversation/conversation_models.dart';
 import '../conversation/relevance_label.dart';
 import '../models/models.dart';
 import 'print_models.dart';
@@ -149,7 +150,7 @@ class PrintDocumentBuilder {
                   ),
                 ),
                 pw.SizedBox(height: 7),
-                pw.Text(_safe(p.passage.text), style: const pw.TextStyle(fontSize: 9.5, lineSpacing: 2)),
+                pw.Text(_safe(p.passage.text), style: const pw.TextStyle(fontSize: 9.5)),
               ],
             ),
           ),
