@@ -10,7 +10,6 @@ class MessageBotTheme {
     final scheme = ColorScheme.fromSeed(
       seedColor: GrenierPalette.actionBlue,
       brightness: Brightness.light,
-      surface: GrenierPalette.lightCard,
     );
     return ThemeData(
       useMaterial3: true,
