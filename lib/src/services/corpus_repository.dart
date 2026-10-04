@@ -139,6 +139,46 @@ class CorpusRepository {
     }
   }
 
+  List<RankedPassage> lexicalSearchSermons(
+    String ftsQuery,
+    Iterable<String> sermonCodes, {
+    int limit = 80,
+  }) {
+    final codes = sermonCodes
+        .map((value) => value.trim())
+        .where((value) => value.isNotEmpty)
+        .toSet()
+        .toList(growable: false);
+    if (ftsQuery.trim().isEmpty || codes.isEmpty) {
+      return const [];
+    }
+    final marks = List.filled(codes.length, '?').join(',');
+    try {
+      final rows = db.select(
+        'SELECT passages_fts.rowid AS passage_id, '
+        'bm25(passages_fts) AS rank_value '
+        'FROM passages_fts '
+        'JOIN passages p ON p.id = passages_fts.rowid '
+        'JOIN editions e ON e.id = p.edition_id '
+        'JOIN sermons s ON s.id = p.sermon_id '
+        'WHERE passages_fts MATCH ? AND e.is_primary = 1 '
+        'AND s.code IN ($marks) '
+        'ORDER BY rank_value LIMIT ?',
+        <Object?>[ftsQuery, ...codes, limit],
+      );
+      return rows
+          .map(
+            (row) => RankedPassage(
+              row['passage_id'] as int,
+              (row['rank_value'] as num).toDouble(),
+            ),
+          )
+          .toList(growable: false);
+    } on SqliteException {
+      return const [];
+    }
+  }
+
   List<RankedPassage> lexicalSearchAlternates(String ftsQuery, {int limit = 60}) {
     if (ftsQuery.trim().isEmpty) return const [];
     try {
