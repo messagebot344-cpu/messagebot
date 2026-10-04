@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../app_scope.dart';
 import '../conversation/conversation_models.dart';
 import '../theme/grenier_theme.dart';
+import '../theme/grenier_tokens.dart';
 
 class ConversationSidebar extends StatelessWidget {
   const ConversationSidebar({super.key, required this.selectedIndex, required this.onNavigate, this.inDrawer = false});
@@ -25,7 +26,7 @@ class ConversationSidebar extends StatelessWidget {
               child: Row(children: [
                 const Icon(Icons.menu_book_rounded, color: Colors.white),
                 const SizedBox(width: 9),
-                const Expanded(child: Text('Message Bot', style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18))),
+                const Expanded(child: Text(GrenierBrand.name, style: TextStyle(color: Colors.white, fontWeight: FontWeight.w800, fontSize: 18))),
                 if (inDrawer) IconButton(onPressed: () => Navigator.pop(context), icon: const Icon(Icons.close, color: Colors.white)),
               ]),
             ),
@@ -39,11 +40,11 @@ class ConversationSidebar extends StatelessWidget {
                   if (inDrawer) Navigator.pop(context);
                 },
                 icon: const Icon(Icons.add),
-                label: const Text('Nouvelle conversation'),
+                label: const Text('+ Nouvelle conversation'),
               ),
             ),
             const SizedBox(height: 8),
-            _NavTile(icon: Icons.chat_bubble_outline, label: 'Accueil / Recherche', selected: selectedIndex == 0, onTap: () => _go(context, 0)),
+            _NavTile(icon: Icons.chat_bubble_outline, label: 'Accueil', selected: selectedIndex == 0, onTap: () => _go(context, 0)),
             _NavTile(icon: Icons.library_books_outlined, label: 'Bibliothèque', selected: selectedIndex == 1, onTap: () => _go(context, 1)),
             _NavTile(icon: Icons.school_outlined, label: 'Étudier', selected: selectedIndex == 2, onTap: () => _go(context, 2)),
             _NavTile(icon: Icons.folder_copy_outlined, label: 'Collections', selected: selectedIndex == 3, onTap: () => _go(context, 3)),
@@ -65,7 +66,7 @@ class ConversationSidebar extends StatelessWidget {
             ),
             const Padding(
               padding: EdgeInsets.fromLTRB(16, 12, 16, 6),
-              child: Align(alignment: Alignment.centerLeft, child: Text('Conversations', style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600))),
+              child: Align(alignment: Alignment.centerLeft, child: Text('Conversations récentes', style: TextStyle(color: Colors.white70, fontWeight: FontWeight.w600))),
             ),
             Expanded(
               child: AnimatedBuilder(
