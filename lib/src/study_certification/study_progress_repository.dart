@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:crypto/crypto.dart';
 
 import '../personal/user_database.dart';
+import 'study_exam_eligibility_engine.dart';
+import 'study_exam_scoring_engine.dart';
 import 'study_pack_models.dart';
 
 class StudyProgressRepository {
@@ -342,17 +344,64 @@ class StudyProgressRepository {
   }
 
   int startExamAttempt({
-    required int sermonId,
-    required int packVersion,
+    required SermonStudyPackSummary pack,
+    required StudyExamRules rules,
+    required List<StudySection> sections,
+    required List<StudyQuestion> questionPool,
     required String seed,
     required List<int> questionIds,
     required Map<int, List<int>> optionOrderByQuestion,
   }) {
-    ensureProgress(sermonId: sermonId, packVersion: packVersion);
+    if (pack.sermonId != rules.sermonId ||
+        pack.packVersion != rules.packVersion) {
+      throw StateError(
+        'Le parcours et les règles d’examen ne correspondent pas.',
+      );
+    }
+    final progressSnapshot = ensureProgress(
+      sermonId: pack.sermonId,
+      packVersion: pack.packVersion,
+    );
+    final eligibility = const StudyExamEligibilityEngine().evaluate(
+      pack: pack,
+      progress: progressSnapshot,
+      rules: rules,
+      sections: sections,
+      completedSectionIds: _completedSectionIds(
+        pack.sermonId,
+        pack.packVersion,
+      ),
+      questionPool: questionPool,
+    );
+    if (!eligibility.eligible) {
+      throw StateError(
+        'Examen non autorisé: ${eligibility.reasons.join(' ')}',
+      );
+    }
+    if (questionIds.length != rules.examSize ||
+        questionIds.toSet().length != questionIds.length) {
+      throw StateError(
+        'La sélection de questions ne correspond pas aux règles d’examen.',
+      );
+    }
+    final eligibleIds = questionPool
+        .where(
+          (question) =>
+              question.validationStatus == StudyQuestionStatus.validated &&
+              question.certificationEligible,
+        )
+        .map((question) => question.id)
+        .toSet();
+    if (questionIds.any((id) => !eligibleIds.contains(id))) {
+      throw StateError(
+        'La tentative contient une question non validée pour la certification.',
+      );
+    }
+
     final previous = database.db.select(
       'SELECT COALESCE(MAX(attempt_number),0) AS n '
       'FROM study_exam_attempts WHERE sermon_id=? AND pack_version=?',
-      [sermonId, packVersion],
+      [pack.sermonId, pack.packVersion],
     ).first['n'] as int;
     final now = _now();
 
@@ -362,7 +411,13 @@ class StudyProgressRepository {
         'INSERT INTO study_exam_attempts('
         'sermon_id,pack_version,seed,started_at,attempt_number'
         ') VALUES(?,?,?,?,?)',
-        [sermonId, packVersion, seed, now, previous + 1],
+        [
+          pack.sermonId,
+          pack.packVersion,
+          seed,
+          now,
+          previous + 1,
+        ],
       );
       final attemptId = database.db.lastInsertRowId;
       for (var index = 0; index < questionIds.length; index++) {
@@ -387,23 +442,65 @@ class StudyProgressRepository {
     }
   }
 
-  void submitExamAttempt({
+  StudyExamEvaluation submitExamAttempt({
     required int attemptId,
-    required double overallScore,
-    required Map<String, double> categoryScores,
-    required bool passed,
+    required StudyExamRules rules,
+    required List<StudyQuestion> questions,
+    required Map<int, double> scoresByQuestion,
   }) {
+    final attemptRows = database.db.select(
+      'SELECT sermon_id,pack_version,submitted_at FROM study_exam_attempts '
+      'WHERE attempt_id=? LIMIT 1',
+      [attemptId],
+    );
+    if (attemptRows.isEmpty) {
+      throw StateError('Tentative d’examen introuvable.');
+    }
+    final attempt = attemptRows.first;
+    if (attempt['submitted_at'] != null) {
+      throw StateError('Cette tentative d’examen a déjà été soumise.');
+    }
+    if (attempt['sermon_id'] != rules.sermonId ||
+        attempt['pack_version'] != rules.packVersion) {
+      throw StateError(
+        'Les règles d’examen ne correspondent pas à la tentative.',
+      );
+    }
+
+    final expectedIds = database.db
+        .select(
+          'SELECT question_id FROM study_exam_items '
+          'WHERE attempt_id=? ORDER BY display_order',
+          [attemptId],
+        )
+        .map((row) => row['question_id'] as int)
+        .toList(growable: false);
+    final suppliedIds = questions.map((question) => question.id).toSet();
+    if (expectedIds.length != suppliedIds.length ||
+        expectedIds.any((id) => !suppliedIds.contains(id)) ||
+        expectedIds.any((id) => !scoresByQuestion.containsKey(id))) {
+      throw StateError(
+        'Les réponses notées ne correspondent pas aux questions de la tentative.',
+      );
+    }
+
+    final evaluation = const StudyExamScoringEngine().evaluate(
+      rules: rules,
+      questions: questions,
+      scoresByQuestion: scoresByQuestion,
+    );
     database.db.execute(
       'UPDATE study_exam_attempts SET submitted_at=?,overall_score=?,'
       'category_scores_json=?,passed=? WHERE attempt_id=?',
       [
         _now(),
-        overallScore.clamp(0.0, 1.0),
-        jsonEncode(categoryScores),
-        passed ? 1 : 0,
+        evaluation.overallScore,
+        jsonEncode(evaluation.categoryScores),
+        evaluation.passed ? 1 : 0,
         attemptId,
       ],
     );
+    return evaluation;
   }
 
   List<int> recentExamQuestionIds({
@@ -434,22 +531,45 @@ class StudyProgressRepository {
 
   StudyCertification createCertification({
     required int attemptId,
-    required int sermonId,
-    required int packVersion,
-    required String corpusVersion,
+    required SermonStudyPackSummary pack,
     required String level,
     required StudyExamRules rules,
+    required List<StudySection> sections,
+    required List<StudyQuestion> questionPool,
   }) {
-    if (rules.sermonId != sermonId || rules.packVersion != packVersion) {
+    if (rules.sermonId != pack.sermonId ||
+        rules.packVersion != pack.packVersion) {
       throw StateError(
         'Les règles d’examen ne correspondent pas au parcours certifié.',
       );
     }
+
+    final progressSnapshot = ensureProgress(
+      sermonId: pack.sermonId,
+      packVersion: pack.packVersion,
+    );
+    final eligibility = const StudyExamEligibilityEngine().evaluate(
+      pack: pack,
+      progress: progressSnapshot,
+      rules: rules,
+      sections: sections,
+      completedSectionIds: _completedSectionIds(
+        pack.sermonId,
+        pack.packVersion,
+      ),
+      questionPool: questionPool,
+    );
+    if (!eligibility.eligible) {
+      throw StateError(
+        'Certification non autorisée: ${eligibility.reasons.join(' ')}',
+      );
+    }
+
     final attemptRows = database.db.select(
       'SELECT overall_score,category_scores_json,passed '
       'FROM study_exam_attempts WHERE attempt_id=? AND sermon_id=? '
       'AND pack_version=? AND submitted_at IS NOT NULL LIMIT 1',
-      [attemptId, sermonId, packVersion],
+      [attemptId, pack.sermonId, pack.packVersion],
     );
     if (attemptRows.isEmpty || attemptRows.first['passed'] != 1) {
       throw StateError(
@@ -485,17 +605,15 @@ class StudyProgressRepository {
       }
     }
 
-    final progressSnapshot = ensureProgress(
-      sermonId: sermonId,
-      packVersion: packVersion,
-    );
     final certifiedAt = _now();
     final integritySource = [
-      sermonId,
-      packVersion,
-      corpusVersion,
+      pack.sermonId,
+      pack.packVersion,
+      pack.corpusVersion,
+      pack.corpusCanonicalSha256,
       score.toStringAsFixed(6),
       categoryScoresJson,
+      progressSnapshot.readingPercent.toStringAsFixed(6),
       progressSnapshot.activeStudySeconds,
       attemptId,
       certifiedAt,
@@ -504,7 +622,7 @@ class StudyProgressRepository {
     final integrityHash =
         sha256.convert(utf8.encode(integritySource)).toString();
     final certificationId =
-        'GRN-$sermonId-$packVersion-${integrityHash.substring(0, 12).toUpperCase()}';
+        'GRN-${pack.sermonId}-${pack.packVersion}-${integrityHash.substring(0, 12).toUpperCase()}';
 
     database.db.execute(
       'INSERT INTO study_certifications('
@@ -514,9 +632,9 @@ class StudyProgressRepository {
       ') VALUES(?,?,?,?,?,?,?,?,?,?,?)',
       [
         certificationId,
-        sermonId,
-        packVersion,
-        corpusVersion,
+        pack.sermonId,
+        pack.packVersion,
+        pack.corpusVersion,
         score,
         categoryScoresJson,
         progressSnapshot.activeStudySeconds,
@@ -527,12 +645,21 @@ class StudyProgressRepository {
       ],
     );
     setStatus(
-      sermonId: sermonId,
-      packVersion: packVersion,
+      sermonId: pack.sermonId,
+      packVersion: pack.packVersion,
       status: StudyProgressStatus.certified,
     );
     return certificationById(certificationId)!;
   }
+
+  Set<int> _completedSectionIds(int sermonId, int packVersion) => database.db
+      .select(
+        "SELECT section_id FROM study_section_progress "
+        "WHERE sermon_id=? AND pack_version=? AND state='completed'",
+        [sermonId, packVersion],
+      )
+      .map((row) => row['section_id'] as int)
+      .toSet();
 
   StudyCertification? certificationById(String certificationId) {
     final rows = database.db.select(
