@@ -82,6 +82,66 @@ void main() {
     );
   });
 
+  test('les pools de récupération s adaptent au volume réellement demandé', () {
+    final source =
+        File('lib/src/search_v4/search_coordinator_v4.dart')
+            .readAsStringSync();
+
+    expect(source, contains('(maxResults * 10).clamp(600, 1200)'));
+    expect(source, contains('final expansionLimit'));
+    expect(source, contains('final secondaryLimit'));
+    expect(source, isNot(contains('const candidateLimit = 1800')));
+  });
+
+  test('les écrans de saisie évitent les requêtes SQLite à chaque frappe', () {
+    final library =
+        File('lib/src/screens/library_screen.dart').readAsStringSync();
+    final concordance =
+        File('lib/src/screens/concordance_screen.dart').readAsStringSync();
+
+    expect(library, contains('Duration(milliseconds: 180)'));
+    expect(concordance, contains('Duration(milliseconds: 180)'));
+    expect(library, contains('bookChapterCounts'));
+    expect(library, contains('favoriteCodes'));
+  });
+
+  test('le lecteur limite les lectures et écritures personnelles', () {
+    final reader =
+        File('lib/src/screens/reader_screen.dart').readAsStringSync();
+    final library =
+        File('lib/src/personal/personal_library.dart')
+            .readAsStringSync();
+
+    expect(reader, contains('highlightsForPassages'));
+    expect(reader, contains('Duration(milliseconds: 350)'));
+    expect(reader, isNot(contains('highlights(limit: 1000000)')));
+    expect(library, contains('const batchSize = 400'));
+  });
+
+  test('le cache SQLite canonique reste borné et invalidé au changement de corpus', () {
+    final source =
+        File('lib/src/services/corpus_repository.dart')
+            .readAsStringSync();
+
+    expect(source, contains('LinkedHashMap<int, StudyPassage>'));
+    expect(source, contains('static const int _studyDetailCacheLimit = 256;'));
+    expect(source, contains('_studyDetailCache.clear();'));
+    expect(source, contains('_studyDetailCache.remove(_studyDetailCache.keys.first)'));
+  });
+
+  test('afficher plus de résultats ne relance pas le moteur', () {
+    final source =
+        File('lib/src/screens/search_results_screen.dart')
+            .readAsStringSync();
+
+    expect(source, contains('static const int _fetchLimit = 50;'));
+    expect(source, contains('_visibleLimit'));
+    final loadMoreStart = source.indexOf('void _loadMore()');
+    final buildStart = source.indexOf('@override\n  Widget build', loadMoreStart);
+    final loadMoreBlock = source.substring(loadMoreStart, buildStart);
+    expect(loadMoreBlock, isNot(contains('searchDocuments')));
+  });
+
   test('le cache sémantique reste borné en mémoire', () {
     final source =
         File('lib/src/offline_ai/offline_ai_citation_ranker.dart')
