@@ -127,7 +127,7 @@ class OfflineAiSemanticRouter {
         OfflineAiTopicMatch(
           topicId: topic.id,
           label: topic.label,
-          score: score.clamp(0.0, 1.0),
+          score: score.clamp(0.0, 1.0).toDouble(),
         ),
       );
     }
