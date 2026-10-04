@@ -131,7 +131,7 @@ class OfflineAiCitationRanker {
       rawVectors[reference.id] = raw;
       referenceTokensByReference[reference.id] = Set.unmodifiable(
         index.normalizer
-            .tokens(
+            .semanticTokens(
               [
                 reference.context,
                 reference.sermonTitle,
@@ -213,7 +213,7 @@ class OfflineAiCitationRanker {
 
     final normalizedQuery = normalizer.normalize(query);
     final queryTokens = normalizer
-        .tokens(query, removeStopWords: true)
+        .semanticTokens(query, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toSet();
     final values = <OfflineAiCitationMatch>[];
@@ -270,7 +270,7 @@ class OfflineAiCitationRanker {
   }) {
     final queryVector = _queryVector(query);
     final queryTokens = normalizer
-        .tokens(query, removeStopWords: true)
+        .semanticTokens(query, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toSet();
     if (queryVector.isEmpty || queryTokens.isEmpty) return const [];
@@ -489,7 +489,7 @@ class OfflineAiCitationRanker {
       unknownIdf: 1.0,
     );
     final tokens = normalizer
-        .tokens(text, removeStopWords: true)
+        .semanticTokens(text, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toSet();
     final sentences = <_PreparedSentence>[];
@@ -511,7 +511,7 @@ class OfflineAiCitationRanker {
           ),
           tokens: Set<String>.unmodifiable(
             normalizer
-                .tokens(span.text, removeStopWords: true)
+                .semanticTokens(span.text, removeStopWords: true)
                 .where((token) => !_noise.contains(token)),
           ),
         ),
@@ -633,7 +633,7 @@ class OfflineAiCitationRanker {
     required double subwordWeight,
   }) {
     final tokens = normalizer
-        .tokens(text, removeStopWords: true)
+        .semanticTokens(text, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toList(growable: false);
     if (tokens.isEmpty) return const {};
