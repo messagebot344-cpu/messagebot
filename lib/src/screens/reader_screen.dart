@@ -221,6 +221,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
     }
     final removing = _overlappingSelectionHighlights().isNotEmpty;
     final selectedLength = selection.end - selection.start;
+    final compact = MediaQuery.sizeOf(context).width < 520;
     return Material(
       elevation: 8,
       color: Theme.of(context).colorScheme.surface,
@@ -230,14 +231,17 @@ class _ReaderScreenState extends State<ReaderScreen> {
           padding: const EdgeInsets.fromLTRB(12, 8, 12, 10),
           child: Row(
             children: [
-              Expanded(
-                child: Text(
-                  '$selectedLength caractères sélectionnés',
-                  maxLines: 1,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context).textTheme.bodySmall,
-                ),
-              ),
+              if (!compact)
+                Expanded(
+                  child: Text(
+                    '$selectedLength caractères sélectionnés',
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                    style: Theme.of(context).textTheme.bodySmall,
+                  ),
+                )
+              else
+                const Spacer(),
               IconButton(
                 tooltip: 'Annuler la sélection',
                 onPressed: () => setState(() {
@@ -253,7 +257,7 @@ class _ReaderScreenState extends State<ReaderScreen> {
                   removing ? Icons.remove_circle_outline : Icons.border_color_outlined,
                 ),
                 label: Text(
-                  removing ? 'Retirer le surlignage' : 'Surligner',
+                  removing ? (compact ? 'Retirer' : 'Retirer le surlignage') : 'Surligner',
                 ),
               ),
             ],
