@@ -878,12 +878,34 @@ def build_packset(
     assets_dir: Path | None = None,
     report_path: Path | None = None,
     sermon_limit: int | None = None,
+    corpus_manifest_path: Path | None = None,
 ) -> dict:
     corpus = sqlite3.connect(f"file:{corpus_path}?mode=ro", uri=True)
     corpus.row_factory = sqlite3.Row
     meta = current_corpus_meta(corpus)
     if "corpus_version" not in meta or "canonical_text_sha256" not in meta:
         raise RuntimeError("Corpus metadata incomplete.")
+
+    # The packaged runtime manifest owns the public corpus identifier.
+    # corpus_meta intentionally retains the original build provenance label,
+    # whose spelling can differ while referring to the same canonical text.
+    if corpus_manifest_path is not None:
+        packaged = json.loads(
+            corpus_manifest_path.read_text(encoding="utf-8")
+        )
+        packaged_sha = packaged.get("canonical_text_sha256")
+        if packaged_sha != meta["canonical_text_sha256"]:
+            raise RuntimeError(
+                "Packaged corpus manifest canonical hash does not match corpus.db."
+            )
+        packaged_version = str(
+            packaged.get("corpus_version") or ""
+        ).strip()
+        if not packaged_version:
+            raise RuntimeError(
+                "Packaged corpus manifest corpus_version is missing."
+            )
+        meta["corpus_version"] = packaged_version
 
     create_database(
         output_db,
@@ -1102,6 +1124,11 @@ def main() -> None:
     parser.add_argument("--assets-dir", type=Path)
     parser.add_argument("--report", type=Path)
     parser.add_argument("--sermon-limit", type=int)
+    parser.add_argument(
+        "--corpus-manifest",
+        type=Path,
+        default=root / "assets" / "corpus" / "manifest.json",
+    )
     args = parser.parse_args()
 
     report = build_packset(
@@ -1119,6 +1146,11 @@ def main() -> None:
             else None
         ),
         sermon_limit=args.sermon_limit,
+        corpus_manifest_path=(
+            args.corpus_manifest.resolve()
+            if args.corpus_manifest is not None
+            else None
+        ),
     )
     print(
         json.dumps(

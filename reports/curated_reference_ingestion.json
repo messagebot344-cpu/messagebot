@@ -1,0 +1,18 @@
+{
+  "artifact_kind": "curated_reference_ingestion_report",
+  "source": "Le_Mari_Gentleman_La_Resistance.pdf",
+  "source_sha256": "5fab5c935b0702ad1ccb9ba2b95f10b7ab5a2d6ced6afa5f5c465962e80b026e",
+  "source_pages": 78,
+  "curated_topics": 12,
+  "sermon_references_total": 21,
+  "sermon_references_resolved": 20,
+  "sermon_references_unresolved": 1,
+  "unresolved": [
+    {
+      "sermon_code": "51-0930",
+      "sermon_title": "Expectation",
+      "reason": "No resolvable sermon code/title in the current canonical V4 corpus; preserved but excluded from runtime routing."
+    }
+  ],
+  "invariant": "Curated data routes retrieval only. Displayed quotations remain resolved from corpus.db."
+}

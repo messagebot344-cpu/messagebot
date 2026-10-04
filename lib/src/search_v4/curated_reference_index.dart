@@ -213,10 +213,7 @@ class CuratedReferenceIndex {
     final normalizedQuery = normalizer.normalize(query);
     if (normalizedQuery.isEmpty) return const [];
 
-    final queryTokens = normalizer.tokens(
-      query,
-      removeStopWords: true,
-    ).toSet();
+    final queryTokens = _semanticTokens(query);
     final matches = <CuratedTopicMatch>[];
 
     for (final topic in topics) {
@@ -228,19 +225,14 @@ class CuratedReferenceIndex {
         if (normalizedAlias.isEmpty) continue;
         if (_containsPhrase(normalizedQuery, normalizedAlias)) {
           exactAlias = true;
-          final aliasTokens = normalizer.tokens(
-            alias,
-            removeStopWords: true,
-          );
+          final aliasTokens = _semanticTokens(alias).toList(growable: false);
           score = score < 5.0 + aliasTokens.length * 0.15
               ? 5.0 + aliasTokens.length * 0.15
               : score;
           continue;
         }
 
-        final aliasTokens = normalizer
-            .tokens(alias, removeStopWords: true)
-            .toSet();
+        final aliasTokens = _semanticTokens(alias);
         if (aliasTokens.length >= 2) {
           final overlap =
               aliasTokens.where(queryTokens.contains).length;
@@ -253,12 +245,7 @@ class CuratedReferenceIndex {
       }
 
       final keywordTokens = topic.keywords
-          .expand(
-            (value) => normalizer.tokens(
-              value,
-              removeStopWords: true,
-            ),
-          )
+          .expand(_semanticTokens)
           .toSet();
       final keywordHits =
           keywordTokens.where(queryTokens.contains).length;
@@ -319,6 +306,31 @@ class CuratedReferenceIndex {
       });
     return values.take(referenceLimit).toList(growable: false);
   }
+
+  Set<String> _semanticTokens(String value) => normalizer
+      .tokens(value, removeStopWords: true)
+      .where((token) => !_routingNoise.contains(token))
+      .toSet();
+
+  static const Set<String> _routingNoise = <String>{
+    'comment',
+    'pourquoi',
+    'quel',
+    'quelle',
+    'quels',
+    'quelles',
+    'quoi',
+    'qui',
+    'quand',
+    'peut',
+    'peux',
+    'puis',
+    'pouvons',
+    'doit',
+    'dois',
+    'faut',
+    'etre',
+  };
 
   static bool _containsPhrase(String query, String phrase) {
     if (query == phrase) return true;

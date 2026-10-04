@@ -14,6 +14,19 @@ check(manifest.get('search_v4',{}).get('generative_ai') is False, 'manifest must
 parts=manifest.get('parts',[])
 check(bool(parts), 'database parts missing')
 
+study_manifest_path=ROOT/'assets/study/manifest.json'
+check(study_manifest_path.exists(), 'Study Pack manifest missing')
+if study_manifest_path.exists():
+    study_manifest=json.loads(study_manifest_path.read_text(encoding='utf-8'))
+    check(
+        study_manifest.get('corpus_version')==manifest.get('corpus_version'),
+        'Study Pack corpus_version must match packaged corpus manifest',
+    )
+    check(
+        study_manifest.get('corpus_canonical_sha256')==manifest.get('canonical_text_sha256'),
+        'Study Pack canonical hash must match packaged corpus manifest',
+    )
+
 h=hashlib.sha256(); total=0
 with tempfile.NamedTemporaryFile(suffix='.db') as tmp:
     for part in parts:

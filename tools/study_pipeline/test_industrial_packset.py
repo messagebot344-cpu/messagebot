@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 from __future__ import annotations
 
+import json
 import sqlite3
 import sys
 import tempfile
@@ -103,6 +104,17 @@ class IndustrialPacksetTest(unittest.TestCase):
             assets = root / "assets" / "study"
             report_path = root / "report.json"
             create_toy_corpus(corpus)
+            corpus_manifest = root / "assets" / "corpus" / "manifest.json"
+            corpus_manifest.parent.mkdir(parents=True, exist_ok=True)
+            corpus_manifest.write_text(
+                json.dumps(
+                    {
+                        "corpus_version": "toy-runtime-v4",
+                        "canonical_text_sha256": "toy-canonical-hash",
+                    }
+                ),
+                encoding="utf-8",
+            )
 
             report = build_packset(
                 corpus,
@@ -110,20 +122,35 @@ class IndustrialPacksetTest(unittest.TestCase):
                 schema_path=HERE / "study_pack_schema.sql",
                 assets_dir=assets,
                 report_path=report_path,
+                corpus_manifest_path=corpus_manifest,
             )
 
+            self.assertEqual(report["corpus_version"], "toy-runtime-v4")
             self.assertEqual(report["sermons_processed"], 4)
             self.assertEqual(report["packs_published"], 4)
             self.assertEqual(report["packs_rejected"], 0)
             self.assertGreater(report["total_questions_validated"], 90)
 
-            validation = validate(corpus, study)
+            validation = validate(
+                corpus,
+                study,
+                corpus_manifest_path=corpus_manifest,
+            )
             self.assertEqual(validation["errors"], [])
             self.assertEqual(validation["published_packs"], 4)
             self.assertGreater(validation["evidence_checked"], 0)
 
             db = sqlite3.connect(study)
             try:
+                study_meta = dict(
+                    db.execute(
+                        "SELECT key,value FROM study_pack_meta"
+                    )
+                )
+                self.assertEqual(
+                    study_meta["corpus_version"],
+                    "toy-runtime-v4",
+                )
                 short_rule = db.execute(
                     "SELECT exam_size,pass_threshold "
                     "FROM study_exam_rules WHERE sermon_id=4"
@@ -148,6 +175,7 @@ class IndustrialPacksetTest(unittest.TestCase):
                 encoding="utf-8"
             )
             self.assertIn('"status": "industrial_v1"', manifest)
+            self.assertIn('"corpus_version": "toy-runtime-v4"', manifest)
             self.assertTrue(report_path.exists())
 
 
