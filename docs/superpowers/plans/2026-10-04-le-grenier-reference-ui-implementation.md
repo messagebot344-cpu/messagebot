@@ -1,5 +1,7 @@
 # Le Grenier du Message Reference UI Implementation Plan
 
+**Status:** validated for execution on 4 October 2026 after specification approval.
+
 > **For agentic workers:** REQUIRED SUB-SKILL: Use superpowers:subagent-driven-development (recommended) or superpowers:executing-plans to implement this plan task-by-task. Steps use checkbox (`- [ ]`) syntax for tracking.
 
 **Goal:** Rebuild the Android and Windows UI so it follows the approved 4 October 2026 “Le Grenier du Message” reference composition while preserving the existing offline V4 search, corpus, conversation, navigation, highlighting, personal data, and printing behavior.
@@ -17,6 +19,7 @@
 - Signature: **Toute Sa Parole. Toujours avec vous. Hors ligne.**
 - Trust labels: **100% hors ligne**, **Aucune IA générative**, **Texte canonique uniquement**.
 - Approved visual reference SHA-256: `ee903b9298301ca13f2bdf4f6200740a77d74fdbc7c7c1757968ef5be6d56a17`.
+- The approved 4 October image is visual authority #1. Its SHA identifies/verifies the reference but is not a substitute for visually inspecting it. An implementation worker must use the approved image supplied for this redesign when doing fidelity work and must never silently fall back to `docs/design/Message_Bot_V4_DESIGN_REFERENCE.png` when the two differ.
 - Android target remains Android 15 ARM64; Windows target remains x64.
 - No network dependency, remote API, web font, generative AI, LLM, embedding model, ONNX model, or new corpus format.
 - `corpus.db`, the 39 corpus parts, and canonical text remain unchanged.
@@ -416,7 +419,7 @@ git commit -m "feat: rebuild documentary conversation workspace and filters"
 - Test: `test/result_card_details_widget_test.dart`
 
 **Interfaces:**
-- Consumes: `DocumentSearchHit.highlightSentence`, `highlightStartOffset`, `highlightEndOffset`, `ConversationFilterSet.subjectTerms`, existing `openStudyPassage(...)`, `ComparisonScreen`, printing and collection APIs.
+- Consumes: `DocumentSearchHit.highlightSentence`, `highlightStartOffset`, `highlightEndOffset`, the original conversation `query`, active `ConversationFilterSet.subjectTerms`, existing V4 text normalization/tokenization rules, existing `openStudyPassage(...)`, `ComparisonScreen`, printing and collection APIs.
 - Produces:
   - `CanonicalHighlightText({required String text, required Iterable<String> terms, TextStyle? style, int maxLines = 0})`.
   - `ResultSelection({required int turnId, required String query, required ConversationFilterSet filters, required int rank, required DocumentSearchHit hit, required SearchExplanationV4 explanation, required double topScore})`.
@@ -476,7 +479,7 @@ Expected: FAIL because highlighter/details/selection interfaces do not exist.
 
 - [ ] **Step 4: Implement canonical highlighter**
 
-Normalize only for matching. Build `TextSpan` segments from the original `text`; never rewrite characters. Use approved soft-yellow highlight colors from Task 1.
+Build the visual match-term set from meaningful lexical terms in the original query plus active subject-filter terms, using the existing V4 normalization rules only to find matches. Highlight only spans that actually occur in the canonical sentence. Normalize only for matching and build `TextSpan` segments from the original `text`; never rewrite characters, inject aliases, or alter copied/exported text. Use approved soft-yellow highlight colors from Task 1.
 
 - [ ] **Step 5: Implement card hierarchy and details surfaces**
 
