@@ -5,6 +5,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:le_grenier_du_message/src/models/models.dart';
 import 'package:le_grenier_du_message/src/offline_ai/offline_ai_citation_ranker.dart';
 import 'package:le_grenier_du_message/src/search_v4/curated_reference_index.dart';
+import 'package:le_grenier_du_message/src/search_v4/query_parser_v4.dart';
 
 CuratedReferenceIndex loadFullIndex() {
   final manifest = jsonDecode(
@@ -262,6 +263,91 @@ void main() {
     );
     expect(second, isNotEmpty);
     expect(ranker.cachedPassageCount, 2);
+  });
+
+  test('un prior curated maximal ne peut pas franchir seul le seuil canonique', () {
+    final ranker = OfflineAiCitationRanker.fromIndex(
+      smallIndex(),
+      minPassageScore: 0.08,
+    );
+    final unrelated = passage(
+      id: 2,
+      code: 'TEST-2',
+      text:
+          'The farmer repaired the fence and counted sacks in a barn before sunset.',
+    );
+
+    final matches = ranker.rankPassages(
+      'Pourquoi ma prière n est-elle pas exaucée ?',
+      [unrelated],
+      referencePriors: const {2: 1.0},
+      questionIntent: QuestionIntent.why,
+    );
+
+    expect(matches, isEmpty);
+  });
+
+  test('une réponse pourquoi privilégie une phrase causale pertinente', () {
+    final ranker = OfflineAiCitationRanker.fromIndex(
+      smallIndex(),
+      minPassageScore: 0.02,
+      minAnswerEvidenceScore: 0.02,
+      minAnswerScore: 0.02,
+    );
+    final topical = passage(
+      id: 1,
+      code: 'TEST-1',
+      text:
+          'La prière et la foi sont des sujets importants. Le croyant prie chaque jour et parle de la réponse de Dieu.',
+    );
+    final causal = passage(
+      id: 3,
+      code: 'TEST-1',
+      text:
+          'La prière peut rester sans réponse parce que le doute et l incrédulité empêchent de recevoir ce que Dieu a promis.',
+    );
+
+    final matches = ranker.rankPassages(
+      'Pourquoi une prière peut-elle rester sans réponse ?',
+      [topical, causal],
+      questionIntent: QuestionIntent.why,
+    );
+
+    expect(matches, isNotEmpty);
+    expect(matches.first.passageId, 3);
+    expect(matches.first.intentCompatibilityScore, greaterThan(0));
+    expect(ranker.isStrongAnswer(matches.first), isTrue);
+  });
+
+  test('la preuve canonique est séparée du bonus curated', () {
+    final ranker = OfflineAiCitationRanker.fromIndex(
+      smallIndex(),
+      minPassageScore: 0.02,
+    );
+    final good = passage(
+      id: 1,
+      code: 'TEST-1',
+      text:
+          'Le doute et l incrédulité empêchent de recevoir la réponse à la prière.',
+    );
+
+    final withoutPrior = ranker.rankPassages(
+      'Pourquoi la prière peut-elle rester sans réponse ?',
+      [good],
+      questionIntent: QuestionIntent.why,
+    ).single;
+    final withPrior = ranker.rankPassages(
+      'Pourquoi la prière peut-elle rester sans réponse ?',
+      [good],
+      referencePriors: const {1: 1.0},
+      questionIntent: QuestionIntent.why,
+    ).single;
+
+    expect(
+      withPrior.canonicalEvidenceScore,
+      closeTo(withoutPrior.canonicalEvidenceScore, 0.0000001),
+    );
+    expect(withPrior.score, greaterThan(withoutPrior.score));
   });
 
   test('une forte référence humaine ne force jamais un mauvais passage', () {
