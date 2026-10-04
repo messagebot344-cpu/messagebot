@@ -21,6 +21,8 @@ class ConversationTurnView {
 }
 
 class ConversationController extends ChangeNotifier {
+  static const int _maxResultsPerTurn = 80;
+
   ConversationController({required this.repository, required this.searchService}) {
     refreshConversations(notify: false);
   }
@@ -77,7 +79,11 @@ class ConversationController extends ChangeNotifier {
     _searching = true;
     notifyListeners();
     try {
-      final outcome = await searchService.searchOutcome(raw, inherited: currentFilters, maxResults: 800);
+      final outcome = await searchService.searchOutcome(
+        raw,
+        inherited: currentFilters,
+        maxResults: _maxResultsPerTurn,
+      );
       var id = _conversationId;
       if (id == null) {
         id = repository.createConversation(raw);
