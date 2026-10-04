@@ -377,7 +377,7 @@ class StudyPackRepository {
     try {
       return jsonDecode(raw);
     } on FormatException {
-      throw FormatException('Payload JSON de question invalide.');
+      throw const FormatException('Payload JSON de question invalide.');
     }
   }
 
