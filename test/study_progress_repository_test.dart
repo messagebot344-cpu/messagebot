@@ -230,8 +230,8 @@ void main() {
         seed: 'blocked-seed',
         questionIds: const [1, 4],
         optionOrderByQuestion: const {
-          1: [11, 12],
-          4: [41, 42],
+          1: <int>[],
+          4: <int>[],
         },
       ),
       throwsStateError,
@@ -273,8 +273,8 @@ void main() {
       seed: 'failed-seed',
       questionIds: const [1, 4],
       optionOrderByQuestion: const {
-        1: [11, 12],
-        4: [41, 42],
+        1: <int>[],
+        4: <int>[],
       },
     );
     final failedEvaluation = repository.submitExamAttempt(
@@ -304,8 +304,8 @@ void main() {
       seed: 'bound-seed',
       questionIds: const [2, 5],
       optionOrderByQuestion: const {
-        2: [21, 22],
-        5: [51, 52],
+        2: <int>[],
+        5: <int>[],
       },
     );
     expect(
@@ -327,8 +327,8 @@ void main() {
       seed: 'passed-seed',
       questionIds: const [3, 6],
       optionOrderByQuestion: const {
-        3: [31, 32],
-        6: [61, 62],
+        3: <int>[],
+        6: <int>[],
       },
     );
     final evaluation = repository.submitExamAttempt(

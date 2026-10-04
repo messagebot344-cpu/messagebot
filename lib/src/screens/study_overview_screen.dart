@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import '../app_scope.dart';
 import '../models/models.dart';
 import '../study_certification/study_exam_eligibility_engine.dart';
+import 'study_certificate_screen.dart';
+import 'study_exam_screen.dart';
 import 'study_reading_screen.dart';
 
 class StudyOverviewScreen extends StatelessWidget {
@@ -210,8 +212,8 @@ class StudyOverviewScreen extends StatelessWidget {
                   Expanded(
                     child: eligibility.eligible
                         ? const Text(
-                            'Conditions remplies. L’examen peut être '
-                            'préparé à partir de la banque validée.',
+                            'Conditions remplies. L’examen final peut être '
+                            'lancé hors ligne à partir de la banque validée.',
                           )
                         : Text(
                             eligibility.reasons.join('\n'),
@@ -221,6 +223,44 @@ class StudyOverviewScreen extends StatelessWidget {
               ),
             ),
           ),
+          const SizedBox(height: 12),
+          if (certification != null)
+            FilledButton.icon(
+              onPressed: () {
+                Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => StudyCertificateScreen(
+                      sermon: sermon,
+                      certification: certification,
+                    ),
+                  ),
+                );
+              },
+              icon: const Icon(Icons.workspace_premium_outlined),
+              label: const Text('Voir le certificat'),
+            )
+          else if (eligibility.eligible)
+            FilledButton.icon(
+              onPressed: () async {
+                await Navigator.of(context).push(
+                  MaterialPageRoute(
+                    builder: (_) => StudyExamScreen(
+                      sermon: sermon,
+                      pack: pack,
+                    ),
+                  ),
+                );
+                if (context.mounted) {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                      builder: (_) => StudyOverviewScreen(sermon: sermon),
+                    ),
+                  );
+                }
+              },
+              icon: const Icon(Icons.fact_check_outlined),
+              label: const Text('Passer l’examen final'),
+            ),
           if (certification != null) ...[
             const SizedBox(height: 24),
             Text(
@@ -235,6 +275,17 @@ class StudyOverviewScreen extends StatelessWidget {
                   'Score : ${(certification.score * 100).toStringAsFixed(1)} %',
                 ),
                 subtitle: Text(certification.certificationId),
+                trailing: const Icon(Icons.chevron_right),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (_) => StudyCertificateScreen(
+                        sermon: sermon,
+                        certification: certification,
+                      ),
+                    ),
+                  );
+                },
               ),
             ),
           ],

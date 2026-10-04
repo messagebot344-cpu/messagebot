@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:sqlite3/sqlite3.dart';
 
 import 'study_pack_models.dart';
@@ -173,7 +175,7 @@ class StudyPackRepository {
         validatedOnly ? " AND q.validation_status='validated'" : '';
     final rows = db.select(
       'SELECT q.id,q.sermon_id,q.pack_version,q.section_id,q.type,q.category,q.difficulty,'
-      'q.prompt,q.pedagogical_explanation,q.validation_status,q.certification_eligible '
+      'q.prompt,q.pedagogical_explanation,q.correct_answer_payload,q.scoring_payload,q.validation_status,q.certification_eligible '
       'FROM study_questions q WHERE q.sermon_id=? AND q.pack_version=? AND q.section_id=?'
       '$statusClause ORDER BY q.id',
       [sermonId, packVersion, sectionId],
@@ -194,7 +196,7 @@ class StudyPackRepository {
     }
     final rows = db.select(
       "SELECT q.id,q.sermon_id,q.pack_version,q.section_id,q.type,q.category,q.difficulty,"
-      "q.prompt,q.pedagogical_explanation,q.validation_status,q.certification_eligible "
+      "q.prompt,q.pedagogical_explanation,q.correct_answer_payload,q.scoring_payload,q.validation_status,q.certification_eligible "
       "FROM study_questions q WHERE q.sermon_id=? AND q.pack_version=? "
       "AND q.validation_status='validated' AND q.certification_eligible=1"
       '$categoryClause ORDER BY q.id',
@@ -290,6 +292,12 @@ class StudyPackRepository {
       prompt: row['prompt'] as String,
       pedagogicalExplanation:
           row['pedagogical_explanation'] as String,
+      correctAnswerPayload: _decodeJsonPayload(
+        row['correct_answer_payload'] as String?,
+      ),
+      scoringPayload: _decodeJsonPayload(
+        row['scoring_payload'] as String?,
+      ),
       validationStatus:
           _questionStatusFromName(row['validation_status'] as String),
       certificationEligible:
@@ -363,6 +371,15 @@ class StudyPackRepository {
         'rejected' => StudyPackStatus.rejected,
         _ => throw FormatException('Statut Study Pack inconnu: $value'),
       };
+
+  Object? _decodeJsonPayload(String? raw) {
+    if (raw == null || raw.trim().isEmpty) return null;
+    try {
+      return jsonDecode(raw);
+    } on FormatException {
+      throw const FormatException('Payload JSON de question invalide.');
+    }
+  }
 
   StudyQuestionStatus _questionStatusFromName(String value) => switch (value) {
         'validated' => StudyQuestionStatus.validated,
