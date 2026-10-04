@@ -10,6 +10,8 @@ class SearchExplanationV4 {
     this.conceptual = false,
     this.curatedReference = false,
     this.curatedReferences = const <String>[],
+    this.offlineAiSemantic = false,
+    this.offlineAiTopics = const <String>[],
     this.fuzzy = false,
     this.alternateEdition = false,
     this.fuzzyTerms = const <String>[],
@@ -26,6 +28,8 @@ class SearchExplanationV4 {
   final bool conceptual;
   final bool curatedReference;
   final List<String> curatedReferences;
+  final bool offlineAiSemantic;
+  final List<String> offlineAiTopics;
   final bool fuzzy;
   final bool alternateEdition;
   final List<String> fuzzyTerms;
@@ -45,11 +49,37 @@ class SearchExplanationV4 {
         conceptual: conceptual,
         curatedReference: curatedReference,
         curatedReferences: values.toSet().toList(growable: false),
+        offlineAiSemantic: offlineAiSemantic,
+        offlineAiTopics: offlineAiTopics,
         fuzzy: fuzzy,
         alternateEdition: alternateEdition,
         fuzzyTerms: fuzzyTerms,
         conceptualTerms: conceptualTerms,
       );
+
+  SearchExplanationV4 withOfflineAiTopics(
+    Iterable<String> values,
+  ) {
+    final topics = values.toSet().toList(growable: false);
+    return SearchExplanationV4(
+      direct: direct,
+      exactPhrase: exactPhrase,
+      proximity: proximity,
+      strongTerms: strongTerms,
+      broadTerms: broadTerms,
+      prefix: prefix,
+      morphology: morphology,
+      conceptual: conceptual,
+      curatedReference: curatedReference,
+      curatedReferences: curatedReferences,
+      offlineAiSemantic: topics.isNotEmpty,
+      offlineAiTopics: topics,
+      fuzzy: fuzzy,
+      alternateEdition: alternateEdition,
+      fuzzyTerms: fuzzyTerms,
+      conceptualTerms: conceptualTerms,
+    );
+  }
 
   List<String> get reasons {
     final values = <String>[];
@@ -79,6 +109,13 @@ class SearchExplanationV4 {
           );
         }
       }
+    }
+    if (offlineAiSemantic) {
+      values.add(
+        offlineAiTopics.isEmpty
+            ? 'IA sémantique locale : rapprochement thématique hors ligne'
+            : 'IA sémantique locale : ${offlineAiTopics.take(3).join(', ')}',
+      );
     }
     if (fuzzy) values.add('Variante orthographique proche : ${fuzzyTerms.join(', ')}');
     if (alternateEdition) values.add('Correspondance dans une édition alternative');
