@@ -117,9 +117,24 @@ class QueryParserV4 {
     if (RegExp(r'\b(tout le corpus|toutes les sources)\b').hasMatch(normalized)) sourceType = null;
 
     final rawTokens = normalizer.tokens(exact ?? clean);
-    final filtered = rawTokens.where((token) => !_looksLikeFilterToken(token, years)).toList(growable: false);
-    final isFilterOnly = filtered.isEmpty && (years.isNotEmpty || sourceType != inherited.sourceType);
-    final subjects = isFilterOnly ? inherited.subjectTerms : (filtered.isEmpty ? inherited.subjectTerms : filtered.take(16).toList(growable: false));
+    final filtered = rawTokens
+        .where((token) => !_looksLikeFilterToken(token, years))
+        .toList(growable: false);
+    final contentTerms = filtered
+        .where((token) => !_questionScaffoldTokens.contains(token))
+        .toList(growable: false);
+    final isFilterOnly = contentTerms.isEmpty &&
+        (years.isNotEmpty || sourceType != inherited.sourceType);
+    final contextualFollowUp =
+        exact == null &&
+        inherited.subjectTerms.isNotEmpty &&
+        contentTerms.isEmpty &&
+        _looksLikeQuestionFollowUp(normalized);
+    final subjects = (isFilterOnly || contextualFollowUp)
+        ? inherited.subjectTerms
+        : (contentTerms.isEmpty
+            ? inherited.subjectTerms
+            : contentTerms.take(16).toList(growable: false));
 
     return QuerySpecV4(
       raw: clean,
@@ -136,6 +151,36 @@ class QueryParserV4 {
       ),
     );
   }
+
+  bool _looksLikeQuestionFollowUp(String normalized) {
+    final value = normalized
+        .replaceAll(RegExp(r"[-']"), ' ')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
+    return RegExp(
+      r'^(et )?(pourquoi|comment|quand|alors|ensuite|dans ce cas|que faire|quoi faire|peut on|doit on|faut il)( |$)',
+    ).hasMatch(value);
+  }
+
+  static const _questionScaffoldTokens = <String>{
+    'pourquoi',
+    'comment',
+    'quand',
+    'alors',
+    'ensuite',
+    'quoi',
+    'faire',
+    'peut',
+    'peux',
+    'doit',
+    'dois',
+    'faut',
+    'cela',
+    'ceci',
+    'ca',
+    'explique',
+    'expliquer',
+  };
 
   bool _looksLikeFilterToken(String token, List<int> years) {
     if (years.any((y) => token == '$y')) return true;
