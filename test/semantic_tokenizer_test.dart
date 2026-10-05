@@ -15,6 +15,26 @@ void main() {
     );
   });
 
+  test('la polarité négative reste visible au moteur sémantique', () {
+    final negative = normalizer.semanticTokens(
+      'Dieu ne répond pas à cette prière',
+    );
+    expect(negative, contains('ne'));
+    expect(negative, contains('pas'));
+    expect(
+      normalizer.hasExplicitNegation(
+        'Dieu ne répond pas à cette prière',
+      ),
+      isTrue,
+    );
+    expect(
+      normalizer.hasExplicitNegation(
+        'Dieu répond à cette prière',
+      ),
+      isFalse,
+    );
+  });
+
   test('tokens lexicaux historiques restent inchangés pour les codes', () {
     expect(
       normalizer.tokens('63-1226'),
