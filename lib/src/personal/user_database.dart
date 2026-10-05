@@ -341,6 +341,7 @@ class UserDatabase {
           start_offset INTEGER NOT NULL,
           end_offset INTEGER NOT NULL,
           sentence_ordinal INTEGER NOT NULL DEFAULT 0,
+          answer_confidence REAL,
           PRIMARY KEY(turn_id,passage_id),
           FOREIGN KEY(turn_id,passage_id)
             REFERENCES conversation_hits(turn_id,passage_id)
