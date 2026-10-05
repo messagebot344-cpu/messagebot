@@ -39,9 +39,31 @@ class TextNormalizer {
         .toList(growable: false);
     if (!removeStopWords) return values;
     return values
-        .where((value) => !_stopWords.contains(value))
+        .where(
+          (value) =>
+              !_stopWords.contains(value) ||
+              _semanticPolarityWords.contains(value),
+        )
         .toList(growable: false);
   }
+
+  bool hasExplicitNegation(String input) {
+    final values = semanticTokens(input, removeStopWords: false).toSet();
+    return values.any(_semanticPolarityWords.contains);
+  }
+
+  static const _semanticPolarityWords = <String>{
+    'ne',
+    'pas',
+    'jamais',
+    'aucun',
+    'aucune',
+    'sans',
+    'not',
+    'never',
+    'no',
+    'without',
+  };
 
   static const _stopWords = <String>{
     'alors','au','aux','avec','ce','ces','dans','de','des','du','elle','en','et','eux','il','je','la','le','les','leur','lui','ma','mais','me','meme','mes','moi','mon','ne','nos','notre','nous','on','ou','par','pas','pour','qu','que','qui','sa','se','ses','son','sur','ta','te','tes','toi','ton','tu','un','une','vos','votre','vous','y','dit','dire','sujet','uniquement','seulement','apres','avant','depuis','partir','predication','predications','livre','livres'
