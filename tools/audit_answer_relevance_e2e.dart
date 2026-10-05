@@ -659,7 +659,7 @@ Future<void> main() async {
     ..writeln('## Failures');
   for (final row in failures) {
     summary.writeln(
-      '- ${row['id']} [${row['category']}]: ${row['query']}',
+      "- ${row['id']} [${row['category']}]: ${row['query']}",
     );
   }
   File('${outputDir.path}/answer_relevance_e2e_summary.md')
