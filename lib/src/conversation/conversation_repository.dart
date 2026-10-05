@@ -86,8 +86,8 @@ class ConversationRepository {
       );
       final spanStmt = database.db.prepare(
         'INSERT INTO conversation_answer_spans('
-        'turn_id,passage_id,start_offset,end_offset,sentence_ordinal'
-        ') VALUES(?,?,?,?,?)',
+        'turn_id,passage_id,start_offset,end_offset,sentence_ordinal,answer_confidence'
+        ') VALUES(?,?,?,?,?,?)',
       );
       try {
         for (final hit in hits) {
@@ -105,6 +105,7 @@ class ConversationRepository {
               hit.answerStartOffset,
               hit.answerEndOffset,
               hit.answerOrdinal ?? 0,
+              hit.answerConfidence,
             ]);
           }
         }
@@ -132,7 +133,7 @@ class ConversationRepository {
       final turnId = row['id'] as int;
       final hitRows = database.db.select(
         'SELECT h.passage_id,h.rank,h.score,h.expanded,'
-        's.start_offset,s.end_offset,s.sentence_ordinal '
+        's.start_offset,s.end_offset,s.sentence_ordinal,s.answer_confidence '
         'FROM conversation_hits h '
         'LEFT JOIN conversation_answer_spans s '
         'ON s.turn_id=h.turn_id AND s.passage_id=h.passage_id '
@@ -159,6 +160,8 @@ class ConversationRepository {
           answerStartOffset: h['start_offset'] as int?,
           answerEndOffset: h['end_offset'] as int?,
           answerOrdinal: h['sentence_ordinal'] as int?,
+          answerConfidence:
+              (h['answer_confidence'] as num?)?.toDouble(),
         )).toList(growable: false),
       ));
     }
