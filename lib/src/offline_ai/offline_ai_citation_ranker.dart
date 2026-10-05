@@ -522,34 +522,27 @@ class OfflineAiCitationRanker {
         .toSet();
     final sentences = <_PreparedSentence>[];
     for (final span in _sentenceSpans(text)) {
-      sentences.add(
-        _PreparedSentence(
-          span: span,
-          vector: _normalize(
-            _textFeatures(
-              normalizer: normalizer,
-              dimensions: dimensions,
-              text: span.text,
-              wordWeight: 1.0,
-              bigramWeight: 0.95,
-              subwordWeight: 0.20,
-            ),
-            idf: _idf,
-            unknownIdf: 1.0,
-          ),
-          tokens: Set<String>.unmodifiable(
-            normalizer
-                .semanticTokens(span.text, removeStopWords: true)
-                .where((token) => !_noise.contains(token)),
-          ),
-        ),
+      sentences.add(_prepareAnswerSpan(span));
+    }
+
+    final answerWindows = <_PreparedSentence>[...sentences];
+    for (var i = 0; i + 1 < sentences.length; i++) {
+      final first = sentences[i].span;
+      final second = sentences[i + 1].span;
+      final combinedSpan = _SentenceSpan(
+        start: first.start,
+        end: second.end,
+        ordinal: first.ordinal,
+        text: text.substring(first.start, second.end),
       );
+      answerWindows.add(_prepareAnswerSpan(combinedSpan));
     }
 
     final prepared = _PreparedPassage(
       vector: Map<int, double>.unmodifiable(vector),
       tokens: Set<String>.unmodifiable(tokens),
-      sentences: List<_PreparedSentence>.unmodifiable(sentences),
+      answerWindows:
+          List<_PreparedSentence>.unmodifiable(answerWindows),
     );
     _passageCache[passageId] = prepared;
     if (_passageCache.length > _passageCacheLimit) {
@@ -564,12 +557,12 @@ class OfflineAiCitationRanker {
     required Map<int, double> queryVector,
     required Set<String> queryTokens,
   }) {
-    if (prepared.sentences.isEmpty) return (null, 0.0);
+    if (prepared.answerWindows.isEmpty) return (null, 0.0);
 
     _PreparedSentence? best;
     var bestScore = -1.0;
 
-    for (final sentence in prepared.sentences) {
+    for (final sentence in prepared.answerWindows) {
       final semantic = _dot(queryVector, sentence.vector);
       final overlap =
           queryTokens.where(sentence.tokens.contains).length;
@@ -592,6 +585,29 @@ class OfflineAiCitationRanker {
         ordinal: best.span.ordinal,
       ),
       bestScore.clamp(0.0, 1.0).toDouble(),
+    );
+  }
+
+  _PreparedSentence _prepareAnswerSpan(_SentenceSpan span) {
+    return _PreparedSentence(
+      span: span,
+      vector: _normalize(
+        _textFeatures(
+          normalizer: normalizer,
+          dimensions: dimensions,
+          text: span.text,
+          wordWeight: 1.0,
+          bigramWeight: 0.95,
+          subwordWeight: 0.20,
+        ),
+        idf: _idf,
+        unknownIdf: 1.0,
+      ),
+      tokens: Set<String>.unmodifiable(
+        normalizer
+            .semanticTokens(span.text, removeStopWords: true)
+            .where((token) => !_noise.contains(token)),
+      ),
     );
   }
 
@@ -797,12 +813,12 @@ class _PreparedPassage {
   const _PreparedPassage({
     required this.vector,
     required this.tokens,
-    required this.sentences,
+    required this.answerWindows,
   });
 
   final Map<int, double> vector;
   final Set<String> tokens;
-  final List<_PreparedSentence> sentences;
+  final List<_PreparedSentence> answerWindows;
 }
 
 class _PreparedSentence {
