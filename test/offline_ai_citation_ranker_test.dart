@@ -350,6 +350,35 @@ void main() {
     expect(withPrior.score, greaterThan(withoutPrior.score));
   });
 
+  test('la polarité négative distingue deux passages opposés', () {
+    final ranker = OfflineAiCitationRanker.fromIndex(
+      smallIndex(),
+      minPassageScore: 0.02,
+      minAnswerEvidenceScore: 0.02,
+      minAnswerScore: 0.02,
+    );
+    final positive = passage(
+      id: 21,
+      code: 'TEST-1',
+      text: 'Dieu répond à la prière du croyant qui vient avec foi.',
+    );
+    final negative = passage(
+      id: 22,
+      code: 'TEST-1',
+      text:
+          'Dieu ne répond pas à une prière faite dans le doute et l incrédulité.',
+    );
+
+    final matches = ranker.rankPassages(
+      'Pourquoi Dieu ne répond pas à une prière faite dans le doute ?',
+      [positive, negative],
+      questionIntent: QuestionIntent.why,
+    );
+
+    expect(matches, isNotEmpty);
+    expect(matches.first.passageId, 22);
+  });
+
   test('une réponse peut couvrir deux phrases canoniques contiguës', () {
     final ranker = OfflineAiCitationRanker.fromIndex(
       smallIndex(),
