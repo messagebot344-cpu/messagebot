@@ -56,7 +56,11 @@ class ConversationResultCard extends StatelessWidget {
     final scope = AppScope.of(context);
     final item = hit.studyPassage;
     final passage = item.passage;
-    final label = relevanceLabelFor(hit.score, topScore: topScore).label;
+    final label = relevanceLabelFor(
+      hit.score,
+      topScore: topScore,
+      answerConfidence: explanation.offlineAiCitationScore,
+    ).label;
     final page = passage.sourcePageStart == passage.sourcePageEnd
         ? 'p. ${passage.sourcePageStart}'
         : 'pp. ${passage.sourcePageStart}–${passage.sourcePageEnd}';
