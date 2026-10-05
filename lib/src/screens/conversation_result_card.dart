@@ -59,7 +59,8 @@ class ConversationResultCard extends StatelessWidget {
     final label = relevanceLabelFor(
       hit.score,
       topScore: topScore,
-      answerConfidence: explanation.offlineAiCitationScore,
+      answerConfidence:
+          explanation.offlineAiCitationScore ?? hit.answerConfidence,
     ).label;
     final page = passage.sourcePageStart == passage.sourcePageEnd
         ? 'p. ${passage.sourcePageStart}'
