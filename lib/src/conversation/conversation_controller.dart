@@ -101,6 +101,9 @@ class ConversationController extends ChangeNotifier {
                 outcome.hits[i].hit.highlightEndOffset,
             answerOrdinal:
                 outcome.hits[i].hit.highlightOrdinal,
+            answerConfidence:
+                outcome.hits[i].explanation.offlineAiCitationScore ??
+                outcome.hits[i].hit.answerConfidence,
           ),
       ];
       final turnId = repository.appendTurn(
@@ -179,6 +182,7 @@ class ConversationController extends ChangeNotifier {
               answerStartOffset: hit.answerStartOffset,
               answerEndOffset: hit.answerEndOffset,
               answerOrdinal: hit.answerOrdinal,
+              answerConfidence: hit.answerConfidence,
             )
           : hit).toList(growable: false);
       return ConversationTurnView(
