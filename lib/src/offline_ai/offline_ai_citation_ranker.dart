@@ -421,23 +421,26 @@ class OfflineAiCitationRanker {
           'faut',
           'devez',
           'devons',
-          'par',
           'ainsi',
+          'moyen',
+          'methode',
           'must',
           'should',
-          'by',
           'through',
+          'way',
         ])
           ? 1.0
           : 0.0,
       QuestionIntent.definition => hasAny(const [
           'signifie',
           'veut dire',
-          'est',
           'c est',
+          'on appelle',
+          'se definit',
           'means',
-          'is',
           'called',
+          'refers to',
+          'defined as',
         ])
           ? 1.0
           : 0.0,
