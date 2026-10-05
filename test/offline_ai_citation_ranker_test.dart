@@ -350,6 +350,38 @@ void main() {
     expect(withPrior.score, greaterThan(withoutPrior.score));
   });
 
+  test('une réponse peut couvrir deux phrases canoniques contiguës', () {
+    final ranker = OfflineAiCitationRanker.fromIndex(
+      smallIndex(),
+      minPassageScore: 0.02,
+      minAnswerEvidenceScore: 0.02,
+      minAnswerScore: 0.02,
+    );
+    final item = passage(
+      id: 7,
+      code: 'TEST-1',
+      text:
+          'La prière peut parfois rester sans réponse. '
+          'C est parce que le doute empêche de recevoir ce que Dieu a promis.',
+    );
+
+    final matches = ranker.rankPassages(
+      'Pourquoi la prière peut-elle rester sans réponse à cause du doute ?',
+      [item],
+      questionIntent: QuestionIntent.why,
+    );
+
+    expect(matches, isNotEmpty);
+    final span = matches.first.sentence;
+    expect(span, isNotNull);
+    final selected = item.passage.text.substring(
+      span!.startOffset,
+      span.endOffset,
+    );
+    expect(selected, contains('La prière peut parfois rester sans réponse.'));
+    expect(selected, contains('C est parce que le doute'));
+  });
+
   test('une forte référence humaine ne force jamais un mauvais passage', () {
     final ranker = OfflineAiCitationRanker.fromIndex(
       smallIndex(),
