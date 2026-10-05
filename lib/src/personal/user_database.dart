@@ -26,6 +26,7 @@ class UserDatabase {
     result.ensureV4Schema();
     result.ensureV5Schema();
     result.ensureV6Schema();
+    result.ensureV7Schema();
     return result;
   }
 
@@ -321,6 +322,35 @@ class UserDatabase {
       );
 
       setMeta('schema_version', '6');
+      db.execute('COMMIT');
+    } catch (_) {
+      db.execute('ROLLBACK');
+      rethrow;
+    }
+  }
+
+  void ensureV7Schema() {
+    final current = int.tryParse(meta('schema_version') ?? '1') ?? 1;
+    if (current >= 7 && _hasTable('conversation_answer_spans')) return;
+    db.execute('BEGIN IMMEDIATE');
+    try {
+      db.execute('''
+        CREATE TABLE IF NOT EXISTS conversation_answer_spans(
+          turn_id INTEGER NOT NULL,
+          passage_id INTEGER NOT NULL,
+          start_offset INTEGER NOT NULL,
+          end_offset INTEGER NOT NULL,
+          sentence_ordinal INTEGER NOT NULL DEFAULT 0,
+          answer_confidence REAL,
+          PRIMARY KEY(turn_id,passage_id),
+          FOREIGN KEY(turn_id,passage_id)
+            REFERENCES conversation_hits(turn_id,passage_id)
+            ON DELETE CASCADE,
+          CHECK(start_offset >= 0),
+          CHECK(end_offset > start_offset)
+        )
+      ''');
+      setMeta('schema_version', '7');
       db.execute('COMMIT');
     } catch (_) {
       db.execute('ROLLBACK');

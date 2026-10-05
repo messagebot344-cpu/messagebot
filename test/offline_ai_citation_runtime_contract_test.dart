@@ -24,15 +24,10 @@ void main() {
       source,
       contains('final semanticGateEnabled = offlineAiCitationRanker != null;'),
     );
-    expect(
-      source,
-      contains('if (semanticGateEnabled &&\n          naturalQuestion'),
-    );
+    expect(source, contains('final naturalQuestion = spec.isNaturalQuestion;'));
+    expect(source, contains('if (semanticGateEnabled && naturalQuestion)'));
+    expect(source, contains('offlineAiCitationRanker!.isStrongAnswer'));
     expect(source, contains('!hasStrongIndependentEvidence'));
-    expect(
-      source,
-      contains('if (semanticGateEnabled &&\n          explanation.curatedReference'),
-    );
   });
 
   test('la fenêtre sémantique conserve aussi les candidats curated', () {
@@ -46,6 +41,28 @@ void main() {
       source,
       contains('curated.references.containsKey(candidate.passageId)'),
     );
+  });
+
+  test('les questions naturelles exigent une vraie réponse canonique', () {
+    final source =
+        File('lib/src/search_v4/search_coordinator_v4.dart')
+            .readAsStringSync();
+
+    expect(source, contains('final naturalQuestion = spec.isNaturalQuestion;'));
+    expect(source, contains('offlineAiCitationRanker!.isStrongAnswer'));
+    expect(
+      source,
+      contains('Strong lexical overlap alone cannot bypass'),
+    );
+  });
+
+  test('le routing curated utilise aussi le contexte humain validé', () {
+    final source =
+        File('lib/src/search_v4/search_coordinator_v4.dart')
+            .readAsStringSync();
+
+    expect(source, contains('hint.reference.context'));
+    expect(source, contains('.take(14)'));
   });
 
   test('la couche citation offline est couverte par le garde réseau', () {

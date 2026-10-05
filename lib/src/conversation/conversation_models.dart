@@ -60,12 +60,26 @@ class PersistedHitRef {
     required this.rank,
     required this.score,
     this.expanded = false,
+    this.answerStartOffset,
+    this.answerEndOffset,
+    this.answerOrdinal,
+    this.answerConfidence,
   });
 
   final int passageId;
   final int rank;
   final double score;
   final bool expanded;
+  final int? answerStartOffset;
+  final int? answerEndOffset;
+  final int? answerOrdinal;
+  final double? answerConfidence;
+
+  bool get hasAnswerSpan =>
+      answerStartOffset != null &&
+      answerEndOffset != null &&
+      answerStartOffset! >= 0 &&
+      answerEndOffset! > answerStartOffset!;
 }
 
 class ConversationTurnRecord {

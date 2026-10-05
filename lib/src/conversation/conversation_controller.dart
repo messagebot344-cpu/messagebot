@@ -95,6 +95,15 @@ class ConversationController extends ChangeNotifier {
             passageId: outcome.hits[i].hit.studyPassage.passage.id,
             rank: i + 1,
             score: outcome.hits[i].hit.score,
+            answerStartOffset:
+                outcome.hits[i].hit.highlightStartOffset,
+            answerEndOffset:
+                outcome.hits[i].hit.highlightEndOffset,
+            answerOrdinal:
+                outcome.hits[i].hit.highlightOrdinal,
+            answerConfidence:
+                outcome.hits[i].explanation.offlineAiCitationScore ??
+                outcome.hits[i].hit.answerConfidence,
           ),
       ];
       final turnId = repository.appendTurn(
@@ -165,7 +174,16 @@ class ConversationController extends ChangeNotifier {
     _turns = _turns.map((turn) {
       if (turn.record.id != turnId) return turn;
       final hits = turn.record.hits.map((hit) => hit.passageId == passageId
-          ? PersistedHitRef(passageId: hit.passageId, rank: hit.rank, score: hit.score, expanded: expanded)
+          ? PersistedHitRef(
+              passageId: hit.passageId,
+              rank: hit.rank,
+              score: hit.score,
+              expanded: expanded,
+              answerStartOffset: hit.answerStartOffset,
+              answerEndOffset: hit.answerEndOffset,
+              answerOrdinal: hit.answerOrdinal,
+              answerConfidence: hit.answerConfidence,
+            )
           : hit).toList(growable: false);
       return ConversationTurnView(
         record: ConversationTurnRecord(

@@ -4,6 +4,7 @@ import 'dart:math' as math;
 import '../models/models.dart';
 import '../search/search_contracts.dart';
 import '../search_v4/curated_reference_index.dart';
+import '../search_v4/query_parser_v4.dart';
 import '../search_v4/text_normalizer.dart';
 
 class OfflineAiCitationMatch {
@@ -27,6 +28,8 @@ class OfflineAiPassageMatch {
     required this.semanticScore,
     required this.coverageScore,
     required this.referencePrior,
+    required this.canonicalEvidenceScore,
+    required this.intentCompatibilityScore,
     this.sentence,
   });
 
@@ -43,6 +46,14 @@ class OfflineAiPassageMatch {
 
   /// Prior confidence inherited from the best matching curated reference.
   final double referencePrior;
+
+  /// Relevance supported by the canonical quotation alone. Curated priors are
+  /// intentionally excluded so a human routing hint can never rescue an
+  /// unrelated passage.
+  final double canonicalEvidenceScore;
+
+  /// Small intent-compatibility signal for why/how/definition/etc.
+  final double intentCompatibilityScore;
 
   /// Best answering sentence, always pointing inside canonical passage text.
   final SentenceReference? sentence;
@@ -68,6 +79,8 @@ class OfflineAiCitationRanker {
     this.dimensions = 8192,
     this.minReferenceScore = 0.045,
     this.minPassageScore = 0.08,
+    this.minAnswerEvidenceScore = 0.11,
+    this.minAnswerScore = 0.13,
   })  : _referenceVectors = Map.unmodifiable(referenceVectors),
         _idf = Map.unmodifiable(idf),
         _topicLabelsByReference = Map.unmodifiable(topicLabelsByReference),
@@ -83,6 +96,8 @@ class OfflineAiCitationRanker {
     int dimensions = 8192,
     double minReferenceScore = 0.045,
     double minPassageScore = 0.08,
+    double minAnswerEvidenceScore = 0.11,
+    double minAnswerScore = 0.13,
   }) {
     final references = index.references.values
         .where((reference) => reference.corpusResolved)
@@ -116,11 +131,12 @@ class OfflineAiCitationRanker {
       rawVectors[reference.id] = raw;
       referenceTokensByReference[reference.id] = Set.unmodifiable(
         index.normalizer
-            .tokens(
+            .semanticTokens(
               [
                 reference.context,
                 reference.sermonTitle,
                 ...reference.anchorTerms,
+                ...labels,
               ].join(' '),
               removeStopWords: true,
             )
@@ -163,6 +179,8 @@ class OfflineAiCitationRanker {
       dimensions: dimensions,
       minReferenceScore: minReferenceScore,
       minPassageScore: minPassageScore,
+      minAnswerEvidenceScore: minAnswerEvidenceScore,
+      minAnswerScore: minAnswerScore,
     );
   }
 
@@ -171,6 +189,8 @@ class OfflineAiCitationRanker {
   final int dimensions;
   final double minReferenceScore;
   final double minPassageScore;
+  final double minAnswerEvidenceScore;
+  final double minAnswerScore;
   final Map<String, Map<int, double>> _referenceVectors;
   final Map<int, double> _idf;
   final Map<String, List<String>> _topicLabelsByReference;
@@ -194,7 +214,7 @@ class OfflineAiCitationRanker {
 
     final normalizedQuery = normalizer.normalize(query);
     final queryTokens = normalizer
-        .tokens(query, removeStopWords: true)
+        .semanticTokens(query, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toSet();
     final values = <OfflineAiCitationMatch>[];
@@ -206,10 +226,12 @@ class OfflineAiCitationRanker {
       var score = _dot(queryVector, vector);
       final referenceTokens =
           _referenceTokensByReference[reference.id] ?? const <String>{};
-      final overlap =
-          queryTokens.where(referenceTokens.contains).length;
-      if (queryTokens.isNotEmpty && overlap > 0) {
-        score += (overlap / queryTokens.length) * 0.16;
+      final lexicalCoverage = _softTokenCoverage(
+        queryTokens,
+        referenceTokens,
+      );
+      if (lexicalCoverage > 0) {
+        score += lexicalCoverage * 0.24;
       }
 
       final normalizedContext =
@@ -247,10 +269,11 @@ class OfflineAiCitationRanker {
     String query,
     Iterable<StudyPassage> passages, {
     Map<int, double> referencePriors = const <int, double>{},
+    QuestionIntent questionIntent = QuestionIntent.none,
   }) {
     final queryVector = _queryVector(query);
     final queryTokens = normalizer
-        .tokens(query, removeStopWords: true)
+        .semanticTokens(query, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toSet();
     if (queryVector.isEmpty || queryTokens.isEmpty) return const [];
@@ -282,16 +305,36 @@ class OfflineAiCitationRanker {
               0.0;
 
       final semantic = math.max(wholeSimilarity, sentenceSemantic);
+      final canonicalEvidence = (
+        sentenceSemantic * 0.55 +
+        wholeSimilarity * 0.20 +
+        coverage * 0.25
+      ).clamp(0.0, 1.0).toDouble();
+
+      // The canonical text must stand on its own before any curated prior can
+      // influence ranking. This makes the documented anti-hallucination rule
+      // true in the scoring math, not only in comments.
+      if (canonicalEvidence < minPassageScore) continue;
+
+      final intentCompatibility = _intentCompatibility(
+        questionIntent,
+        sentence.$1 == null
+            ? text
+            : text.substring(
+                sentence.$1!.startOffset,
+                sentence.$1!.endOffset,
+              ),
+      );
+      final intentBoost = questionIntent == QuestionIntent.none
+          ? 0.0
+          : intentCompatibility * 0.06;
       final finalScore = (
         sentenceSemantic * 0.50 +
         wholeSimilarity * 0.20 +
         coverage * 0.20 +
-        prior * 0.10
+        prior * 0.10 +
+        intentBoost
       ).clamp(0.0, 1.0).toDouble();
-
-      // A human reference may guide retrieval, but it can never bypass
-      // the canonical answer-relevance threshold.
-      if (finalScore < minPassageScore) continue;
 
       values.add(
         OfflineAiPassageMatch(
@@ -300,6 +343,8 @@ class OfflineAiCitationRanker {
           semanticScore: semantic.clamp(0.0, 1.0).toDouble(),
           coverageScore: coverage.clamp(0.0, 1.0).toDouble(),
           referencePrior: prior,
+          canonicalEvidenceScore: canonicalEvidence,
+          intentCompatibilityScore: intentCompatibility,
           sentence: sentence.$1,
         ),
       );
@@ -312,6 +357,132 @@ class OfflineAiCitationRanker {
           : a.passageId.compareTo(b.passageId);
     });
     return values;
+  }
+
+  double _softTokenCoverage(
+    Set<String> queryTokens,
+    Set<String> referenceTokens,
+  ) {
+    if (queryTokens.isEmpty || referenceTokens.isEmpty) return 0.0;
+    var matched = 0.0;
+    for (final queryToken in queryTokens) {
+      if (referenceTokens.contains(queryToken)) {
+        matched += 1.0;
+        continue;
+      }
+      if (queryToken.length < 5) continue;
+      final prefix = queryToken.substring(0, 4);
+      final related = referenceTokens.any(
+        (token) =>
+            token.length >= 5 &&
+            token.startsWith(prefix),
+      );
+      if (related) matched += 0.65;
+    }
+    return (matched / queryTokens.length)
+        .clamp(0.0, 1.0)
+        .toDouble();
+  }
+
+  bool isStrongAnswer(OfflineAiPassageMatch match) =>
+      match.canonicalEvidenceScore >= minAnswerEvidenceScore &&
+      match.score >= minAnswerScore;
+
+  double _intentCompatibility(
+    QuestionIntent intent,
+    String sentence,
+  ) {
+    if (intent == QuestionIntent.none) return 0.0;
+    final normalized = normalizer.normalize(sentence);
+    if (normalized.isEmpty) return 0.0;
+
+    bool hasAny(Iterable<String> cues) => cues.any(
+          (cue) => (' $normalized ').contains(' $cue '),
+        );
+
+    return switch (intent) {
+      QuestionIntent.why => hasAny(const [
+          'parce',
+          'parce que',
+          'car',
+          'cause',
+          'raison',
+          'puisque',
+          'afin',
+          'because',
+          'reason',
+          'therefore',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.how => hasAny(const [
+          'comment',
+          'doit',
+          'faut',
+          'devez',
+          'devons',
+          'ainsi',
+          'moyen',
+          'methode',
+          'must',
+          'should',
+          'through',
+          'way',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.definition => hasAny(const [
+          'signifie',
+          'veut dire',
+          'c est',
+          'on appelle',
+          'se definit',
+          'means',
+          'called',
+          'refers to',
+          'defined as',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.comparison => hasAny(const [
+          'mais',
+          'tandis',
+          'difference',
+          'contraire',
+          'plutot',
+          'whereas',
+          'but',
+          'rather',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.condition => hasAny(const [
+          'si',
+          'quand',
+          'lorsque',
+          'condition',
+          'if',
+          'when',
+          'unless',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.who => hasAny(const [
+          'celui',
+          'ceux',
+          'homme',
+          'femme',
+          'personne',
+          'who',
+          'man',
+          'woman',
+          'person',
+        ])
+          ? 1.0
+          : 0.0,
+      QuestionIntent.other => 0.0,
+      QuestionIntent.none => 0.0,
+    };
   }
 
   Map<int, double> _queryVector(String query) => _normalize(
@@ -349,39 +520,32 @@ class OfflineAiCitationRanker {
       unknownIdf: 1.0,
     );
     final tokens = normalizer
-        .tokens(text, removeStopWords: true)
+        .semanticTokens(text, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toSet();
     final sentences = <_PreparedSentence>[];
     for (final span in _sentenceSpans(text)) {
-      sentences.add(
-        _PreparedSentence(
-          span: span,
-          vector: _normalize(
-            _textFeatures(
-              normalizer: normalizer,
-              dimensions: dimensions,
-              text: span.text,
-              wordWeight: 1.0,
-              bigramWeight: 0.95,
-              subwordWeight: 0.20,
-            ),
-            idf: _idf,
-            unknownIdf: 1.0,
-          ),
-          tokens: Set<String>.unmodifiable(
-            normalizer
-                .tokens(span.text, removeStopWords: true)
-                .where((token) => !_noise.contains(token)),
-          ),
-        ),
+      sentences.add(_prepareAnswerSpan(span));
+    }
+
+    final answerWindows = <_PreparedSentence>[...sentences];
+    for (var i = 0; i + 1 < sentences.length; i++) {
+      final first = sentences[i].span;
+      final second = sentences[i + 1].span;
+      final combinedSpan = _SentenceSpan(
+        start: first.start,
+        end: second.end,
+        ordinal: first.ordinal,
+        text: text.substring(first.start, second.end),
       );
+      answerWindows.add(_prepareAnswerSpan(combinedSpan));
     }
 
     final prepared = _PreparedPassage(
       vector: Map<int, double>.unmodifiable(vector),
       tokens: Set<String>.unmodifiable(tokens),
-      sentences: List<_PreparedSentence>.unmodifiable(sentences),
+      answerWindows:
+          List<_PreparedSentence>.unmodifiable(answerWindows),
     );
     _passageCache[passageId] = prepared;
     if (_passageCache.length > _passageCacheLimit) {
@@ -396,12 +560,12 @@ class OfflineAiCitationRanker {
     required Map<int, double> queryVector,
     required Set<String> queryTokens,
   }) {
-    if (prepared.sentences.isEmpty) return (null, 0.0);
+    if (prepared.answerWindows.isEmpty) return (null, 0.0);
 
     _PreparedSentence? best;
     var bestScore = -1.0;
 
-    for (final sentence in prepared.sentences) {
+    for (final sentence in prepared.answerWindows) {
       final semantic = _dot(queryVector, sentence.vector);
       final overlap =
           queryTokens.where(sentence.tokens.contains).length;
@@ -424,6 +588,29 @@ class OfflineAiCitationRanker {
         ordinal: best.span.ordinal,
       ),
       bestScore.clamp(0.0, 1.0).toDouble(),
+    );
+  }
+
+  _PreparedSentence _prepareAnswerSpan(_SentenceSpan span) {
+    return _PreparedSentence(
+      span: span,
+      vector: _normalize(
+        _textFeatures(
+          normalizer: normalizer,
+          dimensions: dimensions,
+          text: span.text,
+          wordWeight: 1.0,
+          bigramWeight: 0.95,
+          subwordWeight: 0.20,
+        ),
+        idf: _idf,
+        unknownIdf: 1.0,
+      ),
+      tokens: Set<String>.unmodifiable(
+        normalizer
+            .semanticTokens(span.text, removeStopWords: true)
+            .where((token) => !_noise.contains(token)),
+      ),
     );
   }
 
@@ -493,7 +680,7 @@ class OfflineAiCitationRanker {
     required double subwordWeight,
   }) {
     final tokens = normalizer
-        .tokens(text, removeStopWords: true)
+        .semanticTokens(text, removeStopWords: true)
         .where((token) => !_noise.contains(token))
         .toList(growable: false);
     if (tokens.isEmpty) return const {};
@@ -629,12 +816,12 @@ class _PreparedPassage {
   const _PreparedPassage({
     required this.vector,
     required this.tokens,
-    required this.sentences,
+    required this.answerWindows,
   });
 
   final Map<int, double> vector;
   final Set<String> tokens;
-  final List<_PreparedSentence> sentences;
+  final List<_PreparedSentence> answerWindows;
 }
 
 class _PreparedSentence {

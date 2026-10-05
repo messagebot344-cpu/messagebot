@@ -1,6 +1,17 @@
 import '../conversation/conversation_models.dart';
 import 'text_normalizer.dart';
 
+enum QuestionIntent {
+  none,
+  why,
+  how,
+  definition,
+  comparison,
+  condition,
+  who,
+  other,
+}
+
 class QuerySpecV4 {
   const QuerySpecV4({
     required this.raw,
@@ -19,7 +30,51 @@ class QuerySpecV4 {
   final String? sermonCode;
 
   bool get isEmpty => normalized.isEmpty;
-  String get effectiveText => subjectTerms.isEmpty ? normalized : subjectTerms.join(' ');
+  String get effectiveText =>
+      subjectTerms.isEmpty ? normalized : subjectTerms.join(' ');
+
+  QuestionIntent get questionIntent {
+    if (exactPhrase != null) return QuestionIntent.none;
+    final value = normalized;
+    if (value.isEmpty) return QuestionIntent.none;
+    final questionText =
+        value.replaceAll(RegExp(r"[-']"), ' ').replaceAll(RegExp(r'\s+'), ' ');
+    if (RegExp(r'^(pourquoi|pour quelle raison|quelle raison)\b')
+        .hasMatch(questionText)) {
+      return QuestionIntent.why;
+    }
+    if (RegExp(r'^(comment|que faire|quoi faire|de quelle maniere)\b')
+        .hasMatch(questionText)) {
+      return QuestionIntent.how;
+    }
+    if (RegExp(
+      r'^(qu est ce que|c est quoi|que signifie|quelle est la signification|definis|definir)\b',
+    ).hasMatch(questionText)) {
+      return QuestionIntent.definition;
+    }
+    if (RegExp(
+      r'\b(difference|differencie|comparer|comparaison|plutot que)\b',
+    ).hasMatch(questionText)) {
+      return QuestionIntent.comparison;
+    }
+    if (RegExp(r'^(quand|dans quel cas|a quelle condition|si )')
+        .hasMatch(questionText)) {
+      return QuestionIntent.condition;
+    }
+    if (RegExp(r'^(qui|quel|quelle|quels|quelles)\b')
+        .hasMatch(questionText)) {
+      return QuestionIntent.who;
+    }
+    if (raw.trim().endsWith('?') ||
+        RegExp(
+          r'^(peut on|doit on|faut il|est ce que|parle moi|explique moi|montre moi|je veux savoir)\b',
+        ).hasMatch(questionText)) {
+      return QuestionIntent.other;
+    }
+    return QuestionIntent.none;
+  }
+
+  bool get isNaturalQuestion => questionIntent != QuestionIntent.none;
 }
 
 class QueryParserV4 {
@@ -62,9 +117,24 @@ class QueryParserV4 {
     if (RegExp(r'\b(tout le corpus|toutes les sources)\b').hasMatch(normalized)) sourceType = null;
 
     final rawTokens = normalizer.tokens(exact ?? clean);
-    final filtered = rawTokens.where((token) => !_looksLikeFilterToken(token, years)).toList(growable: false);
-    final isFilterOnly = filtered.isEmpty && (years.isNotEmpty || sourceType != inherited.sourceType);
-    final subjects = isFilterOnly ? inherited.subjectTerms : (filtered.isEmpty ? inherited.subjectTerms : filtered.take(16).toList(growable: false));
+    final filtered = rawTokens
+        .where((token) => !_looksLikeFilterToken(token, years))
+        .toList(growable: false);
+    final contentTerms = filtered
+        .where((token) => !_questionScaffoldTokens.contains(token))
+        .toList(growable: false);
+    final isFilterOnly = contentTerms.isEmpty &&
+        (years.isNotEmpty || sourceType != inherited.sourceType);
+    final contextualFollowUp =
+        exact == null &&
+        inherited.subjectTerms.isNotEmpty &&
+        contentTerms.isEmpty &&
+        _looksLikeQuestionFollowUp(normalized);
+    final subjects = (isFilterOnly || contextualFollowUp)
+        ? inherited.subjectTerms
+        : (contentTerms.isEmpty
+            ? inherited.subjectTerms
+            : contentTerms.take(16).toList(growable: false));
 
     return QuerySpecV4(
       raw: clean,
@@ -81,6 +151,36 @@ class QueryParserV4 {
       ),
     );
   }
+
+  bool _looksLikeQuestionFollowUp(String normalized) {
+    final value = normalized
+        .replaceAll(RegExp(r"[-']"), ' ')
+        .replaceAll(RegExp(r'\s+'), ' ')
+        .trim();
+    return RegExp(
+      r'^(et )?(pourquoi|comment|quand|alors|ensuite|dans ce cas|que faire|quoi faire|peut on|doit on|faut il)( |$)',
+    ).hasMatch(value);
+  }
+
+  static const _questionScaffoldTokens = <String>{
+    'pourquoi',
+    'comment',
+    'quand',
+    'alors',
+    'ensuite',
+    'quoi',
+    'faire',
+    'peut',
+    'peux',
+    'doit',
+    'dois',
+    'faut',
+    'cela',
+    'ceci',
+    'ca',
+    'explique',
+    'expliquer',
+  };
 
   bool _looksLikeFilterToken(String token, List<int> years) {
     if (years.any((y) => token == '$y')) return true;

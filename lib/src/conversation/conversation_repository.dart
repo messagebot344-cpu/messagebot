@@ -84,12 +84,34 @@ class ConversationRepository {
       final stmt = database.db.prepare(
         'INSERT INTO conversation_hits(turn_id,passage_id,rank,score,expanded) VALUES(?,?,?,?,?)',
       );
+      final spanStmt = database.db.prepare(
+        'INSERT INTO conversation_answer_spans('
+        'turn_id,passage_id,start_offset,end_offset,sentence_ordinal,answer_confidence'
+        ') VALUES(?,?,?,?,?,?)',
+      );
       try {
         for (final hit in hits) {
-          stmt.execute([turnId, hit.passageId, hit.rank, hit.score, hit.expanded ? 1 : 0]);
+          stmt.execute([
+            turnId,
+            hit.passageId,
+            hit.rank,
+            hit.score,
+            hit.expanded ? 1 : 0,
+          ]);
+          if (hit.hasAnswerSpan) {
+            spanStmt.execute([
+              turnId,
+              hit.passageId,
+              hit.answerStartOffset,
+              hit.answerEndOffset,
+              hit.answerOrdinal ?? 0,
+              hit.answerConfidence,
+            ]);
+          }
         }
       } finally {
         stmt.dispose();
+        spanStmt.dispose();
       }
       database.db.execute('UPDATE conversations SET updated_at=? WHERE id=?', [now, conversationId]);
       database.db.execute('COMMIT');
@@ -110,7 +132,12 @@ class ConversationRepository {
     for (final row in rows) {
       final turnId = row['id'] as int;
       final hitRows = database.db.select(
-        'SELECT passage_id,rank,score,expanded FROM conversation_hits WHERE turn_id=? ORDER BY rank',
+        'SELECT h.passage_id,h.rank,h.score,h.expanded,'
+        's.start_offset,s.end_offset,s.sentence_ordinal,s.answer_confidence '
+        'FROM conversation_hits h '
+        'LEFT JOIN conversation_answer_spans s '
+        'ON s.turn_id=h.turn_id AND s.passage_id=h.passage_id '
+        'WHERE h.turn_id=? ORDER BY h.rank',
         [turnId],
       );
       result.add(ConversationTurnRecord(
@@ -130,6 +157,11 @@ class ConversationRepository {
           rank: h['rank'] as int,
           score: (h['score'] as num).toDouble(),
           expanded: (h['expanded'] as int) == 1,
+          answerStartOffset: h['start_offset'] as int?,
+          answerEndOffset: h['end_offset'] as int?,
+          answerOrdinal: h['sentence_ordinal'] as int?,
+          answerConfidence:
+              (h['answer_confidence'] as num?)?.toDouble(),
         )).toList(growable: false),
       ));
     }
