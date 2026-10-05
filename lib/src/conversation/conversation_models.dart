@@ -63,6 +63,7 @@ class PersistedHitRef {
     this.answerStartOffset,
     this.answerEndOffset,
     this.answerOrdinal,
+    this.answerConfidence,
   });
 
   final int passageId;
@@ -72,6 +73,7 @@ class PersistedHitRef {
   final int? answerStartOffset;
   final int? answerEndOffset;
   final int? answerOrdinal;
+  final double? answerConfidence;
 
   bool get hasAnswerSpan =>
       answerStartOffset != null &&
