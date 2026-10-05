@@ -180,6 +180,7 @@ class DocumentSearchHit {
     this.highlightStartOffset,
     this.highlightEndOffset,
     this.highlightOrdinal,
+    this.answerConfidence,
   });
 
   final StudyPassage studyPassage;
@@ -188,6 +189,7 @@ class DocumentSearchHit {
   final int? highlightStartOffset;
   final int? highlightEndOffset;
   final int? highlightOrdinal;
+  final double? answerConfidence;
 
   bool get isBook => studyPassage.source.type == CorpusSourceType.book;
 }
