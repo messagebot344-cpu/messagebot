@@ -102,6 +102,7 @@ class SearchServiceV4 {
           highlightSentence: highlight,
           highlightStartOffset: validSentence ? sentence.startOffset : null,
           highlightEndOffset: validSentence ? sentence.endOffset : null,
+          highlightOrdinal: validSentence ? sentence.ordinal : null,
         ),
         explanation: outcome.explanations[ref.passageId] ?? const SearchExplanationV4(),
       ));
@@ -135,7 +136,20 @@ class SearchServiceV4 {
     final details = repository.studyDetailsForPassageIds(list.map((e) => e.passageId));
     return list.where((e) => details.containsKey(e.passageId)).map((e) {
       final detail = details[e.passageId]!;
-      return _buildHit(detail, e.score, query: query);
+      final persistedSentence = e.hasAnswerSpan
+          ? SentenceReference(
+              passageId: e.passageId,
+              startOffset: e.answerStartOffset!,
+              endOffset: e.answerEndOffset!,
+              ordinal: e.answerOrdinal ?? 0,
+            )
+          : null;
+      return _buildHit(
+        detail,
+        e.score,
+        query: query,
+        sentence: persistedSentence,
+      );
     }).toList(growable: false);
   }
 
@@ -180,6 +194,7 @@ class SearchServiceV4 {
           : _bestSentence(detail.passage.text, query),
       highlightStartOffset: valid ? resolved.startOffset : null,
       highlightEndOffset: valid ? resolved.endOffset : null,
+      highlightOrdinal: valid ? resolved.ordinal : null,
     );
   }
 
