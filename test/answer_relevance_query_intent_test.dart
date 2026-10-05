@@ -1,4 +1,5 @@
 import 'package:flutter_test/flutter_test.dart';
+import 'package:le_grenier_du_message/src/conversation/conversation_models.dart';
 import 'package:le_grenier_du_message/src/search_v4/query_parser_v4.dart';
 
 void main() {
@@ -35,6 +36,39 @@ void main() {
       parser.parse('Quand faut-il jeûner ?').questionIntent,
       QuestionIntent.condition,
     );
+  });
+
+  test('un follow-up court conserve le sujet précédent', () {
+    const inherited = ConversationFilterSet(
+      subjectTerms: <String>['priere', 'exaucement'],
+    );
+
+    final why = parser.parse(
+      'Et pourquoi ?',
+      inherited: inherited,
+    );
+    expect(why.subjectTerms, inherited.subjectTerms);
+    expect(why.questionIntent, QuestionIntent.why);
+
+    final how = parser.parse(
+      'Et comment alors ?',
+      inherited: inherited,
+    );
+    expect(how.subjectTerms, inherited.subjectTerms);
+    expect(how.questionIntent, QuestionIntent.how);
+  });
+
+  test('une nouvelle question avec un vrai sujet remplace le contexte', () {
+    const inherited = ConversationFilterSet(
+      subjectTerms: <String>['priere', 'exaucement'],
+    );
+
+    final next = parser.parse(
+      'Comment choisir une épouse chrétienne ?',
+      inherited: inherited,
+    );
+    expect(next.subjectTerms, contains('choisir'));
+    expect(next.subjectTerms, isNot(equals(inherited.subjectTerms)));
   });
 
   test('une citation exacte reste une recherche documentaire explicite', () {
