@@ -103,6 +103,7 @@ class SearchServiceV4 {
           highlightStartOffset: validSentence ? sentence.startOffset : null,
           highlightEndOffset: validSentence ? sentence.endOffset : null,
           highlightOrdinal: validSentence ? sentence.ordinal : null,
+          answerConfidence: ref.evidence.semanticScore,
         ),
         explanation: outcome.explanations[ref.passageId] ?? const SearchExplanationV4(),
       ));
@@ -149,6 +150,7 @@ class SearchServiceV4 {
         e.score,
         query: query,
         sentence: persistedSentence,
+        answerConfidence: e.answerConfidence,
       );
     }).toList(growable: false);
   }
@@ -163,6 +165,7 @@ class SearchServiceV4 {
         e.score,
         query: query,
         sentence: e.sentence,
+        answerConfidence: e.evidence.semanticScore,
       );
     }).toList(growable: false);
   }
@@ -172,6 +175,7 @@ class SearchServiceV4 {
     double score, {
     String query = '',
     SentenceReference? sentence,
+    double? answerConfidence,
   }) {
     final resolved = sentence ??
         coordinator.sentenceLocator.locate(
@@ -195,6 +199,7 @@ class SearchServiceV4 {
       highlightStartOffset: valid ? resolved.startOffset : null,
       highlightEndOffset: valid ? resolved.endOffset : null,
       highlightOrdinal: valid ? resolved.ordinal : null,
+      answerConfidence: answerConfidence,
     );
   }
 
