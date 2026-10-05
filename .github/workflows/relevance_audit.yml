@@ -1,0 +1,45 @@
+name: Answer Relevance E2E Audit
+
+on:
+  pull_request:
+    paths:
+      - 'tools/audit_answer_relevance_e2e.dart'
+      - 'lib/**'
+      - 'assets/curated/**'
+      - 'assets/corpus/**'
+      - '.github/workflows/relevance_audit.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: answer-relevance-e2e-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - uses: actions/checkout@v7
+
+      - uses: subosito/flutter-action@v2
+        with:
+          flutter-version: '3.35.4'
+          channel: stable
+          cache: true
+
+      - name: Resolve Flutter dependencies
+        run: flutter pub get
+
+      - name: Run real-corpus end-to-end relevance audit
+        run: dart run tools/audit_answer_relevance_e2e.dart
+
+      - name: Upload relevance audit report
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: answer-relevance-e2e-audit
+          path: build/relevance-audit/
+          if-no-files-found: warn
