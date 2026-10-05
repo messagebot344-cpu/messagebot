@@ -13,18 +13,28 @@ class AnswerCase {
     required this.query,
     required this.acceptableSermons,
     this.spanGroups = const <List<String>>[],
+    this.category = 'baseline',
+    this.inheritedSubjectTerms = const <String>[],
   });
 
   final String id;
   final String query;
   final Set<String> acceptableSermons;
   final List<List<String>> spanGroups;
+  final String category;
+  final List<String> inheritedSubjectTerms;
 }
 
 class AbstainCase {
-  const AbstainCase(this.id, this.query);
+  const AbstainCase(
+    this.id,
+    this.query, {
+    this.category = 'no-answer',
+  });
+
   final String id;
   final String query;
+  final String category;
 }
 
 final normalizer = const TextNormalizer();
@@ -197,6 +207,156 @@ Future<void> main() async {
         ['honorer', 'honor', 'amoureux', 'love'],
       ],
     ),
+    AnswerCase(
+      id: 'trap-prayer-delay-paraphrase',
+      category: 'trap',
+      query:
+          'Je ne parle pas d un retard humain : Dieu peut-il volontairement laisser quelqu un attendre après avoir prié ?',
+      acceptableSermons: {'56-0513'},
+      spanGroups: [
+        ['attendre', 'wait', 'waiting', 'differer'],
+        ['dieu', 'god'],
+      ],
+    ),
+    AnswerCase(
+      id: 'trap-marriage-own-judgment',
+      category: 'trap',
+      query:
+          'Si mon choix de conjoint me semble logique, pourquoi chercher encore le choix de Dieu plutôt que mon propre jugement ?',
+      acceptableSermons: {'59-0418'},
+      spanGroups: [
+        ['choix', 'choice'],
+        ['dieu', 'god'],
+      ],
+    ),
+    AnswerCase(
+      id: 'trap-marriage-character-not-beauty',
+      category: 'trap',
+      query:
+          'Sans parler de beauté ni d argent, quel élément doit vraiment décider dans le choix d un conjoint ?',
+      acceptableSermons: {'62-0720'},
+      spanGroups: [
+        ['caractere', 'character'],
+      ],
+    ),
+    AnswerCase(
+      id: 'trap-holy-spirit-teacher-not-emotion',
+      category: 'trap',
+      query:
+          'Je ne demande pas si le Saint-Esprit donne une émotion : est-il présenté comme Celui qui enseigne l Église ?',
+      acceptableSermons: {'58-0209A'},
+      spanGroups: [
+        ['enseignant', 'teacher'],
+        ['eglise', 'church'],
+      ],
+    ),
+    AnswerCase(
+      id: 'trap-will-two-kinds',
+      category: 'trap',
+      query:
+          'Quand deux formes de volonté de Dieu sont opposées, laquelle est parfaite et laquelle est seulement permissive ?',
+      acceptableSermons: {'65-0427', '47-1123'},
+      spanGroups: [
+        ['permissive'],
+        ['parfaite', 'perfect'],
+      ],
+    ),
+    AnswerCase(
+      id: 'trap-finance-payable-debt',
+      category: 'trap',
+      query:
+          'Si j ai réellement les moyens de rembourser, dois-je quand même laisser une dette traîner ?',
+      acceptableSermons: {'65-0822M'},
+      spanGroups: [
+        ['dette', 'dettes', 'debt', 'debts'],
+        ['payer', 'pay', 'regler', 'duty'],
+      ],
+    ),
+    AnswerCase(
+      id: 'trap-finance-riches-dollars',
+      category: 'trap',
+      query:
+          'Avoir beaucoup de dollars suffit-il à définir la vraie richesse selon le message ?',
+      acceptableSermons: {'58-1221E'},
+      spanGroups: [
+        ['richesse', 'riches', 'rich'],
+        ['dollars', 'argent', 'money'],
+      ],
+    ),
+    AnswerCase(
+      id: 'contradiction-prayer-immediate',
+      category: 'contradictory',
+      query:
+          'Dieu répond forcément immédiatement à toute prière. Quel passage montre au contraire qu Il peut faire attendre ?',
+      acceptableSermons: {'56-0513'},
+      spanGroups: [
+        ['attendre', 'wait', 'waiting', 'differer'],
+      ],
+    ),
+    AnswerCase(
+      id: 'contradiction-marriage-own-choice',
+      category: 'contradictory',
+      query:
+          'Mon propre choix suffit et il est inutile de chercher celui de Dieu pour un conjoint. Quel passage corrige cette idée ?',
+      acceptableSermons: {'59-0418'},
+      spanGroups: [
+        ['choix', 'choice'],
+        ['dieu', 'god'],
+      ],
+    ),
+    AnswerCase(
+      id: 'contradiction-holy-spirit-not-teacher',
+      category: 'contradictory',
+      query:
+          'Le Saint-Esprit n enseigne pas l Église. Quel passage permet de réfuter cette affirmation ?',
+      acceptableSermons: {'58-0209A'},
+      spanGroups: [
+        ['enseignant', 'teacher'],
+        ['eglise', 'church'],
+      ],
+    ),
+    AnswerCase(
+      id: 'contradiction-will-no-trouble',
+      category: 'contradictory',
+      query:
+          'Sortir de la volonté de Dieu ne produit aucun problème. Existe-t-il un passage qui dit le contraire ?',
+      acceptableSermons: {'53-1114'},
+      spanGroups: [
+        ['trouble', 'probleme', 'consequence'],
+      ],
+    ),
+    AnswerCase(
+      id: 'contradiction-riches-only-money',
+      category: 'contradictory',
+      query:
+          'La richesse se mesure uniquement en argent et en dollars. Quel passage contredit cela ?',
+      acceptableSermons: {'58-1221E'},
+      spanGroups: [
+        ['richesse', 'riches', 'rich'],
+        ['dollars', 'argent', 'money'],
+      ],
+    ),
+    AnswerCase(
+      id: 'followup-prayer-why',
+      category: 'follow-up',
+      query: 'Et pourquoi ?',
+      inheritedSubjectTerms: ['priere', 'reponse', 'attendre'],
+      acceptableSermons: {'56-0513'},
+      spanGroups: [
+        ['attendre', 'wait', 'waiting', 'differer'],
+      ],
+    ),
+    AnswerCase(
+      id: 'followup-marriage-how',
+      category: 'follow-up',
+      query: 'Et comment alors ?',
+      inheritedSubjectTerms: ['choisir', 'epouse', 'priere'],
+      acceptableSermons: {'65-0429E'},
+      spanGroups: [
+        ['priere', 'pray'],
+        ['epouse', 'wife', 'conjoint'],
+      ],
+    ),
   ];
 
   const abstainCases = <AbstainCase>[
@@ -224,7 +384,61 @@ Future<void> main() async {
       'ood-malaria',
       'Quel médicament guérit le paludisme ?',
     ),
-    AbstainCase('ambiguous-why', 'Pourquoi ?'),
+    AbstainCase(
+      'ambiguous-why',
+      'Pourquoi ?',
+      category: 'ambiguous',
+    ),
+    AbstainCase(
+      'ambiguous-how-choose',
+      'Comment choisir ?',
+      category: 'ambiguous',
+    ),
+    AbstainCase(
+      'ambiguous-before',
+      'Que faut-il faire avant ?',
+      category: 'ambiguous',
+    ),
+    AbstainCase(
+      'ambiguous-important',
+      'Est-ce vraiment important ?',
+      category: 'ambiguous',
+    ),
+    AbstainCase(
+      'no-answer-netflix-budget',
+      'Quel budget mensuel William Branham recommande-t-il pour Netflix ?',
+      category: 'lexical-decoy',
+    ),
+    AbstainCase(
+      'no-answer-credit-rate-2026',
+      'Quel taux d intérêt exact recommande-t-il pour un crédit bancaire en 2026 ?',
+      category: 'lexical-decoy',
+    ),
+    AbstainCase(
+      'no-answer-budget-percentage',
+      'Quel pourcentage exact du salaire faut-il mettre dans un budget mensuel ?',
+      category: 'lexical-decoy',
+    ),
+    AbstainCase(
+      'no-answer-chatgpt',
+      'Que dit William Branham sur ChatGPT ?',
+      category: 'no-answer',
+    ),
+    AbstainCase(
+      'no-answer-whatsapp',
+      'Que dit William Branham sur WhatsApp et les smartphones Android ?',
+      category: 'no-answer',
+    ),
+    AbstainCase(
+      'no-answer-bitcoin-price',
+      'Quel est le prix du Bitcoin aujourd hui ?',
+      category: 'no-answer',
+    ),
+    AbstainCase(
+      'no-answer-world-cup-2030',
+      'Quelle équipe gagnera la Coupe du monde 2030 ?',
+      category: 'no-answer',
+    ),
   ];
 
   final dbPath = await rebuildCorpus();
@@ -243,6 +457,11 @@ Future<void> main() async {
   for (final item in answerCases) {
     final outcome = await service.searchOutcome(
       item.query,
+      inherited: item.inheritedSubjectTerms.isEmpty
+          ? const ConversationFilterSet()
+          : ConversationFilterSet(
+              subjectTerms: item.inheritedSubjectTerms,
+            ),
       maxResults: 10,
     );
     final hits = outcome.hits;
@@ -255,20 +474,43 @@ Future<void> main() async {
     final sermon1 = top1Code != null &&
         item.acceptableSermons.contains(top1Code);
     final sermon3 = topCodes.any(item.acceptableSermons.contains);
-    final spanOk = sermon1 &&
-        hits.isNotEmpty &&
+    var canonicalSpan = false;
+    if (hits.isNotEmpty) {
+      final top = hits.first.hit;
+      final start = top.highlightStartOffset;
+      final end = top.highlightEndOffset;
+      canonicalSpan = start != null &&
+          end != null &&
+          start >= 0 &&
+          end <= top.studyPassage.passage.text.length &&
+          start < end &&
+          top.studyPassage.passage.text.substring(start, end) ==
+              top.highlightSentence;
+    }
+    final spanSemanticOk = hits.isNotEmpty &&
         spanMatches(hits.first.hit.highlightSentence, item.spanGroups);
+    final spanOk = sermon1 && canonicalSpan && spanSemanticOk;
     if (sermon1) top1Sermon++;
     if (sermon3) top3Sermon++;
     if (spanOk) top1Span++;
     answers.add({
       'id': item.id,
+      'category': item.category,
       'query': item.query,
+      'inherited_subject_terms': item.inheritedSubjectTerms,
       'top1_sermon': top1Code,
       'top3_sermons': topCodes,
       'top1_sermon_ok': sermon1,
       'top3_sermon_ok': sermon3,
       'top1_span_ok': spanOk,
+      'top1_span_is_canonical': canonicalSpan,
+      'top1_span_semantic_ok': spanSemanticOk,
+      'top1_passage_id':
+          hits.isEmpty ? null : hits.first.hit.studyPassage.passage.id,
+      'top1_start_offset':
+          hits.isEmpty ? null : hits.first.hit.highlightStartOffset,
+      'top1_end_offset':
+          hits.isEmpty ? null : hits.first.hit.highlightEndOffset,
       'top1_confidence':
           hits.isEmpty ? null : hits.first.hit.answerConfidence,
       'top1_span':
@@ -287,6 +529,7 @@ Future<void> main() async {
     if (empty) abstained++;
     abstentions.add({
       'id': item.id,
+      'category': item.category,
       'query': item.query,
       'abstained': empty,
       'top1_sermon': empty
@@ -316,13 +559,54 @@ Future<void> main() async {
     'Quel est le critère déterminant dans le choix du conjoint ?',
   );
 
+  final strictPassed = top1Span + abstained;
+  final totalCases = answerCases.length + abstainCases.length;
+  final categories = <String, Map<String, int>>{};
+  for (final row in answers) {
+    final category = row['category'] as String;
+    final bucket = categories.putIfAbsent(
+      category,
+      () => {'total': 0, 'passed': 0},
+    );
+    bucket['total'] = bucket['total']! + 1;
+    if (row['top1_span_ok'] == true) {
+      bucket['passed'] = bucket['passed']! + 1;
+    }
+  }
+  for (final row in abstentions) {
+    final category = row['category'] as String;
+    final bucket = categories.putIfAbsent(
+      category,
+      () => {'total': 0, 'passed': 0},
+    );
+    bucket['total'] = bucket['total']! + 1;
+    if (row['abstained'] == true) {
+      bucket['passed'] = bucket['passed']! + 1;
+    }
+  }
+
   final report = <String, dynamic>{
+    'report_version': 2,
+    'strict_definition':
+        'Answerable: expected sermon Top-1 + displayed span is an exact canonical substring + span matches every required evidence group. No-answer/ambiguous: zero returned hits.',
     'answer_cases': answerCases.length,
     'top1_sermon_rate': top1Sermon / answerCases.length,
     'top3_sermon_rate': top3Sermon / answerCases.length,
     'top1_answer_span_rate': top1Span / answerCases.length,
     'abstention_cases': abstainCases.length,
     'abstention_rate': abstained / abstainCases.length,
+    'strict_end_to_end_passed': strictPassed,
+    'strict_end_to_end_total': totalCases,
+    'strict_end_to_end_rate': strictPassed / totalCases,
+    'categories': {
+      for (final entry in categories.entries)
+        entry.key: {
+          ...entry.value,
+          'rate': entry.value['total'] == 0
+              ? 0.0
+              : entry.value['passed']! / entry.value['total']!,
+        },
+    },
     'follow_up': {
       'first_results': first.hits.length,
       'second_results': followUp.hits.length,
@@ -340,9 +624,46 @@ Future<void> main() async {
     'abstentions': abstentions,
   };
 
-  stdout.writeln(
-    const JsonEncoder.withIndent('  ').convert(report),
-  );
+  final encoded = const JsonEncoder.withIndent('  ').convert(report);
+  stdout.writeln(encoded);
+
+  final outputDir = Directory('build/relevance-audit')
+    ..createSync(recursive: true);
+  File('${outputDir.path}/answer_relevance_e2e_report.json')
+      .writeAsStringSync('$encoded\n');
+
+  final failures = <Map<String, dynamic>>[
+    ...answers.where((row) => row['top1_span_ok'] != true),
+    ...abstentions.where((row) => row['abstained'] != true),
+  ];
+  final summary = StringBuffer()
+    ..writeln('# Answer relevance E2E audit')
+    ..writeln()
+    ..writeln('- Strict E2E: $strictPassed / $totalCases '
+        '(${(strictPassed / totalCases * 100).toStringAsFixed(1)}%)')
+    ..writeln('- Answerable Top-1 sermon: $top1Sermon / ${answerCases.length}')
+    ..writeln('- Answerable strict span: $top1Span / ${answerCases.length}')
+    ..writeln('- Correct abstentions: $abstained / ${abstainCases.length}')
+    ..writeln()
+    ..writeln('## Category rates');
+  for (final entry in categories.entries) {
+    final total = entry.value['total']!;
+    final passed = entry.value['passed']!;
+    summary.writeln(
+      '- ${entry.key}: $passed / $total '
+      '(${(passed / total * 100).toStringAsFixed(1)}%)',
+    );
+  }
+  summary
+    ..writeln()
+    ..writeln('## Failures');
+  for (final row in failures) {
+    summary.writeln(
+      '- ${row['id']} [${row['category']}]: ${row['query']}',
+    );
+  }
+  File('${outputDir.path}/answer_relevance_e2e_summary.md')
+      .writeAsStringSync(summary.toString());
 
   repository.close();
   try {
