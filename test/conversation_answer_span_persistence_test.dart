@@ -30,6 +30,7 @@ void main() {
           answerStartOffset: 18,
           answerEndOffset: 94,
           answerOrdinal: 4,
+          answerConfidence: 0.61,
         ),
       ],
     );
@@ -41,6 +42,7 @@ void main() {
     expect(hit.answerStartOffset, 18);
     expect(hit.answerEndOffset, 94);
     expect(hit.answerOrdinal, 4);
+    expect(hit.answerConfidence, closeTo(0.61, 0.000001));
     expect(hit.hasAnswerSpan, isTrue);
 
     final schema = int.parse(db.meta('schema_version')!);
